@@ -29,6 +29,8 @@
     libScroll: 0,
     toast: null,
     cardWeek: null,
+    glossWeek: 'all',
+    glossSearch: '',
   };
   var refocusSearch = false, focusTarget = null, toastTimer = null;
 
@@ -393,75 +395,73 @@
     return html + '</div>';
   }
 
-  /* ---------- glossary & thinkers + self-check (shared learning tools) ---------- */
-  var GLOSS = [
-    { term: 'Social science', def: 'The study of human life, behaviour, and society through systematic observation and evidence.' },
-    { term: 'The sociological imagination', def: 'Seeing private troubles as connected to larger public patterns and history (C. Wright Mills).' },
-    { term: 'Sociology', def: 'Looks at how groups, institutions, and social patterns shape the lives of individuals.' },
-    { term: 'Anthropology', def: 'Studies human culture and what it means to be human across societies and across time.' },
-    { term: 'Psychology', def: 'Studies the mind and behaviour: how people think, feel, learn, develop, and act.' },
-    { term: 'Research methods', def: 'The systematic ways social scientists gather and weigh evidence, from surveys and experiments to fieldwork.' },
-    { term: 'The family', def: 'A core social institution: how kinship and households are organized, and how they change over time.' },
-    { term: 'Two-Eyed Seeing (Etuaptmumk)', def: 'Mi\'kmaw Elders Albert and Murdena Marshall\'s idea of learning to see with the strengths of Indigenous knowledge in one eye and Western science in the other, and using both together.' },
-    { term: 'Indigenous knowledge', def: 'Knowledge grounded in the lived relationships, languages, lands, and stories of Indigenous peoples, carried and renewed across generations.' },
-  ];
+  /* ---------- glossary & thinkers + self-check (course concepts) ---------- */
+  function conceptsForWeek(w) { return (D.glossary || []).filter(function (g) { return g.week === w; }); }
+  function thinkersForWeek(w) { return D.records.filter(function (r) { return r.week === w && r.authors.indexOf('OpenStax') < 0; }); }
 
+  function glossaryByWeek(sel) {
+    var weeks = (sel === 'all' || sel == null) ? weeksWithReadings() : [parseInt(sel, 10)];
+    return weeks.map(function (w) {
+      var cons = conceptsForWeek(w).map(function (g) {
+        return '<div style="margin:11px 0"><div style="font-size:.9375rem;font-weight:600;color:#15171C">' + esc(g.term) + '</div><div style="font-size:.875rem;line-height:1.5;color:#474C57;margin-top:2px">' + esc(g.def) + '</div></div>';
+      }).join('');
+      var thinks = thinkersForWeek(w);
+      var tk = thinks.length ? '<div class="mono" style="font-size:.6875rem;letter-spacing:.04em;color:#8a909c;margin:14px 0 5px">SCHOLARS THIS WEEK</div>' + thinks.map(function (r) {
+        return '<div style="margin:5px 0;font-size:.8125rem;color:#15171C;line-height:1.5">' + eyePill(r) + ' <button onclick="SOC.open(\'' + r.id + '\')" style="background:none;border:none;padding:0;color:#1552D8;font-weight:600;cursor:pointer">' + esc(r.authors) + '</button>. ' + esc(r.coreIdea) + '</div>';
+      }).join('') : '';
+      return '<div style="border:1px solid #DEE3EA;border-radius:12px;padding:10px 16px 15px;margin-bottom:14px;background:#fff"><div class="mono" style="font-size:.6875rem;letter-spacing:.04em;color:#1B2A4A;margin:6px 0 2px">WEEK ' + w + ' &middot; ' + esc(weekTitle(w)) + '</div>' + (cons || '<p style="color:#8a909c;font-size:.875rem">No concepts listed.</p>') + tk + '</div>';
+    }).join('');
+  }
+  function glossarySearchHTML(q) {
+    q = (q || '').toLowerCase().trim(); if (!q) return '';
+    var hits = (D.glossary || []).filter(function (g) { return (g.term + ' ' + g.def).toLowerCase().indexOf(q) >= 0; });
+    if (!hits.length) return '<p style="color:#8a909c;font-size:.875rem">No matches. Try another word.</p>';
+    return '<div class="soc-cardgrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px">' + hits.map(function (g) {
+      return '<div style="background:#fff;border:1px solid #DEE3EA;border-radius:12px;padding:14px 16px"><div style="font-size:.9375rem;font-weight:600;color:#15171C">' + esc(g.term) + '</div><div style="font-size:.8125rem;line-height:1.5;color:#474C57;margin:4px 0 8px">' + esc(g.def) + '</div><button onclick="SOC.glossWeekGo(' + g.week + ')" class="mono" style="font-size:.6875rem;color:#1B2A4A;background:#E6EAF1;border:none;padding:3px 8px;border-radius:6px;cursor:pointer">Week ' + g.week + '</button></div>';
+    }).join('') + '</div>';
+  }
   function glossaryScreen() {
-    var thinkers = D.records.filter(function (r) { return r.authors.indexOf('OpenStax') < 0; })
-      .sort(function (a, b) { return a.week - b.week; });
-    var keyHTML = GLOSS.map(function (g) {
-      return '<div style="padding:13px 0;border-bottom:1px solid #EEF1F5"><div style="font-size:.9375rem;font-weight:600;color:#15171C;margin-bottom:3px">' + esc(g.term) + '</div><div style="font-size:.875rem;line-height:1.5;color:#474C57">' + esc(g.def) + '</div></div>';
-    }).join('');
-    var thinkHTML = thinkers.map(function (r) {
-      var tm = typeMeta(r.type);
-      return '<button onclick="SOC.open(\'' + r.id + '\')" class="relrow" style="display:flex;align-items:flex-start;gap:13px;text-align:left;background:#fff;border:1px solid #DEE3EA;border-radius:12px;padding:14px 15px;width:100%">'
-        + '<span style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;background:' + tm.soft + ';color:' + tm.color + ';flex:none;margin-top:2px">' + ic('eye', 16) + '</span>'
-        + '<span style="flex:1;min-width:0"><span style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px">' + eyePill(r) + '<span class="mono" style="font-size:.6875rem;color:#8a909c">Week ' + r.week + '</span></span>'
-        + '<span style="display:block;font-size:.9375rem;font-weight:600;color:#15171C">' + esc(r.authors) + '</span>'
-        + '<span style="display:block;font-size:.8125rem;color:#474C57;margin:2px 0 6px">' + esc(r.title) + '</span>'
-        + '<span style="display:block;font-size:.875rem;line-height:1.5;color:#15171C">' + esc(r.coreIdea) + '</span></span>'
-        + '<span style="display:flex;color:#C9D1DC;flex:none;margin-top:2px">' + ic('chevron', 18) + '</span></button>';
-    }).join('');
+    var sel = state.glossWeek;
+    var weekOpts = '<option value="all"' + (sel === 'all' ? ' selected' : '') + '>All weeks</option>' + weeksWithReadings().map(function (w) { return '<option value="' + w + '"' + (String(w) === String(sel) ? ' selected' : '') + '>Week ' + w + ': ' + esc(weekTitle(w)) + '</option>'; }).join('');
     return '<div class="rise">'
       + '<div class="mono" style="font-size:.75rem;letter-spacing:.06em;color:#8a909c;margin-bottom:8px">REFERENCE</div>'
       + '<h1 style="font-size:1.75rem;font-weight:600;margin:0 0 8px">Glossary and Thinkers</h1>'
-      + '<p style="font-size:.9375rem;color:#474C57;margin:0 0 22px;max-width:70ch">The course\'s key ideas in plain words, and the scholars behind the readings. Built on the Two-Eyed Seeing frame: Indigenous and Western knowledge held side by side.</p>'
-      + '<div class="soc-detailgrid" style="display:grid;grid-template-columns:1fr 320px;gap:26px;align-items:start">'
-      + '<div><div class="mono" style="font-size:.75rem;letter-spacing:.04em;color:#8a909c;margin-bottom:10px">THINKERS IN THE CORPUS</div><div style="display:flex;flex-direction:column;gap:10px">' + thinkHTML + '</div></div>'
-      + '<aside class="soc-rail" style="position:sticky;top:84px"><div style="background:#fff;border:1px solid #DEE3EA;border-radius:14px;padding:8px 18px 16px;box-shadow:0 1px 2px rgba(21,23,28,.04)"><div class="mono" style="font-size:.75rem;letter-spacing:.04em;color:#8a909c;margin:12px 0 2px">KEY IDEAS</div>' + keyHTML + '</div></aside>'
-      + '</div></div>';
+      + '<p style="font-size:.9375rem;color:#474C57;margin:0 0 18px;max-width:72ch">The course concepts in plain words, week by week, and the scholars behind the readings. Built on the Two-Eyed Seeing frame: Indigenous and Western knowledge held side by side.</p>'
+      + '<label for="soc-gsearch" style="font-size:.8125rem;font-weight:600;color:#474C57;display:block;margin-bottom:6px">Search every concept</label>'
+      + '<input id="soc-gsearch" oninput="SOC.glossSearch(this.value)" value="' + esc(state.glossSearch) + '" placeholder="Type a concept, for example: ways of knowing" autocomplete="off" style="width:100%;max-width:460px;padding:10px 13px;border:1px solid #DEE3EA;border-radius:9px;background:#fff;font-size:.9375rem;color:#15171C" />'
+      + '<div id="soc-gsearchout" style="margin-top:12px">' + glossarySearchHTML(state.glossSearch) + '</div>'
+      + '<label for="soc-gweek" style="font-size:.8125rem;font-weight:600;color:#474C57;display:block;margin:18px 0 6px">Or browse by week</label>'
+      + '<select id="soc-gweek" onchange="SOC.glossWeek(this.value)" style="max-width:440px;padding:9px 12px;border:1px solid #DEE3EA;border-radius:9px;background:#fff;font-size:.9375rem;color:#15171C">' + weekOpts + '</select>'
+      + '<div id="soc-gout" style="margin-top:16px">' + glossaryByWeek(sel) + '</div>'
+      + '</div>';
   }
 
-  function card(r) {
-    var tm = typeMeta(r.type), topic = weekTitle(r.week);
-    return '<button class="flip" onclick="SOC.flip(this)" aria-label="Self-check for the Week ' + r.week + ' reading by ' + esc(r.authors) + '. Activate to reveal the core idea.">'
+  function card(g) {
+    return '<button class="flip" onclick="SOC.flip(this)" aria-label="Self-check: ' + esc(g.term) + '. Activate to reveal the definition.">'
       + '<span class="flip-inner">'
       + '<span class="flip-face flip-front">'
-      + '<span style="display:flex;align-items:center;gap:8px;margin-bottom:11px">' + eyePill(r) + '<span class="mono" style="font-size:.6875rem;color:#8a909c;margin-left:auto">WEEK ' + r.week + '</span></span>'
-      + '<span class="mono" style="font-size:.6875rem;letter-spacing:.05em;color:' + tm.color + ';margin-bottom:6px">RECALL THE CORE IDEA</span>'
-      + '<span style="font-size:1.0625rem;font-weight:600;line-height:1.3;color:#15171C">' + esc(topic) + '</span>'
-      + '<span style="font-size:.8125rem;color:#474C57;margin-top:5px">' + esc(r.authors) + '</span>'
-      + '<span style="margin-top:auto;padding-top:12px;font-size:.8125rem;color:#1552D8;font-weight:600">Tap to reveal &rarr;</span>'
+      + '<span style="display:flex;align-items:center;gap:8px;margin-bottom:11px"><span class="mono" style="font-size:.6875rem;color:#8a909c;margin-left:auto">WEEK ' + g.week + '</span></span>'
+      + '<span class="mono" style="font-size:.6875rem;letter-spacing:.05em;color:#1B2A4A;margin-bottom:6px">RECALL</span>'
+      + '<span style="font-size:1.0625rem;font-weight:600;line-height:1.3;color:#15171C">' + esc(g.term) + '</span>'
+      + '<span style="margin-top:auto;padding-top:14px;font-size:.8125rem;color:#1552D8;font-weight:600">Reveal the definition &rarr;</span>'
       + '</span>'
       + '<span class="flip-face flip-back">'
-      + '<span class="mono" style="font-size:.6875rem;letter-spacing:.05em;color:#F2A900;margin-bottom:8px">THE CORE IDEA</span>'
-      + '<span style="font-size:.9375rem;line-height:1.5;font-weight:500">' + esc(r.coreIdea) + '</span>'
-      + '<span style="margin-top:auto;padding-top:10px;font-size:.75rem;color:rgba(255,255,255,.66)">from ' + esc(r.title) + '</span>'
+      + '<span class="mono" style="font-size:.6875rem;letter-spacing:.05em;color:#F2A900;margin-bottom:8px">DEFINITION</span>'
+      + '<span style="font-size:.9375rem;line-height:1.5;font-weight:500">' + esc(g.def) + '</span>'
+      + '<span style="margin-top:auto;padding-top:10px;font-size:.75rem;color:rgba(255,255,255,.66)">Week ' + g.week + ' &middot; ' + esc(weekTitle(g.week)) + '</span>'
       + '</span>'
       + '</span></button>';
   }
-
   function cardsScreen() {
     var weeks = weeksWithReadings();
     var sel = state.cardWeek;
-    var list = D.records.filter(function (r) { return sel == null || r.week === sel; })
-      .sort(function (a, b) { return a.week - b.week || (a.eye === b.eye ? 0 : a.eye === 'western' ? -1 : 1); });
+    var list = (D.glossary || []).filter(function (g) { return sel == null || g.week === sel; });
     var opts = '<option value="">All weeks</option>' + weeks.map(function (w) { return '<option value="' + w + '"' + (sel === w ? ' selected' : '') + '>Week ' + w + ': ' + esc(weekTitle(w)) + '</option>'; }).join('');
     return '<div class="rise">'
       + '<div class="mono" style="font-size:.75rem;letter-spacing:.06em;color:#8a909c;margin-bottom:8px">SELF-CHECK</div>'
-      + '<h1 style="font-size:1.75rem;font-weight:600;margin:0 0 8px">Recall the core ideas</h1>'
-      + '<p style="font-size:.9375rem;color:#474C57;margin:0 0 18px;max-width:70ch">Read the prompt, put the reading\'s core idea in your own words, then reveal it to check yourself. Private study, never a test.</p>'
-      + '<label for="soc-cardweek" style="font-size:.8125rem;font-weight:600;color:#474C57;display:block;margin-bottom:6px">Show cards for</label>'
+      + '<h1 style="font-size:1.75rem;font-weight:600;margin:0 0 8px">Recall the concepts</h1>'
+      + '<p style="font-size:.9375rem;color:#474C57;margin:0 0 18px;max-width:70ch">Read the concept, define it in your own words, then flip the card to check yourself. Each card is one concept. Private study, never a test.</p>'
+      + '<label for="soc-cardweek" style="font-size:.8125rem;font-weight:600;color:#474C57;display:block;margin-bottom:6px">Show concepts for</label>'
       + '<select id="soc-cardweek" onchange="SOC.cardWeek(this.value)" style="max-width:360px;padding:9px 12px;border:1px solid #DEE3EA;border-radius:9px;background:#fff;font-size:.9375rem;color:#15171C;margin-bottom:20px">' + opts + '</select>'
       + '<div class="soc-cardgrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px">' + list.map(card).join('') + '</div></div>';
   }
@@ -516,6 +516,9 @@
     read: function (id) { var r = rec(id); var u = r && readUrl(r); if (u) { window.open(u, '_blank', 'noopener'); } else { flash('Find this in this week\'s Readings folder on Blackboard.'); } },
     openSaved: function () { state.screen = 'library'; state.activeTypes = []; state.activeWeek = null; state.search = ''; state.savedView = state.saved.length > 0; flash(state.saved.length ? 'Your saved shelf.' : 'Nothing saved yet. Tap the bookmark on any reading.'); topScroll(); },
     cardWeek: function (v) { state.cardWeek = (v === '' ? null : parseInt(v, 10)); render(); },
+    glossWeek: function (v) { state.glossWeek = v; var o = document.getElementById('soc-gout'); if (o) o.innerHTML = glossaryByWeek(v); },
+    glossSearch: function (v) { state.glossSearch = v; var o = document.getElementById('soc-gsearchout'); if (o) o.innerHTML = glossarySearchHTML(v); },
+    glossWeekGo: function (w) { state.glossWeek = String(w); var sel = document.getElementById('soc-gweek'); if (sel) sel.value = String(w); var o = document.getElementById('soc-gout'); if (o) { o.innerHTML = glossaryByWeek(String(w)); o.scrollIntoView({ behavior: 'smooth', block: 'start' }); } },
     flip: function (el) { var c = el && (el.classList && el.classList.contains('flip') ? el : (el.closest ? el.closest('.flip') : null)); if (c) c.classList.toggle('flipped'); },
   };
 
