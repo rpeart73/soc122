@@ -201,14 +201,14 @@
   /* ---------- chrome ---------- */
   function header() {
     var n = state.compareIds.length;
-    var cmpStyle = 'display:inline-flex;align-items:center;gap:7px;border:none;border-radius:8px;padding:7px 13px;font-size:.875rem;font-weight:600;background:' + (n ? 'var(--red)' : 'rgba(255,255,255,.1)') + ';color:#fff';
-    return '<header style="position:sticky;top:0;z-index:40;height:62px;background:#1B2A4A;display:flex;align-items:center;padding:0 22px;gap:18px;flex:none">'
-      + '<div style="display:flex;align-items:center;gap:10px;flex:none"><span style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:var(--red);color:#fff">' + ic('book', 17) + '</span><span style="font-weight:600;font-size:1.0625rem;color:#fff;letter-spacing:-.01em">SOC122 Corpus</span></div>'
-      + '<div style="width:1px;height:26px;background:rgba(255,255,255,.18);flex:none"></div>'
-      + '<div style="display:flex;align-items:center;gap:9px;min-width:0"><span style="font-size:.9375rem;font-weight:500;color:rgba(255,255,255,.82)">Source library</span><span class="mono" style="font-size:.8125rem;color:#fff;background:rgba(255,255,255,.12);padding:3px 9px;border-radius:999px">' + D.records.length + ' readings</span></div>'
+    var cmpStyle = 'display:inline-flex;align-items:center;gap:7px;border-radius:6px;padding:7px 13px;font-size:.875rem;font-weight:600;' + (n ? 'border:none;background:var(--red);color:#fff' : 'border:1.5px solid #DEE3EA;background:#fff;color:#474C57');
+    return '<header style="position:sticky;top:0;z-index:40;height:62px;background:#fff;border-bottom:2px solid var(--red);display:flex;align-items:center;padding:0 22px;gap:18px;flex:none">'
+      + '<div style="display:flex;align-items:center;gap:10px;flex:none"><img src="./seneca-logo.png" alt="Seneca Polytechnic" style="height:34px;width:auto;display:block"><span style="font-weight:600;font-size:1.0625rem;color:var(--ink);letter-spacing:-.01em">SOC122 Corpus</span></div>'
+      + '<div style="width:1px;height:26px;background:#DEE3EA;flex:none"></div>'
+      + '<div style="display:flex;align-items:center;gap:9px;min-width:0"><span style="font-size:.9375rem;font-weight:500;color:#474C57">Source library</span><span class="mono" style="font-size:.8125rem;color:#474C57;background:#EEF1F5;padding:3px 9px;border-radius:999px">' + D.records.length + ' readings</span></div>'
       + '<div style="margin-left:auto;display:flex;align-items:center;gap:10px;flex:none">'
       + '<button onclick="SOC.go(\'compare\')" style="' + cmpStyle + '">' + ic('columns', 16) + 'Compare' + (n ? ' · ' + n : '') + '</button>'
-      + '<span class="mono" style="font-size:.75rem;color:rgba(255,255,255,.7);background:rgba(255,255,255,.08);padding:5px 10px;border-radius:8px">FALL 2026</span>'
+      + '<span class="mono" style="font-size:.75rem;font-weight:600;color:var(--red);background:#F6E3E1;padding:5px 10px;border-radius:6px">FALL 2026</span>'
       + '</div></header>';
   }
   function sidebar() {
@@ -250,13 +250,13 @@
 
     if (s.introOpen) {
       var stats = [['Readings', D.records.length], ['Weeks', weeksWithReadings().length], ['Formats', Object.keys(typeCounts).length]];
-      html += '<section style="background:#1B2A4A;border-radius:16px;padding:26px 30px;color:#fff;margin-bottom:22px;position:relative;overflow:hidden">'
+      html += '<section style="background:#fff;border:1px solid #DEE3EA;border-top:4px solid var(--red);border-radius:14px;padding:28px 30px;margin-bottom:22px;position:relative;box-shadow:0 1px 2px rgba(21,23,28,.04)">'
         + '<div style="display:flex;align-items:flex-start;gap:24px;flex-wrap:wrap;justify-content:space-between">'
-        + '<div style="flex:1;min-width:280px"><div class="mono" style="font-size:.75rem;letter-spacing:.06em;color:#F2A900;margin-bottom:10px">THE COURSE CORPUS</div>'
-        + '<h1 style="font-size:2.125rem;line-height:1.14;font-weight:600;margin:0 0 10px">Every reading, week by week.</h1>'
-        + '<p style="font-size:1rem;line-height:1.6;color:rgba(255,255,255,.78);margin:0;max-width:62ch">These are the readings behind SOC122, in course order, the Western eye and the Indigenous eye side by side each week. Search them, hold two against each other, and follow the course as it moves.</p></div>'
-        + '<div style="display:flex;gap:10px;flex:none">' + stats.map(function (st) { return '<div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:12px 16px;text-align:center;min-width:78px"><div class="mono" style="font-size:1.75rem;font-weight:600;line-height:1">' + st[1] + '</div><div style="font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.6);margin-top:5px">' + st[0] + '</div></div>'; }).join('') + '</div></div>'
-        + '<button onclick="SOC.dismissIntro()" aria-label="Dismiss" style="position:absolute;top:14px;right:14px;background:rgba(255,255,255,.1);border:none;border-radius:8px;width:30px;height:30px;color:#fff;display:flex;align-items:center;justify-content:center">' + ic('x', 16) + '</button></section>';
+        + '<div style="flex:1;min-width:280px"><div class="mono" style="font-size:.75rem;letter-spacing:.06em;color:var(--red);margin-bottom:10px;font-weight:600">THE COURSE CORPUS</div>'
+        + '<h1 style="font-size:2.125rem;line-height:1.14;font-weight:600;margin:0 0 10px;color:var(--ink)">Every reading, week by week.</h1>'
+        + '<p style="font-size:1rem;line-height:1.6;color:#474C57;margin:0;max-width:62ch">These are the readings behind SOC122, in course order, the Western eye and the Indigenous eye side by side each week. Search them, hold two against each other, and follow the course as it moves.</p></div>'
+        + '<div style="display:flex;gap:10px;flex:none">' + stats.map(function (st) { return '<div style="background:#EEF1F5;border:1px solid #DEE3EA;border-radius:12px;padding:12px 16px;text-align:center;min-width:78px"><div class="mono" style="font-size:1.75rem;font-weight:600;line-height:1;color:var(--red)">' + st[1] + '</div><div style="font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:#474C57;margin-top:5px">' + st[0] + '</div></div>'; }).join('') + '</div></div>'
+        + '<button onclick="SOC.dismissIntro()" aria-label="Dismiss" style="position:absolute;top:14px;right:14px;background:#EEF1F5;border:none;border-radius:8px;width:30px;height:30px;color:#474C57;display:flex;align-items:center;justify-content:center">' + ic('x', 16) + '</button></section>';
     }
 
     var layoutDefs = [['byweek', 'By week', 'layers'], ['tiles', 'Tiles', 'grid'], ['index', 'Index', 'list']];
