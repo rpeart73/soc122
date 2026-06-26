@@ -10,7 +10,7 @@
 
   var SKEY = 'soc122corpus.v2';
   function load() { try { var o = JSON.parse(localStorage.getItem(SKEY) || '{}'); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } }
-  function persist() { try { localStorage.setItem(SKEY, JSON.stringify({ saved: state.saved, compareIds: state.compareIds, layout: state.layout, introOpen: state.introOpen, cmpNotes: state.cmpNotes, lens: state.lens, rcReading: state.rcReading, rcNotes: state.rcNotes })); } catch (e) {} }
+  function persist() { try { localStorage.setItem(SKEY, JSON.stringify({ saved: state.saved, layout: state.layout, introOpen: state.introOpen, cmpNotes: state.cmpNotes, lens: state.lens, rcReading: state.rcReading, rcNotes: state.rcNotes })); } catch (e) {} }
   var saved0 = load();
 
   var state = {
@@ -21,7 +21,7 @@
     activeWeek: null,
     sort: 'week',
     detailId: null,
-    compareIds: Array.isArray(saved0.compareIds) ? saved0.compareIds.slice(0, 3) : [],
+    compareIds: [],
     saved: Array.isArray(saved0.saved) ? saved0.saved : [],
     introOpen: saved0.introOpen !== false,
     savedView: false,
@@ -564,7 +564,7 @@
     return library();
   }
   function render() {
-    if (render._prev === 'compare' && state.screen !== 'compare') { state.compareIds = []; state.showSynthesis = false; persist(); }
+    if (state.screen !== 'compare' && render._prev !== undefined && render._prev !== state.screen && (state.compareIds.length || state.showSynthesis)) { state.compareIds = []; state.showSynthesis = false; }
     render._prev = state.screen;
     var toast = state.toast ? '<div role="status" style="position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:80;background:#15171C;color:#fff;font-size:.9375rem;font-weight:500;padding:12px 20px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.24);display:flex;align-items:center;gap:10px"><span style="display:flex;color:#F2A900">' + ic('check', 16, 2.2) + '</span>' + esc(state.toast) + '</div>' : '';
     document.getElementById('app').innerHTML =
