@@ -638,6 +638,38 @@
       + mcHtml
       + '<button onclick="SOC.saveReadingNotes()" style="background:var(--red);border:none;color:#fff;border-radius:9px;padding:10px 18px;font-size:.9rem;font-weight:600;margin-top:8px">Save my notes</button></div>';
   }
+  /* ---------- worked weaving (Raymond directive 2026-07-03): the app models one
+     weaving for any pair, both eyes kept whole and attributed, then always hands
+     the integration back to the student. The Week 14 capstone stays the student's own. */
+  function surnameOf(r) {
+    var first = String(r.authors).replace(/\s*\([^)]*\)/g, '').split(',')[0].split(' and ')[0].split('&')[0].trim();
+    if (/^OpenStax/.test(first)) return 'OpenStax';
+    if (/Little Bear$/.test(first)) return 'Little Bear';
+    var parts = first.split(' ');
+    return parts.length > 3 ? first : parts[parts.length - 1];
+  }
+  function weaveFallback(recs) {
+    var named = recs.map(function (r) { return r.title + ' (' + surnameOf(r) + ')'; });
+    var ideas = recs.map(function (r) { return surnameOf(r) + (r.eye === 'indigenous' ? ', an Indigenous-scholar reading, ' : ', a Western reading, ') + 'centres this: ' + firstSentence(r.coreIdea); }).join(' ');
+    return 'Set side by side: ' + named.join('; ') + '. ' + ideas + ' Each stays whole; what one lets you see, the other may not, and neither is the default.';
+  }
+  function pairText(a, b) {
+    var k = [a.id, b.id].sort().join('|');
+    return (D.syntheses && D.syntheses[k]) ? D.syntheses[k] : weaveFallback([a, b]);
+  }
+  function tripleLead(recs) {
+    var names = recs.map(surnameOf);
+    var listed = recs.map(function (r) { return r.title + ' (' + surnameOf(r) + ', Week ' + r.week + ')'; });
+    return 'Holding three at once: ' + listed[0] + '; ' + listed[1] + '; and ' + listed[2] + '. A three-way weaving is really three relationships, so each pairing is taken in turn below: ' + names[0] + ' with ' + names[1] + ', then ' + names[0] + ' with ' + names[2] + ', then ' + names[1] + ' with ' + names[2] + '. Notice what each pairing lets you see before you hold all three together yourself.';
+  }
+  function buildWeaving(recs) {
+    if (recs.length === 2) return [pairText(recs[0], recs[1])];
+    var paras = [tripleLead(recs)];
+    for (var i = 0; i < recs.length; i++) for (var j = i + 1; j < recs.length; j++) paras.push(pairText(recs[i], recs[j]));
+    return paras;
+  }
+  var WEAVE_HANDOFF = 'That weaving is the app\'s, one worked example of the practice, not the answer. Two-Eyed Seeing asks you to do your own: What does each reading let you see that the other cannot? Where do they meet your own life and community? Your weaving is the one that counts (Marshall, 2017).';
+
   function compare() {
     var recs = state.compareIds.map(rec).filter(Boolean);
     var html = '<div class="rise"><div style="display:flex;align-items:baseline;gap:12px;margin-bottom:6px;flex-wrap:wrap"><h1 style="font-size:1.75rem;font-weight:600;margin:0">Hold them side by side</h1><span style="font-size:.9375rem;color:#474C57">' + (recs.length ? recs.length + ' of 3 selected' : 'choose 2 or 3') + '</span>'
@@ -653,7 +685,19 @@
         return '<div style="flex:none;width:280px;background:#fff;border:1px solid #DEE3EA;border-radius:14px;overflow:hidden;box-shadow:0 1px 2px rgba(21,23,28,.04);display:flex;flex-direction:column"><div style="height:5px;background:' + tm.color + '"></div><div style="padding:16px 17px 14px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:11px"><span style="display:inline-flex;align-items:center;gap:6px;background:' + tm.soft + ';color:' + tm.color + ';font-size:.6875rem;font-weight:600;padding:4px 9px;border-radius:999px">' + ic(tm.icon, 13) + esc(r.type) + '</span><button onclick="SOC.compare(\'' + r.id + '\')" class="removebtn" aria-label="Remove" style="margin-left:auto;background:none;border:none;color:#6b7280;display:flex;padding:6px">' + ic('x', 16) + '</button></div><button onclick="SOC.open(\'' + r.id + '\')" style="text-align:left;background:none;border:none;padding:0;display:block;margin-bottom:4px"><h3 style="font-size:1.0625rem;line-height:1.3;font-weight:600;margin:0;color:#15171C">' + esc(r.title) + '</h3></button><div style="font-size:.8125rem;color:#474C57">' + esc(r.authors) + '</div></div>' + rows + '</div>';
       }).join('');
       var hint = recs.length < 2 ? '<p style="font-size:.875rem;color:#6B7280;margin:0 0 12px">Pick one more reading on the right to compare it against this one.</p>' : '';
-      var connectNote = recs.length >= 2 ? '<div style="background:#F7F8FA;border:1px solid #DEE3EA;border-radius:12px;padding:13px 16px;margin-bottom:16px;font-size:.875rem;line-height:1.55;color:#474C57">The readings are set side by side, each one attributed. Reading them together, what they share, where they differ, and why that matters, is your work to do. The app does not write the connection for you.</div>' : '';
+      var connectNote = '';
+      if (recs.length >= 2) {
+        if (state.showSynthesis) {
+          connectNote = '<div style="background:#15171C;color:#fff;border-radius:14px;padding:20px 22px;margin-bottom:18px">'
+            + '<div style="display:flex;align-items:center;gap:9px;margin-bottom:12px"><span style="display:flex;color:#fff">' + ic('sparkle', 17) + '</span><span class="mono" style="font-size:.75rem;letter-spacing:.04em;color:#fff">A WORKED WEAVING</span><button onclick="SOC.hideSynthesis()" aria-label="Hide the worked weaving" style="margin-left:auto;background:rgba(255,255,255,.12);border:none;border-radius:7px;color:#fff;width:26px;height:26px;display:flex;align-items:center;justify-content:center">' + ic('x', 15) + '</button></div>'
+            + buildWeaving(recs).map(function (p) { return '<p style="font-size:1rem;line-height:1.6;margin:0 0 12px;color:rgba(255,255,255,.92)">' + esc(p) + '</p>'; }).join('')
+            + '<div style="border-top:1px solid rgba(255,255,255,.25);padding-top:12px;margin-top:4px"><p style="font-size:.9375rem;line-height:1.6;margin:0;color:#F3B0A8">' + esc(WEAVE_HANDOFF) + '</p></div>'
+            + '</div>';
+        } else {
+          connectNote = '<div style="background:#F7F8FA;border:1px solid #DEE3EA;border-radius:12px;padding:13px 16px;margin-bottom:16px;font-size:.875rem;line-height:1.55;color:#474C57">The readings are set side by side, each one attributed. If you want to see the practice modelled first, the app can show one worked weaving; the weaving that counts is still your own.</div>'
+            + '<button onclick="SOC.synthesize()" style="display:inline-flex;align-items:center;gap:8px;border:none;border-radius:9px;padding:12px 22px;font-size:1rem;font-weight:600;color:#fff;background:#15171C;margin-bottom:18px">' + ic('sparkle', 16) + 'Show a worked weaving</button>';
+        }
+      }
       left = hint + connectNote + '<div class="hshelf" style="display:flex;gap:16px;align-items:stretch;overflow-x:auto;padding-bottom:10px">' + cols + '</div>';
     } else {
       left = '<div style="background:#fff;border:1px dashed #DEE3EA;border-radius:14px;padding:48px 26px;text-align:center;color:#474C57"><div style="display:inline-flex;color:#C9D1DC;margin-bottom:12px">' + ic('columns', 40, 1.4) + '</div><div style="font-size:1.0625rem;font-weight:600;color:#15171C;margin-bottom:6px">Nothing selected yet.</div><p style="font-size:.9375rem;margin:0">Choose two or three readings from the list on the right.</p></div>';
@@ -781,7 +825,7 @@
       why: 'That is ' + ind.authors + '\'s own core idea, stated in the reading itself. Two-Eyed Seeing asks you to keep it in view with its own strength; whether and how it speaks to the Western frame is your work to decide, not the app\'s to write.'
     }) : '';
     var save = '<div style="margin-top:14px"><button onclick="SOC.saveStudio()" style="background:var(--red);border:none;color:#fff;border-radius:9px;padding:9px 16px;font-size:.875rem;font-weight:600;cursor:pointer">Save my work to the Personal Cartography (.docx)</button></div>';
-    return studioShell('Two attributed eyes', 'Read the two source frames as attributed readings, then bring Two-Eyed Seeing yourself. The app does not write a bridge for you.', '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px">' + panels + '</div>' + soloNote + practice + check + save);
+    return studioShell('Two attributed eyes', 'Read the two source frames as attributed readings, then bring Two-Eyed Seeing yourself. If you want a worked example of the practice, the Compare view can model one weaving; here, the weaving is yours.', '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px">' + panels + '</div>' + soloNote + practice + check + save);
   }
   function psyStudio(sel) {
     var w = focusWeek(sel), recs = recordsForWeek(w), r = recs[0] || D.records[0], g = conceptsForWeek(w)[0] || (D.glossary || [])[0], items = (r && MC[r.id]) || [];
@@ -1356,7 +1400,7 @@
     return journeyHome();
   }
   function render() {
-    if (state.screen !== 'compare' && render._prev !== undefined && render._prev !== state.screen && (state.compareIds.length)) { state.compareIds = []; }
+    if (state.screen !== 'compare' && render._prev !== undefined && render._prev !== state.screen && (state.compareIds.length || state.showSynthesis)) { state.compareIds = []; state.showSynthesis = false; }
     render._prev = state.screen;
     var toast = state.toast ? '<div role="status" style="position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:80;background:#15171C;color:#fff;font-size:.9375rem;font-weight:500;padding:12px 20px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.24);display:flex;align-items:center;gap:10px"><span style="display:flex;color:#F2A900">' + ic('check', 16, 2.2) + '</span>' + esc(state.toast) + '</div>' : '';
     document.getElementById('app').innerHTML =
@@ -1458,7 +1502,9 @@
     dismissIntro: function () { state.introOpen = false; persist(); render(); },
     save: function (id) { var a = state.saved, i = a.indexOf(id); var msg; if (i >= 0) { a.splice(i, 1); msg = 'Removed from saved.'; } else { a.push(id); msg = 'Saved to your shelf.'; } persist(); flash(msg); },
     compare: function (id) { var a = state.compareIds, i = a.indexOf(id); if (i >= 0) { a.splice(i, 1); persist(); flash('Removed from compare.'); } else { if (a.length >= 3) { flash('Compare holds three at a time.'); return; } a.push(id); persist(); flash('Added to compare.'); } },
-    clearCompare: function () { state.compareIds = []; render(); },
+    clearCompare: function () { state.compareIds = []; state.showSynthesis = false; render(); },
+    synthesize: function () { state.showSynthesis = true; render(); },
+    hideSynthesis: function () { state.showSynthesis = false; render(); },
     setLens: function (l) { state.lens = l; render(); },
     rcPick: function (id) { state.rcReading = id; state.lens = 'thematic'; persist(); render(); topScroll(); },
     rcClear: function () { state.rcReading = null; render(); topScroll(); },

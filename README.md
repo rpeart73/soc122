@@ -2,7 +2,7 @@
 
 The reading room for **SOC122: Introduction to the Social Sciences** at Seneca Polytechnic.
 
-A student-facing source library: search and filter the course readings, move through the course by week, drill into one source, and hold up to three readings side by side in the compare view. The app never writes a synthesis between the two eyes; the comparison columns stay attributed and separate, and the integration is the student's own work (Etuaptmumk). The current data set has 22 readings and 56 glossary concepts.
+A student-facing source library: search and filter the course readings, move through the course by week, drill into one source, and hold up to three readings side by side in the compare view. Per Raymond's 2026-07-03 directive for this introductory gen-ed course, the compare view uses BOTH approaches: the app can show a worked weaving for any pair (attributed, both eyes kept whole, labelled as a demonstration), and every weaving hands the integration back to the student, whose own weaving is framed as the one that counts. The Week 14 capstone synthesis remains the student's own work. The current data set has 22 readings, 56 glossary concepts, and 231 authored pair weavings.
 
 The repo also serves the SOC122 weekly walkthrough decks at `/walkthroughs/`. Those decks are generated from the shared walkthrough YAML source in `projects/Seneca Polytechnic/walkthrough/content/SOC122/`.
 
@@ -26,7 +26,7 @@ All readings are in `data/corpus-data.js` (one `window.SOC122` object).
 - `access`: `'openstax' | 'open' | 'verified' | 'library'`. Only `openstax` and `open` get a public "Open the reading" link; `verified` (copyrighted, held for Blackboard course reserves) and `library` (licensed, via the Seneca Library) render as "Find this on Blackboard" with no public link, for copyright.
 - `related[]` drives "Read alongside" and should pair each Western reading with its Indigenous counterpart.
 - `senecaLib` (optional flag) marks records whose access route is the Seneca Library catalogue.
-- There is no `syntheses` key: the app deliberately has no synthesis layer between the two eyes. Never use em or en dashes anywhere.
+- `syntheses` holds one authored worked weaving per reading pair (sorted `a|b` keys, 231 pairs). Weavings keep both eyes whole and attributed, never rank or blend them, and are always followed on-screen by the your-turn handoff. Never use em or en dashes anywhere.
 
 ## Source boundary
 The corpus uses local SOC122 source records and the Zotero collection. Do not place PDFs, screenshots, copied article text, or licensed readings in `_app`. Reading PDFs live outside the public site in `projects/_config/research/sources/SOC122/pdfs/` and are posted only to Blackboard.
