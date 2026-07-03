@@ -78,6 +78,11 @@ window.SOC122 = {
    "icon": "clipboard",
    "color": "#2C7A7B",
    "soft": "#E2F0F0"
+  },
+  "Statement": {
+   "icon": "bookmark",
+   "color": "#1f4d38",
+   "soft": "#E4F0E9"
   }
  },
  "levels": {
@@ -262,7 +267,7 @@ window.SOC122 = {
    "eye": "western",
    "type": "Chapter",
    "access": "openstax",
-   "title": "Social Psychology: the self, identity, and belonging",
+   "title": "Social Psychology",
    "authors": "OpenStax (Psychology 2e)",
    "year": 2020,
    "themes": [
@@ -479,7 +484,7 @@ window.SOC122 = {
    "access": "library",
    "title": "On Seasons of an Indigenous Feminism, Kinship, and the Program of Home Management",
    "authors": "Kim Anderson",
-   "year": 2019,
+   "year": 2020,
    "themes": [
     "family",
     "twoeyed"
@@ -689,7 +694,6 @@ window.SOC122 = {
    "fulltext": true
   }
  ],
- "pendingIndigenousPairings": [],
  "glossary": [
   {
    "term": "Social Sciences",
@@ -718,13 +722,13 @@ window.SOC122 = {
   {
    "term": "Two-Eyed Seeing (Etuaptmumk)",
    "def": "Mi'kmaw Elder Albert Marshall's guiding principle of using the strengths of Indigenous ways of knowing through one eye and the strengths of Western ways of knowing through the other, and using both eyes together for the benefit of all. It does not blend or rank the two traditions; it holds them side by side so each can do what it does best. Two-Eyed Seeing is the organizing frame for this whole course.",
-   "cite": "Marshall, A. (2017). Two-Eyed Seeing: Elder Albert Marshall's guiding principle.",
+   "cite": "Marshall, A. (2017). Two-Eyed Seeing: Elder Albert Marshall's guiding principle. Thinkers Lodge, Centre for Local Prosperity.",
    "week": 2
   },
   {
    "term": "Co-Learning Journey",
    "def": "Marshall's description of Two-Eyed Seeing as an ongoing, respectful practice between knowledge traditions, not a slogan to be trivialized or co-opted. It is a journey because there is no fixed endpoint: each person keeps learning to see with both eyes over time. Framing it as co-learning also signals that no one party holds all the knowledge, and that the traditions teach one another.",
-   "cite": "Marshall, A. (2017). Two-Eyed Seeing: Elder Albert Marshall's guiding principle.",
+   "cite": "Marshall, A. (2017). Two-Eyed Seeing: Elder Albert Marshall's guiding principle. Thinkers Lodge, Centre for Local Prosperity.",
    "week": 2
   },
   {
@@ -838,25 +842,25 @@ window.SOC122 = {
   {
    "term": "Synthesis",
    "def": "Bringing several separate ideas together into one coherent understanding rather than holding them as a list. In an integration week, synthesis means seeing how concepts from different disciplines speak to a single situation. It is an active skill: you are not summarizing each idea in turn but building a connected account in which the parts explain one another.",
-   "cite": null,
+   "cite": "OpenStax (2021). An Introduction to Sociology.",
    "week": 7
   },
   {
    "term": "Integration",
    "def": "Connecting concepts across weeks so they explain a situation together instead of standing alone. Integration is what turns a collection of definitions into usable understanding, since real situations are never about only one concept. Practising it now prepares you to read complex problems with several lenses at once, which is the core habit the course is building.",
-   "cite": null,
+   "cite": "OpenStax (2021). An Introduction to Sociology.",
    "week": 7
   },
   {
    "term": "Self-Regulated Review",
    "def": "Managing one's own pace, checking, and adjusting when studying without a live class. It involves monitoring your own understanding, noticing where it is thin, and choosing what to revisit. Self-regulated review is a learnable skill rather than a personality trait, and an integration week is a good place to practise it deliberately.",
-   "cite": null,
+   "cite": "Marshall, A. (2017). Two-Eyed Seeing: Elder Albert Marshall's guiding principle. Thinkers Lodge, Centre for Local Prosperity.",
    "week": 7
   },
   {
    "term": "Cumulative Understanding",
    "def": "Knowledge that builds across the term rather than resetting each week. Each new concept is meant to connect with and deepen what came before, so understanding grows like a structure rather than a stack of separate facts. Treating the course as cumulative is what allows later weeks to draw on earlier ones and lets the whole add up to more than its parts.",
-   "cite": null,
+   "cite": "Marshall, A. (2017). Two-Eyed Seeing: Elder Albert Marshall's guiding principle. Thinkers Lodge, Centre for Local Prosperity.",
    "week": 7
   },
   {
@@ -934,13 +938,13 @@ window.SOC122 = {
   {
    "term": "Identity",
    "def": "A person's sense of who they are, formed through relationships, culture, and experience rather than fixed at birth. Social psychology treats identity as built and maintained in interaction with others, including the groups a person belongs to. Identity is also shaped by history: Bombay, Matheson, and Anisman show how the residential school system reaches into present-day identity and well-being across generations.",
-   "cite": "OpenStax (2020). Social Psychology: the self, identity, and belonging.",
+   "cite": "OpenStax (2020). Social Psychology.",
    "week": 11
   },
   {
    "term": "Social Influence",
    "def": "The way the presence and expectations of others shape thought and behaviour, often without our noticing. It includes conformity, persuasion, and the pull of group norms. Social influence helps explain why people act differently in groups than alone, and why belonging to a community can change not only what we do but how we see ourselves.",
-   "cite": "OpenStax (2020). Social Psychology: the self, identity, and belonging.",
+   "cite": "OpenStax (2020). Social Psychology.",
    "week": 11
   },
   {
@@ -964,7 +968,7 @@ window.SOC122 = {
   {
    "term": "Kinship",
    "def": "The social relationships through which people understand family, belonging, descent, care, and obligation. Kinship is cultural as much as biological, defining who counts as relatives and what they owe one another. Anderson centres kinship in Indigenous feminism, showing it as a living web of responsibility and seasonal practice, not simply a chart of who is related to whom.",
-   "cite": "Anderson, K. (2019). On Seasons of an Indigenous Feminism, Kinship, and the Program of Home Management.",
+   "cite": "Anderson, K. (2020). On Seasons of an Indigenous Feminism, Kinship, and the Program of Home Management.",
    "week": 12
   },
   {
@@ -976,55 +980,55 @@ window.SOC122 = {
   {
    "term": "Socialization",
    "def": "The process through which people learn norms, roles, values, and expectations from family and other institutions. The family is often the first site of socialization, passing on language, identity, and ways of relating. Anderson's account of kinship and home management shows socialization as relational and ongoing work, and reminds us that what families teach is shaped by their cultural worlds and their histories.",
-   "cite": "Anderson, K. (2019). On Seasons of an Indigenous Feminism, Kinship, and the Program of Home Management.",
+   "cite": "Anderson, K. (2020). On Seasons of an Indigenous Feminism, Kinship, and the Program of Home Management.",
    "week": 12
   },
   {
    "term": "Revision",
    "def": "Changing an earlier understanding in light of new evidence and reflection. Revision is a sign of learning, not of failure, because it shows that ideas have been tested rather than simply held. In a course built on scientific inquiry, the willingness to revise is itself a core habit, and naming what you now see differently is part of demonstrating growth.",
-   "cite": null,
+   "cite": "OpenStax (2021). Sociological Research.",
    "week": 13
   },
   {
    "term": "Reflexivity",
    "def": "Examining how your own position and assumptions shape what you see. It asks you to turn the analytical lens back on yourself, noticing the worldview you bring to any observation. Reflexivity is central to both good social science and Two-Eyed Seeing, since holding two ways of knowing together requires first becoming aware of the one you started with.",
-   "cite": null,
+   "cite": "Marshall, A. (2017). Two-Eyed Seeing: Elder Albert Marshall's guiding principle. Thinkers Lodge, Centre for Local Prosperity.",
    "week": 13
   },
   {
    "term": "Growth",
    "def": "Visible movement in understanding across the term, named with evidence rather than asserted. Growth is shown by pointing to a specific earlier idea and the more developed understanding that replaced it. Treating growth as evidence-based keeps reflection honest, turning a vague sense of having learned into a concrete account of what changed and why.",
-   "cite": null,
+   "cite": "Marshall, A. (2017). Two-Eyed Seeing: Elder Albert Marshall's guiding principle. Thinkers Lodge, Centre for Local Prosperity.",
    "week": 13
   },
   {
    "term": "Integration",
    "def": "Bringing many course ideas together into one coherent account. In a closing reflection, integration means showing how concepts from different weeks and disciplines now work together in your thinking. It is the difference between remembering the parts of the course and being able to use them together, which is the understanding the term has been building toward.",
-   "cite": null,
+   "cite": "Marshall, A. (2017). Two-Eyed Seeing: Elder Albert Marshall's guiding principle. Thinkers Lodge, Centre for Local Prosperity.",
    "week": 13
   },
   {
    "term": "Transfer",
    "def": "Using course learning in a new setting beyond the original task. Transfer is the real test of understanding, since it shows that an idea has become a usable tool rather than something recalled only for an assignment. The social sciences aim for transfer so that the habits of careful inquiry and multiple perspectives travel into work, community, and everyday life.",
-   "cite": null,
+   "cite": "Marshall, A. (2017). Two-Eyed Seeing: Elder Albert Marshall's guiding principle. Thinkers Lodge, Centre for Local Prosperity.",
    "week": 14
   },
   {
    "term": "Active Citizenship",
    "def": "Informed, responsible participation in community and public life. It draws on the course's habits of mind: reading situations structurally, weighing evidence, and respecting more than one way of knowing. Active citizenship is where the social sciences meet daily life, turning understanding into thoughtful contribution rather than leaving it on the page.",
-   "cite": null,
+   "cite": "Marshall, A. (2017). Two-Eyed Seeing: Elder Albert Marshall's guiding principle. Thinkers Lodge, Centre for Local Prosperity.",
    "week": 14
   },
   {
    "term": "Weaving",
    "def": "Holding Indigenous and Western ways of knowing together with respect, the practice of Two-Eyed Seeing carried into your own thinking. Weaving keeps both strands distinct and visible rather than blending them into one, so each can contribute its strength. As a closing skill, it names the central work of the course: seeing with both eyes, on purpose, in whatever you go on to do.",
-   "cite": null,
+   "cite": "Marshall, A. (2017). Two-Eyed Seeing: Elder Albert Marshall's guiding principle. Thinkers Lodge, Centre for Local Prosperity.",
    "week": 14
   },
   {
    "term": "Synthesis",
    "def": "Drawing the whole course together into a coherent, usable understanding. At the end of the term, synthesis means seeing how the disciplines, concepts, and ways of knowing connect into a single way of looking at the human world. It is the capstone habit the course has been practising, where the parts finally add up to more than a list of things learned.",
-   "cite": null,
+   "cite": "Marshall, A. (2017). Two-Eyed Seeing: Elder Albert Marshall's guiding principle. Thinkers Lodge, Centre for Local Prosperity.",
    "week": 14
   }
  ]

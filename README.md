@@ -2,11 +2,11 @@
 
 The reading room for **SOC122: Introduction to the Social Sciences** at Seneca Polytechnic.
 
-A student-facing source library: search and filter the course readings, move through the course by week, drill into one source, hold up to three readings side by side, and synthesize comparisons through the stationary compare picker. The current data set has 22 readings and 231 pair-synthesis cards.
+A student-facing source library: search and filter the course readings, move through the course by week, drill into one source, and hold up to three readings side by side in the compare view. The app never writes a synthesis between the two eyes; the comparison columns stay attributed and separate, and the integration is the student's own work (Etuaptmumk). The current data set has 22 readings and 56 glossary concepts.
 
 The repo also serves the SOC122 weekly walkthrough decks at `/walkthroughs/`. Those decks are generated from the shared walkthrough YAML source in `projects/Seneca Polytechnic/walkthrough/content/SOC122/`.
 
-It is a **companion to Blackboard**, not a replacement. Official records, discussion, grades, and submission live in Blackboard. The public app has no accounts, no grading, no student-to-student interaction, no analytics, no PDFs, and no reproduced reading text. Free readings link out to OpenStax or open-access pages; copyrighted or library readings are not linked here and are reached through the Blackboard weekly Readings folders or the Seneca Library.
+It is a **companion to Blackboard**, not a replacement. Official records, discussion, grades, and submission live in Blackboard. The public app has no accounts, no grading, no student-to-student interaction, no analytics, no PDFs, and no reproduced reading text. Free readings link out to OpenStax or open-access pages; licensed readings link only to the Seneca Library catalogue (Primo) or are reached through the Blackboard weekly Readings folders. No reading text or PDFs are hosted here.
 
 Every Indigenous reading is authored by an Indigenous scholar (a compulsory course rule, applied 2026-06-24).
 
@@ -25,7 +25,8 @@ All readings are in `data/corpus-data.js` (one `window.SOC122` object).
 - `eye`: `'western'` or `'indigenous'` (the Two-Eyed Seeing pairing side). Every `indigenous` reading must be Indigenous-authored.
 - `access`: `'openstax' | 'open' | 'verified' | 'library'`. Only `openstax` and `open` get a public "Open the reading" link; `verified` (copyrighted, held for Blackboard course reserves) and `library` (licensed, via the Seneca Library) render as "Find this on Blackboard" with no public link, for copyright.
 - `related[]` drives "Read alongside" and should pair each Western reading with its Indigenous counterpart.
-- `syntheses` holds every reading pair as a sorted key. Do not use week numbers in synthesis copy, and never use em or en dashes anywhere.
+- `senecaLib` (optional flag) marks records whose access route is the Seneca Library catalogue.
+- There is no `syntheses` key: the app deliberately has no synthesis layer between the two eyes. Never use em or en dashes anywhere.
 
 ## Source boundary
 The corpus uses local SOC122 source records and the Zotero collection. Do not place PDFs, screenshots, copied article text, or licensed readings in `_app`. Reading PDFs live outside the public site in `projects/_config/research/sources/SOC122/pdfs/` and are posted only to Blackboard.
@@ -33,10 +34,7 @@ The corpus uses local SOC122 source records and the Zotero collection. Do not pl
 ## Current status
 Forge and Codex co-ratified the Indigenous-led rebuild on 2026-06-24 for `index.html`, `app.js`, and `data/corpus-data.js`, and the site is deployed to GitHub Pages.
 
-Current app hashes:
-- `index.html`: `13826c1c46d4119e334b60ffc5e2c7373d3dec9233d3f41118122655889e1d65`
-- `app.js`: `8559f1c6ed1c440b7f1c5c10ae90491d0a0bfd473061f5db138cb13846858b85`
-- `data/corpus-data.js`: `ca9f6351c0f296ae8aa06c38a8aac79da4ee5f49d2f89bfdfafd0972630537c4`
+Canonical file hashes live in the ratification receipts under `projects/_config/shared_comms/` (they change on every content deploy and are not tracked here).
 
 ## Design source
 Recreated from `../_design/_extracted/design_handoff_soc122_corpus/` (the high-fidelity prototype). The `.dc.html` prototype runtime was not ported; this is a vanilla rebuild in the BFS218 `_app` pattern.
