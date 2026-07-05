@@ -1278,7 +1278,7 @@
       + warm + tiles + ladder + '</section>';
     return { html: html };
   }
-  function kcSection(w) {
+  function kcSection(w, reviewOnly) {
     var kcVer = (state.kcVersion && state.kcVersion[w]) || 0;
     var kcTier = kcVer + 1;
     function kcPool(week) {
@@ -1368,7 +1368,7 @@
           + '</div>';
       }
       kc = '<section id="wk-kc" class="node"><h2 class="wk-sec">Knowledge Check <span class="mono" style="font-size:.62rem;letter-spacing:.06em;color:#2c6b3f;background:#E9EFE7;border:1px solid #9CC4A8;border-radius:999px;padding:3px 10px;margin-left:10px;vertical-align:middle">NOT GRADED</span></h2>'
-        + '<p class="wk-hint">Nothing here counts toward your grade and nothing is recorded. ' + kcItems.length + ' quick question' + (kcItems.length === 1 ? '' : 's') + ': this week\'s ideas plus a short review from earlier weeks, so the knowledge keeps building. Pick one answer per question; click it again to clear it, or pick a different option to change it. Results and explanations appear once you have answered every question. Sets step up in difficulty from A to C.</p>'
+        + '<p class="wk-hint">Nothing here counts toward your grade and nothing is recorded. ' + kcItems.length + ' quick question' + (kcItems.length === 1 ? '' : 's') + (reviewOnly ? ': a mixed review drawn from the weeks so far, to keep the ideas warm over the break. ' : ': this week\'s ideas plus a short review from earlier weeks, so the knowledge keeps building. ') + 'Pick one answer per question; click it again to clear it, or pick a different option to change it. Results and explanations appear once you have answered every question. Sets step up in difficulty from A to C.</p>'
         + '<div style="display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px">' + vers + retake + '</div>'
         + progress + summary + kRows + '</section>';
     }
@@ -1507,7 +1507,32 @@
     if (a.archetype === 'capstone') { var citems = data.items || [], cn = 0; citems.forEach(function (it, i) { if (state.act['a|' + w + '|cap|' + i]) cn++; }); return cn ? ('You revisited ' + cn + ' of ' + citems.length + ' dimensions of your cartography across the term.') : '(revisit not started yet)'; }
     return '(activity not started yet)';
   }
+  var STUDY_WEEK = 7;
+  function studyWeekPage(w) {
+    var ws = journeyWeeks(), idx = ws.indexOf(w), prev = idx > 0 ? ws[idx - 1] : null, next = idx < ws.length - 1 ? ws[idx + 1] : null;
+    var priors = ws.filter(function (x) { return x < w; });
+    var hero = '<section id="wk-ov" class="node jhero jfade" style="margin:0 0 16px"><div style="position:relative">'
+      + '<div class="mono" style="font-size:.7rem;letter-spacing:.08em;color:var(--red);font-weight:700;margin-bottom:8px">WEEK ' + w + ' · STUDY WEEK</div>'
+      + '<h1 style="font-size:2rem;line-height:1.12;font-weight:700;margin:0 0 12px;color:var(--ink)">Study Week</h1>'
+      + '<p style="font-size:1.04rem;line-height:1.6;color:var(--ink);margin:0 0 4px;max-width:64ch">Seneca is open but there are no classes this week (October 26 to 30). There are no new readings, no new content, and nothing is due. Use the week to rest, catch up on anything still open, and let the first half of the course settle.</p>'
+      + '<div style="font-size:1.02rem;font-weight:600;color:var(--ink);border-left:3px solid var(--red);padding-left:14px;margin:16px 0">Nothing here is graded or required. Everything below is optional, and only for your own review.</div>'
+      + '</div></section>';
+    var catchup = priors.length ? '<section id="wk-catch" class="node"><h2 class="wk-sec">Catch up and review</h2>'
+      + '<p style="margin:0 0 12px;font-size:.95rem;color:var(--ink-dim)">If you want to use the week to consolidate, revisit any earlier week. Nothing new to read, only what you have already met.</p>'
+      + '<div style="display:flex;flex-wrap:wrap;gap:8px">' + priors.map(function (n) { return '<button onclick="SOC.station(' + n + ')" style="border:1px solid var(--border);background:#fff;border-radius:9px;padding:9px 13px;font-size:.86rem;font-weight:600;color:var(--ink);cursor:pointer;text-align:left">Week ' + n + ': ' + esc(weekTitle(n)) + '</button>'; }).join('') + '</div></section>' : '';
+    var kcR = kcSection(w, true);
+    var kc = kcR.html, kcItems = kcR.items;
+    var navRow = '<div style="display:flex;gap:12px;margin-top:18px;flex-wrap:wrap">'
+      + (prev != null ? '<button onclick="SOC.station(' + prev + ')" style="flex:1;min-width:180px;text-align:left;border:1px solid var(--border);background:#fff;border-radius:12px;padding:13px 16px;cursor:pointer"><div class="mono" style="font-size:.66rem;color:var(--ink-faint)">&larr; PREVIOUS</div><div style="font-size:.92rem;font-weight:700;color:var(--ink);margin-top:2px">Week ' + prev + ': ' + esc(weekTitle(prev)) + '</div></button>' : '')
+      + (next != null ? '<button onclick="SOC.station(' + next + ')" style="flex:1;min-width:180px;text-align:right;border:1px solid var(--border);background:#fff;border-radius:12px;padding:13px 16px;cursor:pointer"><div class="mono" style="font-size:.66rem;color:var(--red)">NEXT &rarr;</div><div style="font-size:.92rem;font-weight:700;color:var(--ink);margin-top:2px">Week ' + next + ': ' + esc(weekTitle(next)) + '</div></button>' : '')
+      + '</div>';
+    var rail = '<aside class="wk-rail"><div class="wk-railbox"><div class="wk-railh">IN THIS WEEK</div>'
+      + [['ov', 'Study Week']].concat(priors.length ? [['catch', 'Catch up and review']] : []).concat(kcItems.length ? [['kc', 'Knowledge Check']] : []).map(function (it) { return '<a href="#wk-' + it[0] + '"><span class="s"></span>' + it[1] + '</a>'; }).join('')
+      + '<div class="wk-railt">' + ic('clock', 12) + ' No classes this week</div></div></aside>';
+    return '<div class="rise wk-grid"><section>' + hero + catchup + kc + navRow + '</section>' + rail + '</div>';
+  }
   function weekStation(w) {
+    if (w === STUDY_WEEK) return studyWeekPage(w);
     var d = weekData(w);
     if (d) return weekPage(w, d);
     var ws = journeyWeeks(), idx = ws.indexOf(w), recs = recordsForWeek(w);
