@@ -1084,19 +1084,25 @@
   }
   function journeyStations(cur) {
     var ws = journeyWeeks();
-    return '<div style="display:flex;flex-direction:column;gap:12px">' + ws.map(function (w) {
-      var recs = recordsForWeek(w), n = recs.length, isCur = (w === cur), eyes = {};
-      recs.forEach(function (r) { if (r.eye) eyes[r.eye] = 1; });
-      var eyeNote = (eyes.western && eyes.indigenous) ? 'Western and Indigenous readings' : (eyes.indigenous ? 'Indigenous reading' + (n > 1 ? 's' : '') : (n + (n === 1 ? ' reading' : ' readings')));
-      return '<button class="jstation' + (isCur ? ' cur' : '') + '" onclick="SOC.station(' + w + ')">'
+    var studyDivider = '<div style="display:flex;align-items:center;gap:12px;padding:11px 16px;border:1px dashed var(--border);border-radius:12px;background:#FAFBFC"><span class="mono" style="font-size:.66rem;font-weight:700;letter-spacing:.06em;color:var(--red)">STUDY WEEK</span><span style="font-size:.86rem;color:var(--ink-dim)">' + STUDY_WEEK_DATE + ' &middot; Seneca open, no classes, no new work</span></div>';
+    var out = '', studyIn = false;
+    var studyMarker = function () { var m = (ws.indexOf(7) < 0) ? '<div style="display:flex;align-items:center;gap:12px;padding:11px 16px;border:1px dashed var(--border);border-radius:12px;background:#FAFBFC"><span class="mono" style="font-size:.66rem;font-weight:700;letter-spacing:.06em;color:var(--ink-faint)">WEEK 7</span><span style="font-size:.86rem;color:var(--ink-dim)">' + esc(weekDate(7)) + ' &middot; Cumulative review, no new readings</span></div>' : ''; return m + studyDivider; };
+    ws.forEach(function (w) {
+      if (!studyIn && w >= 8) { out += studyMarker(); studyIn = true; }
+      var recs = recordsForWeek(w), n = recs.length, isCur = (w === cur);
+      var note = (w === OVERVIEW_WEEK) ? 'Course overview' : (WORK_WEEKS.indexOf(w) >= 0 ? 'Focus on your work, no new material' : (n + (n === 1 ? ' reading' : ' readings')));
+      out += '<button class="jstation' + (isCur ? ' cur' : '') + '" onclick="SOC.station(' + w + ')">'
         + '<div style="display:flex;align-items:flex-start;gap:16px">'
         + '<span class="jdot" style="display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;flex:none;border-radius:12px;background:' + (isCur ? 'var(--red)' : '#1B2A4A') + ';color:#fff;font-family:var(--mono);font-size:1.0625rem;font-weight:600">' + w + '</span>'
         + '<div style="flex:1;min-width:0">'
-        + '<div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:3px">' + (isCur ? '<span class="mono" style="font-size:.625rem;font-weight:700;letter-spacing:.06em;color:var(--red);background:#F6E3E1;padding:2px 8px;border-radius:999px">YOU ARE HERE</span>' : '') + '<h3 style="font-size:1.0625rem;font-weight:600;margin:0;color:var(--ink)">' + esc(weekTitle(w)) + '</h3></div>'
+        + '<div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:3px">' + (isCur ? '<span class="mono" style="font-size:.625rem;font-weight:700;letter-spacing:.06em;color:#B02318;background:#F6E3E1;padding:2px 8px;border-radius:999px">YOU ARE HERE</span>' : '') + '<span class="mono" style="font-size:.66rem;color:var(--ink-faint);letter-spacing:.03em">' + esc(weekDate(w)) + '</span></div>'
+        + '<h3 style="font-size:1.0625rem;font-weight:600;margin:0 0 2px;color:var(--ink)">' + esc(weekTitle(w)) + '</h3>'
         + '<p style="font-size:.9375rem;line-height:1.5;color:var(--ink-dim);margin:0 0 8px">' + esc(journeyQ(w)) + '</p>'
-        + '<div style="display:flex;align-items:center;gap:7px;font-size:.75rem;color:var(--ink-faint)"><span style="display:inline-flex;color:#6B7280">' + ic('book', 13) + '</span>' + esc(eyeNote) + '<span style="margin:0 4px">&middot;</span><span style="color:var(--red);font-weight:600">Open &rarr;</span></div>'
+        + '<div style="display:flex;align-items:center;gap:7px;font-size:.75rem;color:var(--ink-faint)"><span style="display:inline-flex;color:#6B7280">' + ic('book', 13) + '</span>' + esc(note) + '<span style="margin:0 4px">&middot;</span><span style="color:var(--red);font-weight:600">Open &rarr;</span></div>'
         + '</div></div></button>';
-    }).join('') + '</div>';
+      if (w === 7) { out += studyDivider; studyIn = true; }
+    });
+    return '<div style="display:flex;flex-direction:column;gap:12px">' + out + '</div>';
   }
   function stationFraming(w, west, ind) {
     if (west && ind.length) return 'This week sets two readings side by side. ' + west.authors + ' brings the disciplinary view, and ' + ind[0].authors + ' brings an Indigenous one. They are not the same argument, and that is the point.';
@@ -1378,7 +1384,7 @@
     var ws = journeyWeeks(), idx = ws.indexOf(w), prev = idx > 0 ? ws[idx - 1] : null, next = idx < ws.length - 1 ? ws[idx + 1] : null;
     var sec = function (id, title, inner) { return '<section id="wk-' + id + '" class="node"><h2 class="wk-sec">' + esc(title) + '</h2>' + inner + '</section>'; };
     var hero = '<section id="wk-ov" class="node jhero jfade" style="margin:0 0 16px"><div style="position:relative">'
-      + '<div class="mono" style="font-size:.7rem;letter-spacing:.08em;color:var(--red);font-weight:700;margin-bottom:8px">WEEK ' + w + '</div>'
+      + '<div class="mono" style="font-size:.7rem;letter-spacing:.08em;color:var(--red);font-weight:700;margin-bottom:8px">WEEK ' + w + ' · ' + esc(weekDate(w)) + '</div>'
       + '<h1 style="font-size:2rem;line-height:1.12;font-weight:700;margin:0 0 12px;color:var(--ink)">' + esc(weekTitle(w)) + '</h1>'
       + '<p style="font-size:1.04rem;line-height:1.6;color:var(--ink);margin:0 0 4px;max-width:64ch">' + esc(d.overview) + '</p>'
       + '<div style="font-size:1.08rem;font-weight:600;color:var(--ink);border-left:3px solid var(--red);padding-left:14px;margin:16px 0">' + esc(journeyQ(w)) + '</div>'
@@ -1507,6 +1513,53 @@
     if (a.archetype === 'capstone') { var citems = data.items || [], cn = 0; citems.forEach(function (it, i) { if (state.act['a|' + w + '|cap|' + i]) cn++; }); return cn ? ('You revisited ' + cn + ' of ' + citems.length + ' dimensions of your cartography across the term.') : '(revisit not started yet)'; }
     return '(activity not started yet)';
   }
+  var WEEK_DATES = { 1: 'Sept 11', 2: 'Sept 18', 3: 'Sept 25', 4: 'Oct 2', 5: 'Oct 9', 6: 'Oct 16', 7: 'Oct 23', 8: 'Nov 6', 9: 'Nov 13', 10: 'Nov 20', 11: 'Nov 27', 12: 'Dec 4', 13: 'Dec 11', 14: 'async by Dec 16' };
+  var STUDY_WEEK_DATE = 'Oct 26 to 30';
+  var WORK_WEEKS = [13, 14];
+  function weekDate(w) { return WEEK_DATES[w] || ''; }
+  function workWeekPage(w) {
+    var d = weekData(w) || {};
+    var ws = journeyWeeks(), idx = ws.indexOf(w), prev = idx > 0 ? ws[idx - 1] : null, next = idx < ws.length - 1 ? ws[idx + 1] : null;
+    var isFinal = (next == null);
+    var hero = '<section id="wk-ov" class="node jhero jfade" style="margin:0 0 16px"><div style="position:relative">'
+      + '<div class="mono" style="font-size:.7rem;letter-spacing:.08em;color:var(--red);font-weight:700;margin-bottom:8px">WEEK ' + w + ' · ' + esc(weekDate(w)) + ' · ' + (isFinal ? 'FINAL WEEK' : 'CAPSTONE WEEK') + '</div>'
+      + '<h1 style="font-size:2rem;line-height:1.12;font-weight:700;margin:0 0 12px;color:var(--ink)">' + esc(weekTitle(w)) + '</h1>'
+      + (d.overview ? '<p style="font-size:1.04rem;line-height:1.6;color:var(--ink);margin:0 0 4px;max-width:64ch">' + esc(d.overview) + '</p>' : '')
+      + '<div style="font-size:1.02rem;font-weight:600;color:var(--ink);border-left:3px solid var(--red);padding-left:14px;margin:16px 0">No new readings or teaching material this week. This time is yours: focus on your work' + (isFinal ? ' and close out the course. Nothing is due.' : '. Your capstone is due this week.') + '</div>'
+      + '</div></section>';
+    var act = d.activity ? '<section id="wk-do" class="node interactive"><h2 class="wk-sec">' + esc(d.activity.title) + '</h2><div class="wk-whatwhy"><b>What this is:</b> ' + esc(d.activity.what) + '<br><br><b>Why you are doing it:</b> ' + esc(d.activity.why) + '</div><button onclick="SOC.startActivity(\'' + d.activity.screen + '\',' + w + ')" class="wk-cta">Open your capstone' + ic('chevron', 17, 2.4) + '</button></section>' : '';
+    var reflect = '<section id="wk-reflect" class="node"><h2 class="wk-sec">Your reflection</h2>'
+      + (d.reflectPrompt ? '<p style="margin:0 0 8px;font-size:.95rem">' + esc(d.reflectPrompt) + '</p>' : '')
+      + '<textarea oninput="SOC.wkReflect(' + w + ',this.value)" class="wk-ta" placeholder="Your reflection...">' + esc(state.wkReflect[w] || '') + '</textarea>'
+      + '<div class="wk-savebox"><h3>Save your work for this week</h3><p style="margin:0 0 6px;font-size:.9rem">This makes one Word file (.docx) on Seneca letterhead, your record of this week.</p><button onclick="SOC.saveWeek(' + w + ')" class="wk-save">Save my work for this week (.docx)</button></div></section>';
+    var navRow = '<div style="display:flex;gap:12px;margin-top:18px;flex-wrap:wrap">'
+      + (prev != null ? '<button onclick="SOC.station(' + prev + ')" style="flex:1;min-width:180px;text-align:left;border:1px solid var(--border);background:#fff;border-radius:12px;padding:13px 16px;cursor:pointer"><div class="mono" style="font-size:.66rem;color:var(--ink-faint)">&larr; PREVIOUS</div><div style="font-size:.92rem;font-weight:700;color:var(--ink);margin-top:2px">Week ' + prev + ': ' + esc(weekTitle(prev)) + '</div></button>' : '')
+      + (next != null ? '<button onclick="SOC.station(' + next + ')" style="flex:1;min-width:180px;text-align:right;border:1px solid var(--border);background:#fff;border-radius:12px;padding:13px 16px;cursor:pointer"><div class="mono" style="font-size:.66rem;color:var(--red)">NEXT &rarr;</div><div style="font-size:.92rem;font-weight:700;color:var(--ink);margin-top:2px">Week ' + next + ': ' + esc(weekTitle(next)) + '</div></button>' : '')
+      + '</div>';
+    var rail = '<aside class="wk-rail"><div class="wk-railbox"><div class="wk-railh">IN THIS WEEK</div>'
+      + [['ov', 'This week']].concat(d.activity ? [['do', 'Your capstone']] : []).concat([['reflect', 'Reflection & save']]).map(function (it) { return '<a href="#wk-' + it[0] + '"><span class="s"></span>' + it[1] + '</a>'; }).join('')
+      + '<div class="wk-railt">' + ic('clock', 12) + ' No new material</div></div></aside>';
+    return '<div class="rise wk-grid"><section>' + hero + act + reflect + navRow + '</section>' + rail + '</div>';
+  }
+  var OVERVIEW_WEEK = 1;
+  function overviewPage(w) {
+    var d = weekData(w) || {};
+    var ws = journeyWeeks(), idx = ws.indexOf(w), next = idx < ws.length - 1 ? ws[idx + 1] : null;
+    var cname = (D.course && (D.course.name || D.course.title)) || weekTitle(w);
+    var hero = '<section id="wk-ov" class="node jhero jfade" style="margin:0 0 16px"><div style="position:relative">'
+      + '<div class="mono" style="font-size:.7rem;letter-spacing:.08em;color:var(--red);font-weight:700;margin-bottom:8px">WEEK ' + w + ' · ' + esc(weekDate(w)) + ' · COURSE OVERVIEW</div>'
+      + '<h1 style="font-size:2rem;line-height:1.12;font-weight:700;margin:0 0 12px;color:var(--ink)">' + esc(cname) + '</h1>'
+      + (d.overview ? '<p style="font-size:1.04rem;line-height:1.6;color:var(--ink);margin:0 0 4px;max-width:64ch">' + esc(d.overview) + '</p>' : '')
+      + '</div></section>';
+    var how = '<section id="wk-how" class="node"><h2 class="wk-sec">How this course works</h2>'
+      + '<p style="margin:0 0 10px;font-size:1rem;line-height:1.6">Each teaching week opens a module with its readings, a short interactive activity, and optional practice, a study guide and a knowledge check, that are never graded and never recorded. You work through the week at your own pace. Week 7 is Study Week, a break with no new work, and nothing is due in the final week.</p>'
+      + '<p style="margin:0;font-size:1rem;line-height:1.6">This week is your orientation. There are no readings and nothing to submit. When you are ready, begin with Week ' + (next != null ? next : 2) + '.</p></section>';
+    var beginRow = (next != null) ? '<div style="margin-top:18px"><button onclick="SOC.station(' + next + ')" style="border:1px solid var(--border);background:#fff;border-radius:12px;padding:13px 18px;cursor:pointer;text-align:left;min-width:220px"><div class="mono" style="font-size:.66rem;color:var(--red)">BEGIN &rarr;</div><div style="font-size:.95rem;font-weight:700;color:var(--ink);margin-top:2px">Week ' + next + ': ' + esc(weekTitle(next)) + '</div></button></div>' : '';
+    var rail = '<aside class="wk-rail"><div class="wk-railbox"><div class="wk-railh">IN THIS WEEK</div>'
+      + [['ov', 'Overview'], ['how', 'How this course works']].map(function (it) { return '<a href="#wk-' + it[0] + '"><span class="s"></span>' + it[1] + '</a>'; }).join('')
+      + '<div class="wk-railt">' + ic('clock', 12) + ' Overview, no readings</div></div></aside>';
+    return '<div class="rise wk-grid"><section>' + hero + how + beginRow + '</section>' + rail + '</div>';
+  }
   var STUDY_WEEK = 7;
   function studyWeekPage(w) {
     var ws = journeyWeeks(), idx = ws.indexOf(w), prev = idx > 0 ? ws[idx - 1] : null, next = idx < ws.length - 1 ? ws[idx + 1] : null;
@@ -1532,7 +1585,8 @@
     return '<div class="rise wk-grid"><section>' + hero + catchup + kc + navRow + '</section>' + rail + '</div>';
   }
   function weekStation(w) {
-    if (w === STUDY_WEEK) return studyWeekPage(w);
+    if (w === OVERVIEW_WEEK) return overviewPage(w);
+    if (WORK_WEEKS.indexOf(w) >= 0) return workWeekPage(w);
     var d = weekData(w);
     if (d) return weekPage(w, d);
     var ws = journeyWeeks(), idx = ws.indexOf(w), recs = recordsForWeek(w);
