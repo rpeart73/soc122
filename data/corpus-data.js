@@ -1,6 +1,6 @@
 window.SOC122 = {
  "course": {
-  "code": "SOC122", "mode": "Course Companion",
+  "code": "SOC122", "mode": "Instructor-Created Companion",
   "name": "Introduction to the Social Sciences",
   "frame": "Two-Eyed Seeing (Etuaptmumk)",
   "blackboardNote": "A companion to Blackboard. Official records, discussion, and submission live in Blackboard."
