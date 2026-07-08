@@ -97,7 +97,7 @@ window.SOC122 = {
   "4": "Truth and Reconciliation",
   "5": "Research Methods",
   "6": "Anthropology",
-  "7": "Knowledge Check Week",
+  "7": "Cumulative Review Week",
   "8": "Sociology Part 1",
   "9": "Sociology Part 2",
   "10": "Psychology Part 1",
