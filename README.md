@@ -1,6 +1,6 @@
-# SOC122 Corpus
+# SOC122 Companion Website
 
-The reading room for **SOC122: Introduction to the Social Sciences** at Seneca Polytechnic.
+Instructor-created companion website for **SOC122: Introduction to the Social Sciences** at Seneca Polytechnic.
 
 A student-facing source library: search and filter the course readings, move through the course by week, drill into one source, and hold up to three readings side by side in the compare view. Per Raymond's 2026-07-03 directive for this introductory gen-ed course, the compare view uses BOTH approaches: the app can show a worked weaving for any pair (attributed, both eyes kept whole, labelled as a demonstration), and every weaving hands the integration back to the student, whose own weaving is framed as the one that counts. The Week 14 capstone synthesis remains the student's own work. The current data set has 22 readings, 56 glossary concepts, and 231 authored pair weavings.
 
