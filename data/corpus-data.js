@@ -1260,7 +1260,7 @@ window.SOC122 = {
   },
   {
    "term": "Synthesis",
-   "def": "Drawing the whole course together into a coherent, usable understanding. At the end of the term, synthesis means seeing how the disciplines, concepts, and ways of knowing connect into a single way of looking at the human world. It is the capstone habit the course has been practising, where the parts finally add up to more than a list of things learned.",
+   "def": "Drawing the whole course together into a coherent, usable understanding. At the end of the term, synthesis means seeing how the disciplines, concepts, and ways of knowing connect into a single way of looking at the human world. It is the closing habit the course has been practising, where the parts finally add up to more than a list of things learned.",
    "cite": "Marshall, A. (2017). Two-Eyed Seeing: Elder Albert Marshall's guiding principle. Thinkers Lodge, Centre for Local Prosperity.",
    "week": 14
   }
