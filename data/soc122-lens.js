@@ -1,4 +1,4 @@
-/* SOC122 Field Lens: per-area, per-week framing hooks (plain-language). */
+/* SOC122 Field Lens: per-area, per-week framing hooks (clear). */
 window.SOC122_LENS = {
  "byArea": {
   "Aviation": {

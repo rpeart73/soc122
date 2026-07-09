@@ -1,4 +1,4 @@
-/* SOC122 Career Choices (plain-language; byField + grounded byProgram). */
+/* SOC122 Career Choices (clear; byField + grounded byProgram). */
 window.SOC122_CAREER = {
  "intro": "SOC122 teaches you to understand people and society through two ways of knowing at once. You learn to hold both together, without letting one take over the other. This is not just a classroom skill. It follows you into whatever field you are heading toward.",
  "prompt": "Pick your field of study above. This course will show you where its ideas land in your future work.",

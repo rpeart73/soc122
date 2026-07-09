@@ -14,7 +14,7 @@
   var VKEY = SKEY + '.view.v1';
   var HKEY = SKEY + '.hardResetNext';
   function load() { try { var o = JSON.parse(localStorage.getItem(SKEY) || '{}'); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } }
-  function persist() { try { localStorage.setItem(SKEY, JSON.stringify({ saved: state.saved, cmpNotes: state.cmpNotes, rcNotes: state.rcNotes, sgNotes: state.sgNotes, sgTick: state.sgTick, mapNotes: state.mapNotes, wkCheck: state.wkCheck, wkReflect: state.wkReflect, wkOpen: state.wkOpen, actResult: state.actResult, mcSel: state.mcSel, mcConf: state.mcConf, kcShort: state.kcShort, kcShortRate: state.kcShortRate, kcHist: state.kcHist, mediaNotes: state.mediaNotes, careerReflect: state.careerReflect, rl: state.rl, studentName: state.studentName, visits: state.visits })); } catch (e) {} }
+  function persist() { try { localStorage.setItem(SKEY, JSON.stringify({ saved: state.saved, cmpNotes: state.cmpNotes, rcNotes: state.rcNotes, sgNotes: state.sgNotes, sgTick: state.sgTick, mapNotes: state.mapNotes, wkCheck: state.wkCheck, wkReflect: state.wkReflect, actResult: state.actResult, mcSel: state.mcSel, mcConf: state.mcConf, kcShort: state.kcShort, kcShortRate: state.kcShortRate, kcHist: state.kcHist, mediaNotes: state.mediaNotes, careerReflect: state.careerReflect, rl: state.rl, studentName: state.studentName, visits: state.visits })); } catch (e) {} }
   function loadView() { try { var o = JSON.parse(sessionStorage.getItem(VKEY) || '{}'); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } }
   function clearView() { try { sessionStorage.removeItem(VKEY); sessionStorage.removeItem(HKEY); } catch (e) {} }
   function shouldResumeView(v) {
@@ -69,7 +69,7 @@
     sgTick: (saved0.sgTick || {}),
     wkCheck: (saved0.wkCheck && typeof saved0.wkCheck === 'object') ? saved0.wkCheck : {},
     wkReflect: (saved0.wkReflect && typeof saved0.wkReflect === 'object') ? saved0.wkReflect : {},
-    wkOpen: (saved0.wkOpen && typeof saved0.wkOpen === 'object') ? saved0.wkOpen : {},
+    wkOpen: {},
     studentName: typeof saved0.studentName === 'string' ? saved0.studentName.slice(0, 40) : '',
     visits: (saved0.visits && typeof saved0.visits === 'object') ? saved0.visits : {},
     act: (resumeView0 && view0.act && typeof view0.act === 'object') ? view0.act : {},
@@ -2241,7 +2241,7 @@
     var concepts = sec('con', 'Key concepts', '<p class="wk-hint">These are the week\'s big ideas, explained. Read them to understand the argument; this is what your discussions and written work draw on.</p>' + d.concepts.map(function (c) { return '<div class="wk-concept"><h3>' + esc(c.h) + '</h3><p>' + esc(c.body) + ' <span class="wk-cite">(' + esc(c.cite) + ')</span></p></div>'; }).join(''));
     var terms = sec('term', 'Key terms', '<p class="wk-hint">These are the precise vocabulary. Learn them to speak and write accurately; they feed the flashcards and Knowledge Check.</p>' + d.terms.map(function (t) { return '<div class="wk-term"><b>' + esc(t.term) + '</b>: ' + esc(t.def) + ' <span class="wk-cite">(' + esc(t.cite) + ')</span></div>'; }).join(''));
     var readings = sec('read', 'Readings', d.readings.map(function (r) { var resolves = (typeof rec === 'function') && r.id && rec(r.id); var tail = resolves ? '<button onclick="SOC.read(\'' + r.id + '\')" class="wk-scope">' + esc(r.scope || 'Open the reading') + ' &#8599;</button>' : (r.scope ? '<div class="wk-scope" style="background:none;border:none;color:var(--ink-faint);padding:6px 0;cursor:default">' + esc(r.scope) + '</div>' : ''); return '<div class="wk-read"><div class="ref">' + r.apa + '</div>' + tail + '</div>'; }).join('') + readingRescueSection(w, d));
-    var watch = d.deck ? '<section id="wk-watch" class="node"><h2 class="wk-sec">Walkthrough</h2><p style="margin:0 0 12px;font-size:.92rem">Watch this week\'s narrated walkthrough.</p><div class="wk-deck"><iframe src="./walkthroughs/' + d.deck + '/index.html?v=5" title="Week ' + w + ' walkthrough" loading="lazy" allowfullscreen></iframe></div><a href="./walkthroughs/' + d.deck + '/index.html?v=5" target="_blank" rel="noopener" class="wk-fs">Open the walkthrough fullscreen &#8599;</a></section>' : '';
+    var watch = d.deck ? '<section id="wk-watch" class="node"><h2 class="wk-sec">Walkthrough</h2><p style="margin:0 0 12px;font-size:.92rem">A short, immersive walk through this week\'s core idea, with its diagrams. Step through it right here.</p><button type="button" class="wk-cta" style="margin:0" onclick="SOC.playWalk(' + w + ')">Play the walkthrough</button></section>' : '';
     var act = '<section id="wk-do" class="node interactive"><h2 class="wk-sec">The activity: ' + esc(d.activity.title) + '</h2><div class="wk-whatwhy"><b>What this is:</b> ' + esc(d.activity.what) + '<br><br><b>Why you are doing it:</b> ' + esc(d.activity.why) + '</div>' + lensActivityBlock(w, d.activity, false) + '<button onclick="SOC.startActivity(\'' + d.activity.screen + '\',' + w + ')" class="wk-cta">Start the activity' + ic('chevron', 17, 2.4) + '</button><p style="margin:10px 0 0;font-size:.74rem;color:var(--ink-faint)">Every activity works the same way: predict, then do it, then see the result, then name it with the reading.</p></section>';
     var reflect = '<section id="wk-reflect" class="node"><h2 class="wk-sec">Reflection</h2>'
       + '<div class="wk-ocheck"><div class="mono" style="font-size:.78rem;font-weight:700;color:var(--ink-faint);margin-bottom:7px">YOU CAN NOW</div>' + d.youcan.map(function (y) { return '<div class="wk-row"><span class="t">' + ic('check', 14, 2.6) + '</span>' + esc(y) + '</div>'; }).join('') + '</div>'
@@ -3015,22 +3015,33 @@
     var note = state.mediaNotes && state.mediaNotes[v.key] ? state.mediaNotes[v.key] : '';
     return '<article class="vid-card"><div class="vid-frame">' + videoEmbed(v) + '</div><div class="vid-copy"><div class="mono">WEEK ' + v.week + ' &middot; ' + esc(v.kind || 'Media') + ' &middot; ' + esc(v.source) + '</div><h2>' + esc(v.title) + '</h2><h3>' + esc(v.scholar) + '</h3><p>' + esc(v.synopsis) + '</p><div class="vid-watch"><b>Watch for</b><ul>' + v.watchFor.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div><div class="vid-read"><b>Then read</b><span>' + esc(v.readNext) + '</span></div>' + (v.fieldPrompt ? '<div class="vid-field"><b>Use it in your program</b><span>' + esc(v.fieldPrompt) + '</span></div>' : '') + '<label class="vid-note"><b>Reading Rescue note</b><span>After the media, write one sentence you can prove from the reading.</span><textarea oninput="SOC.mediaNote(\'' + esc(v.key) + '\',this.value)" placeholder="One evidence-backed sentence...">' + esc(note) + '</textarea></label><a href="' + esc(v.url) + '" target="_blank" rel="noopener">Open source page <span aria-hidden="true">&#8599;</span></a></div></article>';
   }
+  function walkPad(w) { return (w < 10 ? '0' : '') + w; }
+  function walkFig(w, idx) {
+    var d = weekData(w);
+    if (!d || !d.deck) return null;
+    var code = (D.course && D.course.code) || '';
+    var sufs = code === 'PSY355' ? ['-a', '-b', '-c'] : code === 'SOC122' ? ['-two-eyed', '-class-path', '-read-practice'] : ['', '-b', '-c'];
+    if (idx >= sufs.length) return null;
+    return 'walkthroughs/' + d.deck + '/images/fig-week' + walkPad(w) + sufs[idx] + '.svg';
+  }
   function walkSlides(w) {
     var d = weekData(w);
     if (!d) return [];
     var slides = [];
     slides.push({ kind: 'cover', title: weekTitle(w), question: (d.guiding && d.guiding[0]) || journeyQ(w), lead: firstSentence(d.overview || '') });
-    (d.concepts || []).forEach(function (c) { slides.push({ kind: 'concept', h: c.h, body: c.body, cite: c.cite }); });
+    (d.concepts || []).forEach(function (c, ci) { slides.push({ kind: 'concept', h: c.h, body: c.body, cite: c.cite, fig: walkFig(w, ci) }); });
     if (d.guiding && d.guiding.length > 1) slides.push({ kind: 'questions', items: d.guiding.slice(0, 4) });
     slides.push({ kind: 'close', youcan: (d.youcan || []).slice(0, 3), reflect: d.reflectPrompt || '' });
     return slides;
   }
+  function walkTheme() { var r = rlState(); return r.walkTheme === 'light' ? 'light' : 'dark'; }
   function walkOverlay() {
     if (state.walkWeek == null) return '';
     var w = state.walkWeek, slides = walkSlides(w);
     if (!slides.length) return '';
     var i = Math.max(0, Math.min(slides.length - 1, state.walkSlide));
-    var s = slides[i];
+    var s = slides[i], theme = walkTheme();
+    var figHtml = function (src) { return src ? '<div class="walk-fig"><img src="' + esc(src) + '" alt="" onerror="var b=this.closest(&quot;.walk-fig&quot;);if(b)b.style.display=&quot;none&quot;"></div>' : ''; };
     var body = '';
     if (s.kind === 'cover') {
       body = '<div class="walk-kicker">WEEK ' + w + ' WALKTHROUGH</div>'
@@ -3038,7 +3049,8 @@
         + (s.lead ? '<p class="walk-lead">' + esc(s.lead) + '</p>' : '')
         + '<div class="walk-q"><span>The question this week</span><b>' + esc(s.question) + '</b></div>';
     } else if (s.kind === 'concept') {
-      body = '<div class="walk-kicker">KEY IDEA</div><h2 class="walk-h">' + esc(s.h) + '</h2>'
+      body = figHtml(s.fig)
+        + '<div class="walk-kicker">KEY IDEA</div><h2 class="walk-h">' + esc(s.h) + '</h2>'
         + '<p class="walk-body">' + esc(s.body) + '</p>'
         + (s.cite ? '<div class="walk-cite">' + esc(s.cite) + '</div>' : '');
     } else if (s.kind === 'questions') {
@@ -3049,7 +3061,8 @@
         + '<button type="button" class="walk-cta" onclick="SOC.walkGoWeek()">Open Week ' + w + ' in full</button>';
     }
     var dots = slides.map(function (_, k) { return '<button type="button" class="walk-dot' + (k === i ? ' on' : '') + '" onclick="SOC.walkGoto(' + k + ')" aria-label="Slide ' + (k + 1) + '"></button>'; }).join('');
-    return '<div id="walk-overlay" role="dialog" aria-modal="true" aria-label="Week ' + w + ' walkthrough" tabindex="-1">'
+    return '<div id="walk-overlay" class="walk-' + theme + '" role="dialog" aria-modal="true" aria-label="Week ' + w + ' walkthrough" tabindex="-1">'
+      + '<button type="button" class="walk-theme" onclick="SOC.walkTheme()" aria-label="Switch background between light and dark">' + (theme === 'dark' ? 'Light background' : 'Dark background') + '</button>'
       + '<button type="button" class="walk-close" onclick="SOC.walkClose()" aria-label="Close the walkthrough">' + ic('x', 20) + '</button>'
       + '<div class="walk-stage"><div class="walk-slide walk-anim" key="' + i + '">' + body + '</div></div>'
       + '<div class="walk-bar"><button type="button" class="walk-prev" onclick="SOC.walkNav(-1)"' + (i === 0 ? ' disabled' : '') + ' aria-label="Previous slide">' + ic('chevron', 20, 2.4) + '</button>'
@@ -3062,14 +3075,12 @@
     var ws = [];
     for (var w = 1; w <= 14; w++) { var d = weekData(w); if (d && d.deck) ws.push({ w: w, deck: d.deck }); }
     var cards = ws.map(function (it) {
-      var url = './walkthroughs/' + it.deck + '/index.html?v=4';
       return '<article class="vid-card" style="padding:0"><div style="padding:18px 20px">'
         + '<div class="mono" style="font-size:.7rem;letter-spacing:.06em;color:var(--red);font-weight:700;margin-bottom:6px">WEEK ' + it.w + '</div>'
         + '<h2 style="font-size:1.0625rem;margin:0 0 4px;color:#15171C">' + esc(weekTitle(it.w)) + '</h2>'
         + '<p style="font-size:.875rem;color:#474C57;margin:0 0 14px">A short slide walkthrough of this week\'s core idea, built to step through at your own pace.</p>'
         + '<div style="display:flex;gap:9px;flex-wrap:wrap">'
         + '<button type="button" class="wk-cta" style="margin:0" onclick="SOC.playWalk(' + it.w + ')">Play the walkthrough</button>'
-        + '<a href="' + url + '" target="_blank" rel="noopener" style="font-size:.8125rem;font-weight:600;color:#1B2A4A;align-self:center;text-decoration:underline">Open the full slides <span aria-hidden="true">&#8599;</span></a>'
         + '<button type="button" onclick="SOC.station(' + it.w + ')" style="border:1px solid #DEE3EA;background:#fff;color:#1B2A4A;border-radius:9px;font-size:.85rem;font-weight:600;padding:8px 14px;cursor:pointer">Go to Week ' + it.w + '</button>'
         + '</div></div></article>';
     }).join('');
@@ -3608,6 +3619,7 @@
     walkGoto: function (k) { state.walkSlide = k; renderKeepScroll(); },
     walkClose: function () { state.walkWeek = null; renderKeepScroll(); },
     walkGoWeek: function () { var w = state.walkWeek; state.walkWeek = null; SOC.station(w); },
+    walkTheme: function () { var r = rlState(); r.walkTheme = (r.walkTheme === 'light' ? 'dark' : 'light'); persist(); renderKeepScroll(); },
 
     hideSynthesis: function () { state.showSynthesis = false; render(); },
     setLens: function (l) { state.lens = l; render(); },
@@ -3743,6 +3755,7 @@
     flip: function (el) { var c = el && (el.classList && el.classList.contains('flip') ? el : (el.closest ? el.closest('.flip') : null)); if (c) c.classList.toggle('flipped'); },
   };
 
+  state.wkOpen = {};
   render();
   try { if (location.search) history.replaceState(null, '', location.pathname + location.hash); } catch (e) {}
   if (routePart0) scrollWeekPart(routePart0);
