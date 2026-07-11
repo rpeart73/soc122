@@ -2293,10 +2293,21 @@
       + '</section>';
   }
 
+  function weekImageCard(w) {
+    var IM = window.SOC122_IMAGES || {};
+    var m = IM[w];
+    if (!m || !m.file) return '';
+    return '<section id="wk-image" class="node"><h2 class="wk-sec">This week\'s image</h2>'
+      + '<figure class="wk-figure"><img src="' + esc(m.file) + '" alt="' + esc(m.alt || '') + '" loading="lazy" onerror="this.remove()">'
+      + '<figcaption><b>' + esc(m.name) + '</b>' + (m.context ? '<span>' + esc(m.context) + '</span>' : '')
+      + '<small>' + esc(m.credit) + (m.source ? ' &middot; <a href="' + esc(m.source) + '" target="_blank" rel="noopener">source</a>' : '') + '</small></figcaption></figure></section>';
+  }
+
   function weekPage(w, d) {
     var ws = journeyWeeks(), idx = ws.indexOf(w), prev = idx > 0 ? ws[idx - 1] : null, next = idx < ws.length - 1 ? ws[idx + 1] : null;
     var sec = function (id, title, inner) { return '<section id="wk-' + id + '" class="node"><h2 class="wk-sec">' + esc(title) + '</h2>' + inner + '</section>'; };
     var hero = weekHero(w, d, { startPart: 'pre', startLabel: 'Start this week', label: deliveryMode(w).label });
+    var img = weekImageCard(w);
     var pre = sec('pre', 'Before you begin', '<p class="wk-hint">A quick read on where your understanding sits right now, no grade. Rate each idea, then meet them again at the end to see how far your thinking moves.</p>' + wkChecks(w, 'pre', d));
     var purpose = '<section id="wk-learn" class="node"><h2 class="wk-sec">Purpose</h2><p style="margin:0">' + esc(d.purpose) + '</p></section>';
     var outcomes = sec('out', 'Learning outcomes', '<p style="margin:0 0 8px;font-size:.9rem">By the end of this week, you will be able to:</p>' + d.outcomes.map(function (o) { return '<div class="wk-oc"><span class="b"></span>' + esc(o) + '</div>'; }).join(''));
@@ -2330,10 +2341,10 @@
     var kcR = kcSection(w);
     var kc = kcR.html, kcItems = kcR.items;
     var rail = '<aside class="wk-rail"><div class="wk-railbox"><div class="wk-railh">IN THIS WEEK</div>'
-      + [['ov', 'Overview'], ['mode', 'How this week works'], ['rec', deliveryMode(w).kind === 'live' ? 'Class recording' : 'Instructor update'], ['pre', 'Before you begin'], ['learn', 'Purpose'], ['out', 'Learning outcomes'], ['gq', 'Guiding questions']].concat(programLens ? [['lens', 'For your program']] : []).concat(media ? [['media', 'Watch and question']] : []).concat([['con', 'Key concepts'], ['term', 'Key terms'], ['read', 'Readings']]).concat(d.deck ? [['watch', 'Walkthrough']] : []).concat(programCase ? [['case', 'Case study']] : []).concat([['do', 'The activity'], ['reflect', 'Reflection']]).concat(sg ? [['sg', 'Study Guide']] : []).concat(kcItems.length ? [['kc', 'Knowledge Check']] : []).concat([['notes', 'Generate notes']]).map(function (it) { return '<a href="#wk-' + it[0] + '"><span class="s"></span>' + it[1] + '</a>'; }).join('')
+      + [['ov', 'Overview'], ['mode', 'How this week works'], ['rec', deliveryMode(w).kind === 'live' ? 'Class recording' : 'Instructor update'], ['pre', 'Before you begin'], ['learn', 'Purpose'], ['out', 'Learning outcomes'], ['gq', 'Guiding questions']].concat(img ? [['image', "This week's image"]] : []).concat(programLens ? [['lens', 'For your program']] : []).concat(media ? [['media', 'Watch and question']] : []).concat([['con', 'Key concepts'], ['term', 'Key terms'], ['read', 'Readings']]).concat(d.deck ? [['watch', 'Walkthrough']] : []).concat(programCase ? [['case', 'Case study']] : []).concat([['do', 'The activity'], ['reflect', 'Reflection']]).concat(sg ? [['sg', 'Study Guide']] : []).concat(kcItems.length ? [['kc', 'Knowledge Check']] : []).concat([['notes', 'Generate notes']]).map(function (it) { return '<a href="#wk-' + it[0] + '"><span class="s"></span>' + it[1] + '</a>'; }).join('')
       + '<div class="wk-railt">' + ic('calendar', 12) + ' ' + esc(deliveryMode(w).short) + '</div></div></aside>';
     var collBar = '<div class="wk-coll-bar" role="group" aria-label="Section display controls"><button type="button" onclick="SOC.wkCollAll(' + w + ',1)">Collapse all sections</button><span>Weeks start folded so you can see the whole map. Up to two sections stay open at once; opening a third closes the earliest one. Sections fold again when you leave the week.</span></div>';
-    return '<div class="rise">' + hero + deliveryNotice(w) + recordingSection(w) + '<div class="wk-grid"><main>' + collBar + pre + purpose + outcomes + guiding + programLens + media + concepts + terms + readings + watch + programCase + act + reflect + sg + kc + notes + navRow + '</main>' + rail + '</div></div>';
+    return '<div class="rise">' + hero + deliveryNotice(w) + recordingSection(w) + '<div class="wk-grid"><main>' + collBar + pre + purpose + outcomes + guiding + img + programLens + media + concepts + terms + readings + watch + programCase + act + reflect + sg + kc + notes + navRow + '</main>' + rail + '</div></div>';
   }
   /* ---------- generic week activities: match / scenario / toggle / assemble / lab ---------- */
   function actCard(inner) { return '<div style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin:0 0 12px">' + inner + '</div>'; }
@@ -2556,7 +2567,8 @@
     var rail = '<aside class="wk-rail"><div class="wk-railbox"><div class="wk-railh">IN THIS WEEK</div>'
       + [['ov', 'This week'], ['mode', 'How this week works'], ['rec', 'Instructor update']].concat(d.activity ? [['do', 'Your final project']] : []).concat([['reflect', 'Reflection'], ['notes', 'Generate notes']]).map(function (it) { return '<a href="#wk-' + it[0] + '"><span class="s"></span>' + it[1] + '</a>'; }).join('')
       + '<div class="wk-railt">' + ic('clock', 12) + ' No new material</div></div></aside>';
-    return '<div class="rise">' + hero + deliveryNotice(w) + recordingSection(w) + '<div class="wk-grid"><section>' + act + reflect + notes + navRow + '</section>' + rail + '</div></div>';
+    var img = weekImageCard(w);
+    return '<div class="rise">' + hero + deliveryNotice(w) + recordingSection(w) + '<div class="wk-grid"><section>' + img + act + reflect + notes + navRow + '</section>' + rail + '</div></div>';
   }
   var OVERVIEW_WEEK = 1;
   function overviewPage(w) {
@@ -2577,9 +2589,10 @@
       + '<p style="margin:0;font-size:1rem;line-height:1.6">This week is your orientation. There are no readings and nothing to submit. When you are ready, begin with Week ' + (next != null ? next : 2) + '.</p></section>';
     var beginRow = (next != null) ? '<div style="margin-top:18px"><button onclick="SOC.station(' + next + ')" style="border:1px solid var(--border);background:#fff;border-radius:12px;padding:13px 18px;cursor:pointer;text-align:left;min-width:220px"><div class="mono" style="font-size:.66rem;color:var(--red)">BEGIN &rarr;</div><div style="font-size:.95rem;font-weight:700;color:var(--ink);margin-top:2px">Week ' + next + ': ' + esc(weekTitle(next)) + '</div></button></div>' : '';
     var rail = '<aside class="wk-rail"><div class="wk-railbox"><div class="wk-railh">IN THIS WEEK</div>'
-      + [['ov', 'Overview'], ['mode', 'How this week works'], ['rec', 'Class recording'], ['how', 'How this course works']].map(function (it) { return '<a href="#wk-' + it[0] + '"><span class="s"></span>' + it[1] + '</a>'; }).join('')
+      + [['ov', 'Overview'], ['mode', 'How this week works'], ['rec', 'Class recording'], ['how', 'How this course works'], ['image', "This week's image"]].map(function (it) { return '<a href="#wk-' + it[0] + '"><span class="s"></span>' + it[1] + '</a>'; }).join('')
       + '<div class="wk-railt">' + ic('clock', 12) + ' Overview, no readings</div></div></aside>';
-    return '<div class="rise">' + hero + deliveryNotice(w) + recordingSection(w) + '<div class="wk-grid"><section>' + how + beginRow + '</section>' + rail + '</div></div>';
+    var img = weekImageCard(w);
+    return '<div class="rise">' + hero + deliveryNotice(w) + recordingSection(w) + '<div class="wk-grid"><section>' + how + img + beginRow + '</section>' + rail + '</div></div>';
   }
   var STUDY_WEEK = 7;
   function studyWeekPage(w) {
@@ -2606,7 +2619,7 @@
     var rail = '<aside class="wk-rail"><div class="wk-railbox"><div class="wk-railh">IN THIS WEEK</div>'
       + [['ov', 'Study Week']].concat(priors.length ? [['catch', 'Catch up and review']] : []).concat(kcItems.length ? [['kc', 'Knowledge Check']] : []).map(function (it) { return '<a href="#wk-' + it[0] + '"><span class="s"></span>' + it[1] + '</a>'; }).join('')
       + '<div class="wk-railt">' + ic('clock', 12) + ' No classes this week</div></div></aside>';
-    return '<div class="rise">' + hero + '<div class="wk-grid"><section>' + catchup + kc + navRow + '</section>' + rail + '</div></div>';
+    return '<div class="rise">' + hero + '<div class="wk-grid"><section>' + weekImageCard(w) + catchup + kc + navRow + '</section>' + rail + '</div></div>';
   }
   function kcWeekPage(w) {
     var ws = journeyWeeks(), idx = ws.indexOf(w), prev = idx > 0 ? ws[idx - 1] : null, next = idx < ws.length - 1 ? ws[idx + 1] : null;
@@ -2626,7 +2639,7 @@
       + (prev != null ? '<button onclick="SOC.station(' + prev + ')" style="flex:1;min-width:190px;text-align:left;border:1px solid var(--border);background:#fff;border-radius:12px;padding:13px 16px;cursor:pointer"><div class="mono" style="font-size:.6875rem;color:var(--ink-faint)">&larr; PREVIOUS</div><div style="font-size:.9375rem;font-weight:600;color:var(--ink);margin-top:2px">Week ' + prev + ': ' + esc(weekTitle(prev)) + '</div></button>' : '')
       + (next != null ? '<button onclick="SOC.station(' + next + ')" style="flex:1;min-width:190px;text-align:right;border:1px solid var(--border);background:#fff;border-radius:12px;padding:13px 16px;cursor:pointer"><div class="mono" style="font-size:.6875rem;color:var(--red)">NEXT &rarr;</div><div style="font-size:.9375rem;font-weight:600;color:var(--ink);margin-top:2px">Week ' + next + ': ' + esc(weekTitle(next)) + '</div></button>' : '')
       + '</div>';
-    return '<div class="rise">' + hero + deliveryNotice(w) + recordingSection(w) + kc + navRow + '</div>';
+    return '<div class="rise">' + hero + deliveryNotice(w) + recordingSection(w) + weekImageCard(w) + kc + navRow + '</div>';
   }
   function weekStation(w) {
     if (w === OVERVIEW_WEEK) return overviewPage(w);
