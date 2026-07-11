@@ -1,0 +1,132 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//SOC122//Companion//EN
+CALSCALE:GREGORIAN
+X-WR-CALNAME:SOC122 Course Schedule and Key Dates (Fall 2026)
+X-WR-TIMEZONE:America/Toronto
+BEGIN:VEVENT
+UID:soc122-mode-w1@rpeart73.github.io
+DTSTART;VALUE=DATE:20260911
+DTEND;VALUE=DATE:20260912
+SUMMARY:SOC122 Week 1: live class
+DESCRIPTION:Course orientation and shared start. The week page includes the class recording space.
+END:VEVENT
+BEGIN:VEVENT
+UID:soc122-mode-w2@rpeart73.github.io
+DTSTART;VALUE=DATE:20260918
+DTEND;VALUE=DATE:20260919
+SUMMARY:SOC122 Week 2: live class
+DESCRIPTION:Two-Eyed Seeing Journal begins. Prepare on the week page and return after class for the recording.
+END:VEVENT
+BEGIN:VEVENT
+UID:soc122-mode-w3@rpeart73.github.io
+DTSTART;VALUE=DATE:20260925
+DTEND;VALUE=DATE:20260926
+SUMMARY:SOC122 Week 3: live class
+DESCRIPTION:Prepare on the week page and return after class for reflection and the recording.
+END:VEVENT
+BEGIN:VEVENT
+UID:soc122-mode-w4@rpeart73.github.io
+DTSTART;VALUE=DATE:20261002
+DTEND;VALUE=DATE:20261003
+SUMMARY:SOC122 Week 4: asynchronous independent learning
+DESCRIPTION:Independent application of the early foundations. Personal Cartography 1 is due. Check Blackboard for the exact submission time.
+BEGIN:VALARM
+TRIGGER:-P2D
+ACTION:DISPLAY
+DESCRIPTION:SOC122 Personal Cartography 1 deadline in 2 days
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:soc122-mode-w5@rpeart73.github.io
+DTSTART;VALUE=DATE:20261009
+DTEND;VALUE=DATE:20261010
+SUMMARY:SOC122 Week 5: live class
+DESCRIPTION:Prepare on the week page and return after class for reflection and the recording.
+END:VEVENT
+BEGIN:VEVENT
+UID:soc122-mode-w6@rpeart73.github.io
+DTSTART;VALUE=DATE:20261016
+DTEND;VALUE=DATE:20261017
+SUMMARY:SOC122 Week 6: live class
+DESCRIPTION:Prepare on the week page and return after class for reflection and the recording.
+END:VEVENT
+BEGIN:VEVENT
+UID:soc122-mode-w7@rpeart73.github.io
+DTSTART;VALUE=DATE:20261023
+DTEND;VALUE=DATE:20261024
+SUMMARY:SOC122 Week 7: live class and cumulative review
+DESCRIPTION:Final live class before Study Week.
+END:VEVENT
+BEGIN:VEVENT
+UID:soc122-study-week@rpeart73.github.io
+DTSTART;VALUE=DATE:20261026
+DTEND;VALUE=DATE:20261031
+SUMMARY:SOC122 Study Week: no class and no new module
+DESCRIPTION:Use the week to rest. No graded work is due.
+END:VEVENT
+BEGIN:VEVENT
+UID:soc122-mode-w8@rpeart73.github.io
+DTSTART;VALUE=DATE:20261106
+DTEND;VALUE=DATE:20261107
+SUMMARY:SOC122 Week 8: live class; Knowledge in Two Eyes due
+DESCRIPTION:Check Blackboard for the exact submission time.
+BEGIN:VALARM
+TRIGGER:-P2D
+ACTION:DISPLAY
+DESCRIPTION:SOC122 Knowledge in Two Eyes deadline in 2 days
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:soc122-mode-w9@rpeart73.github.io
+DTSTART;VALUE=DATE:20261113
+DTEND;VALUE=DATE:20261114
+SUMMARY:SOC122 Week 9: live class
+DESCRIPTION:Prepare on the week page and return after class for reflection and the recording.
+END:VEVENT
+BEGIN:VEVENT
+UID:soc122-mode-w10@rpeart73.github.io
+DTSTART;VALUE=DATE:20261120
+DTEND;VALUE=DATE:20261121
+SUMMARY:SOC122 Week 10: live class
+DESCRIPTION:Prepare on the week page and return after class for reflection and the recording.
+END:VEVENT
+BEGIN:VEVENT
+UID:soc122-mode-w11@rpeart73.github.io
+DTSTART;VALUE=DATE:20261127
+DTEND;VALUE=DATE:20261128
+SUMMARY:SOC122 Week 11: asynchronous independent learning
+DESCRIPTION:Independent synthesis before the final substantive live class. No live class.
+END:VEVENT
+BEGIN:VEVENT
+UID:soc122-mode-w12@rpeart73.github.io
+DTSTART;VALUE=DATE:20261204
+DTEND;VALUE=DATE:20261205
+SUMMARY:SOC122 Week 12: final substantive live class; two assessments due
+DESCRIPTION:Two-Eyed Seeing Journal final check and A Question of Reconciliation are due. Check Blackboard for the exact submission time.
+BEGIN:VALARM
+TRIGGER:-P2D
+ACTION:DISPLAY
+DESCRIPTION:SOC122 Week 12 deadlines in 2 days
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:soc122-mode-w13@rpeart73.github.io
+DTSTART;VALUE=DATE:20261207
+DTEND;VALUE=DATE:20261212
+SUMMARY:SOC122 Week 13: office hours and supported asynchronous completion
+DESCRIPTION:No lecture. The usual class window becomes office hours for focused completion. Revisiting Personal Cartography is due December 11. Office hours are not recorded.
+BEGIN:VALARM
+TRIGGER:-P2D
+ACTION:DISPLAY
+DESCRIPTION:SOC122 final project deadline in 2 days
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:soc122-mode-w14@rpeart73.github.io
+DTSTART;VALUE=DATE:20261214
+DTEND;VALUE=DATE:20261217
+SUMMARY:SOC122 Week 14: asynchronous office hours and course closure
+DESCRIPTION:No lecture. Optional office hours, feedback, and final questions. No graded work is due. Office hours are not recorded.
+END:VEVENT
+END:VCALENDAR
