@@ -197,7 +197,7 @@
   }
   function sourceButton(r) {
     if (!sourceUrl(r)) return '';
-    return '<button onclick="SOC.source(\'' + r.id + '\')" style="width:100%;margin:8px 0 9px;display:inline-flex;align-items:center;justify-content:center;gap:7px;background:#fff;border:1px solid #DEE3EA;color:#1552D8;border-radius:9px;padding:9px 11px;font-size:.8125rem;font-weight:600;cursor:pointer">' + esc(sourceLabel(r)) + '<span style="display:flex">' + ic('external', 14) + '</span></button>';
+    return '<button onclick="SOC.source(\'' + r.id + '\')" style="width:100%;margin:8px 0 9px;display:inline-flex;align-items:center;justify-content:center;gap:7px;background:#fff;border:1px solid #DEE3EA;color:#961A13;border-radius:9px;padding:9px 11px;font-size:.8125rem;font-weight:600;cursor:pointer">' + esc(sourceLabel(r)) + '<span style="display:flex">' + ic('external', 14) + '</span></button>';
   }
   function isPdfReading(r) {
     var u = readUrl(r) || '';
@@ -579,13 +579,13 @@
   }
 
   /* ---------- style builders ---------- */
-  function saveBtnStyle(on) { return 'display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;border:1px solid ' + (on ? '#f0d89a' : '#DEE3EA') + ';background:' + (on ? '#FCEFD2' : '#fff') + ';color:' + (on ? '#B7791F' : '#6B7280') + ';flex:none'; }
-  function cmpBtnStyle(on) { return 'display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;border:1px solid ' + (on ? '#bcd0f2' : '#DEE3EA') + ';background:' + (on ? '#E7EEFB' : '#fff') + ';color:' + (on ? '#1552D8' : '#6B7280') + ';flex:none'; }
+  function saveBtnStyle(on) { return 'display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;border:1px solid ' + (on ? '#DA291C' : '#DEE3EA') + ';background:' + (on ? '#FBF4F3' : '#fff') + ';color:' + (on ? '#961A13' : '#6B7280') + ';flex:none'; }
+  function cmpBtnStyle(on) { return 'display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;border:1px solid #DEE3EA;background:' + (on ? '#EEF1F5' : '#fff') + ';color:' + (on ? '#961A13' : '#6B7280') + ';flex:none'; }
   function chipStyle(active, accent) { return 'display:inline-flex;align-items:center;gap:6px;border:1px solid ' + (active ? accent : '#DEE3EA') + ';background:' + (active ? accent + '22' : '#fff') + ';color:' + (active ? '#15171C' : '#474C57') + ';font-size:.8125rem;font-weight:' + (active ? '600' : '500') + ';padding:6px 11px;border-radius:999px'; }
   function segStyle(active) { return 'border:none;border-radius:7px;padding:6px 12px;font-size:.8125rem;font-weight:' + (active ? '600' : '500') + ';background:' + (active ? '#fff' : 'transparent') + ';color:' + (active ? '#15171C' : '#474C57') + ';box-shadow:' + (active ? '0 1px 2px rgba(21,23,28,.12)' : 'none') + ';display:flex;align-items:center;gap:6px'; }
   function eyePill(r) {
     var ind = r.eye === 'indigenous';
-    return '<span title="' + esc(eyeLabel(r)) + '" style="display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:.625rem;font-weight:600;letter-spacing:.04em;color:' + (ind ? '#1f4d38' : '#3a47a8') + ';background:' + (ind ? '#E4F0E9' : '#E7E9FB') + ';padding:3px 8px;border-radius:999px">' + (ind ? 'INDIGENOUS' : 'WESTERN') + '</span>';
+    return '<span title="' + esc(eyeLabel(r)) + '" style="display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:.625rem;font-weight:600;letter-spacing:.04em;color:' + (ind ? '#961A13' : '#15171C') + ';background:' + (ind ? '#F4F4F4' : '#EEF1F5') + ';padding:3px 8px;border-radius:999px">' + (ind ? 'INDIGENOUS' : 'WESTERN') + '</span>';
   }
   function weekTag(r) { return '<span class="mono" style="font-size:.6875rem;color:#6B7280;background:#EEF1F5;padding:3px 8px;border-radius:6px">Week ' + r.week + '</span>'; }
 
@@ -640,7 +640,7 @@
     var btns = navDefs.map(function (d) {
       var key = d[0], active = (key === 'journey' && (s.screen === 'journey' || s.screen === 'library' || s.screen === 'station' || s.screen === 'detail')) || s.screen === key;
       var badge = '';
-      if (key === 'compare' && s.compareIds.length) badge = '<span class="mono" style="font-size:.6875rem;font-weight:600;color:#1552D8;background:#E7EEFB;padding:1px 7px;border-radius:999px">' + s.compareIds.length + '</span>';
+      if (key === 'compare' && s.compareIds.length) badge = '<span class="mono" style="font-size:.6875rem;font-weight:600;color:#961A13;background:#EEF1F5;padding:1px 7px;border-radius:999px">' + s.compareIds.length + '</span>';
       var click = "SOC.go('" + key + "')";
       return '<button onclick="' + click + '" aria-current="' + (active ? 'page' : 'false') + '" style="display:flex;align-items:center;gap:11px;width:100%;border:none;border-radius:10px;padding:10px 12px;font-size:.9375rem;font-weight:' + (active ? '600' : '500') + ';background:' + (active ? '#EEF1F5' : 'transparent') + ';color:' + (active ? '#15171C' : '#474C57') + ';text-align:left">'
         + '<span style="display:flex;align-items:center;justify-content:center;width:22px;height:22px;flex:none;color:' + (active ? 'var(--red)' : '#6B7280') + '">' + ic(d[2], 19) + '</span><span style="flex:1;text-align:left">' + d[1] + '</span>' + badge + '</button>';
@@ -649,7 +649,7 @@
     var calActive = s.screen === 'calendar';
     var cal = '<button onclick="SOC.go(\'calendar\')" aria-current="' + (calActive ? 'page' : 'false') + '" style="display:flex;align-items:center;gap:11px;width:100%;border:none;border-radius:10px;padding:10px 12px;font-size:.9375rem;font-weight:' + (calActive ? '600' : '500') + ';background:' + (calActive ? '#EEF1F5' : 'transparent') + ';color:' + (calActive ? '#15171C' : '#474C57') + ';text-align:left"><span style="display:flex;align-items:center;justify-content:center;width:22px;height:22px;flex:none;color:' + (calActive ? 'var(--red)' : '#6B7280') + '">' + ic('calendar', 19) + '</span><span style="flex:1;text-align:left">Calendar and Due Dates</span></button>';
     var walk = '<button onclick="SOC.go(\'walkthroughs\')" aria-current="' + (wkActive ? 'page' : 'false') + '" style="display:flex;align-items:center;gap:11px;width:100%;border:none;border-radius:10px;padding:10px 12px;font-size:.9375rem;font-weight:' + (wkActive ? '600' : '500') + ';background:' + (wkActive ? '#EEF1F5' : 'transparent') + ';color:' + (wkActive ? '#15171C' : '#474C57') + ';text-align:left"><span style="display:flex;align-items:center;justify-content:center;width:22px;height:22px;flex:none;color:' + (wkActive ? 'var(--red)' : '#6B7280') + '">' + ic('layers', 19) + '</span><span style="flex:1;text-align:left">Weekly Walkthroughs</span></button>';
-    var guide = '<div style="border-radius:10px;padding:10px 12px;color:#474C57"><div style="display:flex;align-items:flex-start;gap:11px;font-size:.9375rem;font-weight:500;line-height:1.25"><span style="display:flex;align-items:center;justify-content:center;width:22px;height:22px;flex:none;color:#6B7280">' + ic('file', 19) + '</span><span style="flex:1;min-width:0">Course Website Instructions</span></div><div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 0 33px"><a href="./guide/" target="_blank" rel="noopener" style="font-size:.75rem;font-weight:600;color:#1B2A4A;background:#EEF1F5;border:1px solid #DEE3EA;border-radius:999px;padding:4px 9px;text-decoration:none">Online guide <span aria-hidden="true">&#8599;</span></a><a href="./guide/SOC122-Companion-Guide.pdf" download style="font-size:.75rem;font-weight:600;color:#1B2A4A;background:#EEF1F5;border:1px solid #DEE3EA;border-radius:999px;padding:4px 9px;text-decoration:none">PDF <span aria-hidden="true">&#8595;</span></a></div></div>';
+    var guide = '<div style="border-radius:10px;padding:10px 12px;color:#474C57"><div style="display:flex;align-items:flex-start;gap:11px;font-size:.9375rem;font-weight:500;line-height:1.25"><span style="display:flex;align-items:center;justify-content:center;width:22px;height:22px;flex:none;color:#6B7280">' + ic('file', 19) + '</span><span style="flex:1;min-width:0">Course Website Instructions</span></div><div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 0 33px"><a href="./guide/" target="_blank" rel="noopener" style="font-size:.75rem;font-weight:600;color:#15171C;background:#EEF1F5;border:1px solid #DEE3EA;border-radius:999px;padding:4px 9px;text-decoration:none">Online guide <span aria-hidden="true">&#8599;</span></a><a href="./guide/SOC122-Companion-Guide.pdf" download style="font-size:.75rem;font-weight:600;color:#15171C;background:#EEF1F5;border:1px solid #DEE3EA;border-radius:999px;padding:4px 9px;text-decoration:none">PDF <span aria-hidden="true">&#8595;</span></a></div></div>';
     var repActive = s.screen === 'report';
     var report = '<button onclick="SOC.reportProblem()" style="display:flex;align-items:center;gap:11px;width:100%;border:none;border-radius:10px;padding:10px 12px;font-size:.9375rem;font-weight:500;background:transparent;color:#474C57;text-align:left"><span style="display:flex;align-items:center;justify-content:center;width:22px;height:22px;flex:none;color:#6B7280">' + ic('help', 19) + '</span><span style="flex:1;text-align:left">Report a problem</span></button>';
     var nav = btns[0] + btns[1] + cal + guide + btns[2] + walk + btns.slice(3).join('') + report;
@@ -658,8 +658,8 @@
     for (var nw = 1; nw <= 14; nw++) navWeeks.push(nw);
     var weekNav = navWeeks.map(function (w) {
       var active = s.screen === 'station' && s.stationWeek === w;
-      return '<button onclick="SOC.station(' + w + ')" style="display:flex;align-items:center;gap:9px;width:100%;border:none;border-radius:9px;padding:7px 12px;font-size:.8125rem;font-weight:' + (active ? '600' : '500') + ';background:' + (active ? '#E6EAF1' : 'transparent') + ';color:' + (active ? '#1B2A4A' : '#474C57') + ';text-align:left">'
-        + '<span class="mono" style="font-size:.6875rem;color:' + (active ? '#1B2A4A' : '#6B7280') + ';flex:none;width:18px">' + w + '</span>'
+      return '<button onclick="SOC.station(' + w + ')" style="display:flex;align-items:center;gap:9px;width:100%;border:none;border-radius:9px;padding:7px 12px;font-size:.8125rem;font-weight:' + (active ? '600' : '500') + ';background:' + (active ? '#EEF1F5' : 'transparent') + ';color:' + (active ? '#15171C' : '#474C57') + ';text-align:left">'
+        + '<span class="mono" style="font-size:.6875rem;color:' + (active ? '#15171C' : '#6B7280') + ';flex:none;width:18px">' + w + '</span>'
         + '<span style="flex:1;text-align:left;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(weekTitle(w)) + '</span>'
         + '<span class="mono" style="font-size:.6875rem;color:#6B7280">' + (counts[w] || 0) + '</span></button>';
     }).join('');
@@ -696,7 +696,7 @@
     var filtersActive = s.activeTypes.length || s.activeWeek != null || s.search.trim().length || s.savedView;
     var n = list.length;
     var resultLabel = s.savedView ? ('Saved shelf · ' + n + (n === 1 ? ' reading' : ' readings')) : (s.activeWeek != null ? ('Week ' + s.activeWeek + ' · ' + n + (n === 1 ? ' reading' : ' readings')) : (n === D.records.length ? 'All ' + n + ' readings' : n + ' of ' + D.records.length));
-    var weekStrip = '<div class="soc-weekstrip" style="gap:8px;overflow-x:auto;margin-bottom:16px;padding-bottom:4px" aria-label="Filter by week">' + weeksWithReadings().map(function (w) { var aw = s.activeWeek === w; return '<button onclick="SOC.week(' + w + ')" aria-pressed="' + aw + '" style="flex:none;border:1px solid ' + (aw ? '#1B2A4A' : '#DEE3EA') + ';background:' + (aw ? '#E6EAF1' : '#fff') + ';color:' + (aw ? '#1B2A4A' : '#474C57') + ';font-size:.8125rem;font-weight:' + (aw ? '600' : '500') + ';padding:8px 12px;border-radius:999px;white-space:nowrap"><span class="mono" style="opacity:.7">W' + w + '</span> ' + esc(weekTitle(w)) + '</button>'; }).join('') + '</div>';
+    var weekStrip = '<div class="soc-weekstrip" style="gap:8px;overflow-x:auto;margin-bottom:16px;padding-bottom:4px" aria-label="Filter by week">' + weeksWithReadings().map(function (w) { var aw = s.activeWeek === w; return '<button onclick="SOC.week(' + w + ')" aria-pressed="' + aw + '" style="flex:none;border:1px solid ' + (aw ? '#DA291C' : '#DEE3EA') + ';background:' + (aw ? '#FBF4F3' : '#fff') + ';color:' + (aw ? '#961A13' : '#474C57') + ';font-size:.8125rem;font-weight:' + (aw ? '600' : '500') + ';padding:8px 12px;border-radius:999px;white-space:nowrap"><span class="mono" style="opacity:.7">W' + w + '</span> ' + esc(weekTitle(w)) + '</button>'; }).join('') + '</div>';
 
     html += '<section style="background:#fff;border:1px solid #DEE3EA;border-radius:14px;padding:16px 18px;margin-bottom:18px;box-shadow:0 1px 2px rgba(21,23,28,.04)">'
       + '<div style="display:flex;align-items:center;gap:10px;background:#F7F8FA;border:1px solid #DEE3EA;border-radius:10px;padding:11px 14px">'
@@ -712,7 +712,7 @@
     html += weekStrip;
 
     if (n === 0) {
-      html += '<div style="text-align:center;padding:70px 20px;color:#474C57"><div style="display:inline-flex;color:#C9D1DC;margin-bottom:14px">' + ic('search', 44, 1.4) + '</div><div style="font-size:1.125rem;font-weight:600;color:#15171C;margin-bottom:6px">No readings match that yet.</div><p style="margin:0 0 16px;font-size:.9375rem">Try a broader term or clear a filter.</p><button onclick="SOC.clearFilters()" style="background:#1B2A4A;color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:.9375rem;font-weight:600">Reset filters</button></div>';
+      html += '<div style="text-align:center;padding:70px 20px;color:#474C57"><div style="display:inline-flex;color:#C9D1DC;margin-bottom:14px">' + ic('search', 44, 1.4) + '</div><div style="font-size:1.125rem;font-weight:600;color:#15171C;margin-bottom:6px">No readings match that yet.</div><p style="margin:0 0 16px;font-size:.9375rem">Try a broader term or clear a filter.</p><button onclick="SOC.clearFilters()" style="background:#15171C;color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:.9375rem;font-weight:600">Reset filters</button></div>';
     } else if (s.layout === 'tiles') {
       html += '<div class="soc-cardgrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(296px,1fr));gap:16px">' + list.map(tileCard).join('') + '</div>';
     } else if (s.layout === 'index') {
@@ -725,7 +725,7 @@
       html += '<div style="display:flex;flex-direction:column;gap:26px">' + order.map(function (w) {
         var cards = weeks[w].map(tileCard).join('');
         return '<section><div style="display:flex;align-items:baseline;gap:10px;margin-bottom:12px">'
-          + '<span style="display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:26px;padding:0 8px;border-radius:8px;background:#1B2A4A;color:#fff;font-family:var(--mono);font-size:.8125rem;font-weight:600;flex:none">' + w + '</span>'
+          + '<span style="display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:26px;padding:0 8px;border-radius:8px;background:#15171C;color:#fff;font-family:var(--mono);font-size:.8125rem;font-weight:600;flex:none">' + w + '</span>'
           + '<h2 style="font-size:1.1875rem;font-weight:600;margin:0;color:#15171C">' + esc(weekTitle(w)) + '</h2>'
           + '<span class="mono" style="font-size:.75rem;color:#6B7280">' + weeks[w].length + (weeks[w].length === 1 ? ' reading' : ' readings') + '</span>'
           + '<div style="flex:1;height:1px;background:#EEF1F5"></div></div>'
@@ -755,7 +755,7 @@
   }
   function rgAccessBadge(r) {
     var full = r.fulltext !== false;
-    var fg = full ? '#1f7a4d' : '#B7791F', bg = full ? '#E4F0E9' : '#FCEFD2';
+    var fg = full ? '#1f7a4d' : '#6B7280', bg = full ? '#F4F4F4' : '#F6E3E1';
     return '<span style="display:inline-flex;align-items:center;gap:5px;font-size:.6875rem;font-weight:600;letter-spacing:.03em;color:' + fg + ';background:' + bg + ';padding:4px 9px;border-radius:999px">' + ic(full ? 'unlock' : 'book', 12) + (full ? 'Read online' : 'Seneca Library') + '</span>';
   }
   function rgVideoCover(r) {
@@ -862,7 +862,7 @@
 
     return '<div class="rise"><button onclick="SOC.back()" style="background:none;border:none;color:#474C57;font-size:.875rem;font-weight:500;padding:0 0 16px;display:inline-flex;align-items:center;gap:6px">&larr; Back to the library</button>'
       + '<div class="soc-detailgrid" style="display:grid;grid-template-columns:1fr 312px;gap:26px;align-items:start"><div>'
-      + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:13px;flex-wrap:wrap"><span style="display:inline-flex;align-items:center;gap:7px;background:' + tm.soft + ';color:' + tm.color + ';font-size:.8125rem;font-weight:600;padding:5px 12px;border-radius:999px">' + ic(tm.icon, 15) + esc(r.type) + '</span>' + eyePill(r) + '<button onclick="SOC.week(' + r.week + ')" class="mono" style="font-size:.8125rem;color:#1B2A4A;background:#E6EAF1;border:none;padding:4px 10px;border-radius:999px">Week ' + r.week + '</button><span class="mono" style="font-size:.8125rem;color:#474C57">' + esc(String(r.year)) + ' · ' + esc(r.origin) + '</span></div>'
+      + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:13px;flex-wrap:wrap"><span style="display:inline-flex;align-items:center;gap:7px;background:' + tm.soft + ';color:' + tm.color + ';font-size:.8125rem;font-weight:600;padding:5px 12px;border-radius:999px">' + ic(tm.icon, 15) + esc(r.type) + '</span>' + eyePill(r) + '<button onclick="SOC.week(' + r.week + ')" class="mono" style="font-size:.8125rem;color:#15171C;background:#EEF1F5;border:none;padding:4px 10px;border-radius:999px">Week ' + r.week + '</button><span class="mono" style="font-size:.8125rem;color:#474C57">' + esc(String(r.year)) + ' · ' + esc(r.origin) + '</span></div>'
       + '<h1 style="font-size:2.125rem;line-height:1.15;font-weight:600;margin:0 0 8px">' + esc(r.title) + '</h1>'
       + '<div style="font-size:1.0625rem;color:#474C57;margin-bottom:24px">' + esc(r.authors) + '</div>'
       + '<div class="mono" style="font-size:.75rem;letter-spacing:.04em;color:#6B7280;margin-bottom:9px">ABSTRACT</div><p style="font-size:1.0625rem;line-height:1.62;color:#15171C;margin:0 0 26px;">' + esc(r.abstract) + '</p>'
@@ -874,7 +874,7 @@
       + '<button onclick="SOC.read(\'' + r.id + '\')" aria-label="' + esc(readLabel(r)) + ' in a new tab" style="width:100%;background:var(--red);color:#fff;border:none;border-radius:9px;padding:13px;font-size:1rem;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:9px">' + readLabel(r) + '<span style="display:flex">' + ic('external', 16) + '</span></button>'
       + '<div style="font-size:.75rem;line-height:1.4;color:#6B7280;margin:-2px 0 9px;text-align:center">' + esc(accessNote(r)) + '</div>'
       + sourceButton(r)
-      + '<button onclick="SOC.compare(\'' + r.id + '\')" style="width:100%;display:inline-flex;align-items:center;justify-content:center;gap:7px;border-radius:9px;padding:11px;font-size:.9375rem;font-weight:600;border:1px solid ' + (inC ? '#bcd0f2' : '#DEE3EA') + ';background:' + (inC ? '#E7EEFB' : '#fff') + ';color:' + (inC ? '#1552D8' : '#15171C') + '">' + ic('columns', 16) + (inC ? 'In tray' : 'Compare') + '</button>'
+      + '<button onclick="SOC.compare(\'' + r.id + '\')" style="width:100%;display:inline-flex;align-items:center;justify-content:center;gap:7px;border-radius:9px;padding:11px;font-size:.9375rem;font-weight:600;border:1px solid ' + (inC ? '#DEE3EA' : '#DEE3EA') + ';background:' + (inC ? '#EEF1F5' : '#fff') + ';color:' + (inC ? '#961A13' : '#15171C') + '">' + ic('columns', 16) + (inC ? 'In tray' : 'Compare') + '</button>'
       + '</div>'
       + '<div style="background:#fff;border:1px solid #DEE3EA;border-radius:14px;padding:6px 18px;box-shadow:0 1px 2px rgba(21,23,28,.04)">' + facts + '</div>'
       + '</aside></div></div>';
@@ -885,10 +885,10 @@
     var list = D.records.slice().sort(function (a, b) { return a.week - b.week || (a.eye === b.eye ? 0 : a.eye === 'western' ? -1 : 1); });
     return list.map(function (r) {
       var tm = typeMeta(r.type), sel = state.compareIds.indexOf(r.id) >= 0;
-      return '<button onclick="SOC.compare(\'' + r.id + '\')" class="mapsrc" style="display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:' + (sel ? '#E7EEFB' : 'none') + ';border:none;border-bottom:1px solid #EEF1F5;padding:10px 12px">'
+      return '<button onclick="SOC.compare(\'' + r.id + '\')" class="mapsrc" style="display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:' + (sel ? '#EEF1F5' : 'none') + ';border:none;border-bottom:1px solid #EEF1F5;padding:10px 12px">'
         + '<span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:7px;background:' + tm.soft + ';color:' + tm.color + ';flex:none">' + ic(tm.icon, 14) + '</span>'
         + '<span style="flex:1;min-width:0"><span style="display:block;font-size:.8125rem;font-weight:600;color:#15171C;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(r.title) + '</span><span style="display:block;font-size:.6875rem;color:#6B7280">Week ' + r.week + ' · ' + (r.eye === 'indigenous' ? 'Indigenous' : 'Western') + '</span></span>'
-        + (sel ? '<span style="display:flex;color:#1552D8;flex:none">' + ic('check', 16, 2.2) + '</span>' : '<span style="display:flex;color:#6b7280;flex:none">' + ic('plus', 16) + '</span>') + '</button>';
+        + (sel ? '<span style="display:flex;color:#961A13;flex:none">' + ic('check', 16, 2.2) + '</span>' : '<span style="display:flex;color:#6b7280;flex:none">' + ic('plus', 16) + '</span>') + '</button>';
     }).join('');
   }
   var LENSES = {
@@ -912,7 +912,7 @@
       return '<div style="background:#fff;border:1px solid #DEE3EA;border-radius:12px;padding:15px 17px;margin-bottom:11px">'
         + '<div style="display:flex;align-items:baseline;gap:10px;margin-bottom:5px"><span style="display:inline-flex;width:24px;height:24px;align-items:center;justify-content:center;background:#15171C;color:#fff;border-radius:50%;font-size:.8rem;font-weight:700;flex:none">' + n + '</span><h3 style="margin:0;font-size:1.0625rem">' + title + '</h3></div>'
         + '<p style="margin:0 0 8px;font-size:.875rem;color:#474C57">' + prompt + '</p>'
-        + '<textarea oninput="SOC.cmpNote(\'' + key + '\',this.value)" placeholder="' + ph + '" style="width:100%;min-height:68px;font:inherit;font-size:.9rem;line-height:1.5;padding:10px 12px;border:1px solid #DEE3EA;border-radius:8px;color:#15171C;background:#fff;resize:vertical">' + v + '</textarea></div>';
+        + '<textarea oninput="SOC.cmpNote(\'' + key + '\',this.value)" aria-label="' + esc(title + ' notes') + '" placeholder="' + ph + '" style="width:100%;min-height:68px;font:inherit;font-size:.9rem;line-height:1.5;padding:10px 12px;border:1px solid #DEE3EA;border-radius:8px;color:#15171C;background:#fff;resize:vertical">' + v + '</textarea></div>';
     }
     var chips = Object.keys(LENSES).map(function (k) {
       var on = state.lens === k;
@@ -989,8 +989,8 @@
   function rcBand(correct, total) {
     if (correct === total) return { label: 'Strong grasp', color: '#2c6b3f', bg: '#E9EFE7', icon: 'check', msg: 'You have a strong hold on this reading across every kind of question. The read-out below shows what came through.' };
     var pct = correct / total;
-    if (pct >= 0.6) return { label: 'On your way', color: '#1552D8', bg: '#E7EEFB', icon: 'book', msg: 'You have the core of this reading. The read-out below shows where you are strong and where to look again.' };
-    if (pct >= 0.4) return { label: 'Building', color: '#8F5E0F', bg: '#F3ECE0', icon: 'book', msg: 'You are part way into this reading. The read-out below shows what is landing and what to firm up.' };
+    if (pct >= 0.6) return { label: 'On your way', color: '#961A13', bg: '#EEF1F5', icon: 'book', msg: 'You have the core of this reading. The read-out below shows where you are strong and where to look again.' };
+    if (pct >= 0.4) return { label: 'Building', color: '#961A13', bg: '#FBF4F3', icon: 'book', msg: 'You are part way into this reading. The read-out below shows what is landing and what to firm up.' };
     return { label: 'Worth another read', color: '#b23121', bg: '#FBE9E7', icon: 'book', msg: 'This reading has not fully landed yet. The read-out below shows exactly where to focus your next pass.' };
   }
   function readingComp() {
@@ -1012,9 +1012,9 @@
       var coreIdea = (i === 0 && r.coreIdea) ? esc(String(r.coreIdea).replace(/\s*\.?\s*$/, '')) + '.' : '';
       var crit = guide[i] || [];
       var rev = state.revealed[key]
-        ? '<div style="margin-top:10px;background:#15171C;color:#fff;border-radius:10px;padding:13px 16px"><div class="mono" style="font-size:.66rem;letter-spacing:.05em;color:#9aa3b2;margin-bottom:8px">A STRONG RESPONSE COVERS</div><ul style="margin:0;padding-left:17px;font-size:.875rem;line-height:1.55;color:rgba(255,255,255,.93)">' + crit.map(function (c) { return '<li style="margin-bottom:5px">' + esc(c) + '</li>'; }).join('') + '</ul>' + (coreIdea ? '<div style="margin-top:11px;padding-top:10px;border-top:1px solid rgba(255,255,255,.16);font-size:.85rem;line-height:1.5;color:rgba(255,255,255,.9)"><span style="color:#F2A900;font-weight:600">From this reading: </span>the central idea is ' + coreIdea + '</div>' : '') + '<div style="margin-top:11px;font-size:.78rem;color:#9aa3b2">Compare your answer against this. There is no single right wording.</div><button onclick="SOC.rcReveal(\'' + key + '\')" style="margin-top:9px;background:rgba(255,255,255,.14);border:none;color:#fff;border-radius:7px;padding:5px 11px;font-size:.78rem;font-weight:600">Hide</button></div>'
+        ? '<div style="margin-top:10px;background:#15171C;color:#fff;border-radius:10px;padding:13px 16px"><div class="mono" style="font-size:.66rem;letter-spacing:.05em;color:#9aa3b2;margin-bottom:8px">A STRONG RESPONSE COVERS</div><ul style="margin:0;padding-left:17px;font-size:.875rem;line-height:1.55;color:rgba(255,255,255,.93)">' + crit.map(function (c) { return '<li style="margin-bottom:5px">' + esc(c) + '</li>'; }).join('') + '</ul>' + (coreIdea ? '<div style="margin-top:11px;padding-top:10px;border-top:1px solid rgba(255,255,255,.16);font-size:.85rem;line-height:1.5;color:rgba(255,255,255,.9)"><span style="color:#6B7280;font-weight:600">From this reading: </span>the central idea is ' + coreIdea + '</div>' : '') + '<div style="margin-top:11px;font-size:.78rem;color:#9aa3b2">Compare your answer against this. There is no single right wording.</div><button onclick="SOC.rcReveal(\'' + key + '\')" style="margin-top:9px;background:rgba(255,255,255,.14);border:none;color:#fff;border-radius:7px;padding:5px 11px;font-size:.78rem;font-weight:600">Hide</button></div>'
         : '<button onclick="SOC.rcReveal(\'' + key + '\')" style="margin-top:10px;background:none;border:1px solid #DEE3EA;border-radius:8px;padding:7px 13px;font-size:.82rem;font-weight:600;color:#15171C">Reveal a strong response</button>';
-      return '<div style="background:#fff;border:1px solid #DEE3EA;border-radius:12px;padding:15px 17px;margin-bottom:11px"><div style="display:flex;align-items:baseline;gap:10px;margin-bottom:7px"><span style="display:inline-flex;width:24px;height:24px;align-items:center;justify-content:center;background:#15171C;color:#fff;border-radius:50%;font-size:.8rem;font-weight:700;flex:none">' + (i + 1) + '</span><p style="margin:0;font-size:.95rem;color:#15171C">' + esc(q) + '</p></div><textarea oninput="SOC.rcNote(\'' + key + '\',this.value)" placeholder="Your answer" style="width:100%;min-height:68px;font:inherit;font-size:.9rem;line-height:1.5;padding:10px 12px;border:1px solid #DEE3EA;border-radius:8px;color:#15171C;background:#fff;resize:vertical">' + v + '</textarea>' + rev + '</div>';
+      return '<div style="background:#fff;border:1px solid #DEE3EA;border-radius:12px;padding:15px 17px;margin-bottom:11px"><div style="display:flex;align-items:baseline;gap:10px;margin-bottom:7px"><span style="display:inline-flex;width:24px;height:24px;align-items:center;justify-content:center;background:#15171C;color:#fff;border-radius:50%;font-size:.8rem;font-weight:700;flex:none">' + (i + 1) + '</span><p style="margin:0;font-size:.95rem;color:#15171C">' + esc(q) + '</p></div><textarea oninput="SOC.rcNote(\'' + key + '\',this.value)" aria-label="Answer source-practice question ' + (i + 1) + '" placeholder="Your answer" style="width:100%;min-height:68px;font:inherit;font-size:.9rem;line-height:1.5;padding:10px 12px;border:1px solid #DEE3EA;border-radius:8px;color:#15171C;background:#fff;resize:vertical">' + v + '</textarea>' + rev + '</div>';
     }).join('');
     var mcItems = MC[r.id] || [];
     var mcHtml = '';
@@ -1049,7 +1049,7 @@
         var prof = rcSkillProfile(r.id, mcItems);
         if (prof.has) {
           if (prof.strengths.length) { var coreBit = (prof.strengths.indexOf(RC_SKILLS.argument) >= 0 && r.coreIdea) ? ' You have the central point, that ' + lcFirst(esc(String(r.coreIdea).replace(/\s*\.?\s*$/, ''))) + '.' : ''; diagLine += '<div style="margin-top:12px"><span class="mono" style="font-size:.66rem;letter-spacing:.05em;color:#2c6b3f">YOUR STRENGTHS</span><div style="font-size:.9rem;line-height:1.5;color:#15171C;margin-top:3px">Your answers show you read ' + listJoin(prof.strengths) + ' well.' + coreBit + '</div></div>'; }
-          if (prof.opps.length) { var oppRows = prof.opps.map(function (o) { return '<div style="margin-top:7px"><span style="font-weight:600;color:#15171C">' + ucFirst(o.label) + '.</span> <span style="color:#474C57">' + (o.whys.length ? esc(o.whys.join(' ')) : 'Go back to this in the reading and read for it directly.') + '</span></div>'; }).join(''); diagLine += '<div style="margin-top:12px"><span class="mono" style="font-size:.66rem;letter-spacing:.05em;color:#8F5E0F">AREAS OF OPPORTUNITY</span><div style="font-size:.875rem;line-height:1.5;color:#15171C;margin-top:1px">' + oppRows + '</div></div>'; }
+          if (prof.opps.length) { var oppRows = prof.opps.map(function (o) { return '<div style="margin-top:7px"><span style="font-weight:600;color:#15171C">' + ucFirst(o.label) + '.</span> <span style="color:#474C57">' + (o.whys.length ? esc(o.whys.join(' ')) : 'Go back to this in the reading and read for it directly.') + '</span></div>'; }).join(''); diagLine += '<div style="margin-top:12px"><span class="mono" style="font-size:.66rem;letter-spacing:.05em;color:#961A13">AREAS OF OPPORTUNITY</span><div style="font-size:.875rem;line-height:1.5;color:#15171C;margin-top:1px">' + oppRows + '</div></div>'; }
           else diagLine += '<div style="margin-top:10px;font-size:.85rem;color:#2c6b3f">No gaps stood out. You handled the argument, the concepts, the context, and the significance, all of it.</div>';
         } else {
           diagLine = (missed.length) ? '<p style="margin:7px 0 0;font-size:.9rem;line-height:1.5;color:#15171C"><span style="font-weight:600">Look again at ' + numList(missed) + '.</span> Those are the ideas to firm up before you move on.</p>' : '<p style="margin:7px 0 0;font-size:.9rem;color:#15171C"><span style="font-weight:600">You answered every question correctly.</span> Nothing to revisit here.</p>';
@@ -1076,6 +1076,9 @@
      weaving for any pair, both eyes kept whole and attributed, then always hands
      the integration back to the student. The Week 14 final project stays the student's own. */
   function surnameOf(r) {
+    if (r.id === 'tz-number12' || r.id === 'tz-nightmare20000') return 'The Twilight Zone';
+    if (r.id === 'blackmirror-nosedive') return 'Black Mirror';
+    if (r.id === 'letexier2019') return 'Le Texier';
     var first = String(r.authors).replace(/\s*\([^)]*\)/g, '').split(',')[0].split(' and ')[0].split('&')[0].trim();
     if (/^OpenStax/.test(first)) return 'OpenStax';
     if (/Little Bear$/.test(first)) return 'Little Bear';
@@ -1165,9 +1168,9 @@
       }).join('');
       var thinks = thinkersForWeek(w);
       var tk = thinks.length ? '<div class="mono" style="font-size:.6875rem;letter-spacing:.04em;color:#6B7280;margin:14px 0 5px">SCHOLARS THIS WEEK</div>' + thinks.map(function (r) {
-        return '<div style="margin:5px 0;font-size:.8125rem;color:#15171C;line-height:1.5">' + eyePill(r) + ' <button onclick="SOC.open(\'' + r.id + '\')" style="background:none;border:none;padding:0;color:#1552D8;font-weight:600;cursor:pointer">' + esc(r.authors) + '</button>. ' + esc(r.coreIdea) + '</div>';
+        return '<div style="margin:5px 0;font-size:.8125rem;color:#15171C;line-height:1.5">' + eyePill(r) + ' <button onclick="SOC.open(\'' + r.id + '\')" style="background:none;border:none;padding:0;color:#961A13;font-weight:600;cursor:pointer">' + esc(r.authors) + '</button>. ' + esc(r.coreIdea) + '</div>';
       }).join('') : '';
-      return '<div style="border:1px solid #DEE3EA;border-radius:12px;padding:10px 16px 15px;margin-bottom:14px;background:#fff"><div class="mono" style="font-size:.6875rem;letter-spacing:.04em;color:#1B2A4A;margin:6px 0 2px">WEEK ' + w + ' &middot; ' + esc(weekTitle(w)) + '</div>' + (cons || '<p style="color:#6B7280;font-size:.875rem">No concepts listed.</p>') + tk + '</div>';
+      return '<div style="border:1px solid #DEE3EA;border-radius:12px;padding:10px 16px 15px;margin-bottom:14px;background:#fff"><div class="mono" style="font-size:.6875rem;letter-spacing:.04em;color:#15171C;margin:6px 0 2px">WEEK ' + w + ' &middot; ' + esc(weekTitle(w)) + '</div>' + (cons || '<p style="color:#6B7280;font-size:.875rem">No concepts listed.</p>') + tk + '</div>';
     }).join('');
   }
   function glossarySearchHTML(q) {
@@ -1175,7 +1178,7 @@
     var hits = (D.glossary || []).filter(function (g) { return (g.term + ' ' + g.def).toLowerCase().indexOf(q) >= 0; });
     if (!hits.length) return '<p style="color:#6B7280;font-size:.875rem">No matches. Try another word.</p>';
     return '<div class="soc-cardgrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px">' + hits.map(function (g) {
-      return '<div style="background:#fff;border:1px solid #DEE3EA;border-radius:12px;padding:14px 16px"><div style="font-size:.9375rem;font-weight:600;color:#15171C">' + esc(g.term) + '</div><div style="font-size:.8125rem;line-height:1.55;color:#474C57;margin:4px 0 8px">' + esc(g.def) + '</div>' + (g.cite ? '<div style="font-size:.7rem;color:#6B7280;margin-bottom:8px">' + esc(g.cite) + '</div>' : '') + '<button onclick="SOC.glossWeekGo(' + g.week + ')" class="mono" style="font-size:.6875rem;color:#1B2A4A;background:#E6EAF1;border:none;padding:3px 8px;border-radius:6px;cursor:pointer">Week ' + g.week + '</button></div>';
+      return '<div style="background:#fff;border:1px solid #DEE3EA;border-radius:12px;padding:14px 16px"><div style="font-size:.9375rem;font-weight:600;color:#15171C">' + esc(g.term) + '</div><div style="font-size:.8125rem;line-height:1.55;color:#474C57;margin:4px 0 8px">' + esc(g.def) + '</div>' + (g.cite ? '<div style="font-size:.7rem;color:#6B7280;margin-bottom:8px">' + esc(g.cite) + '</div>' : '') + '<button onclick="SOC.glossWeekGo(' + g.week + ')" class="mono" style="font-size:.6875rem;color:#15171C;background:#EEF1F5;border:none;padding:3px 8px;border-radius:6px;cursor:pointer">Week ' + g.week + '</button></div>';
     }).join('') + '</div>';
   }
   function glossaryScreen() {
@@ -1199,12 +1202,12 @@
       + '<span class="flip-inner">'
       + '<span class="flip-face flip-front">'
       + '<span style="display:flex;align-items:center;gap:8px;margin-bottom:11px"><span class="mono" style="font-size:.6875rem;color:#6B7280;margin-left:auto">WEEK ' + g.week + '</span></span>'
-      + '<span class="mono" style="font-size:.6875rem;letter-spacing:.05em;color:#1B2A4A;margin-bottom:6px">RECALL</span>'
+      + '<span class="mono" style="font-size:.6875rem;letter-spacing:.05em;color:#15171C;margin-bottom:6px">RECALL</span>'
       + '<span style="font-size:1.0625rem;font-weight:600;line-height:1.3;color:#15171C">' + esc(g.term) + '</span>'
-      + '<span style="margin-top:auto;padding-top:14px;font-size:.8125rem;color:#1552D8;font-weight:600">Reveal the definition &rarr;</span>'
+      + '<span style="margin-top:auto;padding-top:14px;font-size:.8125rem;color:#961A13;font-weight:600">Reveal the definition &rarr;</span>'
       + '</span>'
       + '<span class="flip-face flip-back">'
-      + '<span class="mono" style="font-size:.6875rem;letter-spacing:.05em;color:#F2A900;margin-bottom:8px">DEFINITION</span>'
+      + '<span class="mono" style="font-size:.6875rem;letter-spacing:.05em;color:#6B7280;margin-bottom:8px">DEFINITION</span>'
       + '<span style="font-size:.9rem;line-height:1.5;font-weight:500">' + esc(g.def) + '</span>'
       + '<span style="margin-top:auto;padding-top:10px;font-size:.7rem;color:rgba(255,255,255,.62)">' + (g.cite ? esc(g.cite) : 'Week ' + g.week + ' &middot; ' + esc(weekTitle(g.week))) + '</span>'
       + '</span>'
@@ -1267,8 +1270,8 @@
     var svg = '<svg viewBox="0 0 760 260" role="img" aria-labelledby="bbd-t bbd-d" style="width:100%;height:auto;display:block;max-width:760px">'
       + '<title id="bbd-t">How this site and Blackboard work together</title>'
       + '<desc id="bbd-d">Two panels. This site is for learning and practice and saves only to your device. Blackboard is the official platform where you submit work and receive grades. Arrows show moving between them: submit on Blackboard, come back here to study.</desc>'
-      + '<rect x="10" y="20" width="330" height="190" rx="14" fill="#F7F9FB" stroke="#1B2A4A" stroke-width="2"/>'
-      + '<text x="30" y="52" font-size="15" font-weight="700" fill="#1B2A4A" style="letter-spacing:.06em">THIS SITE</text>'
+      + '<rect x="10" y="20" width="330" height="190" rx="14" fill="#F7F9FB" stroke="#15171C" stroke-width="2"/>'
+      + '<text x="30" y="52" font-size="15" font-weight="700" fill="#15171C" style="letter-spacing:.06em">THIS SITE</text>'
       + '<text x="30" y="82" font-size="13.5" fill="#15171C">Weekly pathway, readings, key concepts</text>'
       + '<text x="30" y="108" font-size="13.5" fill="#15171C">Practice checks, notes, study supports</text>'
       + '<text x="30" y="134" font-size="13.5" fill="#15171C">Never graded, nothing submitted here</text>'
@@ -1284,9 +1287,9 @@
       + '<line x1="345" y1="80" x2="412" y2="80" stroke="#DA291C" stroke-width="2.5"/>'
       + '<polygon points="412,80 400,74 400,86" fill="#DA291C"/>'
       + '<text x="378" y="66" font-size="11.5" font-weight="600" fill="#DA291C" text-anchor="middle">submit</text>'
-      + '<line x1="415" y1="150" x2="348" y2="150" stroke="#1B2A4A" stroke-width="2.5"/>'
-      + '<polygon points="348,150 360,144 360,156" fill="#1B2A4A"/>'
-      + '<text x="380" y="172" font-size="11.5" font-weight="600" fill="#1B2A4A" text-anchor="middle">study, review</text>'
+      + '<line x1="415" y1="150" x2="348" y2="150" stroke="#15171C" stroke-width="2.5"/>'
+      + '<polygon points="348,150 360,144 360,156" fill="#15171C"/>'
+      + '<text x="380" y="172" font-size="11.5" font-weight="600" fill="#15171C" text-anchor="middle">study, review</text>'
       + '<text x="380" y="242" font-size="13" font-weight="700" fill="#15171C" text-anchor="middle">If the two ever disagree, Blackboard is the source of truth.</text>'
       + '</svg>';
     return '<section class="node" aria-labelledby="bbd-h" style="margin:16px 0">'
@@ -1295,7 +1298,7 @@
       + svg
       + '<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">'
       + '<a href="' + BB_URL + '" target="_blank" rel="noopener" class="wk-cta" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px">Open Blackboard <span aria-hidden="true">&#8599;</span></a>'
-      + '<button type="button" onclick="SOC.go(\'calendar\')" class="wk-cta" style="background:#fff;color:#1B2A4A;border:1px solid #1B2A4A">Open course calendar</button>'
+      + '<button type="button" onclick="SOC.go(\'calendar\')" class="wk-cta" style="background:#fff;color:#15171C;border:1px solid #15171C">Open course calendar</button>'
       + '</div>'
       + '</section>';
   }
@@ -1322,7 +1325,7 @@
       + '<section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:16px 0">' + cards.map(function (c) { return siteCard(c[0], c[1], c[2]); }).join('') + '</section>'
       + mobileAccessPanel()
       + reportBlock()
-      + '<section class="exp-card" style="border-left-color:#1B2A4A;background:#fff;border:1px solid #DEE3EA;border-left:5px solid #1B2A4A;border-radius:14px;padding:20px 22px;margin:0 0 20px" aria-label="Clear saved work"><div class="mono" style="font-size:.68rem;letter-spacing:.08em;color:#1B2A4A;font-weight:700">SHARED OR LAB COMPUTER?</div><h2 style="margin:4px 0 8px;font-size:1.1rem">Clear my saved work on this device</h2><p style="font-size:.9rem;line-height:1.55;margin:0 0 12px">Removes every note, check answer, and setting this site has saved in this browser. Download your weekly notes first if you want to keep them.</p><button type="button" class="wk-cta" style="margin:0" onclick="SOC.clearMyWork()">Clear everything saved here</button></section>'
+      + '<section class="exp-card" style="border-left-color:#15171C;background:#fff;border:1px solid #DEE3EA;border-left:5px solid #15171C;border-radius:14px;padding:20px 22px;margin:0 0 20px" aria-label="Clear saved work"><div class="mono" style="font-size:.68rem;letter-spacing:.08em;color:#15171C;font-weight:700">SHARED OR LAB COMPUTER?</div><h2 style="margin:4px 0 8px;font-size:1.1rem">Clear my saved work on this device</h2><p style="font-size:.9rem;line-height:1.55;margin:0 0 12px">Removes every note, check answer, and setting this site has saved in this browser. Download your weekly notes first if you want to keep them.</p><button type="button" class="wk-cta" style="margin:0" onclick="SOC.clearMyWork()">Clear everything saved here</button></section>'
       + '</div>';
   }
   function screenAnnounceText() {
@@ -1337,12 +1340,12 @@
     if (state.screen === 'videos') return 'Videos and Podcasts';
     if (state.screen === 'glossary') return 'Glossary';
     if (state.screen === 'cards') return 'Concept Flashcards';
-    if (state.screen === 'assignments') return 'Starting Your Assignment';
+    if (state.screen === 'assignments') return 'Understanding Your Assignment';
     if (state.screen === 'career') return 'Career Choices';
     if (state.screen === 'map') return 'Personal Cartography';
     if (state.screen === 'activity') return 'Activity';
     if (state.screen === 'detail') return 'Reading Details';
-    if (state.screen && state.screen.indexOf('assignment') === 0) return 'Starting Your Assignment';
+    if (state.screen && state.screen.indexOf('assignment') === 0) return 'Understanding Your Assignment';
     return 'Home';
   }
   function reportBlock() {
@@ -1433,7 +1436,7 @@
       var secs = document.querySelectorAll('#soc-main section[id^="wk-"]');
       var open = [];
       Array.prototype.forEach.call(secs, function (sec) {
-        if (sec.id === 'wk-ov' || sec.id === 'wk-image' || sec.id === keepId || !sec.querySelector('h2.wk-sec')) return;
+        if (sec.id === 'wk-ov' || sec.id === 'wk-idea' || sec.id === keepId || !sec.querySelector('h2.wk-sec')) return;
         if (!sec.querySelector('.wk-coll-btn')) return;
         if (sec.classList.contains('wk-collapsed')) return;
         open.push({ id: sec.id, seq: +((state.wkOpen || {})[wkOpenKey(sec.id)]) || 0 });
@@ -1473,7 +1476,7 @@
     Array.prototype.forEach.call(secs, function (sec) {
       if (sec.id === 'wk-mode') return;
       var h = sec.querySelector('h2.wk-sec');
-      if (!h || sec.id === 'wk-image' || h.parentElement !== sec || h.querySelector('.wk-coll-btn')) return;
+      if (!h || sec.id === 'wk-idea' || h.parentElement !== sec || h.querySelector('.wk-coll-btn')) return;
       var id = sec.id;
       var collapsed = !wkOpenHas(id);
       if (collapsed) sec.classList.add('wk-collapsed');
@@ -1559,6 +1562,29 @@
       + '<details class="sc-how"><summary>How these suggestions work</summary><p>No AI and no server. A few fixed rules run in your browser over what you have done on this device: which weeks you opened, whether you tried checks and guides, and whether you wrote reflections. None of it leaves this page, none of it is graded, and Clear My Work in How This Site Works erases all of it.</p></details>'
       + '</section>';
   }
+  function courseProgressPanel() {
+    var ws = journeyWeeks();
+    var visits = (state.visits && state.visits.weeks) || {};
+    var opened = ws.filter(function (w) { return !!visits[w]; });
+    var worked = ws.filter(weekHasWork);
+    var pct = ws.length ? Math.round((opened.length / ws.length) * 100) : 0;
+    var phases = [
+      { title: 'Foundations and responsibility', weeks: [1, 2, 3, 4], note: 'What social science is, Two-Eyed Seeing, Indigenous Canada, and Truth and Reconciliation.' },
+      { title: 'Methods and anthropology', weeks: [5, 6, 7], note: 'How claims are built, how culture is studied, and what the first half holds together.' },
+      { title: 'Sociology and psychology', weeks: [8, 9, 10, 11], note: 'How disciplines formed, what they reveal, and how power shapes their questions and evidence.' },
+      { title: 'Family and integration', weeks: [12, 13, 14], note: 'Kinship, responsibility, revisiting the map, and carrying the course forward.' }
+    ];
+    var phaseHtml = phases.map(function (p) {
+      var n = p.weeks.filter(function (w) { return !!visits[w]; }).length;
+      var wp = Math.round((n / p.weeks.length) * 100);
+      return '<article class="progress-phase"><div><b>' + esc(p.title) + '</b><span>' + n + ' of ' + p.weeks.length + ' weeks opened</span></div><div class="progress-track" aria-hidden="true"><i style="width:' + wp + '%"></i></div><p>' + esc(p.note) + '</p></article>';
+    }).join('');
+    var weekButtons = ws.map(function (w) {
+      var isOpen = !!visits[w], hasWork = worked.indexOf(w) >= 0;
+      return '<button type="button" class="progress-week' + (isOpen ? ' opened' : '') + (hasWork ? ' worked' : '') + '" onclick="SOC.station(' + w + ')" aria-label="Open Week ' + w + ': ' + esc(weekTitle(w)) + (hasWork ? '. Work saved on this device.' : (isOpen ? '. Opened on this device.' : '. Not opened on this device.')) + '"><span>' + w + '</span>' + (hasWork ? '<i aria-hidden="true"></i>' : '') + '</button>';
+    }).join('');
+    return '<section class="node course-progress" aria-labelledby="course-progress-title"><div class="progress-head"><div><div class="mono">YOUR COURSE MAP</div><h2 id="course-progress-title">You have opened ' + opened.length + ' of ' + ws.length + ' weeks</h2></div><strong aria-label="' + pct + ' percent of weeks opened">' + pct + '%</strong></div><div class="progress-weeks" role="list" aria-label="Course weeks">' + weekButtons + '</div><div class="progress-phases">' + phaseHtml + '</div><p class="progress-note">This is a private orientation aid, not a grade. A week is counted when you open it on this device. A small red marker appears after you write a reflection, try a Knowledge Check, or save a note. Nothing is sent to the instructor or to a server.</p></section>';
+  }
   function weekHasWork(w) {
     try {
       var pfx = w + '|';
@@ -1572,7 +1598,7 @@
   function firstWhere(list, fn) { for (var i = 0; i < list.length; i++) if (fn(list[i])) return list[i]; return null; }
   function firstSentence(s) { var t = String(s || '').replace(/\s+/g, ' ').trim(), m = t.match(/^(.{60,220}?[.!?])\s/); return m ? m[1] : t.slice(0, 240); }
   function studioOpenBtn(r) {
-    return r ? '<button onclick="SOC.read(\'' + r.id + '\')" style="margin-top:6px;align-self:flex-start;background:none;border:none;color:#1552D8;font-size:.78rem;font-weight:600;padding:0;cursor:pointer">Open the reading &#8599;</button>' : '';
+    return r ? '<button onclick="SOC.read(\'' + r.id + '\')" style="margin-top:6px;align-self:flex-start;background:none;border:none;color:#961A13;font-size:.78rem;font-weight:600;padding:0;cursor:pointer">Open the reading &#8599;</button>' : '';
   }
   function studioPanel(kicker, title, body, meta, icon, accent, r) {
     return '<div style="background:#fff;border:1px solid #DEE3EA;border-top:4px solid ' + accent + ';border-radius:12px;padding:15px 16px;display:flex;flex-direction:column;gap:8px;min-height:190px">'
@@ -1607,9 +1633,9 @@
     var west = firstWhere(recs, function (r) { return r.eye === 'western'; });
     var ind = firstWhere(recs, function (r) { return r.eye === 'indigenous'; });
     if (!ind) return '';
-    var panels = (west ? studioPanel('WESTERN EYE', west.authors, west.coreIdea, west.title + ' (' + west.year + ')', 'eye', '#3a47a8', west) : '')
-      + studioPanel('INDIGENOUS EYE', ind.authors, ind.coreIdea, ind.title + ' (' + ind.year + ')', 'eye', '#1f4d38', ind);
-    var soloNote = west ? '' : '<div style="margin-top:12px;background:#E4F0E9;border:1px solid #c4ddcf;border-radius:11px;padding:12px 15px;font-size:.85rem;line-height:1.55;color:#1f4d38">This week centres Indigenous knowledge; there is no separate Western-eye reading to set beside it. That is itself a Two-Eyed Seeing observation: not every topic carries a Western counterpart, and the Indigenous frame stands on its own here.</div>';
+    var panels = (west ? studioPanel('WESTERN EYE', west.authors, west.coreIdea, west.title + ' (' + west.year + ')', 'eye', '#15171C', west) : '')
+      + studioPanel('INDIGENOUS EYE', ind.authors, ind.coreIdea, ind.title + ' (' + ind.year + ')', 'eye', '#961A13', ind);
+    var soloNote = west ? '' : '<div style="margin-top:12px;background:#F4F4F4;border:1px solid #c4ddcf;border-radius:11px;padding:12px 15px;font-size:.85rem;line-height:1.55;color:#961A13">This week centres Indigenous knowledge; there is no separate Western-eye reading to set beside it. That is itself a Two-Eyed Seeing observation: not every topic carries a Western counterpart, and the Indigenous frame stands on its own here.</div>';
     var prompts = west
       ? ['What does ' + ind.authors + '\'s reading let you see that ' + west.authors + '\'s does not?', 'What would be missed if this week were read with only the Western eye?', 'What responsibility does ' + ind.authors + ' ask you to keep visible?']
       : ['What does ' + ind.authors + '\'s reading let you see about this week\'s topic?', 'What responsibility does ' + ind.authors + ' ask you to keep visible?'];
@@ -1627,10 +1653,10 @@
     var w = focusWeek(sel), recs = recordsForWeek(w), r = recs[0] || D.records[0], g = conceptsForWeek(w)[0] || (D.glossary || [])[0], items = (r && MC[r.id]) || [];
     if (!r) return '';
     var ev = firstWhere(items, function (m) { return m.skill === 'argument' || m.skill === 'context'; });
-    var panels = studioPanel('CLAIM', r.title, r.coreIdea, r.authors + ' (' + r.year + ')', 'book', '#1552D8')
+    var panels = studioPanel('CLAIM', r.title, r.coreIdea, r.authors + ' (' + r.year + ')', 'book', '#961A13')
       + studioPanel('EVIDENCE', ev ? ev.q : 'What supports the claim?', ev ? ev.why : firstSentence(r.abstract), 'Ground this in the reading before applying it.', 'search', '#1f7a4d')
-      + studioPanel('BOUNDARY', 'What this does not prove', 'Do not turn this idea into a rule for every learner. Check the context, supports, workload, strategy, and evidence before giving advice.', g ? g.term : 'Course concept', 'x', '#B7791F')
-      + studioPanel('TRANSFER', 'Academic next step', 'Name one course task, one support, one study strategy, and one sign that the strategy is working.', 'No clinical or diagnostic framing.', 'external', '#7C3AED');
+      + studioPanel('BOUNDARY', 'What this does not prove', 'Do not turn this idea into a rule for every learner. Check the context, supports, workload, strategy, and evidence before giving advice.', g ? g.term : 'Course concept', 'x', '#6B7280')
+      + studioPanel('TRANSFER', 'Academic next step', 'Name one course task, one support, one study strategy, and one sign that the strategy is working.', 'No clinical or diagnostic framing.', 'external', '#961A13');
     var check = studioCheck('PSY355|studio|' + w, {
       q: 'Which next step uses this idea responsibly, without turning it into a rule or blaming the student?',
       options: ['Name one course task, one support, and one sign the strategy is working, then check the context before advising.', 'Tell the student they just need more grit or a better attitude.', 'Apply it the same way to every student, whatever their situation.'],
@@ -1664,16 +1690,16 @@
     return '';
   }
 
-  var MAP_CAVEAT = 'This layer is a teaching aid, not a legal or definitive boundary. Regions are anchored in the self-identified nations of the Indigenous scholars assigned this term. For authoritative representations of territories and treaties, consult the Nations themselves and sources such as Native-Land.ca. Map tiles load from OpenStreetMap/CARTO; everything else on this site is self-hosted.';
+  var MAP_CAVEAT = 'This self-contained teaching map is not a legal or definitive boundary map. Its approximate reading anchors connect assigned Indigenous scholars with the Nations and places they identify. For authoritative representations of territories and treaties, consult the Nations themselves and sources such as Native-Land.ca.';
   var MAP_REGIONS = [
-    { id: 'mikmaki-lawrence', region: "Mi'kma'ki (Atlantic)", admin: 'NS / NB / PEI / NL', nation: "Mi'kmaw", scholar: 'Bonita Lawrence', records: ['lawrence2003'], concept: 'regulation of Native identity; social structure', lat: 45.4, lng: -63.0, check: "Lawrence's account of identity regulation: law turns belonging into a bureaucratic category with gendered and racial effects." },
-    { id: 'mikmaki-learning', region: "Mi'kma'ki (Atlantic)", admin: 'NS', nation: "Mi'kmaw", scholar: 'Marie Battiste; Albert Marshall', records: ['battiste', 'amarshall'], concept: 'learning spirit; Two-Eyed Seeing (Etuaptmumk)', lat: 45.95, lng: -60.65, check: "Battiste and Marshall's account of learning spirit and Two-Eyed Seeing as a whole-person, two-knowledge practice." },
-    { id: 'mikmaki-palmater', region: "Mi'kma'ki (Atlantic)", admin: 'NB', nation: "Mi'kmaw, Eel River Bar", scholar: 'Pamela Palmater', records: ['palmater'], concept: 'poverty produced by law and policy', lat: 47.9, lng: -65.6, check: "Palmater's structural claim that poverty is produced by law and policy, not by culture or individual failure." },
-    { id: 'blackfoot', region: 'Niitsitapi / Blackfoot', admin: 'southern Alberta', nation: 'Blackfoot, Kainai', scholar: 'Leroy Little Bear', records: ['littlebear'], concept: 'worldview difference at the root', lat: 49.6, lng: -113.1, check: "Little Bear's worldview claim: colonial mapping can hide the deeper clash between imposed Western categories and Indigenous worldviews." },
-    { id: 'redriver', region: 'Red River / Metis homeland', admin: 'Manitoba / prairies', nation: 'Red River Metis; Cree-Metis; Metis', scholar: 'Zoe Todd; Kim Anderson; Janet Smylie', records: ['todd2016', 'anderson2019', 'smylie'], concept: 'place and ontology; kinship as work; centring Indigenous knowledge', lat: 49.9, lng: -97.1, check: 'Todd, Anderson, and Smylie keep place, kinship, and Indigenous health tied to relationships and knowledge control.' },
-    { id: 'cree', region: 'Cree territory', admin: 'Sturgeon Lake / prairies-north', nation: 'Cree', scholar: 'Willie Ermine', records: ['ermine'], concept: 'ethical space', lat: 53.0, lng: -106.5, check: "Ermine's ethical space: the meeting place has to be negotiated, not governed by one side's rules." },
-    { id: 'anishinaabe', region: 'Anishinaabe', admin: 'Great Lakes', nation: 'Anishinaabe', scholar: 'Amy Bombay', records: ['bombay2014'], concept: 'historical trauma across generations', lat: 48.7, lng: -94.2, check: "Bombay and colleagues' account of historical trauma and community connection across generations." },
-    { id: 'aaniiih', region: 'Aaniiih', admin: 'Montana / medicine-line', nation: 'Aaniiih', scholar: 'Joseph P. Gone', records: ['gone2023'], concept: 'trauma as postcolonial, not individual', lat: 48.1, lng: -108.7, check: "Gone's warning that trauma and health inequities are postcolonial and community-defined, not only individual symptoms." }
+    { id: 'mikmaki-lawrence', region: "Mi'kma'ki (Atlantic)", admin: 'NS / NB / PEI / NL', nation: "Mi'kmaw", scholar: 'Bonita Lawrence', records: ['lawrence2003'], concept: 'regulation of Native identity; social structure', x: 82, y: 56, check: "Lawrence's account of identity regulation: law turns belonging into a bureaucratic category with gendered and racial effects." },
+    { id: 'mikmaki-learning', region: "Mi'kma'ki (Atlantic)", admin: 'NS', nation: "Mi'kmaw", scholar: 'Marie Battiste; Albert Marshall', records: ['battiste', 'amarshall'], concept: 'learning spirit; Two-Eyed Seeing (Etuaptmumk)', x: 88, y: 43, check: "Battiste and Marshall's account of learning spirit and Two-Eyed Seeing as a whole-person, two-knowledge practice." },
+    { id: 'mikmaki-palmater', region: "Mi'kma'ki (Atlantic)", admin: 'NB', nation: "Mi'kmaw, Eel River Bar", scholar: 'Pamela Palmater', records: ['palmater'], concept: 'poverty produced by law and policy', x: 79, y: 35, check: "Palmater's structural claim that poverty is produced by law and policy, not by culture or individual failure." },
+    { id: 'blackfoot', region: 'Niitsitapi / Blackfoot', admin: 'southern Alberta', nation: 'Blackfoot, Kainai', scholar: 'Leroy Little Bear', records: ['littlebear'], concept: 'worldview difference at the root', x: 25, y: 55, check: "Little Bear's worldview claim: colonial mapping can hide the deeper clash between imposed Western categories and Indigenous worldviews." },
+    { id: 'redriver', region: 'Red River / Metis homeland', admin: 'Manitoba / prairies', nation: 'Red River Metis; Cree-Metis; Metis', scholar: 'Zoe Todd; Kim Anderson; Janet Smylie', records: ['todd2016', 'anderson2019', 'smylie'], concept: 'place and ontology; kinship as work; centring Indigenous knowledge', x: 45, y: 58, check: 'Todd, Anderson, and Smylie keep place, kinship, and Indigenous health tied to relationships and knowledge control.' },
+    { id: 'cree', region: 'Cree territory', admin: 'Sturgeon Lake / prairies-north', nation: 'Cree', scholar: 'Willie Ermine', records: ['ermine'], concept: 'ethical space', x: 35, y: 35, check: "Ermine's ethical space: the meeting place has to be negotiated, not governed by one side's rules." },
+    { id: 'anishinaabe', region: 'Anishinaabe', admin: 'Great Lakes', nation: 'Anishinaabe', scholar: 'Amy Bombay', records: ['bombay2014'], concept: 'historical trauma across generations', x: 55, y: 50, check: "Bombay and colleagues' account of historical trauma and community connection across generations." },
+    { id: 'aaniiih', region: 'Aaniiih', admin: 'Montana / medicine-line', nation: 'Aaniiih', scholar: 'Joseph P. Gone', records: ['gone2023'], concept: 'trauma as postcolonial, not individual', x: 28, y: 70, check: "Gone's warning that trauma and health inequities are postcolonial and community-defined, not only individual symptoms." }
   ];
   function mapActive() {
     return firstWhere(MAP_REGIONS, function (m) { return m.id === state.mapRegion; }) || MAP_REGIONS[0];
@@ -1708,8 +1734,8 @@
     return '<section style="background:#fff;border:1px solid #DEE3EA;border-radius:14px;padding:16px 18px;box-shadow:0 1px 2px rgba(21,23,28,.04)">'
       + '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px"><div><div class="mono" style="font-size:.6875rem;letter-spacing:.05em;color:#6B7280;margin-bottom:4px">LAYER TOGGLE</div><h2 style="font-size:1.125rem;margin:0;color:#15171C">One land, two naming systems</h2></div>' + layerBtns + '</div>'
       + '<div style="overflow:auto;border:1px solid #DEE3EA;border-radius:14px;background:#EEF1F5">'
-      + '<div role="img" aria-label="Teaching map of Canada using approximate reading anchors, not territory boundaries." style="position:relative;min-width:720px;min-height:430px;background:linear-gradient(180deg,#F7FBFF,#EEF1F5);overflow:hidden">'
-      + '<div style="position:absolute;left:4%;right:4%;top:20%;bottom:18%;border-radius:46% 42% 38% 40%;background:#fff;border:1px solid #D6DEE9;box-shadow:inset 0 0 0 1px rgba(255,255,255,.8)"></div>'
+      + '<div role="img" aria-label="Teaching map of Canada using approximate reading anchors, not territory boundaries." style="position:relative;min-width:720px;min-height:430px;background:linear-gradient(180deg,#F7F8FA,#EEF1F5);overflow:hidden">'
+      + '<div style="position:absolute;left:4%;right:4%;top:20%;bottom:18%;border-radius:46% 42% 38% 40%;background:#fff;border:1px solid #D7D7D7;box-shadow:inset 0 0 0 1px rgba(255,255,255,.8)"></div>'
       + '<div class="mono" style="position:absolute;left:20px;top:16px;font-size:.65rem;letter-spacing:.06em;color:#6B7280">PACIFIC</div>'
       + '<div class="mono" style="position:absolute;right:20px;top:16px;font-size:.65rem;letter-spacing:.06em;color:#6B7280">ATLANTIC</div>'
       + '<div class="mono" style="position:absolute;left:22px;bottom:17px;font-size:.65rem;letter-spacing:.06em;color:#6B7280">GENERAL READING ANCHORS ONLY</div>'
@@ -1723,7 +1749,7 @@
   }
   function mapReadingRows(m) {
     return mapRecords(m).map(function (r) {
-      return '<div style="background:#fff;border:1px solid #DEE3EA;border-radius:10px;padding:12px 14px;margin-bottom:9px"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:5px">' + eyePill(r) + weekTag(r) + '<span class="mono" style="font-size:.6875rem;color:#6B7280">' + esc(String(r.year)) + '</span></div><div style="font-size:.95rem;font-weight:700;color:#15171C;line-height:1.25">' + esc(r.title) + '</div><div style="font-size:.8125rem;color:#474C57;margin:3px 0 7px">' + esc(r.authors) + '</div><p style="font-size:.84rem;line-height:1.5;color:#474C57;margin:0">' + esc(r.coreIdea) + '</p><button onclick="SOC.read(\'' + r.id + '\')" style="margin-top:9px;background:none;border:none;color:#1552D8;font-size:.8125rem;font-weight:700;padding:0">' + readLabel(r) + ' &#8599;</button></div>';
+      return '<div style="background:#fff;border:1px solid #DEE3EA;border-radius:10px;padding:12px 14px;margin-bottom:9px"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:5px">' + eyePill(r) + weekTag(r) + '<span class="mono" style="font-size:.6875rem;color:#6B7280">' + esc(String(r.year)) + '</span></div><div style="font-size:.95rem;font-weight:700;color:#15171C;line-height:1.25">' + esc(r.title) + '</div><div style="font-size:.8125rem;color:#474C57;margin:3px 0 7px">' + esc(r.authors) + '</div><p style="font-size:.84rem;line-height:1.5;color:#474C57;margin:0">' + esc(r.coreIdea) + '</p><button onclick="SOC.read(\'' + r.id + '\')" style="margin-top:9px;background:none;border:none;color:#961A13;font-size:.8125rem;font-weight:700;padding:0">' + readLabel(r) + ' &#8599;</button></div>';
     }).join('');
   }
   function mapDetail() {
@@ -1731,7 +1757,7 @@
     return '<section id="map-detail" style="background:#fff;border:1px solid #DEE3EA;border-radius:14px;padding:16px 18px;box-shadow:0 1px 2px rgba(21,23,28,.04)">'
       + '<div class="mono" style="font-size:.6875rem;letter-spacing:.05em;color:var(--red);font-weight:600;margin-bottom:6px">SELECTED ANCHOR</div>'
       + '<h2 style="font-size:1.25rem;line-height:1.25;margin:0 0 6px;color:#15171C">' + esc(m.region) + '</h2>'
-      + '<div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px"><span style="font-size:.75rem;font-weight:700;background:#EEF1F5;color:#15171C;border-radius:999px;padding:5px 9px">Administrative: ' + esc(m.admin) + '</span><span style="font-size:.75rem;font-weight:700;background:#E4F0E9;color:#1f4d38;border-radius:999px;padding:5px 9px">' + esc(m.nation) + '</span></div>'
+      + '<div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px"><span style="font-size:.75rem;font-weight:700;background:#EEF1F5;color:#15171C;border-radius:999px;padding:5px 9px">Administrative: ' + esc(m.admin) + '</span><span style="font-size:.75rem;font-weight:700;background:#F4F4F4;color:#961A13;border-radius:999px;padding:5px 9px">' + esc(m.nation) + '</span></div>'
       + '<div style="font-size:.875rem;line-height:1.55;color:#474C57;margin-bottom:11px"><strong>Scholar anchor:</strong> ' + esc(m.scholar) + '<br><strong>Concept:</strong> ' + esc(m.concept) + '</div>'
       + mapReadingRows(m)
       + studioCheck('SOC122|map|' + m.id, mapCheck(m))
@@ -1740,55 +1766,9 @@
   }
   function mapFallbackTable() {
     var rows = MAP_REGIONS.map(function (m) {
-      return '<tr><td style="padding:10px 12px;border-top:1px solid #EEF1F5">' + esc(m.region) + '</td><td style="padding:10px 12px;border-top:1px solid #EEF1F5">' + esc(m.admin) + '</td><td style="padding:10px 12px;border-top:1px solid #EEF1F5">' + esc(m.scholar + ' (' + m.nation + ')') + '</td><td style="padding:10px 12px;border-top:1px solid #EEF1F5">' + esc(m.concept) + '</td><td style="padding:10px 12px;border-top:1px solid #EEF1F5"><button onclick="SOC.mapSelect(\'' + m.id + '\')" style="background:#fff;border:1px solid #DEE3EA;color:#15171C;border-radius:8px;padding:6px 10px;font-size:.8125rem;font-weight:700">Show on map</button></td></tr>';
+      return '<tr><td style="padding:10px 12px;border-top:1px solid #EEF1F5">' + esc(m.region) + '</td><td style="padding:10px 12px;border-top:1px solid #EEF1F5">' + esc(m.admin) + '</td><td style="padding:10px 12px;border-top:1px solid #EEF1F5">' + esc(m.scholar + ' (' + m.nation + ')') + '</td><td style="padding:10px 12px;border-top:1px solid #EEF1F5">' + esc(m.concept) + '</td><td style="padding:10px 12px;border-top:1px solid #EEF1F5"><button onclick="SOC.mapSelect(\'' + m.id + '\')" style="background:#fff;border:1px solid #DEE3EA;color:#15171C;border-radius:8px;padding:6px 10px;font-size:.8125rem;font-weight:700">Select anchor</button></td></tr>';
     }).join('');
     return '<section style="background:#fff;border:1px solid #DEE3EA;border-radius:14px;margin-top:18px;overflow:hidden;box-shadow:0 1px 2px rgba(21,23,28,.04)"><div style="padding:14px 16px;border-bottom:1px solid #EEF1F5"><div class="mono" style="font-size:.6875rem;letter-spacing:.05em;color:#6B7280;margin-bottom:4px">ACCESSIBLE TABLE</div><h2 style="font-size:1.0625rem;margin:0;color:#15171C">Same anchors without the visual</h2></div><div style="overflow:auto"><table style="width:100%;min-width:820px;border-collapse:collapse;font-size:.84rem;color:#15171C"><thead><tr style="text-align:left;background:#F7F8FA"><th style="padding:10px 12px">Indigenous layer</th><th style="padding:10px 12px">Administrative layer</th><th style="padding:10px 12px">Scholar anchor</th><th style="padding:10px 12px">Concept</th><th style="padding:10px 12px">Action</th></tr></thead><tbody>' + rows + '</tbody></table></div></section>';
-  }
-  function mapById(id) { return firstWhere(MAP_REGIONS, function (m) { return m.id === id; }) || MAP_REGIONS[0]; }
-  var _leafletMap = null, _leafletMarkers = {};
-  function ensureLeaflet(cb) {
-    if (window.L) { cb(); return; }
-    if (!document.getElementById('leaflet-css')) { var lk = document.createElement('link'); lk.id = 'leaflet-css'; lk.rel = 'stylesheet'; lk.href = './vendor/leaflet/leaflet.css'; document.head.appendChild(lk); }
-    if (document.getElementById('leaflet-js')) return;
-    var sc = document.createElement('script'); sc.id = 'leaflet-js'; sc.src = './vendor/leaflet/leaflet.js';
-    sc.onload = cb;
-    sc.onerror = function () { var h = document.getElementById('soc-leaflet'); if (h) h.innerHTML = '<div style="padding:26px;color:#6b7280;font-size:.9rem;line-height:1.5">The interactive map could not load (you may be offline). The table below has the same anchors, scholars, and readings.</div>'; };
-    document.head.appendChild(sc);
-  }
-  function initCartography() {
-    var host = document.getElementById('soc-leaflet');
-    if (!host || !window.L || host.getAttribute('data-init') === '1') return;
-    host.setAttribute('data-init', '1');
-    _leafletMap = L.map(host, { scrollWheelZoom: false, attributionControl: true });
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; OpenStreetMap contributors &copy; CARTO', subdomains: 'abcd', minZoom: 3, maxZoom: 11 }).addTo(_leafletMap);
-    _leafletMarkers = {};
-    var pts = [];
-    MAP_REGIONS.forEach(function (m) {
-      if (m.lat == null) return;
-      pts.push([m.lat, m.lng]);
-      var icon = L.divIcon({ className: '', html: '<div class="soc-pin"></div>', iconSize: [20, 20], iconAnchor: [10, 10], popupAnchor: [0, -11] });
-      var mk = L.marker([m.lat, m.lng], { icon: icon, keyboard: true, title: m.scholar + ' (' + m.nation + ')', alt: m.scholar + ', ' + m.nation }).addTo(_leafletMap);
-      mk.bindPopup(mapPopupHTML(m), { maxWidth: 260 });
-      mk.on('click', function () { state.mapRegion = m.id; var el = document.getElementById('soc-mapdetail'); if (el) el.innerHTML = mapDetailInner(m); persist(); });
-      _leafletMarkers[m.id] = mk;
-    });
-    if (pts.length) _leafletMap.fitBounds(L.latLngBounds(pts).pad(0.25));
-  }
-  function mapPopupHTML(m) {
-    var r = mapRecords(m)[0];
-    return '<div style="min-width:178px"><div style="font-size:.62rem;font-weight:700;letter-spacing:.04em;color:#1f4d38;text-transform:uppercase">' + esc(m.nation) + '</div>'
-      + '<div style="font-size:.95rem;font-weight:700;color:#15171C;margin:2px 0 4px">' + esc(m.scholar) + '</div>'
-      + (r ? '<div style="font-size:.8rem;color:#474C57;line-height:1.4">' + esc(r.title) + '</div><button onclick="SOC.read(\'' + r.id + '\')" style="margin-top:7px;background:#DA291C;border:none;color:#fff;border-radius:7px;padding:6px 11px;font-size:.78rem;font-weight:600;cursor:pointer">Open the reading</button>' : '')
-      + '<div style="margin-top:6px;font-size:.7rem;color:#6B7280">Approximate anchor, not a boundary.</div></div>';
-  }
-  function mapDetailInner(m) {
-    return '<section id="map-detail" style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:16px 18px;box-shadow:0 1px 2px rgba(21,23,28,.04)">'
-      + '<div class="mono" style="font-size:.6875rem;letter-spacing:.05em;color:var(--red);font-weight:600;margin-bottom:6px">SELECTED ANCHOR</div>'
-      + '<h2 style="font-size:1.25rem;line-height:1.25;margin:0 0 8px;color:#15171C">' + esc(m.scholar) + '</h2>'
-      + '<div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px"><span style="font-size:.75rem;font-weight:700;background:#E4F0E9;color:#1f4d38;border-radius:999px;padding:5px 9px">' + esc(m.nation) + '</span><span style="font-size:.75rem;font-weight:600;background:#EEF1F5;color:#474C57;border-radius:999px;padding:5px 9px">' + esc(m.region) + '</span></div>'
-      + '<div style="font-size:.84rem;line-height:1.5;color:#474C57;margin-bottom:12px"><strong style="color:#15171C">Concept:</strong> ' + esc(m.concept) + '</div>'
-      + mapReadingRows(m)
-      + '</section>';
   }
   function mapNotesSaveBlock() {
     return '<section style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-top:18px;box-shadow:0 1px 2px rgba(21,23,28,.04)">'
@@ -1804,12 +1784,8 @@
       + '<div class="mono" style="font-size:.75rem;letter-spacing:.06em;color:var(--red);font-weight:600;margin-bottom:8px">PERSONAL CARTOGRAPHY</div>'
       + '<h1 style="font-size:1.75rem;line-height:1.2;font-weight:600;margin:0 0 8px;color:#15171C">Travel the country through the readings.</h1>'
       + '<p style="font-size:.9375rem;line-height:1.55;color:#474C57;margin:0 0 14px;">Each pin marks where an Indigenous scholar assigned this term locates their own nation. Tap a pin to meet the scholar, the place, and the reading. Then note what each place makes visible.</p>'
-      + '<div style="display:flex;align-items:flex-start;gap:10px;background:#FCEFD2;border:1px solid #E6C878;border-radius:12px;padding:12px 15px;margin:0 0 18px;color:#59410B;font-size:.85rem;line-height:1.5"><span style="display:flex;flex:none;color:#8F5E0F;margin-top:1px">' + ic('layers', 16) + '</span><span>' + esc(MAP_CAVEAT) + '</span></div>'
-      + '<div class="soc-mapgrid">'
-      + '<div><div id="soc-leaflet" style="height:540px;border:1px solid var(--border);border-radius:14px;overflow:hidden;background:#EEF1F5" role="application" aria-label="Interactive map of approximate Indigenous scholar reading anchors across Canada"></div>'
-      + '<p style="font-size:.78rem;line-height:1.5;color:#6b7280;margin:10px 0 0">Pins are approximate anchors at each scholar\'s self-identified nation. They do not draw, define, or replace territory or treaty boundaries.</p></div>'
-      + '<aside id="soc-mapdetail">' + mapDetailInner(m) + '</aside>'
-      + '</div>'
+      + '<div style="display:flex;align-items:flex-start;gap:10px;background:#F7F8FA;border:1px solid #D7D7D7;border-left:4px solid #DA291C;border-radius:0 12px 12px 0;padding:12px 15px;margin:0 0 18px;color:#474C57;font-size:.85rem;line-height:1.5"><span style="display:flex;flex:none;color:#961A13;margin-top:1px">' + ic('layers', 16) + '</span><span>' + esc(MAP_CAVEAT) + '</span></div>'
+      + '<div class="soc-mapgrid">' + mapVisual() + mapDetail() + '</div>'
       + mapNotesSaveBlock()
       + mapFallbackTable()
       + '</div>';
@@ -1851,7 +1827,7 @@
   function heroArt() {
     return '<svg class="jhero-art" viewBox="0 0 800 320" preserveAspectRatio="xMidYMid slice" aria-hidden="true">'
       + '<path d="M0,250 C160,210 300,300 460,250 C620,200 720,260 800,230 L800,320 L0,320 Z" fill="#DA291C" fill-opacity=".05"/>'
-      + '<path d="M0,285 C180,250 320,320 500,280 C660,245 740,295 800,275 L800,320 L0,320 Z" fill="#1B2A4A" fill-opacity=".04"/>'
+      + '<path d="M0,285 C180,250 320,320 500,280 C660,245 740,295 800,275 L800,320 L0,320 Z" fill="#15171C" fill-opacity=".04"/>'
       + '<g stroke="#DA291C" stroke-opacity=".10" fill="none" stroke-width="1.4"><path d="M360,150 C480,110 600,180 760,130 C800,116 810,120 830,112"/><path d="M360,185 C480,150 600,215 760,165 C800,150 810,156 830,148"/></g>'
       + '<g fill="#DA291C" fill-opacity=".16"><circle cx="690" cy="70" r="2.6"/><circle cx="742" cy="118" r="1.8"/><circle cx="636" cy="52" r="1.6"/></g>'
       + '</svg>';
@@ -1876,7 +1852,7 @@
       + '<div style="display:flex;flex-wrap:wrap;gap:8px">' + ['Live weeks clearly marked', 'Four asynchronous weeks', 'Recordings by week', 'Blackboard is official'].map(function (t) { return '<span class="mono" style="font-size:.7rem;font-weight:700;color:var(--red);background:#FBF3F2;border:1px solid #F0C8C3;border-radius:999px;padding:5px 11px">' + esc(t) + '</span>'; }).join('') + '</div>'
       + '</div></section>';
     var spineHead = '<div style="display:flex;align-items:baseline;gap:12px;margin:0 0 16px;flex-wrap:wrap"><h2 style="font-size:1.375rem;font-weight:600;margin:0;color:var(--ink)">Your journey</h2><span style="font-size:.875rem;color:var(--ink-faint)">' + ws.length + ' weeks, in course order</span></div>';
-    return '<div class="rise">' + hero + deliveryOverviewPanel() + homeIntroCollapsible() + compassPanel() + lensHomeIntro() + spineHead + deliveryLegend() + journeyStations(null) + '</div>';
+    return '<div class="rise">' + hero + deliveryOverviewPanel() + homeIntroCollapsible() + compassPanel() + courseProgressPanel() + lensHomeIntro() + spineHead + deliveryLegend() + journeyStations(null) + '</div>';
   }
   function journeyStations(cur) {
     var ws = journeyWeeks();
@@ -1889,7 +1865,7 @@
       var note = mode.short + ' · ' + ((w === OVERVIEW_WEEK) ? 'Course overview' : (WORK_WEEKS.indexOf(w) >= 0 ? 'Focus on your work, no new material' : (n ? (n + (n === 1 ? ' reading' : ' readings')) : 'Cumulative review')));
       out += '<button class="jstation' + (isCur ? ' cur' : '') + '" onclick="SOC.station(' + w + ')">'
         + '<div style="display:flex;align-items:flex-start;gap:16px">'
-        + '<span class="jdot" style="display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;flex:none;border-radius:12px;background:' + (isCur ? 'var(--red)' : '#1B2A4A') + ';color:#fff;font-family:var(--mono);font-size:1.0625rem;font-weight:600">' + w + '</span>'
+        + '<span class="jdot" style="display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;flex:none;border-radius:12px;background:' + (isCur ? 'var(--red)' : '#15171C') + ';color:#fff;font-family:var(--mono);font-size:1.0625rem;font-weight:600">' + w + '</span>'
         + '<div style="flex:1;min-width:0">'
         + '<div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:3px"><span class="mono" style="font-size:.625rem;font-weight:700;letter-spacing:.05em;color:' + (mode.kind === 'live' ? '#15171C' : '#474C57') + ';background:#F4F4F4;border:1px solid ' + (mode.kind === 'live' ? '#15171C' : '#6B7280') + ';padding:2px 8px;border-radius:999px">' + (mode.kind === 'live' ? 'LIVE' : 'ASYNC') + '</span>' + lensCardBadge(w) + '<span class="mono" style="font-size:.66rem;color:var(--ink-faint);letter-spacing:.03em">' + esc(weekDate(w)) + '</span></div>'
         + (weekHasWork(w) ? '<span class="mono" style="font-size:.625rem;font-weight:700;letter-spacing:.06em;color:#2c6b3f;background:#E9EFE7;border:1px solid #9CC4A8;border-radius:999px;padding:2px 8px">IN PROGRESS</span>' : '')
@@ -1908,7 +1884,7 @@
     return '';
   }
   function stationReading(r, kicker) {
-    var u = readUrl(r), eye = r.eye === 'indigenous' ? 'INDIGENOUS' : (r.eye === 'western' ? 'WESTERN' : ''), accent = r.eye === 'indigenous' ? '#1f4d38' : '#3a47a8';
+    var u = readUrl(r), eye = r.eye === 'indigenous' ? 'INDIGENOUS' : (r.eye === 'western' ? 'WESTERN' : ''), accent = r.eye === 'indigenous' ? '#961A13' : '#15171C';
     var look = r.assigned ? ('<div style="margin-top:10px;background:#F7F8FA;border-left:3px solid ' + accent + ';padding:8px 12px;border-radius:0 8px 8px 0;font-size:.8125rem;line-height:1.5;color:var(--ink-dim)"><span style="font-weight:600;color:var(--ink)">Read:</span> ' + esc(r.assigned) + '</div>') : '';
     return '<div style="border:1px solid var(--border);border-top:4px solid ' + accent + ';background:#fff;border-radius:13px;padding:17px 19px">'
       + '<div style="display:flex;align-items:center;gap:9px;margin-bottom:7px"><span class="mono" style="font-size:.625rem;font-weight:700;letter-spacing:.04em;color:' + accent + '">' + esc(kicker) + '</span>' + (eye ? '<span class="mono" style="font-size:.625rem;color:#6B7280">' + eye + ' EYE</span>' : '') + '</div>'
@@ -1948,7 +1924,22 @@
       14: {"deck": "", "time": "Flexible pacing: work in manageable blocks and use breaks and accessibility supports as needed.", "overview": "This is the final week, and the work this week is yours. All term you have set a Western way of knowing and an Indigenous way of knowing side by side, each kept whole, each attributed, without collapsing them into one answer. Now you hold the whole course together in your own way. Two-Eyed Seeing, Mi'kmaw Elder Albert Marshall's gift, asks you to see with one eye the strengths of Indigenous ways of knowing and with the other the strengths of Western ways of knowing, and to use both eyes together (Marshall, 2017). The synthesis is yours to write. This page does not write it for you, and it does not hand you a finished account that ties the two eyes together. It gives you the threads of the course, one at a time, and asks you to articulate what you now see, in your own words. Both eyes stay whole. You are the one who holds them together.", "purpose": "Week 14 closes the course by asking you to perform your own Two-Eyed Seeing across everything you have met. You return to the frame in the words of the Elder who named it, Albert Marshall, and to Leroy Little Bear on why two worldviews can describe the same world and still differ at the root (Marshall, 2017; Little Bear, 2000). The aim is for you, not the app, to revisit the big threads of the term, the Western disciplines you met as one whole eye, the Indigenous scholars and knowledge you met as a whole eye in their own right, and the places each eye saw something the other could not, and to hold them together in your own account. The integration is your work, and it stays your work.", "outcomes": ["By the end of this week you can revisit the whole course and name, in your own words, what social science has asked you to do, keeping the work of holding both eyes as your own (Marshall, 2017).", "By the end of this week you can describe the Western disciplines you met as one whole eye, and the Indigenous scholars and knowledge you met as a whole eye in their own right, without ranking one above the other (Marshall, 2017).", "By the end of this week you can name, for yourself, places across the term where each eye saw something the other could not, holding the two side by side rather than collapsing them into one (Little Bear, 2000).", "By the end of this week you can state what Two-Eyed Seeing asks of you as you leave the course, treating it as an ongoing responsibility and a gift from Elder Albert Marshall, not a slogan (Marshall, 2017)."], "guiding": ["Looking back across the whole term, how would you say in your own words what social science has asked you to do, and what it now lets you see that you could not see before (Marshall, 2017)?", "Across the course you met Western disciplines and you met named Indigenous scholars and knowledge. How would you describe each as a whole eye in its own right, without making either one the default (Marshall, 2017)?", "Little Bear says the two worldviews differ at the root. Where in this course did each eye see something the other could not, and how would you name those moments yourself (Little Bear, 2000)?", "As you leave this course, what does Two-Eyed Seeing ask of you now, and how will you keep it an ongoing responsibility rather than letting it become a slogan (Marshall, 2017)?"], "checks": [{"t": "That the synthesis of this course is your own work to write, and that holding both eyes together is something you do, not something the page does for you", "look": "the Marshall reading and the activity"}, {"t": "What social science has asked of you across the whole term, in your own words, and what it now lets you see", "look": "the activity and your own notes from across the course"}, {"t": "The Western disciplines you met held as one whole eye, and the named Indigenous scholars and knowledge you met held as a whole eye in their own right, with neither ranked above the other", "look": "the Marshall reading and your week-by-week notes"}, {"t": "Places across the term where each eye saw something the other could not, named by you and held side by side rather than blended into one", "look": "the Little Bear reading and the activity"}, {"t": "What Two-Eyed Seeing asks of you as you leave the course, as Elder Albert Marshall's gift and an ongoing responsibility, not a slogan", "look": "the Marshall reading and your own reflection"}], "concepts": [{"h": "The synthesis is yours to write", "body": "Two-Eyed Seeing is Mi'kmaw Elder Albert Marshall's guiding principle: seeing with one eye the strengths of Indigenous ways of knowing, with the other the strengths of Western ways of knowing, and using both eyes together for the benefit of all. In a closing week the temptation is to be handed a finished answer that ties the two eyes into one. Marshall's stance refuses that. The holding together is the learner's own ongoing work, returned to over time. This page gives you the threads and asks you to do the integrating yourself, in your own words.", "cite": "Marshall, 2017"}, {"h": "Two whole eyes, revisited", "body": "Across the term you met Western social science disciplines and you met named Indigenous scholars and knowledge. Marshall asks you to keep each as a whole, complete eye in its own right: the Western eye is not the default that Indigenous knowledge is added to, and the Indigenous eye is not a supplement to be checked against Western science. As you revisit the course, your task is to describe each eye on its own terms and to keep both open at once, so each can do what it does best, rather than ranking them or folding one into the other.", "cite": "Marshall, 2017"}, {"h": "Why each eye sees what the other cannot", "body": "Leroy Little Bear explains why holding both eyes open is real work. Indigenous and Eurocentric worldviews differ at their philosophical roots, in their assumptions about time, relationship, and reality. Because they reach the world differently, each eye can see something the other cannot. Naming those places across the course is part of taking the difference seriously. Your work this week is to find those moments yourself and hold the two views side by side with respect, rather than collapsing them into a single account that would erase what makes each distinct.", "cite": "Little Bear, 2000"}, {"h": "A responsibility you carry forward", "body": "Marshall is clear that Two-Eyed Seeing is a journey, not a finished idea you master and set down. It is ongoing co-learning between knowledge traditions, grounded in responsibility and the well-being of future generations, and he warns against letting it be trivialized, romanticized, or co-opted into jargon. As you leave the course, the stance becomes something you carry: a way of working you keep practising, in your own words and your own life, not a label you apply once and consider finished.", "cite": "Marshall, 2017"}], "terms": [{"term": "Two-Eyed Seeing (Etuaptmumk)", "def": "Mi'kmaw Elder Albert Marshall's guiding principle of using the strengths of Indigenous ways of knowing through one eye and the strengths of Western ways of knowing through the other, and using both eyes together for the benefit of all. In this closing week it names the work you do yourself: holding both eyes whole and together across the whole course, in your own words, rather than receiving a finished synthesis from anyone else. It is Elder Albert Marshall's gift and the frame for your own final project.", "cite": "Marshall, 2017"}, {"term": "Co-learning journey", "def": "Marshall's description of Two-Eyed Seeing as an ongoing, respectful practice between knowledge traditions, not a slogan to be trivialized, romanticized, or co-opted. As the course ends, it names why your synthesis is never finished: each person keeps learning to see with both eyes over time, carrying the practice forward as a responsibility rather than completing it.", "cite": "Marshall, 2017"}, {"term": "Root difference of worldviews", "def": "Little Bear's account of how Indigenous and Eurocentric worldviews differ at their philosophical roots, in their assumptions about time, relationship, and reality. Because the two reach the world differently, each eye can see something the other cannot, which is why this week asks you to find and name those places yourself and hold the two views side by side rather than blending them into one.", "cite": "Little Bear, 2000"}, {"term": "Both eyes whole", "def": "the requirement, in Marshall's framing, that each way of knowing stays a whole, complete eye in its own right: the Western eye not treated as the default, the Indigenous eye not treated as a supplement. As you revisit the course, holding both eyes whole means describing each on its own terms and keeping them distinct even as you, the learner, hold them together.", "cite": "Marshall, 2017"}], "readings": [{"apa": "Marshall, A. (2017). Two-Eyed Seeing: Elder Albert Marshall's guiding principle. Thinkers Lodge, Centre for Local Prosperity.", "scope": "The frame for your own synthesis", "id": "amarshall"}, {"apa": "Little Bear, L. (2000). Jagged worldviews colliding. In M. Battiste (Ed.), Reclaiming Indigenous voice and vision (pp. 77-85). UBC Press.", "scope": "The frame for your own synthesis", "id": "littlebear"}], "youcan": ["You can now revisit the whole course and say, in your own words, what social science has asked of you and what it lets you see, keeping the work of holding both eyes as your own", "You can now describe the Western disciplines you met as one whole eye and the named Indigenous scholars and knowledge you met as a whole eye in their own right, without ranking one above the other", "You can now carry Two-Eyed Seeing forward as Elder Albert Marshall's gift and an ongoing responsibility, holding both eyes together in your own way rather than treating the stance as a slogan"], "reflectPrompt": "In a sentence or two, and in your own words: now that the course is done, what does it mean to you to hold both eyes together, and what is one place across the term where you saw something through one eye that you could not have seen through the other? The synthesis is yours: write what you see, not what anyone else has woven for you.", "activity": {"screen": "activity", "archetype": "capstone", "title": "Your own Two-Eyed Seeing of the whole course", "what": "You revisit the big threads of the course one at a time and hold them together in your own words. The page gives you the threads; you write what you now see.", "why": "so the integration is yours: you practise Two-Eyed Seeing on the whole course, keeping both eyes whole and distinct while you, not the app, hold them together.", "data": {"prompt": "Hold the course together in your own way, one thread at a time. The synthesis is yours to write; the app does not write it for you.", "items": [{"label": "What social science asks", "prompt": "In your own words, write what social science has asked you to do across this course, and what you can now see that you could not see at the start. Do not summarize the readings back; say what the term means to you.", "cite": "Marshall, 2017"}, {"label": "The Western disciplines, kept as one eye", "prompt": "Name the Western social science disciplines and ideas you met this term and describe them as one whole eye in its own right. Write what this eye does well, in your own words, without making it the default that everything else is measured against.", "cite": "Marshall, 2017"}, {"label": "The Indigenous scholars and knowledge, kept as a whole eye", "prompt": "Name the Indigenous scholars and knowledge you met this term and describe them as a whole eye in their own right, valid on their own terms. Write, in your own words, what this eye does well, and attribute each scholar correctly rather than speaking for Indigenous peoples in general.", "cite": "Marshall, 2017"}, {"label": "Where each eye saw what the other could not", "prompt": "Find one or two places across the course where each eye saw something the other could not, and name them yourself. Set the two side by side in your own words. Do not fold them into a single account; keep each distinct and say what each one shows.", "cite": "Little Bear, 2000"}, {"label": "The root difference, held with respect", "prompt": "In your own words, say why holding both eyes open took real effort across this course, drawing on the idea that the two worldviews differ at the root. Write how you kept them distinct rather than blending them, and why that mattered to you.", "cite": "Little Bear, 2000"}, {"label": "What Two-Eyed Seeing asks of you now", "prompt": "Write what Two-Eyed Seeing asks of you as you leave this course, in your own words. Name one ongoing responsibility you will carry forward, and how you will keep the stance a living practice rather than a slogan.", "cite": "Marshall, 2017"}], "callout": "Your final project: your own Two-Eyed Seeing of the whole course, in your words. Both eyes stay whole; you hold them together."}}},
     }
   };
-  function weekData(w) { var c = (D.course && D.course.code) || ''; return (WEEKPAGE[c] && WEEKPAGE[c][w]) || null; }
+  function weekData(w) {
+    var c = (D.course && D.course.code) || '';
+    var base = (WEEKPAGE[c] && WEEKPAGE[c][w]) || null;
+    var add = (window.SOC122_CASE_CURRICULUM || {})[w];
+    if (!base || !add) return base;
+    var out = {}, k;
+    for (k in base) out[k] = Array.isArray(base[k]) ? base[k].slice() : base[k];
+    for (k in add) {
+      if (/Mode$/.test(k)) continue;
+      if (Array.isArray(add[k])) {
+        if (add[k + 'Mode'] === 'replace') out[k] = add[k].slice();
+        else out[k] = (Array.isArray(out[k]) ? out[k] : []).concat(add[k]);
+      } else out[k] = add[k];
+    }
+    return out;
+  }
   function wkOptBtns(key) {
     var sel = state.wkCheck[key], opts = ['New to me', 'Getting it', 'I can'];
     return opts.map(function (o, i) { var on = sel === i; return '<button onclick="SOC.wkCheck(\'' + key + '\',' + i + ')" aria-pressed="' + on + '" class="wk-opt' + (on ? ' on' : '') + '">' + o + '</button>'; }).join('');
@@ -1968,13 +1959,13 @@
   }
   function checkBand(g, n) {
     if (n && g.can === n) return { label: 'You can speak to all of this', color: '#2c6b3f', bg: '#E9EFE7' };
-    if (n && g.can >= Math.ceil(n * 0.6)) return { label: 'Most of this is yours', color: '#1552D8', bg: '#E7EEFB' };
-    if (n && (g.can + g.getting) >= Math.ceil(n * 0.6)) return { label: 'Coming together', color: '#8F5E0F', bg: '#F3ECE0' };
+    if (n && g.can >= Math.ceil(n * 0.6)) return { label: 'Most of this is yours', color: '#961A13', bg: '#EEF1F5' };
+    if (n && (g.can + g.getting) >= Math.ceil(n * 0.6)) return { label: 'Coming together', color: '#961A13', bg: '#FBF4F3' };
     return { label: 'Still early, and that is fine', color: '#6b7280', bg: '#F3F4F6' };
   }
   function checkBars(items) {
     return '<div style="display:flex;gap:4px;margin:10px 0" role="img" aria-label="your grasp across the ' + items.length + ' ideas">' + items.map(function (x) {
-      var col = x.r === 2 ? '#2c6b3f' : (x.r === 1 ? '#C99A2E' : '#C7CDD6');
+      var col = x.r === 2 ? '#2c6b3f' : (x.r === 1 ? '#961A13' : '#C7CDD6');
       return '<div style="flex:1;height:8px;border-radius:4px;background:' + col + '"></div>';
     }).join('') + '</div>';
   }
@@ -1992,7 +1983,7 @@
       var pr = pre.items[i] ? pre.items[i].r : null, up = (pr != null && x.r != null && x.r > pr); if (up) moved++;
       var arrow = (pr == null) ? '' : (x.r > pr ? ' (moved up)' : (x.r < pr ? ' (moved back)' : ' (steady)'));
       var from = (pr == null ? 'not rated before' : L[pr]);
-      var still = (x.r < 2) ? '<div style="font-size:.8rem;color:#8F5E0F;margin-top:2px">Still building. ' + esc(x.look || 'Revisit the readings and the activity for this idea.') + '</div>' : '';
+      var still = (x.r < 2) ? '<div style="font-size:.8rem;color:#961A13;margin-top:2px">Still building. ' + esc(x.look || 'Revisit the readings and the activity for this idea.') + '</div>' : '';
       return '<div style="border-top:1px solid var(--border);padding:9px 0"><div style="font-size:.86rem;font-weight:600;color:var(--ink)">' + esc(x.t) + '</div><div style="font-size:.8rem;color:var(--ink-dim);margin-top:3px">' + from + ' &#8594; ' + L[x.r] + arrow + '</div>' + still + '</div>';
     }).join('');
     var movedLine = (pre.answered === pre.total) ? '<div style="font-size:.86rem;color:var(--ink-dim);margin:2px 0 6px">Your understanding moved forward on <b>' + moved + ' of ' + s.total + '</b> since the start.</div>' : '<div style="font-size:.82rem;color:var(--ink-faint);margin:2px 0 6px">Rate the same ideas under Before you begin to see your movement.</div>';
@@ -2046,7 +2037,7 @@
         var show = state.sgShow[nk];
         return '<div style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px">'
           + '<div style="font-weight:700;margin-bottom:8px">' + esc(c.h) + '</div>'
-          + '<textarea oninput="SOC.sgNote(\'' + nk + '\', this.value)" placeholder="Your explanation, one or two sentences..." style="width:100%;min-height:64px;border:1px solid var(--border);border-radius:8px;padding:9px 11px;font:inherit;font-size:.9rem;resize:vertical">' + esc(val) + '</textarea>'
+          + '<textarea oninput="SOC.sgNote(\'' + nk + '\', this.value)" aria-label="Explain ' + esc(c.h) + ' in your own words" placeholder="Your explanation, one or two sentences..." style="width:100%;min-height:64px;border:1px solid var(--border);border-radius:8px;padding:9px 11px;font:inherit;font-size:.9rem;resize:vertical">' + esc(val) + '</textarea>'
           + '<button onclick="SOC.sgCompare(\'' + nk + '\',' + w + ')" style="margin-top:8px;border:1px solid var(--border);background:#fff;border-radius:8px;padding:6px 12px;font-size:.82rem;cursor:pointer">' + (show ? 'Hide the reading\'s version' : 'Compare with the reading') + '</button>'
           + (show ? '<div style="margin-top:9px;padding:10px 13px;border-radius:9px;background:#FBF8F3;border:1px solid var(--border);font-size:.875rem;line-height:1.55">' + esc(c.body) + ' <span class="wk-cite">(' + esc(c.cite) + ')</span></div>' : '')
           + '</div>';
@@ -2066,7 +2057,7 @@
         rows += '<div style="background:#fff;border:1.5px solid ' + (ticked ? '#50694C' : 'var(--border)') + ';border-radius:12px;padding:14px 16px;margin-bottom:10px">'
           + '<div class="mono" style="font-size:.62rem;letter-spacing:.06em;color:' + (ticked ? '#2c6b3f' : '#6B7280') + '">RUNG ' + (ri + 1) + ' \u00B7 ' + rungNames[Math.min(ri, 2)].toUpperCase() + (ticked ? ' \u2713' : '') + '</div>'
           + '<div style="font-weight:600;margin:5px 0 8px;line-height:1.5">' + esc(gqs[ri]) + '</div>'
-          + '<textarea oninput="SOC.sgNote(\'' + rk + '\', this.value)" placeholder="Work it out here..." style="width:100%;min-height:56px;border:1px solid var(--border);border-radius:8px;padding:9px 11px;font:inherit;font-size:.9rem;resize:vertical">' + esc(rv) + '</textarea>'
+          + '<textarea oninput="SOC.sgNote(\'' + rk + '\', this.value)" aria-label="Your response to question ' + (ri + 1) + '" placeholder="Work it out here..." style="width:100%;min-height:56px;border:1px solid var(--border);border-radius:8px;padding:9px 11px;font:inherit;font-size:.9rem;resize:vertical">' + esc(rv) + '</textarea>'
           + (ticked ? '' : '<button onclick="SOC.sgTickRung(\'' + rk + '\',' + w + ')" style="margin-top:8px;border:1px solid var(--border);background:#fff;border-radius:8px;padding:6px 12px;font-size:.82rem;cursor:pointer">Done, next rung</button>')
           + '</div>';
       }
@@ -2202,7 +2193,7 @@
         var body = wrongNote || m.why;
         if (body) { var okBg = (sel === m.answer); var confTag = (conf === 'sure' && sel !== m.answer) ? '<div style="font-size:.72rem;font-weight:700;letter-spacing:.03em;color:#8f1b12;margin-bottom:5px">A CONFIDENT MISS, WORTH UNLEARNING</div>' : ''; diag = '<div style="margin:9px 0 0;padding:10px 13px;border-radius:9px;background:' + (okBg ? '#E9EFE7' : '#FBE9E7') + ';border:1px solid ' + (okBg ? '#9CC4A8' : '#E5B8B0') + ';font-size:.875rem;line-height:1.55">' + confTag + esc(body) + '</div>'; }
       }
-      var revTag = m.rw ? '<span class="mono" style="font-size:.62rem;letter-spacing:.05em;color:#6B7280;background:#EEF1F5;border-radius:999px;padding:2px 8px;margin-left:8px;vertical-align:middle">REVIEW · WEEK ' + m.rw + '</span>' : (isScenario(m) ? '<span class="mono" style="font-size:.62rem;letter-spacing:.05em;color:#8a5a1a;background:#FBEFD9;border-radius:999px;padding:2px 8px;margin-left:8px;vertical-align:middle">SCENARIO</span>' : '');
+      var revTag = m.rw ? '<span class="mono" style="font-size:.62rem;letter-spacing:.05em;color:#6B7280;background:#EEF1F5;border-radius:999px;padding:2px 8px;margin-left:8px;vertical-align:middle">REVIEW · WEEK ' + m.rw + '</span>' : (isScenario(m) ? '<span class="mono" style="font-size:.62rem;letter-spacing:.05em;color:#961A13;background:#FBF4F3;border-radius:999px;padding:2px 8px;margin-left:8px;vertical-align:middle">SCENARIO</span>' : '');
       return groupHead + '<div id="kcq-' + mkey.replace(/[^a-zA-Z0-9]/g, '-') + '" style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:15px 17px;margin-bottom:11px"><p style="margin:0 0 9px;font-size:.95rem;font-weight:600">' + (mi + 1) + '. ' + esc(m.q) + revTag + '</p>' + opts + confRow + diag + '</div>';
     }).join('');
 
@@ -2246,11 +2237,11 @@
           + '<div class="mono" style="font-size:.64rem;letter-spacing:.06em;color:#9aa3af;margin-bottom:7px">HOW SURE YOU WERE vs HOW IT WENT</div>'
           + '<div style="display:flex;gap:14px;flex-wrap:wrap;font-size:.85rem">'
           + '<span style="color:#bfe3c8">● Mastered ' + mastered + '</span>'
-          + '<span style="color:#e7dca6">● Right but unsure ' + fragile + '</span>'
+          + '<span style="color:#F3B1A8">● Right but unsure ' + fragile + '</span>'
           + '<span style="color:#f3b1a8">● Confident miss ' + misc.length + '</span>'
           + '<span style="color:#c8cdd6">● Still finding it ' + edge + '</span></div>'
           + (misc.length ? '<p style="margin:10px 0 4px;font-size:.88rem;line-height:1.55;color:#f3d3ce">Start here. You were sure on these and they did not land, a confident wrong belief is the one that costs you later:</p><ul style="margin:0;padding-left:18px">' + mlist + '</ul>' : (mastered ? '<p style="margin:9px 0 0;font-size:.88rem;color:#bfe3c8">No confident misses, what you are sure of, you have right. That is the calibration you want.</p>' : ''))
-          + (fragile ? '<p style="margin:9px 0 0;font-size:.85rem;color:#e7dca6">' + fragile + ' you got right but were not sure about. You know more than you trust; name why the answer is right and it becomes solid.</p>' : '')
+          + (fragile ? '<p style="margin:9px 0 0;font-size:.85rem;color:#F3B1A8">' + fragile + ' you got right but were not sure about. You know more than you trust; name why the answer is right and it becomes solid.</p>' : '')
           + '</div>';
       }
       var split = '';
@@ -2293,25 +2284,36 @@
       + '</section>';
   }
 
-  function weekImageCard(w) {
-    var IM = window.SOC122_IMAGES || {};
-    var m = IM[w];
-    if (!m || !m.file) return '';
-    return '<section id="wk-image" class="node"><h2 class="wk-sec">This week\'s image</h2>'
-      + '<figure class="wk-figure"><img src="' + esc(m.file) + '" alt="' + esc(m.alt || '') + '" loading="lazy" onerror="this.remove()">'
-      + '<figcaption><b>' + esc(m.name) + '</b>' + (m.context ? '<span>' + esc(m.context) + '</span>' : '')
-      + '<small>' + esc(m.credit) + (m.source ? ' &middot; <a href="' + esc(m.source) + '" target="_blank" rel="noopener">source</a>' : '') + '</small></figcaption></figure></section>';
+  function weekIdeaPanel(w) {
+    var m = (window.SOC122_CASES || {})[w];
+    if (!m) return '';
+    var media = '';
+    if (m.image && m.ready !== false) {
+      media = '<figure class="idea-figure"><img src="' + esc(m.image) + '" alt="' + esc(m.alt || '') + '" loading="lazy" onerror="var f=this.closest(&quot;.idea-figure&quot;);if(f)f.remove()">'
+        + '<figcaption><span>' + esc(m.credit || '') + '</span>'
+        + (m.imageKind === 'generated' ? '<strong>Conceptual image, not documentary evidence</strong>' : '')
+        + (m.source ? '<a href="' + esc(m.source) + '" target="_blank" rel="noopener">Open the image source <span aria-hidden="true">&#8599;</span></a>' : '')
+        + '</figcaption></figure>';
+    }
+    return '<section id="wk-idea" class="node idea-panel"><div class="idea-grid' + (media ? ' has-media' : '') + '">' + media
+      + '<div class="idea-copy"><div class="mono idea-kicker">' + esc(m.eyebrow || 'IDEA IN VIEW') + '</div>'
+      + '<h2 class="wk-sec">' + esc(m.title || 'Idea in view') + '</h2>'
+      + '<div class="idea-block"><b>Why this belongs here</b><p>' + esc(m.why || '') + '</p></div>'
+      + (m.notice ? '<div class="idea-block"><b>Notice</b><p>' + esc(m.notice) + '</p></div>' : '')
+      + (m.question ? '<div class="idea-question"><b>Use the image to think</b><p>' + esc(m.question) + '</p></div>' : '')
+      + '</div></div></section>';
   }
 
   function weekPage(w, d) {
     var ws = journeyWeeks(), idx = ws.indexOf(w), prev = idx > 0 ? ws[idx - 1] : null, next = idx < ws.length - 1 ? ws[idx + 1] : null;
     var sec = function (id, title, inner) { return '<section id="wk-' + id + '" class="node"><h2 class="wk-sec">' + esc(title) + '</h2>' + inner + '</section>'; };
     var hero = weekHero(w, d, { startPart: 'pre', startLabel: 'Start this week', label: deliveryMode(w).label });
-    var img = weekImageCard(w);
+    var img = weekIdeaPanel(w);
     var pre = sec('pre', 'Before you begin', '<p class="wk-hint">A quick read on where your understanding sits right now, no grade. Rate each idea, then meet them again at the end to see how far your thinking moves.</p>' + wkChecks(w, 'pre', d));
     var purpose = '<section id="wk-learn" class="node"><h2 class="wk-sec">Purpose</h2><p style="margin:0">' + esc(d.purpose) + '</p></section>';
     var outcomes = sec('out', 'Learning outcomes', '<p style="margin:0 0 8px;font-size:.9rem">By the end of this week, you will be able to:</p>' + d.outcomes.map(function (o) { return '<div class="wk-oc"><span class="b"></span>' + esc(o) + '</div>'; }).join(''));
     var guiding = sec('gq', 'Guiding questions', '<p style="margin:0 0 8px;font-size:.9rem">Hold these in mind as you work:</p>' + d.guiding.map(function (q) { return '<div class="wk-gq"><span class="q">+</span>' + esc(q) + '</div>'; }).join(''));
+    var care = d.careNote ? '<section id="wk-care" class="node wk-care"><div class="mono">CONTENT AND CHOICE</div><h2 class="wk-sec">Work with this material without over-disclosure</h2><p>' + esc(d.careNote) + '</p></section>' : '';
     var programLens = lensProgramSection(w, d);
     var programCase = lensCaseStudySection(w, d);
     var concepts = sec('con', 'Key concepts', '<p class="wk-hint">These are the week\'s big ideas, explained. Read them to understand the argument; this is what your discussions and written work draw on.</p>' + d.concepts.map(function (c) { return '<div class="wk-concept"><h3>' + esc(c.h) + '</h3><p>' + esc(c.body) + ' <span class="wk-cite">(' + esc(c.cite) + ')</span></p></div>'; }).join(''));
@@ -2328,7 +2330,7 @@
       + '<div class="wk-ocheck"><div class="mono" style="font-size:.78rem;font-weight:700;color:var(--ink-faint);margin-bottom:7px">YOU CAN NOW</div>' + d.youcan.map(function (y) { return '<div class="wk-row"><span class="t">' + ic('check', 14, 2.6) + '</span>' + esc(y) + '</div>'; }).join('') + '</div>'
       + '<h3 style="margin:16px 0 4px">Now, what do you think?</h3><p class="wk-hint" style="margin-bottom:8px">The same ideas from the start. Rate them again to see where your understanding sits now, and how far it moved.</p>' + wkChecks(w, 'post', d)
       + '<h3 style="margin:16px 0 4px">Your reflection</h3><p style="margin:0 0 8px;font-size:.95rem">' + esc(d.reflectPrompt) + '</p>'
-      + '<textarea oninput="SOC.wkReflect(' + w + ',this.value)" class="wk-ta" placeholder="Your reflection...">' + esc(state.wkReflect[w] || '') + '</textarea>'
+      + '<textarea oninput="SOC.wkReflect(' + w + ',this.value)" aria-label="Week ' + w + ' reflection" class="wk-ta" placeholder="Your reflection...">' + esc(state.wkReflect[w] || '') + '</textarea>'
       + '</section>';
     var notes = '<section id="wk-notes" class="node"><h2 class="wk-sec">Generate Your Weekly Notes</h2>'
       + '<div class="wk-savebox" style="margin-top:0"><h3>Your organized Week ' + w + ' record</h3><p style="margin:0 0 4px;font-size:.9rem">This makes one Word file (.docx) on Seneca letterhead. It organizes your private weekly check answers, activity summary, and reflection for review before Blackboard work.</p><ul><li>your before-and-after answers to the five check questions</li><li>a summary of what you did in this week\'s activity</li><li>your answer to the reflection question</li></ul><button onclick="SOC.saveWeek(' + w + ')" class="wk-save">Generate Your Weekly Notes</button></div>'
@@ -2341,16 +2343,16 @@
     var kcR = kcSection(w);
     var kc = kcR.html, kcItems = kcR.items;
     var rail = '<aside class="wk-rail"><div class="wk-railbox"><div class="wk-railh">IN THIS WEEK</div>'
-      + [['ov', 'Overview'], ['mode', 'How this week works'], ['rec', deliveryMode(w).kind === 'live' ? 'Class recording' : 'Instructor update'], ['pre', 'Before you begin'], ['learn', 'Purpose'], ['out', 'Learning outcomes'], ['gq', 'Guiding questions']].concat(img ? [['image', "This week's image"]] : []).concat(programLens ? [['lens', 'For your program']] : []).concat(media ? [['media', 'Watch and question']] : []).concat([['con', 'Key concepts'], ['term', 'Key terms'], ['read', 'Readings']]).concat(d.deck ? [['watch', 'Walkthrough']] : []).concat(programCase ? [['case', 'Case study']] : []).concat([['do', 'The activity'], ['reflect', 'Reflection']]).concat(sg ? [['sg', 'Study Guide']] : []).concat(kcItems.length ? [['kc', 'Knowledge Check']] : []).concat([['notes', 'Generate notes']]).map(function (it) { return '<a href="#wk-' + it[0] + '"><span class="s"></span>' + it[1] + '</a>'; }).join('')
+      + [['ov', 'Overview'], ['mode', 'How this week works'], ['rec', deliveryMode(w).kind === 'live' ? 'Class recording' : 'Instructor update'], ['pre', 'Before you begin'], ['learn', 'Purpose'], ['out', 'Learning outcomes'], ['gq', 'Guiding questions']].concat(care ? [['care', 'Content and choice']] : []).concat(img ? [['idea', 'Idea in view']] : []).concat(programLens ? [['lens', 'For your program']] : []).concat(media ? [['media', 'Watch and question']] : []).concat([['con', 'Key concepts'], ['term', 'Key terms'], ['read', 'Readings']]).concat(d.deck ? [['watch', 'Walkthrough']] : []).concat(programCase ? [['case', 'Case study']] : []).concat([['do', 'The activity'], ['reflect', 'Reflection']]).concat(sg ? [['sg', 'Study Guide']] : []).concat(kcItems.length ? [['kc', 'Knowledge Check']] : []).concat([['notes', 'Generate notes']]).map(function (it) { return '<a href="#wk-' + it[0] + '"><span class="s"></span>' + it[1] + '</a>'; }).join('')
       + '<div class="wk-railt">' + ic('calendar', 12) + ' ' + esc(deliveryMode(w).short) + '</div></div></aside>';
     var collBar = '<div class="wk-coll-bar" role="group" aria-label="Section display controls"><button type="button" onclick="SOC.wkCollAll(' + w + ',1)">Collapse all sections</button><span>Weeks start folded so you can see the whole map. Up to two sections stay open at once; opening a third closes the earliest one. Sections fold again when you leave the week.</span></div>';
-    return '<div class="rise">' + hero + deliveryNotice(w) + recordingSection(w) + '<div class="wk-grid"><main>' + collBar + pre + purpose + outcomes + guiding + img + programLens + media + concepts + terms + readings + watch + programCase + act + reflect + sg + kc + notes + navRow + '</main>' + rail + '</div></div>';
+    return '<div class="rise">' + hero + deliveryNotice(w) + recordingSection(w) + '<div class="wk-grid"><main>' + collBar + pre + purpose + outcomes + guiding + care + img + programLens + media + concepts + terms + readings + watch + programCase + act + reflect + sg + kc + notes + navRow + '</main>' + rail + '</div></div>';
   }
   /* ---------- generic week activities: match / scenario / toggle / assemble / lab ---------- */
   function actCard(inner) { return '<div style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin:0 0 12px">' + inner + '</div>'; }
   function actCite(c) { return c ? '<div style="font-size:.74rem;color:var(--ink-faint);margin-top:6px">(' + esc(c) + ')</div>' : ''; }
   function actBadge(harm) { return harm ? '<span style="display:inline-block;background:#FBE9EA;color:#B11722;font-size:.7rem;font-weight:700;border-radius:999px;padding:2px 9px;margin-left:8px">a weaker move</span>' : '<span style="display:inline-block;background:#E7F3EC;color:#1C7A43;font-size:.7rem;font-weight:700;border-radius:999px;padding:2px 9px;margin-left:8px">a stronger move</span>'; }
-  function actCaseBox(label, txt) { return txt ? '<div style="background:#15171C;color:#fff;border-radius:12px;padding:14px 18px;margin:0 0 16px"><div style="font-size:.7rem;font-weight:700;color:#F2A900;margin-bottom:4px">' + label + '</div><div style="font-size:.98rem;line-height:1.5">' + esc(txt) + '</div></div>' : ''; }
+  function actCaseBox(label, txt) { return txt ? '<div style="background:#15171C;color:#fff;border-radius:12px;padding:14px 18px;margin:0 0 16px"><div style="font-size:.7rem;font-weight:700;color:#6B7280;margin-bottom:4px">' + label + '</div><div style="font-size:.98rem;line-height:1.5">' + esc(txt) + '</div></div>' : ''; }
   function actMatch(w, a) {
     var d = a.data || {}, pairs = d.pairs || [], uniq = [], seen = {};
     pairs.forEach(function (p) { if (!seen[p.match]) { seen[p.match] = 1; uniq.push(p.match); } });
@@ -2413,7 +2415,7 @@
       var body = on ? '<div style="border:1px solid #1C7A43;border-top:none;border-radius:0 0 9px 9px;background:#fff;padding:10px 14px;margin:0 0 8px;font-size:.88rem;color:var(--ink-dim)">' + esc(it.prompt) + actCite(it.cite) + '</div>' : '';
       return btn + body;
     }).join('');
-    var callout = d.callout ? '<div style="margin-top:14px;background:#15171C;color:#fff;border-radius:12px;padding:16px 18px"><div style="font-size:.7rem;font-weight:700;color:#F2A900;margin-bottom:5px">YOUR FINAL PROJECT</div><div style="font-size:.95rem;line-height:1.5">' + esc(d.callout) + '</div></div>' : '';
+    var callout = d.callout ? '<div style="margin-top:14px;background:#15171C;color:#fff;border-radius:12px;padding:16px 18px"><div style="font-size:.7rem;font-weight:700;color:#6B7280;margin-bottom:5px">YOUR FINAL PROJECT</div><div style="font-size:.95rem;line-height:1.5">' + esc(d.callout) + '</div></div>' : '';
     return '<p style="margin:0 0 14px;color:var(--ink-dim)">' + esc(d.prompt || 'Revisit your cartography one dimension at a time. Mark each as you reread it.') + '</p>' + rows + callout;
   }
   function activityScreen() {
@@ -2556,7 +2558,7 @@
     var act = d.activity ? '<section id="wk-do" class="node interactive"><h2 class="wk-sec">' + esc(d.activity.title) + '</h2><div class="wk-whatwhy"><b>What this is:</b> ' + esc(d.activity.what) + '<br><br><b>Why you are doing it:</b> ' + esc(d.activity.why) + '</div><button onclick="SOC.startActivity(\'' + d.activity.screen + '\',' + w + ')" class="wk-cta">Open your final project' + ic('chevron', 17, 2.4) + '</button></section>' : '';
     var reflect = '<section id="wk-reflect" class="node"><h2 class="wk-sec">Your reflection</h2>'
       + (d.reflectPrompt ? '<p style="margin:0 0 8px;font-size:.95rem">' + esc(d.reflectPrompt) + '</p>' : '')
-      + '<textarea oninput="SOC.wkReflect(' + w + ',this.value)" class="wk-ta" placeholder="Your reflection...">' + esc(state.wkReflect[w] || '') + '</textarea>'
+      + '<textarea oninput="SOC.wkReflect(' + w + ',this.value)" aria-label="Week ' + w + ' reflection" class="wk-ta" placeholder="Your reflection...">' + esc(state.wkReflect[w] || '') + '</textarea>'
       + '</section>';
     var notes = '<section id="wk-notes" class="node"><h2 class="wk-sec">Generate Your Weekly Notes</h2>'
       + '<div class="wk-savebox" style="margin-top:0"><h3>Your organized Week ' + w + ' record</h3><p style="margin:0 0 6px;font-size:.9rem">This makes one Word file (.docx) on Seneca letterhead, your organized weekly record.</p><button onclick="SOC.saveWeek(' + w + ')" class="wk-save">Generate Your Weekly Notes</button></div></section>';
@@ -2564,10 +2566,10 @@
       + (prev != null ? '<button onclick="SOC.station(' + prev + ')" style="flex:1;min-width:180px;text-align:left;border:1px solid var(--border);background:#fff;border-radius:12px;padding:13px 16px;cursor:pointer"><div class="mono" style="font-size:.66rem;color:var(--ink-faint)">&larr; PREVIOUS</div><div style="font-size:.92rem;font-weight:700;color:var(--ink);margin-top:2px">Week ' + prev + ': ' + esc(weekTitle(prev)) + '</div></button>' : '')
       + (next != null ? '<button onclick="SOC.station(' + next + ')" style="flex:1;min-width:180px;text-align:right;border:1px solid var(--border);background:#fff;border-radius:12px;padding:13px 16px;cursor:pointer"><div class="mono" style="font-size:.66rem;color:var(--red)">NEXT &rarr;</div><div style="font-size:.92rem;font-weight:700;color:var(--ink);margin-top:2px">Week ' + next + ': ' + esc(weekTitle(next)) + '</div></button>' : '')
       + '</div>';
+    var img = weekIdeaPanel(w);
     var rail = '<aside class="wk-rail"><div class="wk-railbox"><div class="wk-railh">IN THIS WEEK</div>'
-      + [['ov', 'This week'], ['mode', 'How this week works'], ['rec', 'Instructor update']].concat(d.activity ? [['do', 'Your final project']] : []).concat([['reflect', 'Reflection'], ['notes', 'Generate notes']]).map(function (it) { return '<a href="#wk-' + it[0] + '"><span class="s"></span>' + it[1] + '</a>'; }).join('')
+      + [['ov', 'This week'], ['mode', 'How this week works'], ['rec', 'Instructor update']].concat(img ? [['idea', 'Idea in view']] : []).concat(d.activity ? [['do', 'Your final project']] : []).concat([['reflect', 'Reflection'], ['notes', 'Generate notes']]).map(function (it) { return '<a href="#wk-' + it[0] + '"><span class="s"></span>' + it[1] + '</a>'; }).join('')
       + '<div class="wk-railt">' + ic('clock', 12) + ' No new material</div></div></aside>';
-    var img = weekImageCard(w);
     return '<div class="rise">' + hero + deliveryNotice(w) + recordingSection(w) + '<div class="wk-grid"><section>' + img + act + reflect + notes + navRow + '</section>' + rail + '</div></div>';
   }
   var OVERVIEW_WEEK = 1;
@@ -2588,10 +2590,10 @@
       + '<p style="margin:0 0 10px;font-size:1rem;line-height:1.6">This is a blended synchronous course. Weeks 1 to 3, 5 to 10, and 12 meet live. Weeks 4 and 11 are independent asynchronous learning weeks. Week 13 is supported asynchronous completion with office hours, and Week 14 is asynchronous course closure with optional consultation and no graded deadline. Every week page names its mode and purpose. Live weeks include a class-recording space; asynchronous weeks may carry a short instructor update. Study Week, October 26 to 30, has no class and no new module. Blackboard remains the official Seneca course platform.</p>'
       + '<p style="margin:0;font-size:1rem;line-height:1.6">This week is your orientation. There are no readings and nothing to submit. When you are ready, begin with Week ' + (next != null ? next : 2) + '.</p></section>';
     var beginRow = (next != null) ? '<div style="margin-top:18px"><button onclick="SOC.station(' + next + ')" style="border:1px solid var(--border);background:#fff;border-radius:12px;padding:13px 18px;cursor:pointer;text-align:left;min-width:220px"><div class="mono" style="font-size:.66rem;color:var(--red)">BEGIN &rarr;</div><div style="font-size:.95rem;font-weight:700;color:var(--ink);margin-top:2px">Week ' + next + ': ' + esc(weekTitle(next)) + '</div></button></div>' : '';
+    var img = weekIdeaPanel(w);
     var rail = '<aside class="wk-rail"><div class="wk-railbox"><div class="wk-railh">IN THIS WEEK</div>'
-      + [['ov', 'Overview'], ['mode', 'How this week works'], ['rec', 'Class recording'], ['how', 'How this course works'], ['image', "This week's image"]].map(function (it) { return '<a href="#wk-' + it[0] + '"><span class="s"></span>' + it[1] + '</a>'; }).join('')
+      + [['ov', 'Overview'], ['mode', 'How this week works'], ['rec', 'Class recording'], ['how', 'How this course works']].concat(img ? [['idea', 'Idea in view']] : []).map(function (it) { return '<a href="#wk-' + it[0] + '"><span class="s"></span>' + it[1] + '</a>'; }).join('')
       + '<div class="wk-railt">' + ic('clock', 12) + ' Overview, no readings</div></div></aside>';
-    var img = weekImageCard(w);
     return '<div class="rise">' + hero + deliveryNotice(w) + recordingSection(w) + '<div class="wk-grid"><section>' + how + img + beginRow + '</section>' + rail + '</div></div>';
   }
   var STUDY_WEEK = 7;
@@ -2619,7 +2621,7 @@
     var rail = '<aside class="wk-rail"><div class="wk-railbox"><div class="wk-railh">IN THIS WEEK</div>'
       + [['ov', 'Study Week']].concat(priors.length ? [['catch', 'Catch up and review']] : []).concat(kcItems.length ? [['kc', 'Knowledge Check']] : []).map(function (it) { return '<a href="#wk-' + it[0] + '"><span class="s"></span>' + it[1] + '</a>'; }).join('')
       + '<div class="wk-railt">' + ic('clock', 12) + ' No classes this week</div></div></aside>';
-    return '<div class="rise">' + hero + '<div class="wk-grid"><section>' + weekImageCard(w) + catchup + kc + navRow + '</section>' + rail + '</div></div>';
+    return '<div class="rise">' + hero + '<div class="wk-grid"><section>' + weekIdeaPanel(w) + catchup + kc + navRow + '</section>' + rail + '</div></div>';
   }
   function kcWeekPage(w) {
     var ws = journeyWeeks(), idx = ws.indexOf(w), prev = idx > 0 ? ws[idx - 1] : null, next = idx < ws.length - 1 ? ws[idx + 1] : null;
@@ -2639,7 +2641,7 @@
       + (prev != null ? '<button onclick="SOC.station(' + prev + ')" style="flex:1;min-width:190px;text-align:left;border:1px solid var(--border);background:#fff;border-radius:12px;padding:13px 16px;cursor:pointer"><div class="mono" style="font-size:.6875rem;color:var(--ink-faint)">&larr; PREVIOUS</div><div style="font-size:.9375rem;font-weight:600;color:var(--ink);margin-top:2px">Week ' + prev + ': ' + esc(weekTitle(prev)) + '</div></button>' : '')
       + (next != null ? '<button onclick="SOC.station(' + next + ')" style="flex:1;min-width:190px;text-align:right;border:1px solid var(--border);background:#fff;border-radius:12px;padding:13px 16px;cursor:pointer"><div class="mono" style="font-size:.6875rem;color:var(--red)">NEXT &rarr;</div><div style="font-size:.9375rem;font-weight:600;color:var(--ink);margin-top:2px">Week ' + next + ': ' + esc(weekTitle(next)) + '</div></button>' : '')
       + '</div>';
-    return '<div class="rise">' + hero + deliveryNotice(w) + recordingSection(w) + weekImageCard(w) + kc + navRow + '</div>';
+    return '<div class="rise">' + hero + deliveryNotice(w) + recordingSection(w) + weekIdeaPanel(w) + kc + navRow + '</div>';
   }
   function weekStation(w) {
     if (w === OVERVIEW_WEEK) return overviewPage(w);
@@ -3140,12 +3142,12 @@
     var items = [
       ['Personal Cartography sequence', 'Course spine', 'Use the weekly rooms to build the map slowly instead of trying to invent it at the end.'],
       ['Two-Eyed Seeing Journal', 'Recurring work', 'Keep each entry grounded in the named source and in respectful, attributed language.'],
-      ['Knowledge in Two Eyes', 'Reading and evidence practice', 'Use comparison, reading practice, and flashcards before writing.'],
+      ['Knowledge in Two Eyes', 'Reading and evidence practice', 'Compare one Western and one Indigenous-authored source, then interpret one numerical, statistical, sample, or measurement claim and state what it cannot prove.'],
       ['A Question of Reconciliation', 'Later-term application', 'Connect course concepts to responsibility without speaking for a community.'],
       ['Final project integration', 'Week 13 window', 'Bring the whole course map together with Blackboard as the official submission point.']
     ];
     var steps = items.map(function (x, i) { return '<li><span>' + (i + 1) + '</span><div><b>' + esc(x[0]) + '</b><em>' + esc(x[1]) + '</em><p>' + esc(x[2]) + '</p></div></li>'; }).join('');
-    return '<div class="rise path-page"><section class="path-hero"><div><div class="mono">STARTING YOUR ASSIGNMENT</div><h1>Use the site to prepare, then submit in Blackboard</h1><p>This page gives you the standard starting pattern: find the official assignment in Blackboard, use this site to gather concepts and evidence, then write and submit the final work yourself.</p></div><div class="path-compass"><span>SITE</span><b>practice, notes, evidence</b><i></i><span>BLACKBOARD</span><b>official brief, dropbox, grade</b></div></section><section class="path-summary"><div><b>Blackboard is official</b><span>Due dates, dropboxes, rubrics, feedback, and grades stay in Blackboard.</span></div><div><b>Use weekly notes</b><span>Generate notes from the weeks that feed the assignment before drafting.</span></div><div><b>Keep the course lens visible</b><span>Name the source, the course concept, the limit, and the responsibility question.</span></div></section>' + assignmentIntegrityNotice() + '<section class="path-route"><div class="path-route-head"><div class="mono">ASSIGNMENT ROUTE</div><h2>Start from the active SOC122 package</h2><p>Use this as a planning map only. Always check Blackboard for the complete instructions before submitting.</p></div><ol>' + steps + '</ol></section><section class="path-close"><h2>Start with the week that feeds the work</h2><p>Open the relevant weekly room, generate your notes, then come back to this assignment map when you are ready to draft.</p><div class="path-actions"><button type="button" onclick="SOC.station(4)"><b>Week 4</b><small>Cartography start.</small></button><button type="button" onclick="SOC.station(8)"><b>Week 8</b><small>Identity and relation.</small></button><button type="button" onclick="SOC.station(12)"><b>Week 12</b><small>Responsibility question.</small></button><button type="button" onclick="SOC.station(13)"><b>Week 13</b><small>Final project integration.</small></button></div></section></div>';
+    return '<div class="rise path-page"><section class="path-hero"><div><div class="mono">ASSIGNMENT PLANNING</div><h1>Understanding Your Assignment</h1><p>This page helps you read the assignment, identify the course ideas and evidence it needs, plan the work, and then submit the final version in Blackboard.</p></div><div class="path-compass"><span>SITE</span><b>practice, notes, evidence</b><i></i><span>BLACKBOARD</span><b>official brief, dropbox, grade</b></div></section><section class="path-summary"><div><b>Blackboard is official</b><span>Due dates, dropboxes, rubrics, feedback, and grades stay in Blackboard.</span></div><div><b>Use weekly notes</b><span>Generate notes from the weeks that feed the assignment before drafting.</span></div><div><b>Keep the course lens visible</b><span>Name the source, the course concept, the limit, and the responsibility question.</span></div></section>' + assignmentIntegrityNotice() + '<section class="path-route"><div class="path-route-head"><div class="mono">ASSIGNMENT ROUTE</div><h2>Start from the active SOC122 package</h2><p>Use this as a planning map only. Always check Blackboard for the complete instructions before submitting.</p></div><ol>' + steps + '</ol></section><section class="path-close"><h2>Start with the week that feeds the work</h2><p>Open the relevant weekly room, generate your notes, then come back to this assignment map when you are ready to draft.</p><div class="path-actions"><button type="button" onclick="SOC.station(4)"><b>Week 4</b><small>Cartography start.</small></button><button type="button" onclick="SOC.station(8)"><b>Week 8</b><small>Sociology and evidence.</small></button><button type="button" onclick="SOC.station(12)"><b>Week 12</b><small>Responsibility question.</small></button><button type="button" onclick="SOC.station(13)"><b>Week 13</b><small>Final project integration.</small></button></div></section></div>';
   }
   function scholarMedia() {
     var out = [];
@@ -3199,6 +3201,8 @@
     if (!d) return [];
     var s = [];
     s.push({ kind: 'cover', title: weekTitle(w), question: (d.guiding && d.guiding[0]) || journeyQ(w), lead: firstSentence(d.overview || '') });
+    var idea = (window.SOC122_CASES || {})[w];
+    if (idea && idea.image && idea.ready !== false) s.push({ kind: 'idea', src: idea.image, h: idea.title, body: idea.why, question: idea.question, credit: idea.credit, alt: idea.alt, generated: idea.imageKind === 'generated' });
     try { var _cc = (typeof courseCode === 'function') ? courseCode() : ''; var _HOLO = _cc && (typeof window !== 'undefined') && window[_cc + '_HOLO']; if (_HOLO && _HOLO.supports && typeof visualSpec === 'function') { var _vs = visualSpec(w, d); if (_vs && _HOLO.supports(_vs.kind)) s.push({ kind: 'model', week: w }); } } catch (e) {}
     (d.concepts || []).forEach(function (c, ci) {
       s.push({ kind: 'concept', h: c.h, body: c.body, cite: c.cite });
@@ -3222,6 +3226,18 @@
       return '<div class="walk-kicker">KEY IDEA</div><h2 class="walk-h">' + esc(s.h) + '</h2>'
         + '<p class="walk-body">' + esc(s.body) + '</p>'
         + (s.cite ? '<div class="walk-cite">' + esc(s.cite) + '</div>' : '');
+    }
+    if (s.kind === 'idea') {
+      return '<div class="walk-figwrap">'
+        + '<div class="walk-figtext">'
+        + '<div class="walk-kicker">IDEA IN VIEW</div>'
+        + '<h2 class="walk-fighead">' + esc(s.h) + '</h2>'
+        + '<p class="walk-figcap">' + esc(s.body || '') + '</p>'
+        + (s.question ? '<div class="walk-q"><span>Use the image to think</span><b>' + esc(s.question) + '</b></div>' : '')
+        + '<p class="walk-cite">' + esc(s.credit || '') + (s.generated ? ' Conceptual image, not documentary evidence.' : '') + '</p>'
+        + '</div>'
+        + '<div class="walk-figview"><img class="walk-figimg" src="' + esc(s.src) + '" alt="' + esc(s.alt || s.h) + '" onerror="var f=this.closest(&quot;.walk-figwrap&quot;);if(f){var v=f.querySelector(&quot;.walk-figview&quot;);if(v)v.innerHTML=&quot;<p class=walk-fignote>The image could not load.</p>&quot;;}"></div>'
+        + '</div>';
     }
     if (s.kind === 'figure') {
       return '<div class="walk-figwrap">'
@@ -3330,7 +3346,7 @@
         + '<p style="font-size:.875rem;color:#474C57;margin:0 0 14px">A short slide walkthrough of this week\'s core idea, built to step through at your own pace.</p>'
         + '<div style="display:flex;gap:9px;flex-wrap:wrap">'
         + '<button type="button" class="wk-cta" style="margin:0" onclick="SOC.playWalk(' + it.w + ')">Play the walkthrough</button>'
-        + '<button type="button" onclick="SOC.station(' + it.w + ')" style="border:1px solid #DEE3EA;background:#fff;color:#1B2A4A;border-radius:9px;font-size:.85rem;font-weight:600;padding:8px 14px;cursor:pointer">Go to Week ' + it.w + '</button>'
+        + '<button type="button" onclick="SOC.station(' + it.w + ')" style="border:1px solid #DEE3EA;background:#fff;color:#15171C;border-radius:9px;font-size:.85rem;font-weight:600;padding:8px 14px;cursor:pointer">Go to Week ' + it.w + '</button>'
         + '</div></div></article>';
     }).join('');
     return '<div class="rise vid-page">'
@@ -3477,7 +3493,7 @@
   function render() {
     if (state.screen !== 'compare' && render._prev !== undefined && render._prev !== state.screen && (state.compareIds.length || state.showSynthesis)) { state.compareIds = []; state.showSynthesis = false; }
     render._prev = state.screen;
-    var toast = state.toast ? '<div role="status" style="position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:80;background:#15171C;color:#fff;font-size:.9375rem;font-weight:500;padding:12px 20px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.24);display:flex;align-items:center;gap:10px"><span style="display:flex;color:#F2A900">' + ic('check', 16, 2.2) + '</span>' + esc(state.toast) + '</div>' : '';
+    var toast = state.toast ? '<div role="status" style="position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:80;background:#15171C;color:#fff;font-size:.9375rem;font-weight:500;padding:12px 20px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.24);display:flex;align-items:center;gap:10px"><span style="display:flex;color:#6B7280">' + ic('check', 16, 2.2) + '</span>' + esc(state.toast) + '</div>' : '';
     document.getElementById('app').innerHTML =
       '<div style="min-height:100vh;display:flex;flex-direction:column;background:#F7F8FA">' + header()
       + (state.navOpen ? '<button class="soc-mobile-scrim" onclick="SOC.closeNav()" aria-label="Close course navigation"></button>' : '')
@@ -3501,7 +3517,6 @@
       var lr = document.getElementById('soc-live');
       if (lr) { lr.textContent = ''; setTimeout(function () { lr.textContent = 'Loaded ' + ann; }, 30); }
     }
-    if (state.screen === 'map' && D.course && D.course.frame) ensureLeaflet(initCartography);
     saveView();
     wkEnhanceSections();
     setTimeout(showUpcomingReminder, 80);
@@ -4029,10 +4044,10 @@
       persist();
     },
     mapSelect: function (id) {
-      state.mapRegion = id; persist();
-      var m = mapById(id), el = document.getElementById('soc-mapdetail'); if (el) el.innerHTML = mapDetailInner(m);
-      if (_leafletMap && m.lat != null) { _leafletMap.setView([m.lat, m.lng], 5); var mk = _leafletMarkers[id]; if (mk) mk.openPopup(); }
-      var d = document.getElementById('soc-leaflet'); if (d && d.scrollIntoView) d.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      state.mapRegion = id;
+      persist();
+      focusTarget = 'map-detail';
+      render();
     },
     saveMap: function () {
       var m = mapActive(), rs = mapRecords(m);
