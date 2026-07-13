@@ -4,7 +4,7 @@ Instructor-created companion website for **SOC122: Introduction to the Social Sc
 
 A student-facing source library: search and filter the course readings, move through the course by week, drill into one source, and hold up to three readings side by side in the compare view. Per Raymond's 2026-07-03 directive for this introductory general education course, the compare view uses both approaches: the app can show a worked weaving for any pair (attributed, both eyes kept whole, labelled as a demonstration), and every weaving hands the integration back to the student, whose own weaving is framed as the one that counts. The Week 14 closing synthesis remains the student's own work. The current data set has 32 reading, media, and source records, 56 glossary concepts, and 231 authored pair weavings.
 
-The repo also serves the SOC122 weekly walkthrough decks at `/walkthroughs/`. Those decks are generated from the shared walkthrough YAML source in `projects/Seneca Polytechnic/walkthrough/content/SOC122/`.
+The repo also serves the SOC122 legacy weekly presentation routes at `/walkthroughs/`. Those decks are generated from the shared walkthrough YAML source in `projects/Seneca Polytechnic/walkthrough/content/SOC122/`.
 
 It is a **companion to Blackboard**, not a replacement. Official records, discussion, grades, and submission live in Blackboard. The public app has no accounts, no grading, no student-to-student interaction, no analytics, no PDFs, and no reproduced reading text. Free readings link out to OpenStax or open-access pages; licensed readings link only to the Seneca Library catalogue (Primo) or are reached through the Blackboard weekly Readings folders. No reading text or PDFs are hosted here.
 

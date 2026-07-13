@@ -125,123 +125,123 @@ window.SOC122_KC = {
   ],
   "4": [
     {
-      "q": "What does cultural safety require?",
+      "q": "What did the Truth and Reconciliation Commission of Canada build before issuing its Calls to Action?",
       "options": [
-        "Measuring every culture against one shared standard",
-        "Asking people to set their culture aside when receiving care",
-        "Treating people in ways that respect and do not undermine their cultural identity",
-        "Limiting services to one cultural group at a time"
-      ],
-      "answer": 2,
-      "why": "Cultural safety is a standard in which people are treated in ways that respect and do not undermine their cultural identity.",
-      "diff": 1
-    },
-    {
-      "q": "Cultural safety shifts attention away from the individual and toward what?",
-      "options": [
-        "The genetics of the community being served",
-        "The personality of the individual patient",
-        "The private choices of each family",
-        "The system or institution, asking whether it feels safe to the person receiving care or service"
-      ],
-      "answer": 3,
-      "why": "Cultural safety shifts attention from the individual to the system, asking whether an institution feels safe to the person receiving care or service.",
-      "diff": 2
-    },
-    {
-      "q": "How does the Week 4 material describe reconciliation?",
-      "options": [
-        "The ongoing work of repairing relationships, grounded in truth and responsibility rather than apology alone",
-        "A single formal apology that closes the matter",
-        "A decision to stop discussing past harms",
-        "A one-time payment that ends all obligations"
+        "A public record based on Survivor testimony, records, and research",
+        "A national health-insurance plan",
+        "A single cultural profile of Indigenous peoples",
+        "A ranking of Canadian universities"
       ],
       "answer": 0,
-      "why": "Reconciliation is described as ongoing work to repair relationships, grounded in truth and responsibility rather than apology alone.",
+      "why": "The Commission gathered testimony and records to document the residential school system, its harms, and continuing effects before issuing Calls to Action.",
       "diff": 1
     },
     {
-      "q": "What did the Truth and Reconciliation Commission do?",
+      "q": "What is the strongest description of the TRC Calls to Action?",
       "options": [
-        "Wrote the original Indian Act",
-        "Documented the residential school system and issued Calls to Action directed at governments, institutions, and Canadians",
-        "Ran Canada's national census",
-        "Set tuition rates for universities"
+        "Optional reading suggestions with no named audience",
+        "Specific calls directed to governments, churches, schools, professional bodies, archives, and other institutions",
+        "A claim that one apology completed reconciliation",
+        "A replacement for the laws and knowledge of every Indigenous Nation"
       ],
       "answer": 1,
-      "why": "The Commission documented the residential school system and issued Calls to Action directed at governments, institutions, and Canadians.",
-      "diff": 1
+      "why": "The Calls to Action name responsibilities for specific institutions and people in Canada; they are not a universal Indigenous law or a completed checklist.",
+      "diff": 2
     },
     {
-      "q": "What does intergenerational impact refer to?",
+      "q": "How does the TRC summary frame reconciliation?",
       "options": [
-        "A benefit that grows automatically with each new generation",
-        "A harm that affects only the person who first experienced it",
-        "The way harm and its effects pass from one generation to the next",
-        "An effect that always disappears within a single lifetime"
-      ],
-      "answer": 2,
-      "why": "Intergenerational impact names the way harm and its effects pass from one generation to the next, shaping lives long afterward.",
-      "diff": 1
-    },
-    {
-      "q": "In this reading, honest and accurate knowledge about Indigenous peoples is treated as a precondition for what?",
-      "options": [
-        "Keeping present-day patterns unexplained",
-        "Ending all health data collection",
-        "Replacing community input with expert opinion",
-        "Reconciliation and repair"
-      ],
-      "answer": 3,
-      "why": "Smylie and Anderson connect accurate knowledge to reconciliation, since honest knowledge is a precondition for repair.",
-      "diff": 1
-    },
-    {
-      "q": "Cultural safety suggests that unsafe encounters in care or service often begin with what?",
-      "options": [
-        "Wrong or stereotyped assumptions about the person",
-        "Too much attention to the institution",
-        "The person asking questions about their own care",
-        "Providing services in more than one language"
+        "As an ongoing process requiring awareness, acknowledgement, atonement, and changed behaviour",
+        "As forgetting the past once an apology is made",
+        "As a private feeling with no institutional dimension",
+        "As a process completed in 2015"
       ],
       "answer": 0,
-      "why": "The reading connects cultural safety to accurate, respectful knowledge, noting that unsafe encounters often begin with wrong or stereotyped assumptions.",
-      "diff": 2
+      "why": "The TRC frames reconciliation as an ongoing relationship and process, not a one-time event.",
+      "diff": 1
     },
     {
-      "q": "In a field such as health, what would reconciliation involve according to this reading?",
+      "q": "What coverage problem do Smylie and Anderson identify in Indigenous health data?",
       "options": [
-        "Issuing a statement and making no further changes",
-        "Changing practices so that past and present harms are acknowledged and addressed",
-        "Waiting for the harms to resolve on their own",
-        "Collecting the same data in the same way as before"
+        "Too many locally useful First Nations, Métis, and Inuit indicators",
+        "Inaccurate or incomplete identification that can omit or misclassify First Nations, Métis, and Inuit people",
+        "An excess of community control over every national dataset",
+        "A ban on all public-health measurement"
       ],
       "answer": 1,
-      "why": "Reconciliation in health means changing practices so that past and present harms are acknowledged and addressed, not apology alone.",
+      "why": "They document major gaps in accurate, respectful, and consistent identification, which weakens coverage and usefulness.",
       "diff": 2
     },
     {
-      "q": "The reading argues that closing health inequities depends on which kind of knowledge?",
+      "q": "Why is jurisdiction a health-data issue in Smylie and Anderson?",
       "options": [
-        "Knowledge that treats present-day patterns as fixed cultural traits",
-        "Knowledge kept private from the communities it describes",
-        "Knowledge gathered in ways that are accurate and respectful, so it can support repair",
-        "Knowledge that avoids any reference to history"
+        "Because responsibility and data are divided among federal, provincial or territorial, and Indigenous authorities",
+        "Because only one government ever provides Indigenous health services",
+        "Because jurisdiction has no effect on information access",
+        "Because local planning never uses health information"
+      ],
+      "answer": 0,
+      "why": "Multiple and changing jurisdictions can fragment services, datasets, and access to information needed for planning.",
+      "diff": 2
+    },
+    {
+      "q": "Why do Smylie and Anderson treat data governance as more than a technical concern?",
+      "options": [
+        "Governance decides who owns, controls, accesses, interprets, and uses information about a people",
+        "Governance means choosing a spreadsheet colour",
+        "Governance replaces the need for evidence quality",
+        "Governance gives outside researchers permanent control"
+      ],
+      "answer": 0,
+      "why": "Data governance concerns authority and purpose, including ownership, control, access, possession, interpretation, and use.",
+      "diff": 2
+    },
+    {
+      "q": "Which comparison preserves an important distinction in the Smylie and Anderson reading?",
+      "options": [
+        "Treating First Nations, Métis, and Inuit as one interchangeable population",
+        "Using one status category as a complete account of identity",
+        "Naming First Nations, Métis, and Inuit separately and checking how each dataset identifies them",
+        "Assuming every community needs the same indicator"
       ],
       "answer": 2,
-      "why": "Smylie and Anderson tie closing inequities to accurate, respectful knowledge, since honest knowledge is the ground on which repair can be built.",
+      "why": "The reading repeatedly distinguishes First Nations, Métis, and Inuit populations and warns that data systems often cover them differently.",
       "diff": 3
     },
     {
-      "q": "What does the Truth and Reconciliation Commission's record imply for social science knowledge about Indigenous peoples?",
+      "q": "How does the First Nations Health Authority define cultural safety?",
       "options": [
-        "That the record makes further inquiry unnecessary",
-        "That present-day patterns are best read as fixed cultural traits",
-        "That history should be set aside to keep research neutral",
-        "That accurate knowledge must reckon with this history rather than treat present-day patterns as if they had no cause"
+        "As an outcome of respectful engagement that addresses power imbalances, racism, and discrimination",
+        "As memorizing facts about every culture",
+        "As a certificate a provider awards themself",
+        "As avoiding discussion of institutional power"
       ],
-      "answer": 3,
-      "why": "The Commission's public record of harm is a reminder that accurate knowledge must reckon with this history rather than treat present-day patterns as causeless.",
+      "answer": 0,
+      "why": "FNHA defines cultural safety as an outcome shaped by respectful engagement and an environment free of racism and discrimination.",
+      "diff": 1
+    },
+    {
+      "q": "What is cultural humility in the First Nations Health Authority framework?",
+      "options": [
+        "An ongoing practice of self-reflection, learning, and relationship-building",
+        "A claim that practitioners already understand every experience",
+        "A one-time training quiz",
+        "A rule that patients must explain their culture"
+      ],
+      "answer": 0,
+      "why": "Cultural humility is a continuing practice that acknowledges the practitioner as a learner and examines personal and systemic bias.",
+      "diff": 1
+    },
+    {
+      "q": "Why should the TRC summary, Smylie and Anderson, and the FNHA framework remain distinct in a comparison?",
+      "options": [
+        "They have different authors, purposes, evidence bases, and scopes",
+        "Only one of them contains any evidence",
+        "They all represent one universal Indigenous position",
+        "Comparison requires pretending that they ask the same question"
+      ],
+      "answer": 0,
+      "why": "A responsible comparison names what each source can support and does not make one source stand in for the others.",
       "diff": 3
     }
   ],
@@ -605,15 +605,15 @@ window.SOC122_KC = {
       "diff": 2
     },
     {
-      "q": "How does Bombay, Matheson, and Anisman's work connect identity and belonging to history?",
+      "q": "What does Bombay, Matheson, and Anisman's review establish most carefully about family history and present-day outcomes?",
       "options": [
-        "It shows that identity is fixed at birth and untouched by history",
-        "It shows that when families and communities are torn by policies like residential schooling, the disruption to belonging carries harm forward through later generations",
-        "It shows that belonging has no measurable effect on well-being",
-        "It shows that historical events affect only the first generation"
+        "A familial history of residential-school attendance is associated with later stressors and well-being through several possible pathways",
+        "Residential-school attendance determines the same outcome for every descendant",
+        "The review proves one universal biological mechanism",
+        "Historical events affect only the generation that directly experienced them"
       ],
-      "answer": 1,
-      "why": "Their work shows that when policies like residential schooling tear at families and communities, the disruption to belonging carries harm forward across generations.",
+      "answer": 0,
+      "why": "The review reports consistent associations and several possible pathways, while keeping causal limits and variation visible.",
       "diff": 3
     }
   ],
@@ -694,13 +694,13 @@ window.SOC122_KC = {
   /* WEEK 2 : Two-Eyed Seeing Frame (Marshall; Little Bear; Ermine; Battiste) */
   add(2, [
     {"kind":"scenario","diff":3,"q":"A workshop advertised as Two-Eyed Seeing drops a few Indigenous stories into a Western science lesson to make it livelier, then sets the Indigenous framing aside once the lesson is delivered. Through Elder Albert Marshall's account, what is the problem?","options":["Nothing, since blending the two traditions into one lesson is exactly what Two-Eyed Seeing asks for","It trivializes and co-opts the principle, since Marshall insists each way of knowing stays a whole eye used alongside the other, not decoration folded into it","The problem is that any Western science appeared in the lesson at all","Two-Eyed Seeing forbids ever teaching the two traditions in the same room"],"answer":1,"why":"Marshall warns that Two-Eyed Seeing must not be trivialized or co-opted, since each knowledge stays whole and both are used together, rather than one being absorbed as flavour for the other.","whyWrong":{"0":"This names the exact misconception Marshall guards against: Two-Eyed Seeing does not blend the traditions into one, it holds each whole.","2":"Marshall values the strengths of Western knowledge too, so the issue is not that science appeared but that the Indigenous eye was reduced to decoration.","3":"Two-Eyed Seeing is about using both eyes together, so the objection is to absorbing one into the other, not to teaching them together."}},
-    {"kind":"scenario","diff":3,"q":"A student says, Indigenous and Western thinkers are really describing the same reality with different words, so any disagreement is only about vocabulary. How does Leroy Little Bear's account of worldview complicate this?","options":["He agrees, since the difference between the two is only a matter of vocabulary","He argues the two differ at the root, in their assumptions about reality, time, and relationship, so the difference runs deeper than words","He argues one worldview is simply correct and the other mistaken","He argues that a worldview has no effect on how a person interprets the world"],"answer":1,"why":"Little Bear locates the difference in underlying assumptions about reality, time, and relationship, not in terminology, which is why he says forced collision left a jagged consciousness.","whyWrong":{"0":"Reducing a root-level difference to surface wording is the view Little Bear's account is meant to unsettle.","2":"Little Bear does not rank one worldview as correct, he describes them as differing at their philosophical roots.","3":"He argues the opposite: a worldview shapes interpretation, usually below awareness."}},
+    {"kind":"scenario","diff":3,"q":"A student says, Indigenous and Western thinkers are really describing the same reality with different words, so any disagreement is only about vocabulary. How does Leroy Little Bear's account of worldview complicate this?","options":["He agrees, since the difference between the two is only a matter of vocabulary","He argues the two differ at the root, in their assumptions about reality, time, and relationship, so the difference runs deeper than words","He argues one worldview is simply correct and the other mistaken","He argues that a worldview has no effect on how a person interprets the world"],"answer":1,"why":"Little Bear locates the difference in underlying assumptions about reality, time, and relationship, not in terminology, which is why he says forced collision left a jagged worldview.","whyWrong":{"0":"Reducing a root-level difference to surface wording is the view Little Bear's account is meant to unsettle.","2":"Little Bear does not rank one worldview as correct, he describes them as differing at their philosophical roots.","3":"He argues the opposite: a worldview shapes interpretation, usually below awareness."}},
     {"kind":"scenario","diff":3,"q":"Two organizations with very different worldviews begin a partnership, and one insists that its own rules and definitions govern everything from the start. Using Willie Ermine's idea of ethical space, what is missing?","options":["An agreement built from both sides, since ethical space opens between worldviews and needs rules that neither imposes alone","Nothing, since the stronger partner's rules should simply apply","A requirement that both sides abandon their worldviews before meeting","Proof of which worldview is more scientific"],"answer":0,"why":"Ermine argues that honest engagement requires an ethical space with rules built from both sides, rather than one worldview's authority imposed as if it were universal.","whyWrong":{"1":"This is the imposition Ermine names as the failure, a dominant culture claiming universal authority over the other.","2":"Ethical space asks each side to bring its worldview named and intact, not to abandon it.","3":"Ermine's concern is ethical engagement between worldviews, not ranking which one is more scientific."}},
     {"kind":"scenario","diff":2,"q":"A program treats learning as pouring information into students and measures success only by how much they can recall on a test. How does Marie Battiste's account of learning press against this?","options":["She agrees that learning is information transfer measured by recall","She describes learning as a lifelong, holistic journey of the whole person and spirit, nurtured by family, community, and land, not only information delivered in school","She argues that schools should stop teaching content altogether","She argues that learning is finished in early childhood"],"answer":1,"why":"Battiste describes learning as nurturing the whole person and the learning spirit across a lifetime, grounded in family, community, and land, which a recall-only model leaves out.","whyWrong":{"0":"A recall-only, transmission model is exactly the narrow view Battiste's account works against.","2":"She does not reject content, she widens what learning is beyond transmission.","3":"She frames learning as lifelong, not confined to childhood."}},
-    {"kind":"match","mgroup":"w2m","mlabel":"Match each Week 2 thinker to the idea they contribute.","diff":2,"q":"Albert Marshall (Mi'kmaw Elder)","answer":0,"options":["Two-Eyed Seeing: use the strengths of both knowledges together, each kept whole","Worldviews differ at the root, so their forced collision left a jagged consciousness","Honest engagement opens an ethical space with rules built from both sides","Learning is a lifelong, holistic journey that nurtures the whole person and spirit"],"why":"Marshall names Two-Eyed Seeing: using the strengths of both knowledges together, each kept whole."},
-    {"kind":"match","mgroup":"w2m","diff":2,"q":"Leroy Little Bear (Blackfoot)","answer":1,"options":["Two-Eyed Seeing: use the strengths of both knowledges together, each kept whole","Worldviews differ at the root, so their forced collision left a jagged consciousness","Honest engagement opens an ethical space with rules built from both sides","Learning is a lifelong, holistic journey that nurtures the whole person and spirit"],"why":"Little Bear maps how deeply the two worldviews differ and how their forced collision left a jagged consciousness."},
-    {"kind":"match","mgroup":"w2m","diff":2,"q":"Willie Ermine (Cree)","answer":2,"options":["Two-Eyed Seeing: use the strengths of both knowledges together, each kept whole","Worldviews differ at the root, so their forced collision left a jagged consciousness","Honest engagement opens an ethical space with rules built from both sides","Learning is a lifelong, holistic journey that nurtures the whole person and spirit"],"why":"Ermine describes the ethical space that opens between worldviews, needing rules built from both sides."},
-    {"kind":"match","mgroup":"w2m","diff":2,"q":"Marie Battiste (Mi'kmaw)","answer":3,"options":["Two-Eyed Seeing: use the strengths of both knowledges together, each kept whole","Worldviews differ at the root, so their forced collision left a jagged consciousness","Honest engagement opens an ethical space with rules built from both sides","Learning is a lifelong, holistic journey that nurtures the whole person and spirit"],"why":"Battiste describes learning as a lifelong, holistic journey that nurtures the whole person and spirit."},
+    {"kind":"match","mgroup":"w2m","mlabel":"Match each Week 2 thinker to the idea they contribute.","diff":2,"q":"Albert Marshall (Mi'kmaw Elder)","answer":0,"options":["Two-Eyed Seeing: use the strengths of both knowledges together, each kept whole","Worldviews differ at the root, so their forced collision left a jagged worldview","Honest engagement opens an ethical space with rules built from both sides","Learning is a lifelong, holistic journey that nurtures the whole person and spirit"],"why":"Marshall names Two-Eyed Seeing: using the strengths of both knowledges together, each kept whole."},
+    {"kind":"match","mgroup":"w2m","diff":2,"q":"Leroy Little Bear (Blackfoot)","answer":1,"options":["Two-Eyed Seeing: use the strengths of both knowledges together, each kept whole","Worldviews differ at the root, so their forced collision left a jagged worldview","Honest engagement opens an ethical space with rules built from both sides","Learning is a lifelong, holistic journey that nurtures the whole person and spirit"],"why":"Little Bear maps how deeply the two worldviews differ and how their forced collision left a jagged worldview."},
+    {"kind":"match","mgroup":"w2m","diff":2,"q":"Willie Ermine (Cree)","answer":2,"options":["Two-Eyed Seeing: use the strengths of both knowledges together, each kept whole","Worldviews differ at the root, so their forced collision left a jagged worldview","Honest engagement opens an ethical space with rules built from both sides","Learning is a lifelong, holistic journey that nurtures the whole person and spirit"],"why":"Ermine describes the ethical space that opens between worldviews, needing rules built from both sides."},
+    {"kind":"match","mgroup":"w2m","diff":2,"q":"Marie Battiste (Mi'kmaw)","answer":3,"options":["Two-Eyed Seeing: use the strengths of both knowledges together, each kept whole","Worldviews differ at the root, so their forced collision left a jagged worldview","Honest engagement opens an ethical space with rules built from both sides","Learning is a lifelong, holistic journey that nurtures the whole person and spirit"],"why":"Battiste describes learning as a lifelong, holistic journey that nurtures the whole person and spirit."},
     {"type":"short","diff":2,"q":"In two or three sentences, explain what Elder Albert Marshall means when he calls Two-Eyed Seeing a co-learning journey rather than a method you finish.","model":"Marshall frames Two-Eyed Seeing as an ongoing, respectful practice with no fixed endpoint, so each person keeps learning to see with both eyes over time. Calling it co-learning signals that no single party holds all the knowledge and that the traditions teach one another. He is clear that it must not be trivialized or co-opted into a slogan, which is why it stays a journey rather than a finished technique."},
     {"type":"short","diff":2,"q":"Little Bear says a worldview usually runs below awareness. Explain why naming your own worldview is a useful first step before holding two ways of knowing together.","model":"Because a worldview shapes how you interpret reality, time, and relationship without your noticing, it can quietly pass itself off as simply how things are. Naming it makes those assumptions visible, so you can meet another way of knowing with respect instead of mistaking your own frame for the whole of reality. That awareness is what makes it possible to hold two ways of knowing together rather than measuring one by the other."}
   ]);
@@ -769,9 +769,9 @@ window.SOC122_KC = {
     {"q":"Brunette-Debassige and colleagues distinguish decolonizing from Indigenizing. Which pairing fits their account?","options":["Both simply mean hiring more staff","Decolonizing only adds readings, while Indigenizing leaves the structure unchanged","Decolonizing removes colonial barriers, while Indigenizing makes space for Indigenous knowledge, peoples, and ways of doing","Decolonizing ranks cultures, while Indigenizing translates documents"],"answer":2,"why":"They describe decolonizing as removing colonial barriers and Indigenizing as making institutional space for Indigenous knowledge, peoples, and ways of doing.","diff":2},
     {"q":"Martin's pairing approach treats Indigenous knowledge as which of the following?","options":["Valid only once Western science confirms it","A complete way of knowing in its own right, paired with Western knowledge","Folklore with no method behind it","A stage that societies outgrow as they modernize"],"answer":1,"why":"Martin treats Indigenous knowledge as a complete, rigorous way of knowing in its own right, paired with Western knowledge so neither is absorbed.","diff":1},
     {"q":"In the context of knowledge, sovereignty includes which right for Indigenous communities?","options":["The right to control their own knowledge and set the terms on which it is shared","An obligation to translate their knowledge into Western categories","A duty to deposit their knowledge in a national archive","A need for university permission to study their own traditions"],"answer":0,"why":"Sovereignty over knowledge includes the authority of communities to control their knowledge and set the terms of its sharing and use.","diff":1},
-    {"q":"Cultural safety shifts attention away from the individual and toward what?","options":["The genetics of the community","The personality of the individual patient","The system or institution, asking whether it felt safe to the person receiving care","The private choices of each family"],"answer":2,"why":"Cultural safety shifts attention from the individual to the system, asking whether an institution felt safe to the person receiving care.","diff":1},
+    {"q":"How does the First Nations Health Authority define cultural safety?","options":["As a list of cultural facts a provider memorizes","As an outcome of respectful engagement that addresses power imbalances, racism, and discrimination","As a certificate a provider awards themself","As a private personality trait"],"answer":1,"why":"FNHA treats cultural safety as an outcome shaped by power and by the experience of the person receiving care, not as a provider's declared intention.","diff":1},
     {"q":"Intergenerational impact refers to what?","options":["A benefit that grows automatically each generation","A harm that affects only the person who first experienced it","The way harm and its effects pass from one generation to the next","An effect that always disappears within a single lifetime"],"answer":2,"why":"Intergenerational impact names the way harm and its effects pass from one generation to the next, shaping lives long afterward.","diff":1},
-    {"q":"The Week 4 reading frames reconciliation as which of the following?","options":["A single apology that closes the matter","Ongoing work grounded in truth and responsibility that changes practice","A decision to stop discussing past harms","A one-time payment that ends all obligations"],"answer":1,"why":"Reconciliation is described as ongoing relationship repair grounded in truth and responsibility, which means changed practice rather than apology alone.","diff":2},
+    {"q":"How does the TRC summary frame reconciliation?","options":["A single apology that closes the matter","An ongoing process requiring awareness of the past, acknowledgement, atonement, and changed behaviour","A decision to stop discussing past harms","A process completed in 2015"],"answer":1,"why":"The TRC frames reconciliation as an ongoing process and relationship, not a one-time event.","diff":2},
     {"q":"A study reports a consistent, repeatable score that does not measure what the researcher intended. This is best described as which of the following?","options":["Reliable but not valid","Valid but not reliable","Both reliable and valid","Neither reliable nor valid"],"answer":0,"why":"Reliability is a repeatable result and validity is measuring what you intend, so a repeatable but off-target measure is reliable but not valid.","diff":2},
     {"q":"The qualitative method studies social life mainly through what?","options":["Controlled manipulation of variables","Large-scale surveys of many participants","Numerical measurement and statistics","Words, observation, and meaning, to understand experience in depth"],"answer":3,"why":"Qualitative method studies social life through words, observation, and meaning in order to understand experience in depth.","diff":1},
     {"q":"Reid and colleagues reframe research ethics so that Indigenous communities are understood as which of the following?","options":["Signatories to a single consent form completed at the start","Subjects to be studied once and then set aside","Partners who help set the questions and govern the knowledge","Advisors consulted only after the findings are published"],"answer":2,"why":"Under Two-Eyed Seeing, Reid and colleagues make ethics relational and ongoing, with communities as partners who govern the knowledge.","diff":2},
@@ -784,7 +784,7 @@ window.SOC122_KC = {
     {"kind":"scenario","diff":3,"q":"A team wants to study a community's healing practices and publish quickly. Which pair of ideas from weeks 3 and 5 should shape how they proceed?","options":["Ethnocentrism and generalizability","Sovereignty over knowledge, since the community sets the terms of sharing, and relational research ethics, since the community is a partner who helps govern the knowledge","Reliability and validity alone settle the matter","Cultural relativism, which means they may publish without asking"],"answer":1,"why":"Sovereignty means the community controls its knowledge and the terms of sharing, and Reid's relational ethics makes the community a partner governing the knowledge, so consent and partnership come before publishing.","whyWrong":{"0":"Ethnocentrism is a bias to avoid, and generalizability does not address consent.","2":"Measurement quality does not resolve who controls the knowledge.","3":"Relativism is about understanding in context, not a licence to publish without consent."}},
     {"kind":"match","mgroup":"w7m","mlabel":"Match each week 2 to 6 concept to the example that shows it.","diff":2,"q":"Cultural relativism (Week 6)","answer":0,"options":["Understanding a custom in its own context instead of calling it backwards","A community setting the terms on which its knowledge may be shared","A clinic asking whether the patient felt safe and respecting their identity","A consistent, repeatable measure that still targets the wrong thing"],"why":"Cultural relativism understands a practice in its own context rather than by another culture's standards."},
     {"kind":"match","mgroup":"w7m","diff":2,"q":"Sovereignty over knowledge (Week 3)","answer":1,"options":["Understanding a custom in its own context instead of calling it backwards","A community setting the terms on which its knowledge may be shared","A clinic asking whether the patient felt safe and respecting their identity","A consistent, repeatable measure that still targets the wrong thing"],"why":"Sovereignty includes a community's authority to set the terms on which its knowledge is shared."},
-    {"kind":"match","mgroup":"w7m","diff":2,"q":"Cultural safety (Week 4)","answer":2,"options":["Understanding a custom in its own context instead of calling it backwards","A community setting the terms on which its knowledge may be shared","A clinic asking whether the patient felt safe and respecting their identity","A consistent, repeatable measure that still targets the wrong thing"],"why":"Cultural safety asks whether the institution felt safe to the person receiving care."},
+    {"kind":"match","mgroup":"w7m","diff":2,"q":"Cultural safety (FNHA, Week 4)","answer":2,"options":["Understanding a custom in its own context instead of calling it backwards","A community setting the terms on which its knowledge may be shared","A clinic addressing power, racism, and discrimination so the person receiving care experiences safety","A consistent, repeatable measure that still targets the wrong thing"],"why":"FNHA defines cultural safety as an outcome of respectful engagement that addresses power imbalances, racism, and discrimination."},
     {"kind":"match","mgroup":"w7m","diff":2,"q":"A reliable but not valid measure (Week 5)","answer":3,"options":["Understanding a custom in its own context instead of calling it backwards","A community setting the terms on which its knowledge may be shared","A clinic asking whether the patient felt safe and respecting their identity","A consistent, repeatable measure that still targets the wrong thing"],"why":"A repeatable measure that targets the wrong thing is reliable but not valid."},
     {"type":"short","diff":3,"q":"Choose two concepts from different weeks (weeks 2 to 6) and explain, in two or three sentences, how each helps you read a claim that a present-day inequality is simply a group's cultural trait.","model":"A strong answer names two concepts and turns each on the claim. For example, intergenerational impact shows that harm passes across generations, so a present-day pattern has a cause in history rather than being an inborn trait, and the early sociological focus on structure over individual traits shows how laws and institutions, not a group's nature, shape outcomes. The point is to use the two concepts as tools that move the explanation from a fixed trait toward causes in history and structure."},
     {"type":"short","diff":2,"q":"In your own words, explain what Elder Albert Marshall means by Two-Eyed Seeing, and name one thing it is often mistaken for.","model":"Marshall describes using the strengths of Indigenous knowledge in one eye and the strengths of Western knowledge in the other, both kept whole and used together for the benefit of all, as an ongoing co-learning journey. It is often mistaken for blending the two into a single merged method, or for ranking one above the other, both of which he warns against. The frame holds the two side by side rather than collapsing them into one."}
@@ -837,13 +837,13 @@ window.SOC122_KC = {
     {"kind":"scenario","diff":2,"q":"You watch someone act rudely and immediately conclude they are simply a rude person. Which social-psychology idea warns against that snap judgment?","options":["Belonging","The fundamental attribution error, since we tend to blame character while underestimating the situation shaping behaviour","Generalizability","Statistical literacy"],"answer":1,"why":"The fundamental attribution error is the tendency to explain others' behaviour by character while underestimating the situation driving it.","whyWrong":{"0":"Belonging is about acceptance and connection, not about how we attribute behaviour.","2":"Generalizability concerns whether findings apply across samples.","3":"Statistical literacy is about reading numbers, not judging behaviour."}},
     {"kind":"scenario","diff":2,"q":"People often behave differently in a group than they would alone. Which idea best explains this?","options":["Well-being","Social influence, since the presence and expectations of others shape thought and behaviour, often without our noticing","Ethnography","Reliability"],"answer":1,"why":"Social influence describes how the presence and expectations of others shape behaviour, which is why people often act differently in groups than alone.","whyWrong":{"0":"Well-being is a state of health, not an account of group behaviour.","2":"Ethnography is a research method, not this mechanism.","3":"Reliability concerns measurement consistency, not group behaviour."}},
     {"kind":"scenario","diff":2,"q":"A workplace treats belonging as a nice extra to consider once the real work is done. How does the Week 11 account press against this?","options":["It agrees, since belonging is a luxury","It treats belonging as a basic human need with real effects on well-being, not a luxury added after survival","It says belonging has no effect on health","It says belonging is only a legal status granted by an institution"],"answer":1,"why":"The reading frames belonging as a basic human need with real effects on well-being, not an optional extra.","whyWrong":{"0":"Calling belonging a luxury is exactly the view the reading corrects.","2":"Belonging is tied to well-being, so it does affect health.","3":"Belonging is felt acceptance and connection, not a legal status."}},
-    {"kind":"scenario","diff":3,"q":"Bombay, Matheson, and Anisman connect residential schooling to present-day well-being. What does their work show about identity and belonging?","options":["That identity is fixed at birth and untouched by history","That when families and communities are torn by policies like residential schooling, the disruption to belonging can carry harm forward across generations","That historical events affect only the first generation","That belonging has no measurable effect on well-being"],"answer":1,"why":"Their work shows that when policies like residential schooling tear at families and communities, the disruption to belonging carries harm forward through later generations.","whyWrong":{"0":"They show that identity and belonging are shaped by history, not fixed at birth.","2":"Their finding is that harm accumulates across generations, not just the first.","3":"Their work ties belonging directly to well-being."}},
+    {"kind":"scenario","diff":3,"q":"Bombay, Matheson, and Anisman discuss identity alongside intergenerational stress. Which claim is best supported?","options":["Identity is fixed at birth and unaffected by history","Identity always protects well-being in the same way","Identity centrality, enculturation, discrimination, risk, and resilience may interact, so identity cannot be treated as one simple buffer","Historical events affect only the first generation"],"answer":2,"why":"The review treats identity as complex. Some facets may be sources of resilience, while identity centrality can also interact with discrimination and stress pathways.","whyWrong":{"0":"The review treats identity as historically and socially shaped, not biologically fixed.","1":"The evidence is more complex than a universal protective effect.","3":"The review examines associations extending across generations."}},
     {"kind":"match","mgroup":"w11m","mlabel":"Match each Week 11 idea to the example that shows it.","diff":2,"q":"Fundamental attribution error","answer":0,"options":["Blaming someone's character while ignoring the situation they were in","Acting differently in a group than you would alone","Feeling accepted and connected, a need that affects well-being","Residential schooling disrupting belonging and carrying harm across generations"],"why":"The fundamental attribution error over-credits character and underestimates the situation."},
     {"kind":"match","mgroup":"w11m","diff":2,"q":"Social influence","answer":1,"options":["Blaming someone's character while ignoring the situation they were in","Acting differently in a group than you would alone","Feeling accepted and connected, a need that affects well-being","Residential schooling disrupting belonging and carrying harm across generations"],"why":"Social influence is the way others' presence and expectations shape our behaviour."},
     {"kind":"match","mgroup":"w11m","diff":2,"q":"Belonging","answer":2,"options":["Blaming someone's character while ignoring the situation they were in","Acting differently in a group than you would alone","Feeling accepted and connected, a need that affects well-being","Residential schooling disrupting belonging and carrying harm across generations"],"why":"Belonging is the experience of acceptance and connection, a basic need affecting well-being."},
     {"kind":"match","mgroup":"w11m","diff":2,"q":"Intergenerational effects (Bombay, Matheson, and Anisman)","answer":3,"options":["Blaming someone's character while ignoring the situation they were in","Acting differently in a group than you would alone","Feeling accepted and connected, a need that affects well-being","Residential schooling disrupting belonging and carrying harm across generations"],"why":"Their work shows disrupted belonging carrying harm across generations."},
     {"type":"short","diff":2,"q":"Explain, in two or three sentences, the fundamental attribution error and give one everyday example.","model":"The fundamental attribution error is the tendency to explain other people's behaviour by their character while underestimating how much the situation shaped it. For example, assuming a driver who cut you off is selfish, rather than considering they might be rushing someone to a hospital. The error is over-crediting disposition and under-crediting circumstance."},
-    {"type":"short","diff":3,"q":"Bombay, Matheson, and Anisman tie belonging to history. Explain, in your own words, how disruptions to belonging can reach present-day well-being across generations.","model":"Because belonging is a basic need with real effects on health, policies that tore apart families and communities, like residential schooling, damaged the connections that sustain well-being. That damage did not stop with the first generation but was passed and accumulated over time, so present well-being still carries the effects. Their work also finds that connection to identity and community can help protect well-being, which is the other side of the same relationship."}
+    {"type":"short","diff":3,"q":"Explain why Bombay, Matheson, and Anisman's review does not support a simple claim that identity either harms or protects well-being.","model":"The review discusses several facets of identity and enculturation, and it shows that identity can interact with discrimination, historical loss, stress, and resilience in different ways. Its evidence is largely correlational and varies across measures and communities. A careful answer therefore names the specific factor and association instead of treating identity as one universal cause or buffer."}
   ]);
 
   /* WEEK 12 : The Family (OpenStax; Anderson) */

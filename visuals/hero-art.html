@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Living hero art</title>
+<style>
+  html,body{margin:0;height:100%;background:transparent;overflow:hidden}
+  canvas{display:block;width:100%;height:100%}
+</style>
+</head>
+<body>
+<canvas id="c" aria-hidden="true"></canvas>
+<script>
+(function(){
+  "use strict";
+  var cv=document.getElementById('c'), ctx=cv.getContext('2d');
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var W=0,H=0,DPR=1,P=[],t=0,waves=[];
+
+  function resize(){
+    DPR=Math.min(2,window.devicePixelRatio||1);
+    var r=cv.getBoundingClientRect(); W=r.width; H=r.height;
+    cv.width=Math.max(1,W*DPR); cv.height=Math.max(1,H*DPR); ctx.setTransform(DPR,0,0,DPR,0,0);
+    build();
+  }
+  function build(){
+    P=[]; var n=Math.round(Math.max(46,Math.min(104, W*H/3600)));
+    for(var i=0;i<n;i++){
+      // moderate right bias so the title on the left stays readable
+      var x=W*(0.16+0.86*Math.pow(Math.random(),0.6));
+      P.push({x:Math.min(W-6,x), y:Math.random()*H,
+        vx:(Math.random()-0.5)*15, vy:(Math.random()-0.5)*15,
+        r:1.6+Math.random()*1.9, ph:Math.random()*6.28, lit:0});
+    }
+  }
+  function step(dt){
+    for(var i=0;i<P.length;i++){ var p=P[i];
+      if(!reduce){ p.x+=p.vx*dt; p.y+=p.vy*dt; }
+      if(p.x<6){p.x=6;p.vx=Math.abs(p.vx);} if(p.x>W-6){p.x=W-6;p.vx=-Math.abs(p.vx);}
+      if(p.y<6){p.y=6;p.vy=Math.abs(p.vy);} if(p.y>H-6){p.y=H-6;p.vy=-Math.abs(p.vy);}
+      p.lit=Math.max(0,p.lit-dt*0.7);
+    }
+    for(var k=waves.length-1;k>=0;k--){ waves[k].age+=dt; if(waves[k].age>waves[k].life) waves.splice(k,1); }
+    // keep the network visibly alive with frequent influence pulses (biased to the livelier right side)
+    if(!reduce && waves.length<2 && Math.random()<dt*1.15){
+      var s=P[(Math.random()*P.length)|0]; if(s) waves.push({x:s.x,y:s.y,age:0,life:1.9});
+    }
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    // apply waves to node lit state first
+    for(var k=0;k<waves.length;k++){ var wv=waves[k], w=1-wv.age/wv.life, ring=(wv.age/wv.life)*340;
+      for(var i=0;i<P.length;i++){ var d=Math.hypot(P[i].x-wv.x,P[i].y-wv.y); if(Math.abs(d-ring)<46) P[i].lit=Math.max(P[i].lit,w); }
+    }
+    var D=Math.min(162,Math.max(104,W/7.5));
+    for(var i=0;i<P.length;i++){ for(var j=i+1;j<P.length;j++){
+      var a=P[i], b=P[j], dx=a.x-b.x, dy=a.y-b.y, d2=dx*dx+dy*dy;
+      if(d2<D*D){ var kk=Math.sqrt(d2)/D, red=(a.lit>0.15||b.lit>0.15), rl=Math.max(a.lit,b.lit);
+        var al=(1-kk)*(red?0.22+0.30*rl:0.15);
+        ctx.strokeStyle= red?'rgba(218,41,28,'+al+')':'rgba(120,128,142,'+al+')';
+        ctx.lineWidth= red?1.3:0.75;
+        ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+      }
+    }}
+    for(var i=0;i<P.length;i++){ var p=P[i];
+      var br=reduce?0:Math.sin(t*1.2+p.ph)*0.4, lit=p.lit;
+      var cr= lit>0.05
+        ? 'rgba('+Math.round(150+68*lit)+','+Math.round(157-116*lit)+','+Math.round(170-142*lit)+','+(0.72+0.28*lit)+')'
+        : 'rgba(140,148,162,0.62)';
+      if(lit>0.35){ ctx.beginPath(); ctx.arc(p.x,p.y,(p.r+lit*5),0,6.2832); ctx.fillStyle='rgba(218,41,28,'+(lit*0.14)+')'; ctx.fill(); }
+      ctx.beginPath(); ctx.arc(p.x,p.y,Math.max(0.8,p.r+br+lit*1.8),0,6.2832); ctx.fillStyle=cr; ctx.fill();
+    }
+  }
+  var last=0;
+  function loop(ts){ var dt=Math.min(0.05,(ts-last)/1000||0.016); last=ts; t+=dt; step(dt); draw(); requestAnimationFrame(loop); }
+  window.addEventListener('resize',resize);
+  resize();
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

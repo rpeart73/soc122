@@ -1,0 +1,55 @@
+STATUS: reviewed source downloads prepared for SOC122 Learning Emphasis visual states
+DATE: 2026-07-12
+NOTE: exact alt text, caption, teaching job, source page, and visible credit are in data/soc122-hero-theme.js and IMAGE_MANIFEST.md
+
+w01_western.jpg | https://media-cdn.oulu.fi/styles/main_image/s3/images/UniOulu_study_089.jpg | success
+w01_indigenous.jpg | https://umanitoba.ca/sites/default/files/styles/3x2_900w/public/2021-09/1-land-and-water-land-based-education.jpg | success
+w02_western.jpg | https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Researchers_in_laboratory.jpg/960px-Researchers_in_laboratory.jpg | success
+w02_indigenous.jpg | https://www.unesco.org/sites/default/files/structured_data/mab001/13357787_cover_brasdorlake_biosphere_reserve_canada.jpg | success
+w03_western.jpg | https://www.uottawa.ca/faculte-sciences-sociales/sites/g/files/bhrskd371/files/styles/max_width_l_1470px/public/2022-06/Parlement%20Ottawa%20interieur.jpg | success
+w03_two.jpg | https://news.wisc.edu/content/uploads/2026/03/Pluralism-in-Practice-2026-03-23AD-4193-1-1960x1305.jpg | success
+w03_indigenous_first_nations.jpg | https://images.squarespace-cdn.com/content/v1/66c793166580977fbc20ad91/69fa2c24-cf21-4ff8-9b25-a8971b89b3b1/366747477_619187860397007_6955020875626685452_n%2B%281%29.jpg | success
+w04_two.jpg | https://www.gg.ca/sites/default/files/styles/max_width_1200/public/media/galleries/2024/09_30_NDTR/image-20240930-210008-3e59b088.jpeg | success
+w04_indigenous.jpg | https://www.uvic.ca/_assets/images/photo-galleries/osd2025-gallery/osd2_2025_1440x810.webp | success
+w05_two.jpg | https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/CARE-CCAFS_in_Gender_%26_Participatory_Research_in_Ghana_%2814602862675%29.jpg/960px-CARE-CCAFS_in_Gender_%26_Participatory_Research_in_Ghana_%2814602862675%29.jpg | success
+w06_western.jpg | https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Handbook_to_the_ethnographical_collections_%281910%29_%2814783410255%29.jpg/960px-Handbook_to_the_ethnographical_collections_%281910%29_%2814783410255%29.jpg | success
+w06_two_sqewlets.jpg | https://hennessy.iat.sfu.ca/mcl/wordpress/wp-content/uploads/2014/06/ScowlitzVMC_131021_KickoffMeeting_12.jpg | success | licensed classroom use; source-page caption: Kickoff meeting at Scowlitz First Nation, January 2014
+w06_indigenous.jpg | https://inuvialuitdigitallibrary.ca/files/original/dd1ff559232213d29421c8ec64d64819.jpg | success
+w07_two.jpg | https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/BLM_California_and_Union_Mine_High_School_Create_a_Formula_for_Science_Success_%2839106879152%29.jpg/960px-BLM_California_and_Union_Mine_High_School_Create_a_Formula_for_Science_Success_%2839106879152%29.jpg | success
+w07_indigenous.jpg | https://umanitoba.ca/sites/default/files/styles/3x2_900w/public/2021-09/2-land-and-water-land-based-education.jpg | success
+w08_two.jpg | https://pnlt.ca/cms/custom/uploads/2024/08/NeighbourhoodLaunchDay_30872421976_o-1536x1024.jpg | success
+w08_indigenous_1.jpg | https://membertou.ca/wp-content/uploads/2019/05/gallery4.jpg | success
+w08_indigenous_2.jpg | https://membertou.ca/wp-content/uploads/2019/05/gallery3.jpg | success
+w08_indigenous_3.jpg | https://membertou.ca/wp-content/uploads/2019/05/gallery2.jpg | success
+w09_two.jpg | https://news.wisc.edu/content/uploads/2026/03/Pluralism-in-Practice-2026-03-23AD-4338-1960x1305.jpg | success
+w09_indigenous.jpg | https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Eel_River_Bar%2C_Dalhousie%2C_NB%2C_Canada_%28Summer_1993%29_%28North-East_facing_shot%29_01.jpg/960px-Eel_River_Bar%2C_Dalhousie%2C_NB%2C_Canada_%28Summer_1993%29_%28North-East_facing_shot%29_01.jpg | success
+w10_two.jpg | https://www.camh.ca/-/media/images/landing-page-mastheads/photovoice-study-masthead-png.jpg | success
+w10_indigenous.jpg | https://s3-us-west-2.amazonaws.com/montana-surveytoolimages/general/full-size/638503294624726798.jpg | success
+w11_two.jpg | https://eng.nahrainuniv.edu.iq/admin/files/img/6965e6b803cab.jpg | success
+w11_indigenous.jpg | https://storynations.utoronto.ca/wp-content/uploads/2020/05/stories-header-e1590453238404.png | success
+w12_western.jpg | https://severnlodge.com/wp-content/uploads/2025/10/FEATURED-FAMILY-REUNIONS.jpg | success
+w12_two.jpg | https://today.ucsd.edu/news_uploads/_social/longest-table-teaser-2.jpg | success
+w13_western.jpg | https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Le_Globe_Terrestre_represente_en_deux_plans-hemispheres._Par_P._Coronelli_Cosmographe%2C_etc._Corrige_et_augmente_par_le_Sr._%28IA_dr_le-globe-terrestre-represente-en-deux-plans-hemispheres-par-p-coronelli-c-14353004%29.jpg/960px-thumbnail.jpg | success
+w13_two.jpg | https://development.asia/sites/default/files/explainer/photo_14_community_mapping.jpg | success
+w14_western.jpg | https://d3gu8jtw4r0om.cloudfront.net/files/2023-09/books-banner.jpg | success
+w14_two.jpg | https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Blue_Marble_Eastern_Hemisphere.jpg/960px-Blue_Marble_Eastern_Hemisphere.jpg | success
+
+w11_two_hartley_bay.png | https://cdn.onc-prod.intergalactic.space/image2_56822d06d9.png | success | source-native 596x337 PNG; Ocean Networks Canada source page identifies the Gitga'at First Nation and ONC partners
+w03_two_blanket_exercise.jpg | https://healthenews.mcgill.ca/kairos-blanket-exercise-helps-students-faculty-and-staff-experience-indigenous-history-past-and-present/ | success | classroom use
+w05_two_seaice_cambridge_bay.jpg | https://www.oceannetworks.ca/news-and-stories/stories/two-eyed-seeing-embracing-the-power-of-indigenous-knowledge-for-a-healthy-and-sustainable-ocean/ | success | classroom use
+w09_two_taku_guardians.jpg | https://www.ilinationhood.ca/guardians | success | classroom use
+w11_two_hartley_bay.jpg | derived JPEG from the Ocean Networks Canada source-native image | retained | legacy local derivative, no longer referenced
+
+PROTON_DUAL_WRITE | EXT/Shared_Resources/Image_Library/SOC122/learning_emphasis_visuals_2026-07-12 | synchronized 2026-07-12 | success
+
+FORGE_FACT_CHECK_CORRECTIONS | current records below replace superseded visual states | completed 2026-07-12
+w02_indigenous_eskasoni.jpg | https://www.cbc.ca/news/canada/nova-scotia/eskasoni-powwow-celebrates-30th-anniversary-1.6508893 | current | Emily Latimer, CBC News | sha256 f6a2a0a3225964a35fe93ab9717f50fb2ed13abe3e69b516046dea07e9b4dad9
+w07_two_halfway_river.jpg | https://www.cbc.ca/news/canada/nova-scotia/two-eyed-seeing-doc-1.6304574 | current | Moira Donovan, CBC | sha256 50ba8e540b820cf4933da0903f2c250feb37f8851a9f819509f630a3203beccf
+w08_two_tsuutina_calgary.jpg | https://www.cbc.ca/news/canada/calgary/tsuut-ina-911-service-calgary-emergency-indigenous-reserve-1.4522983 | current | Scott Dippel, CBC | sha256 4709f0a5773065777039c6d5cf1ac661106fc15e6076fd12487367740fad991e
+w09_indigenous_ugpiganjig.jpg | https://nbmediacoop.org/2022/11/03/reflections-on-what-makes-a-good-powwow/ | current | Eel River Bar powwow Facebook page via NB Media Co-op; photographer not stated | sha256 ffb480f0f2d1c7163796ae8c0bff923b51bd1a39a8ca3a0fecbdb64ba6f45f7e
+w10_two_wabano.jpg | https://www.uottawa.ca/research-innovation/music-health/research-initiatives | current | University of Ottawa Institute of Mental Health Research; photographer not stated | sha256 6c8b454a8623147df76d009861a5b6e5f3aad79505c6c7bca67f99b50b95173c
+w12_two_first_nations_house.jpg | https://www.utoronto.ca/news/first-nations-house-celebrates-indigenous-graduates | current | First Nations House, University of Toronto; photographer not stated | sha256 ab2bd61ec2218cf8fa7c8e2a16f6de42eb7e5261a5afb7e751a032ee28927931
+w13_indigenous_namgis_alertbay.jpg | https://commons.wikimedia.org/wiki/File:Alert_Bay_Big_House_(26764475840).jpg | current | Brian Burger; CC BY 2.0 | sha256 e3789304a122102b81f9a1e0aa25c9e2c6aae91006effb82b73374f96e403673
+w13_two_clyde_river_atlas.jpg | https://canadiangeographic.ca/articles/how-a-new-northern-mapping-project-is-preserving-inuit-traditional-knowledge/ | current | Dwayne Brown, Canadian Geographic | sha256 32f0c75934720ea85fe4b2a8a2d539de0ee5b7519f8a117d624ac9840f8985b9
+w14_indigenous_sixnations_poly.jpg | https://snpss.ca/what-we-offer/specialty-programs/ | current | Six Nations Polytechnic Secondary School; photographer not stated | sha256 bc736318f8ae09c114a369b7037fac6a2b4b57900398f73f763001f3609b46e8
+LEGACY_LOCAL_FILES | retained for coordination history and checksum continuity; not referenced by data/soc122-hero-theme.js | no deletion performed

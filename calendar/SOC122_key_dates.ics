@@ -115,7 +115,14 @@ UID:soc122-mode-w13@rpeart73.github.io
 DTSTART;VALUE=DATE:20261207
 DTEND;VALUE=DATE:20261212
 SUMMARY:SOC122 Week 13: office hours and supported asynchronous completion
-DESCRIPTION:No lecture. The usual class window becomes office hours for focused completion. Revisiting Personal Cartography is due December 11. Office hours are not recorded.
+DESCRIPTION:No lecture. The usual class window becomes office hours for focused completion. Office hours are not recorded.
+END:VEVENT
+BEGIN:VEVENT
+UID:soc122-revisiting-personal-cartography-due@rpeart73.github.io
+DTSTART;VALUE=DATE:20261211
+DTEND;VALUE=DATE:20261212
+SUMMARY:SOC122: Revisiting Personal Cartography due
+DESCRIPTION:Submit through Blackboard by the time shown there.
 BEGIN:VALARM
 TRIGGER:-P2D
 ACTION:DISPLAY

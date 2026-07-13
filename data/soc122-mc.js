@@ -202,7 +202,7 @@ window.SOC122_MC = {
  ],
  "soc-socialization": [
   {
-   "q": "Why does the chapter discuss feral children?",
+   "q": "Why does the chapter discuss cases of extreme social isolation?",
    "options": [
     "To show that language is purely genetic",
     "To prove that families do not matter",
@@ -210,7 +210,7 @@ window.SOC122_MC = {
     "To show that core human traits are learned through social contact, not simply inborn"
    ],
    "answer": 3,
-   "why": "Feral children, raised without contact, illustrate that the self and language develop through socialization.",
+   "why": "Cases of extreme social isolation show that language and a sense of self develop through sustained social contact.",
    "skill": "argument",
    "diff": 2
   },
@@ -1058,15 +1058,15 @@ window.SOC122_MC = {
    "diff": 1
   },
   {
-   "q": "Beyond documenting harm, the review notes a factor that protects well-being, namely",
+   "q": "How does the review treat Indigenous identity in relation to well-being?",
    "options": [
-    "connection to identity and community",
-    "keeping silent about the past",
-    "avoiding all health services",
-    "moving away from family"
+    "As a simple protective factor that works the same way in every setting",
+    "As irrelevant to stress and discrimination",
+    "As a complex possible risk and resilience factor that can interact with discrimination and stress pathways",
+    "As a fixed trait caused only by biology"
    ],
-   "answer": 0,
-   "why": "The reading notes that connection to identity and community protects well-being.",
+   "answer": 2,
+   "why": "The review does not reduce identity to a simple buffer. It discusses identity centrality, enculturation, discrimination, risk, and resilience as complex and interacting factors.",
    "skill": "concepts",
    "diff": 1
   }
@@ -1356,7 +1356,7 @@ window.SOC122_MC = {
   {
    "q": "A key coverage problem they identify is",
    "options": [
-    "the lack of accurate, respectful identification of First Nations, Metis, and Inuit people in data sources",
+    "the lack of accurate, respectful identification of First Nations, Métis, and Inuit people in data sources",
     "an excess of accurate data",
     "survey forms too complex for local clinics to administer",
     "too many doctors in remote communities"
@@ -1393,15 +1393,15 @@ window.SOC122_MC = {
    "diff": 1
   },
   {
-   "q": "Smylie is noted in the reading as",
+   "q": "Smylie and Anderson argue that Indigenous health measurement should include",
    "options": [
-    "one of Canada's first Metis physicians",
-    "a federal health minister",
-    "a software engineer",
-    "a foreign census official"
+    "only universal indicators chosen by national agencies",
+    "only locally developed indicators with no public-health measures",
+    "locally relevant First Nations, Métis, and Inuit indicators alongside recognized public-health indicators",
+    "no community-level information"
    ],
-   "answer": 0,
-   "why": "The reading describes Janet Smylie as one of Canada's first Metis physicians.",
+   "answer": 2,
+   "why": "The authors call for locally relevant and customized First Nations, Métis, and Inuit indicators alongside recognized public-health indicators.",
    "skill": "context",
    "diff": 1
   }
@@ -1411,9 +1411,9 @@ window.SOC122_MC = {
    "q": "Palmater's central argument about First Nations poverty is that it is",
    "options": [
     "the engineered result of Canada's colonial laws and policies",
-    "caused by a lack of natural resources on the land",
-    "a cultural failing of First Nations",
-    "a temporary gap that market growth is closing on its own"
+    "the result of geographic isolation and limited natural resources",
+    "a cultural problem that communities must solve through individual effort",
+    "a temporary income gap that ordinary market growth will close"
    ],
    "answer": 0,
    "why": "Palmater argues poverty is produced by federal laws and policies, not by culture.",
@@ -1424,9 +1424,9 @@ window.SOC122_MC = {
    "q": "She describes a historical reversal in which First Nations went from",
    "options": [
     "among the richest peoples in the world to the most impoverished",
-    "the most impoverished to the wealthiest",
-    "modest means to steady middle income over generations",
-    "unchanged in wealth over time"
+    "the most impoverished peoples in the world to equal economic partners in Confederation",
+    "self-sufficient communities to steady middle income through market growth",
+    "a stable economic position before Confederation to the same position afterward"
    ],
    "answer": 0,
    "why": "She shows peoples once among the wealthiest were made the most impoverished through dispossession.",
@@ -1434,37 +1434,37 @@ window.SOC122_MC = {
    "diff": 1
   },
   {
-   "q": "Palmater says federal policy is now caught between",
+   "q": "Palmater says federal policy is caught between",
    "options": [
-    "provincial and municipal control",
-    "two identical goals",
-    "funding education and funding health care",
-    "an old aim of assimilation and a newer language of self-governance, with the Indian Act unchanged"
+    "federal responsibility and provincial service delivery",
+    "two competing federal approaches to assimilation policy",
+    "health-program funding and education-program funding",
+    "assimilation and First Nations self-governance"
    ],
    "answer": 3,
-   "why": "She argues policy hovers between assimilation and self-governance while the Indian Act has not been amended.",
+   "why": "She argues that policy hovers between assimilation and self-governance; in 2011, the Indian Act and its related policies had not been amended to reflect that shift.",
    "skill": "concepts",
    "diff": 2
   },
   {
-   "q": "Palmater argues that the same laws that created First Nations poverty now",
+   "q": "In Palmater's 2011 account, this unresolved policy conflict",
    "options": [
-    "are unrelated to it",
-    "apply only to historical claims",
-    "keep it in place",
-    "have fully resolved it"
+    "has little connection to present-day poverty policy",
+    "belongs to an earlier period with no current policy effect",
+    "obstructs effective action on poverty",
+    "has been resolved through existing self-governance agreements"
    ],
    "answer": 2,
-   "why": "She argues Canada's colonial legal order both created the poverty and keeps it in place.",
+   "why": "Palmater argues that the conflict between assimilation and self-governance obstructs progress in addressing First Nations poverty.",
    "skill": "argument",
    "diff": 2
   },
   {
    "q": "Palmater says federal laws presume control over First Nations life yet",
    "options": [
-    "have no legal force at all",
+    "carry no continuing legal or administrative authority",
     "fail their fiscal and constitutional responsibilities",
-    "fully meet every responsibility",
+    "fully meet their fiscal and constitutional responsibilities",
     "delegate every major decision to First Nations governments"
    ],
    "answer": 1,

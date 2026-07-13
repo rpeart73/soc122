@@ -2,7 +2,7 @@
 window.SOC122_LENS = {
  "byArea": {
   "Aviation": {
-   "2": "Two-Eyed Seeing, named by Mi'kmaw Elder Albert Marshall, is your tool: hold safety rules and lived crew experience together.",
+   "2": "Two-Eyed Seeing, named by Mi'kmaw Elder Albert Marshall, asks you to hold Western aviation rules beside knowledge from a named Indigenous community when both are relevant, without absorbing either one into the other.",
    "3": "Many northern routes serve Indigenous communities. Learning their histories helps you serve passengers with respect, letting communities lead.",
    "4": "Understanding this history shapes how you welcome and support Indigenous travellers and coworkers, listening first and following their lead.",
    "5": "Air safety runs on careful data. This week's methods sharpen how you read incident reports and spot real patterns.",
@@ -14,7 +14,7 @@ window.SOC122_LENS = {
    "12": "Families travel together in every form. Understanding them helps you support parents, children, and elders through stressful journeys."
   },
   "Business": {
-   "2": "Two-Eyed Seeing, named by Mi'kmaw Elder Albert Marshall, invites you to weave market thinking with other ways of valuing worth.",
+   "2": "Two-Eyed Seeing, named by Mi'kmaw Elder Albert Marshall, asks you to hold Western market analysis beside knowledge defined by a named Indigenous Nation or community, without treating one as proof of the other.",
    "3": "Indigenous economies and businesses are growing. Knowing this history helps you build respectful partnerships where communities lead.",
    "4": "Reconciliation reaches into business too. This week helps you understand fair dealing, listening first and letting communities set terms.",
    "5": "Market research is research. This week's methods sharpen how you design surveys, read data, and trust your numbers.",
@@ -26,7 +26,7 @@ window.SOC122_LENS = {
    "12": "Families are customers, owners, and workers. Understanding family life helps you serve them and support staff balancing home demands."
   },
   "Creative Arts, Animation and Design": {
-   "2": "Two-Eyed Seeing, named by Mi'kmaw Elder Albert Marshall, invites you to blend different ways of seeing into richer, truer work.",
+   "2": "Two-Eyed Seeing, named by Mi'kmaw Elder Albert Marshall, asks you to keep Western design methods and a named Indigenous creator's or community's knowledge and authority distinct while bringing them into accountable relation. It is not blending.",
    "3": "Indigenous stories and art carry deep history. Learning it helps you represent people honestly and avoid taking what isn't yours.",
    "4": "Art can support reconciliation. This week helps you handle hard histories with care, letting Indigenous creators lead their own stories.",
    "5": "Good design starts with research. This week's methods sharpen how you gather references, test ideas, and read your audience.",
@@ -38,7 +38,7 @@ window.SOC122_LENS = {
    "12": "Family stories power much of art. Understanding real family life helps you write relationships audiences recognize and believe."
   },
   "Education, Community and Social Services": {
-   "2": "Two-Eyed Seeing, named by Mi'kmaw Elder Albert Marshall, invites you to hold Western and Indigenous knowledge together when helping people.",
+   "2": "Two-Eyed Seeing, named by Mi'kmaw Elder Albert Marshall, asks you to keep Western professional practice and knowledge held by a named Indigenous community whole while deciding how each should guide the work.",
    "3": "You will serve Indigenous clients and students. Knowing this history helps you support them with respect, letting communities lead.",
    "4": "Reconciliation is core to this work. This week helps you understand past harms so you support healing, following community lead.",
    "5": "Good practice rests on evidence. This week's methods sharpen how you assess needs, evaluate programs, and read client data.",
@@ -50,7 +50,7 @@ window.SOC122_LENS = {
    "12": "Families are at the heart of this work. Understanding how they function helps you support children, parents, and caregivers."
   },
   "Engineering Technology": {
-   "2": "Two-Eyed Seeing, named by Mi'kmaw Elder Albert Marshall, invites you to pair technical know-how with local and traditional knowledge.",
+   "2": "Two-Eyed Seeing, named by Mi'kmaw Elder Albert Marshall, asks you to keep Western technical methods and a named Indigenous community's land-based knowledge whole while bringing both into an accountable project relationship.",
    "3": "Many projects sit on Indigenous land. Knowing this history helps you consult respectfully and build with communities, not over them.",
    "4": "Reconciliation shapes how projects get built. This week helps you understand past harms and support consultation led by communities.",
    "5": "Engineering runs on testing and data. This week's methods sharpen how you design trials, measure results, and avoid bias.",
@@ -62,7 +62,7 @@ window.SOC122_LENS = {
    "12": "Families are your end users. Understanding home life helps you design products that fit real households with different needs."
   },
   "Fashion and Esthetics": {
-   "2": "Two-Eyed Seeing, named by Mi'kmaw Elder Albert Marshall, invites you to weave different traditions of beauty and meaning together.",
+   "2": "Two-Eyed Seeing, named by Mi'kmaw Elder Albert Marshall, asks you to keep Western fashion or esthetics methods distinct from the knowledge and cultural authority of a named Indigenous creator or community when both enter the work.",
    "3": "Indigenous designs carry deep meaning. Learning this history helps you honour them and never copy what belongs to a community.",
    "4": "Reconciliation touches fashion too. This week helps you understand past harms and support Indigenous designers who lead their own work.",
    "5": "Trend forecasting is research. This week's methods sharpen how you study markets, read clients, and back choices with evidence.",
@@ -74,7 +74,7 @@ window.SOC122_LENS = {
    "12": "Families shape how people dress and groom. Understanding family life helps you serve clients across generations and traditions."
   },
   "Health and Wellness": {
-   "2": "Two-Eyed Seeing, named by Mi'kmaw Elder Albert Marshall, invites you to hold clinical medicine and traditional healing knowledge together.",
+   "2": "Two-Eyed Seeing, named by Mi'kmaw Elder Albert Marshall, asks you to keep Western clinical medicine and healing knowledge defined by a named Indigenous community whole while deciding how each should guide care.",
    "3": "You will care for Indigenous patients. Knowing this history helps you serve with respect and understand health gaps communities face.",
    "4": "Reconciliation matters in health care. This week helps you understand past harms so you build trust, following each patient's lead.",
    "5": "Health care runs on evidence. This week's methods sharpen how you read studies, weigh data, and question weak claims.",
@@ -86,7 +86,7 @@ window.SOC122_LENS = {
    "12": "Families care for the sick and aging. Understanding family life helps you support patients and the loved ones around them."
   },
   "Hospitality and Tourism": {
-   "2": "Two-Eyed Seeing, named by Mi'kmaw Elder Albert Marshall, invites you to welcome guests by holding many ways of knowing together.",
+   "2": "Two-Eyed Seeing, named by Mi'kmaw Elder Albert Marshall, asks you to hold Western service and tourism systems beside the knowledge and authority of a named Indigenous host community, with the community setting the terms of its own story.",
    "3": "Indigenous tourism is growing. Knowing this history helps you host respectfully and support experiences that communities own and lead.",
    "4": "Reconciliation shapes travel too. This week helps you understand past harms and welcome Indigenous guests and partners, following their lead.",
    "5": "Guest feedback is data. This week's methods sharpen how you run surveys, read reviews, and trust what the numbers say.",
@@ -98,7 +98,7 @@ window.SOC122_LENS = {
    "12": "Families travel and dine together. Understanding family life helps you host parents, children, and elders so everyone feels welcome."
   },
   "Information Technology": {
-   "2": "Two-Eyed Seeing, named by Mi'kmaw Elder Albert Marshall, invites you to pair technical logic with other ways of understanding users.",
+   "2": "Two-Eyed Seeing, named by Mi'kmaw Elder Albert Marshall, asks you to keep Western technical models and a named Indigenous community's knowledge or data authority whole, then examine how they can guide the same decision without one absorbing the other.",
    "3": "Indigenous communities hold rights over their own data. Knowing this history helps you handle information respectfully, with communities leading.",
    "4": "Reconciliation reaches technology too. This week helps you understand past harms and build tools that serve Indigenous users, communities leading.",
    "5": "Good software rests on evidence. This week's methods sharpen how you run user tests, read data, and avoid bias.",
@@ -110,7 +110,7 @@ window.SOC122_LENS = {
    "12": "Families use your apps together. Understanding home life helps you build technology that works for households of every kind."
   },
   "Law, Administration and Public Safety": {
-   "2": "Two-Eyed Seeing, named by Mi'kmaw Elder Albert Marshall, invites you to hold Western law and Indigenous justice traditions together.",
+   "2": "Two-Eyed Seeing, named by Mi'kmaw Elder Albert Marshall, asks you to keep Western law and the legal knowledge of a named Indigenous Nation whole while examining where authority, responsibility, and jurisdiction meet.",
    "3": "You will serve Indigenous people in justice systems. Knowing this history helps you act fairly, with communities leading solutions.",
    "4": "Reconciliation is central to justice work. This week helps you understand past harms and support fairer systems, communities leading.",
    "5": "Justice depends on sound evidence. This week's methods sharpen how you gather facts, read data, and question weak claims.",
@@ -122,7 +122,7 @@ window.SOC122_LENS = {
    "12": "Family conflict fills justice work. Understanding family life helps you handle disputes, protect children, and support people in crisis."
   },
   "Liberal Arts and University Transfers": {
-   "2": "Two-Eyed Seeing, named by Mi'kmaw Elder Albert Marshall, invites you to hold different ways of knowing together in your thinking.",
+   "2": "Two-Eyed Seeing, named by Mi'kmaw Elder Albert Marshall, asks you to hold a Western discipline beside a named Indigenous source, each with its own question, evidence, and limits, before you construct a relationship between them.",
    "3": "Indigenous histories shape Canada. Learning them deepens your studies and prepares you to engage respectfully, with communities leading.",
    "4": "Reconciliation is a national conversation. This week helps you understand past harms and take part thoughtfully, following community lead.",
    "5": "Research skills carry across every subject. This week's methods sharpen how you gather evidence, read data, and question sources.",
@@ -134,7 +134,7 @@ window.SOC122_LENS = {
    "12": "The family shapes every society. Understanding it deepens your reading of history, literature, and the social sciences you'll transfer into."
   },
   "Media and Communications": {
-   "2": "Two-Eyed Seeing, named by Mi'kmaw Elder Albert Marshall, invites you to hold many perspectives together when you tell a story.",
+   "2": "Two-Eyed Seeing, named by Mi'kmaw Elder Albert Marshall, asks you to keep Western reporting practices and a named Indigenous community's own knowledge and story authority distinct while bringing them into an accountable relationship.",
    "3": "Media has often misrepresented Indigenous people. Learning this history helps you report and portray them fairly, letting communities speak.",
    "4": "Reconciliation shapes how stories get told. This week helps you understand past harms and amplify Indigenous voices leading their own narratives.",
    "5": "Good journalism rests on solid research. This week's methods sharpen how you check facts, read data, and spot spin.",
@@ -146,7 +146,7 @@ window.SOC122_LENS = {
    "12": "Families are audiences and story subjects. Understanding family life helps you tell relatable stories and reach viewers across generations."
   },
   "Science": {
-   "2": "Two-Eyed Seeing, named by Mi'kmaw Elder Albert Marshall, invites you to hold Western science and Indigenous knowledge of nature together.",
+   "2": "Two-Eyed Seeing, named by Mi'kmaw Elder Albert Marshall, asks you to keep Western science and knowledge held by a named Indigenous Nation, community, or knowledge holder whole while examining how both guide the same question.",
    "3": "Indigenous peoples hold deep knowledge of land and nature. Learning this history helps you work respectfully, with communities leading.",
    "4": "Reconciliation shapes ethical science. This week helps you understand past harms and do research that communities consent to and lead.",
    "5": "Research methods are the heart of science. This week sharpens how you design studies, control variables, and avoid bias.",
