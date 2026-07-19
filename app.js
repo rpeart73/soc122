@@ -4635,6 +4635,7 @@
     }
     saveView();
     wkEnhanceSections();
+    setTimeout(showUpcomingReminder, 80);
     navHistorySync();
     maybeSpotInvite();
     if (_walk) walkAppLock(true);
