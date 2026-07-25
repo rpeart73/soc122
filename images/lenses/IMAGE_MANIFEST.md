@@ -1,8 +1,8 @@
 # SOC122 learning-emphasis visual manifest
 
-Status: Forge-audited current visual records; Codex spotlight integration and local integrity validation complete; Forge review of the current app bytes pending
+Status: independently reviewed visual records; integrity validation complete, most recently July 25, 2026
 
-Reviewed by Forge and Codex: July 12 to 13, 2026
+Reviewed: July 12 to 13, 2026; re-verified July 25, 2026
 
 ## Use rule
 
