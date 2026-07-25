@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Introduction to the Social Sciences</title>
+<link rel="icon" href="../favicon.svg">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<style>
+  :root{
+    --paper:#FBFCFD; --panel:#FFFFFF; --paper-2:#F2F4F8;
+    --ink:#15171C; --ink-dim:#474C57; --ink-faint:#6B7280;
+    --line:#DEE3EA; --line-2:#C9D1DC;
+    --red:#DA291C; --red-dark:#961A13; --red-wash:#FBEFED;
+    --sans:'IBM Plex Sans',ui-sans-serif,system-ui,'Segoe UI',Arial,sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,'Cascadia Code',Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+  .hero{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:16px;background:var(--panel);
+    min-height:min(78vh,600px);display:flex;flex-direction:column;justify-content:center}
+  canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .scrim{position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(120% 100% at 12% 40%, rgba(251,252,253,.94) 0%, rgba(251,252,253,.72) 40%, rgba(251,252,253,.15) 72%, transparent 100%)}
+  .brand{position:absolute;top:22px;right:26px;z-index:3}
+  .brand img{height:30px;width:auto;display:block}
+  .tag{position:absolute;top:24px;left:28px;z-index:3;font-family:var(--mono);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint)}
+  .tag b{color:var(--red);font-weight:600}
+  .inner{position:relative;z-index:2;padding:0 clamp(24px,5vw,56px);max-width:820px}
+  h1{font-weight:600;font-size:clamp(2.1rem,6vw,4rem);line-height:1.02;letter-spacing:-.02em;margin:0;text-wrap:balance}
+  h1 em{font-style:normal;color:var(--red)}
+  .sub{margin:16px 0 0;font-size:1.06rem;line-height:1.55;color:var(--ink-dim);max-width:46ch}
+  .rot{margin:26px 0 0;min-height:2.6em;display:flex;align-items:flex-start;gap:12px}
+  .rot .dot{flex:none;width:9px;height:9px;border-radius:50%;background:var(--red);margin-top:.5em;box-shadow:0 0 0 4px var(--red-wash)}
+  .rot .line{font-size:1.12rem;line-height:1.35;color:var(--ink);font-weight:500;max-width:40ch;transition:opacity .5s ease}
+  .rot .line b{color:var(--red-dark)}
+  .foot{margin:26px 24px 0;font-family:var(--mono);font-size:.66rem;color:var(--ink-faint);letter-spacing:.03em}
+  @media(max-width:560px){ .brand img{height:24px} .tag{font-size:.62rem;letter-spacing:.16em} .hero{min-height:74vh} }
+  @media (prefers-reduced-motion:reduce){ .rot .line{transition:none} }
+</style>
+</head>
+<body>
+  <div class="hero">
+    <canvas id="c" aria-hidden="true"></canvas>
+    <div class="scrim"></div>
+    <div class="tag">SOC122 &middot; <b>a living introduction</b></div>
+    <div class="brand"><img src="../seneca-logo.png" alt="Seneca Polytechnic"></div>
+    <div class="inner">
+      <h1>Introduction to the <em>Social Sciences</em></h1>
+      <p class="sub">The study of people, not one at a time, but as we actually live: connected, shaped by each other, and by the world we are born into.</p>
+      <div class="rot"><span class="dot"></span><span class="line" id="rot">Move through the web. Every person you touch is tied to others you cannot see.</span></div>
+    </div>
+  </div>
+  <div class="foot">SOC122 &middot; Seneca Polytechnic &middot; a teaching visual. Blackboard remains the official course platform.</div>
+
+<script>
+(function(){
+  "use strict";
+  var cv=document.getElementById('c'), ctx=cv.getContext('2d');
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var W=0,H=0,DPR=1,P=[],t=0,mx=-999,my=-999,wave=null;
+
+  function resize(){
+    DPR=Math.min(2,window.devicePixelRatio||1);
+    var r=cv.getBoundingClientRect(); W=r.width; H=r.height;
+    cv.width=Math.max(1,W*DPR); cv.height=Math.max(1,H*DPR); ctx.setTransform(DPR,0,0,DPR,0,0);
+    build();
+  }
+  function build(){
+    P=[]; var n=Math.round(Math.max(70,Math.min(150, W*H/7200)));
+    for(var i=0;i<n;i++){
+      P.push({x:Math.random()*W, y:Math.random()*H,
+        vx:(Math.random()-0.5)*10, vy:(Math.random()-0.5)*10,
+        r:1.6+Math.random()*1.7, ph:Math.random()*6.28, lit:0});
+    }
+  }
+  function neighbors(){
+    // recompute edges each frame for a live web; cheap at this N
+    var D=Math.min(150, Math.max(96, W/9)), E=[];
+    for(var i=0;i<P.length;i++){ for(var j=i+1;j<P.length;j++){
+      var dx=P[i].x-P[j].x, dy=P[i].y-P[j].y, d2=dx*dx+dy*dy;
+      if(d2<D*D){ E.push([i,j,Math.sqrt(d2)/D]); }
+    }}
+    return {E:E,D:D};
+  }
+
+  function step(dt){
+    for(var i=0;i<P.length;i++){ var p=P[i];
+      if(!reduce){ p.x+=p.vx*dt; p.y+=p.vy*dt; }
+      if(p.x<8){p.x=8;p.vx=Math.abs(p.vx);} if(p.x>W-8){p.x=W-8;p.vx=-Math.abs(p.vx);}
+      if(p.y<8){p.y=8;p.vy=Math.abs(p.vy);} if(p.y>H-8){p.y=H-8;p.vy=-Math.abs(p.vy);}
+      // gentle pull toward cursor when near
+      if(mx>-900){ var dx=mx-p.x, dy=my-p.y, d=Math.hypot(dx,dy); if(d<150&&d>1){ p.x+=dx/d*8*dt; p.y+=dy/d*8*dt; } }
+      p.lit=Math.max(0,p.lit-dt*0.9);
+    }
+    // occasional influence wave: pick a seed, light it, spread to neighbors
+    if(wave){ wave.age+=dt; if(wave.age>wave.life) wave=null; }
+    if(!wave && !reduce && Math.sin(t*0.7)>0.9996){ wave={x:P[(Math.random()*P.length)|0].x,y:P[(Math.random()*P.length)|0].y,age:0,life:2.2}; }
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    var nb=neighbors(), E=nb.E, D=nb.D;
+    // edges
+    for(var e=0;e<E.length;e++){ var a=P[E[e][0]], b=P[E[e][1]], k=E[e][2];
+      var near = (mx>-900) ? Math.min(distToSeg(mx,my,a,b)) : 999;
+      var red = near<70 || (a.lit>0.2||b.lit>0.2);
+      var al=(1-k)*(red?0.34:0.16);
+      ctx.strokeStyle= red ? 'rgba(218,41,28,'+al+')' : 'rgba(120,128,142,'+al+')';
+      ctx.lineWidth= red?1.1:0.7;
+      ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+    }
+    // influence wave lights nearby people red
+    if(wave){ var w=1-wave.age/wave.life;
+      for(var i=0;i<P.length;i++){ var d=Math.hypot(P[i].x-wave.x,P[i].y-wave.y); var ring=wave.age/wave.life*260;
+        if(Math.abs(d-ring)<40) P[i].lit=Math.max(P[i].lit,w); }
+    }
+    // cursor line links
+    if(mx>-900){ for(var i=0;i<P.length;i++){ var d=Math.hypot(P[i].x-mx,P[i].y-my); if(d<150){ ctx.strokeStyle='rgba(218,41,28,'+(1-d/150)*0.5+')'; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(mx,my); ctx.lineTo(P[i].x,P[i].y); ctx.stroke(); P[i].lit=Math.max(P[i].lit,(1-d/150)*0.7); } } }
+    // nodes
+    for(var i=0;i<P.length;i++){ var p=P[i];
+      var br=reduce?0:Math.sin(t*1.2+p.ph)*0.4;
+      var lit=p.lit;
+      var cr = lit>0.05 ? 'rgba('+Math.round(120+98*lit)+','+Math.round(128-90*lit)+','+Math.round(142-118*lit)+',1)' : 'rgba(150,157,170,0.9)';
+      ctx.beginPath(); ctx.arc(p.x,p.y,Math.max(0.8,p.r+br+lit*1.4),0,6.2832); ctx.fillStyle=cr; ctx.fill();
+    }
+  }
+  function distToSeg(px,py,a,b){
+    var dx=b.x-a.x, dy=b.y-a.y, L=dx*dx+dy*dy; if(L===0) return Math.hypot(px-a.x,py-a.y);
+    var tt=Math.max(0,Math.min(1,((px-a.x)*dx+(py-a.y)*dy)/L));
+    return Math.hypot(px-(a.x+tt*dx), py-(a.y+tt*dy));
+  }
+
+  var last=0;
+  function loop(ts){ var dt=Math.min(0.05,(ts-last)/1000||0.016); last=ts; t+=dt; step(dt); draw(); requestAnimationFrame(loop); }
+
+  cv.addEventListener('pointermove',function(ev){ var r=cv.getBoundingClientRect(); mx=ev.clientX-r.left; my=ev.clientY-r.top; });
+  cv.addEventListener('pointerleave',function(){ mx=-999; my=-999; });
+
+  // rotating introduction lines (introduces the disciplines, plainly)
+  var lines=[
+    'Move through the web. Every person you touch is tied to others you cannot see.',
+    '<b>Sociology</b> asks how the groups around you shape who you become.',
+    '<b>Psychology</b> asks what moves a single person to act.',
+    '<b>Anthropology</b> asks how culture turns behaviour into meaning.',
+    '<b>Economics</b> asks how people choose when they cannot have everything.',
+    '<b>Political science</b> asks who holds power, and how it gets used.',
+    'This term, you will learn to see the patterns hiding in ordinary life.'
+  ];
+  var ri=0, rot=document.getElementById('rot');
+  function cycle(){ rot.style.opacity=0; setTimeout(function(){ ri=(ri+1)%lines.length; rot.innerHTML=lines[ri]; rot.style.opacity=1; }, 500); }
+  if(!reduce) setInterval(cycle, 3600);
+
+  window.addEventListener('resize',resize);
+  resize();
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
