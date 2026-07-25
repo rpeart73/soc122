@@ -26,7 +26,7 @@
     return !!(v && v.screen);
   }
   function cleanScreen(s) {
-    return ['journey', 'site', 'library', 'station', 'explore', 'detail', 'pathways', 'contexts', 'synthesis', 'videos', 'readings', 'compare', 'reading', 'glossary', 'cards', 'assignments', 'career', 'activity', 'walkthroughs', 'map', 'calendar'].indexOf(s) >= 0 ? s : 'journey';
+    return ['journey', 'site', 'library', 'station', 'explore', 'detail', 'pathways', 'contexts', 'synthesis', 'videos', 'readings', 'compare', 'reading', 'glossary', 'cards', 'assignments', 'career', 'activity', 'walkthroughs', 'map', 'calendar', 'review', 'outcomes'].indexOf(s) >= 0 ? s : 'journey';
   }
   function cleanWeek(w) {
     w = Number(w);
@@ -651,7 +651,7 @@
   }
   function sidebar() {
     var s = state;
-    var navDefs = [['journey', 'Home', 'gauge'], ['site', 'How This Site Works', 'file'], ['pathways', 'Course Pathways', 'map'], ['contexts', 'Cultural Comparison Lab', 'globe'], ['synthesis', 'Course Synthesis', 'globe'], ['readings', 'Readings and Media', 'gallery'], ['compare', 'Compare Sources', 'columns'], ['reading', 'Source Practice', 'book'], ['videos', 'Videos and Podcasts', 'play'], ['glossary', 'Glossary', 'book'], ['cards', 'Concept Flashcards', 'clipboard'], ['assignments', 'Starting Your Assignment', 'clipboard'], ['career', 'Career Choices', 'globe']];
+    var navDefs = [['journey', 'Home', 'gauge'], ['site', 'How This Site Works', 'file'], ['pathways', 'Course Pathways', 'map'], ['contexts', 'Cultural Comparison Lab', 'globe'], ['synthesis', 'Course Synthesis', 'globe'], ['readings', 'Readings and Media', 'gallery'], ['compare', 'Compare Sources', 'columns'], ['reading', 'Source Practice', 'book'], ['videos', 'Videos and Podcasts', 'play'], ['glossary', 'Glossary', 'book'], ['cards', 'Concept Flashcards', 'clipboard'], ['review', 'Term Review', 'check'], ['outcomes', 'What This Course Builds', 'columns'], ['assignments', 'Starting Your Assignment', 'clipboard'], ['career', 'Career Choices', 'globe']];
     var byKey = {};
     var btns = navDefs.map(function (d) {
       var key = d[0], active = (key === 'journey' && (s.screen === 'journey' || s.screen === 'library' || s.screen === 'station' || s.screen === 'detail')) || s.screen === key;
@@ -1356,6 +1356,8 @@
   function screenAnnounceText() {
     if (state.screen === 'station') return 'Week ' + state.stationWeek + ': ' + weekTitle(state.stationWeek);
     if (state.screen === 'site') return 'How This Site Works';
+    if (state.screen === 'review') return 'Term Review';
+    if (state.screen === 'outcomes') return 'What This Course Builds';
     if (state.screen === 'calendar') return 'Calendar and Due Dates';
     if (state.screen === 'pathways') return 'Course Pathways';
     if (state.screen === 'contexts') return 'Cultural Comparison Lab';
@@ -2911,7 +2913,7 @@
     var pre = sec('pre', 'Before you begin', '<p class="wk-hint">A quick read on where your understanding sits right now, no grade. Rate each idea, then meet them again at the end to see how far your thinking moves.</p>' + wkChecks(w, 'pre', d));
     var purpose = '<section id="wk-learn" class="node"><h2 class="wk-sec">Purpose</h2><p style="margin:0">' + esc(d.purpose) + '</p></section>';
     var emphasis = emphasisPanel(w);
-    var outcomes = sec('out', 'Learning outcomes', '<p style="margin:0 0 8px;font-size:.9rem">By the end of this week, you will be able to:</p>' + d.outcomes.map(function (o) { return '<div class="wk-oc"><span class="b"></span>' + esc(o) + '</div>'; }).join(''));
+    var outcomes = sec('out', 'Learning outcomes', '<p style="margin:0 0 8px;font-size:.9rem">By the end of this week, you will be able to:</p>' + d.outcomes.map(function (o) { return '<div class="wk-oc"><span class="b"></span>' + esc(o) + '</div>'; }).join('') + cloChips(w));
     var guiding = sec('gq', 'Guiding questions', '<p style="margin:0 0 8px;font-size:.9rem">Hold these in mind as you work:</p>' + d.guiding.map(function (q) { return '<div class="wk-gq"><span class="q">+</span>' + esc(q) + '</div>'; }).join(''));
     var plainTerms = weekTermsInPlainLanguage(w);
     var care = d.careNote ? '<section id="wk-care" class="node wk-care"><div class="mono">CONTENT AND CHOICE</div><h2 class="wk-sec">Work with this material without over-disclosure</h2><p>' + esc(d.careNote) + '</p></section>' : '';
@@ -2931,6 +2933,7 @@
     var activityCopy = emphasisActivityCopy(w, d.activity);
     var act = '<section id="wk-do" class="node interactive"><h2 class="wk-sec">The activity: ' + esc(d.activity.title) + '</h2><div class="wk-whatwhy emphasis-activity-copy"><b>What this becomes through ' + esc(emphasisOption().label) + ':</b> ' + esc(activityCopy.what) + '<br><br><b>Why you are doing it through this route:</b> ' + esc(activityCopy.why) + '</div>' + lensActivityBlock(w, d.activity, false) + '<button onclick="SOC.startActivity(\'' + d.activity.screen + '\',' + w + ')" class="wk-cta">Start the activity' + ic('chevron', 17, 2.4) + '</button><p style="margin:10px 0 0;font-size:.74rem;color:var(--ink-faint)">Predict, do the work, inspect the result, and name the evidence. The required activity remains common; its intellectual purpose changes with the route.</p></section>';
     var reflect = '<section id="wk-reflect" class="node"><h2 class="wk-sec">Reflection</h2>'
+      + journalBridge(w)
       + '<div class="wk-ocheck"><div class="mono" style="font-size:.78rem;font-weight:700;color:var(--ink-faint);margin-bottom:7px">YOU CAN NOW</div>' + d.youcan.map(function (y) { return '<div class="wk-row"><span class="t">' + ic('check', 14, 2.6) + '</span>' + esc(y) + '</div>'; }).join('') + '</div>'
       + '<h3 style="margin:16px 0 4px">Now, what do you think?</h3><p class="wk-hint" style="margin-bottom:8px">The same ideas from the start. Rate them again to see where your understanding sits now, and how far it moved.</p>' + wkChecks(w, 'post', d)
       + '<h3 style="margin:16px 0 4px">Your reflection</h3>' + emphasisReflectionPrompt(w, d.reflectPrompt)
@@ -2949,8 +2952,8 @@
     var rail = '<aside class="wk-rail"><div class="wk-railbox"><div class="wk-railh">IN THIS WEEK</div>'
       + [['ov', 'Overview'], ['mode', 'How this week works'], ['rec', deliveryMode(w).kind === 'live' ? 'Class recording and updates' : 'Updates for this week'], ['pre', 'Before you begin'], ['learn', 'Purpose']].concat(emphasis ? [['emphasis', 'Learning emphasis']] : []).concat([['out', 'Learning outcomes'], ['gq', 'Guiding questions']]).concat(plainTerms ? [['language', 'Terms in plain language']] : []).concat(care ? [['care', 'Content and choice']] : []).concat(img ? [['idea', 'Idea in view']] : []).concat(programLens ? [['lens', 'For your program']] : []).concat(media ? [['media', 'Watch and question']] : []).concat([['con', 'Key concepts'], ['term', 'Key terms'], ['read', 'Readings']]).concat(globalContext ? [['context', 'Cultural comparison']] : []).concat(walkWorld(w) ? [['watch', 'Experience']] : []).concat(programCase ? [['case', 'Case study']] : []).concat([['do', 'The activity'], ['reflect', 'Reflection']]).concat(sg ? [['sg', 'Study Guide']] : []).concat(kcItems.length ? [['kc', 'Knowledge Check']] : []).concat([['notes', 'Generate notes']]).map(function (it) { return '<a href="#wk-' + it[0] + '"><span class="s"></span>' + it[1] + '</a>'; }).join('')
       + '<div class="wk-railt">' + ic('calendar', 12) + ' ' + esc(deliveryMode(w).short) + '</div></div></aside>';
-    var collBar = '<div class="wk-coll-bar" role="group" aria-label="Section display controls"><button type="button" onclick="SOC.wkCollAll(' + w + ',1)">Collapse all sections</button><span>Weeks start folded so you can see the whole map. Up to two sections stay open at once; opening a third closes the earliest one. Sections fold again when you leave the week.</span></div>';
-    return '<div class="rise">' + hero + deliveryNotice(w) + recordingSection(w) + '<div class="wk-grid"><main>' + collBar + pre + purpose + emphasis + outcomes + guiding + plainTerms + care + img + programLens + media + concepts + terms + readings + globalContext + watch + programCase + act + reflect + sg + kc + notes + navRow + '</main>' + rail + '</div></div>';
+    var collBar = '<div class="wk-coll-bar" role="group" aria-label="Section display controls"><button type="button" onclick="SOC.wkCollAll(' + w + ',1)">Collapse all sections</button><button type="button" onclick="SOC.focusCore(' + w + ')" aria-pressed="' + (!!(state.focusCore && state.focusCore[w])) + '"' + ((state.focusCore && state.focusCore[w]) ? ' style="border-color:var(--red);color:var(--red);font-weight:700"' : '') + '>' + ((state.focusCore && state.focusCore[w]) ? 'Show the full week' : 'Show the core path') + '</button><span>Weeks start folded so you can see the whole map. Up to two sections stay open at once; opening a third closes the earliest one. Sections fold again when you leave the week.</span></div>';
+    return '<div class="rise">' + hero + deliveryNotice(w) + protocolSection(w) + recordingSection(w) + '<div class="wk-grid' + ((state.focusCore && state.focusCore[w]) ? ' focus-core' : '') + '"><main>' + collBar + ((state.focusCore && state.focusCore[w]) ? '<div style="border:1px solid var(--border);border-left:4px solid var(--red);border-radius:0 10px 10px 0;background:#fff;padding:10px 14px;margin:0 0 14px;font-size:.85rem;color:var(--ink-dim)"><b style="color:var(--ink)">Core path.</b> You are seeing the essentials: readings, key concepts, the Knowledge Check, and your reflection. Use the button above to bring the full week back.</div>' : '') + pre + purpose + emphasis + outcomes + guiding + plainTerms + care + img + programLens + media + concepts + terms + readings + globalContext + watch + programCase + act + reflect + sg + kc + notes + navRow + '</main>' + rail + '</div></div>';
   }
   /* ---------- generic week activities: match / scenario / toggle / assemble / lab ---------- */
   function actCard(inner) { return '<div style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin:0 0 12px">' + inner + '</div>'; }
@@ -4496,6 +4499,141 @@
     ];
     return '<nav class="soc-mobile-jump" aria-label="Mobile activity shortcuts">' + items.join('') + '</nav>';
   }
+  /* ---------- outcomes spine (2026-07-25): official CLO and EES, made visible ---------- */
+  function outcomesData() { return window[((D.course && D.course.code) || '') + '_OUTCOMES'] || null; }
+  function cloChips(w) {
+    try {
+      var O = outcomesData(); if (!O || !O.clos) return '';
+      var hits = O.clos.filter(function (c) { return (c.weeks || []).indexOf(w) >= 0; });
+      if (!hits.length) return '';
+      return '<div style="margin:8px 0 0;font-size:.76rem;color:var(--ink-faint)">This week builds ' + hits.map(function (c) { return '<button type="button" onclick="SOC.go(\'outcomes\')" style="border:1px solid var(--border);background:#fff;border-radius:999px;padding:1px 9px;font-size:.72rem;font-weight:700;color:var(--red);cursor:pointer;margin:0 3px">' + esc(c.id) + '</button>'; }).join('') + '</div>';
+    } catch (e) { return ''; }
+  }
+  function outcomesPage() {
+    var O = outcomesData();
+    if (!O) return '<div style="padding:30px 0;color:var(--ink-dim)">The outcomes map is not available yet.</div>';
+    var head = '<section class="node" style="margin-bottom:16px"><div class="mono" style="font-size:.66rem;letter-spacing:.08em;color:var(--red);font-weight:700;margin-bottom:6px">WHAT THIS COURSE BUILDS</div><h1 style="font-size:1.55rem;line-height:1.15;margin:0 0 8px;color:var(--ink)">The official outcomes behind every week</h1><p style="font-size:.92rem;line-height:1.6;color:var(--ink-dim);margin:0 0 6px">Every week and every assessment in this course exists to build these outcomes. They are the same for every student on every route through the material. ' + esc(O.note || '') + '</p></section>';
+    var clos = '<section class="node"><h2 class="wk-sec">Course learning outcomes</h2>' + O.clos.map(function (c) {
+      var wk = (c.weeks && c.weeks.length) ? '<div style="margin-top:7px;font-size:.78rem;color:var(--ink-faint)">Built in ' + c.weeks.map(function (n) { return '<button type="button" onclick="SOC.station(' + n + ')" class="wk-scope" style="padding:2px 9px;font-size:.74rem;margin:0 3px 3px 0">Week ' + n + '</button>'; }).join('') + '</div>' : '';
+      var asmt = (c.assessments && c.assessments.length) ? '<div style="margin-top:4px;font-size:.78rem;color:var(--ink-faint)">Measured by: ' + esc(c.assessments.join('; ')) + '</div>' : '';
+      return '<div style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--red);border-radius:0 10px 10px 0;padding:12px 16px;margin:0 0 10px"><div class="mono" style="font-size:.68rem;font-weight:700;color:var(--red);margin-bottom:4px">' + esc(c.id) + '</div><div style="font-size:.93rem;line-height:1.55;color:var(--ink)">' + esc(c.text) + '</div>' + wk + asmt + '</div>';
+    }).join('') + '</section>';
+    var ees = (O.ees && O.ees.length) ? '<section class="node"><h2 class="wk-sec">Essential Employability Skills</h2><p class="wk-hint">Ontario college courses also build these transferable skills. The ones this course develops:</p>' + O.ees.map(function (e) {
+      return '<div style="display:flex;gap:10px;align-items:flex-start;background:#fff;border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin:0 0 8px"><span style="color:var(--red);font-weight:700">&#10003;</span><div style="flex:1;font-size:.9rem;line-height:1.5;color:var(--ink)">' + esc(e.skill) + ((e.weeks && e.weeks.length) ? '<div style="font-size:.76rem;color:var(--ink-faint);margin-top:3px">Practised most in weeks ' + e.weeks.join(', ') + '</div>' : '') + '</div></div>';
+    }).join('') + '</section>' : '';
+    return '<div class="rise">' + head + clos + ees + '</div>';
+  }
+  /* ---------- Term Review (2026-07-25): cumulative mixed practice + calibration ---------- */
+  function trShuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function trPool() {
+    var code = (D.course && D.course.code) || '';
+    var KB = window[code + '_KC'] || {};
+    var seen = {}, pool = [];
+    journeyWeeks().forEach(function (w) {
+      ((KB[w] || KB[String(w)]) || []).forEach(function (m) { if (!m.kind && !m.type && (m.options || []).length >= 4 && !seen[m.q]) { seen[m.q] = 1; pool.push({ m: m, w: w }); } });
+      recordsForWeek(w).forEach(function (r) { ((MC[r.id]) || []).forEach(function (m) { if ((m.options || []).length >= 4 && !seen[m.q]) { seen[m.q] = 1; pool.push({ m: m, w: w }); } }); });
+    });
+    return pool;
+  }
+  function trStart() {
+    var hist = state.kcHist || {};
+    var missed = [], unseen = [], strong = [];
+    trPool().forEach(function (it) {
+      var h = hist[kcHashKey(it.m.q)];
+      if (h && h.n > (h.right || 0)) missed.push(it);
+      else if (!h || !h.n) unseen.push(it);
+      else strong.push(it);
+    });
+    var items = trShuffle(missed).concat(trShuffle(unseen)).concat(trShuffle(strong)).slice(0, 12);
+    state.trs = { items: items, i: 0, sel: null, conf: null, revealed: false, log: [] };
+  }
+  function trReport() {
+    var S = state.trs, b = { mastered: [], fragile: [], confmiss: [], growing: [] };
+    S.log.forEach(function (e) {
+      if (e.right && e.conf === 2) b.mastered.push(e);
+      else if (e.right) b.fragile.push(e);
+      else if (e.conf === 2) b.confmiss.push(e);
+      else b.growing.push(e);
+    });
+    var block = function (title, hint, list, accent) {
+      if (!list.length) return '';
+      return '<div style="border:1px solid var(--border);border-left:4px solid ' + accent + ';border-radius:0 10px 10px 0;background:#fff;padding:12px 16px;margin:0 0 10px"><div style="font-weight:700;font-size:.95rem;color:var(--ink)">' + title + ' (' + list.length + ')</div><p style="font-size:.82rem;color:var(--ink-dim);margin:4px 0 8px">' + hint + '</p>'
+        + list.map(function (e) { return '<div style="display:flex;gap:10px;align-items:flex-start;font-size:.86rem;color:var(--ink);padding:5px 0;border-top:1px dashed var(--border)"><span style="flex:1">' + esc(e.q) + '</span><button type="button" onclick="SOC.station(' + e.w + ')" class="wk-scope" style="flex:none">Revisit Week ' + e.w + '</button></div>'; }).join('') + '</div>';
+    };
+    return '<section class="node"><h2 class="wk-sec">Your calibration report</h2><p class="wk-hint">Where confidence and accuracy disagree is where your next hour of study earns the most.</p>'
+      + block('Start here: confident misses', 'You were sure and the answer says otherwise. These ideas feel settled but are not yet; they are worth unlearning first.', b.confmiss, '#B11722')
+      + block('Fragile: right but unsure', 'You got these right without trusting yourself. One more pass turns them solid.', b.fragile, '#B77400')
+      + block('Growing edge', 'Missed while unsure. Normal learning territory; revisit the weeks and try again.', b.growing, '#6B7280')
+      + block('Mastered this round', 'Right and sure. Let these rest and spend your time above.', b.mastered, '#1E7B34')
+      + '<div style="display:flex;gap:10px;margin-top:12px"><button type="button" class="wk-save" onclick="SOC.trAgain()">Practise another set</button></div></section>';
+  }
+  function reviewPage() {
+    if (!state.trs) trStart();
+    var S = state.trs;
+    var head = '<section class="node" style="margin-bottom:14px"><div class="mono" style="font-size:.66rem;letter-spacing:.08em;color:var(--red);font-weight:700;margin-bottom:6px">TERM REVIEW &middot; NEVER SCORED</div><h1 style="font-size:1.55rem;line-height:1.15;margin:0 0 8px;color:var(--ink)">Mixed practice across the whole course</h1><p style="font-size:.92rem;line-height:1.55;color:var(--ink-dim);margin:0">Up to twelve questions drawn from every week so far. Ideas you have missed before come first. Mark how sure you are before revealing; your calibration report at the end shows where confidence and accuracy disagree. Nothing here is scored or seen by anyone.</p></section>';
+    if (!S.items.length) return '<div class="rise">' + head + '<section class="node"><p style="font-size:.95rem;color:var(--ink)">No practice items are available yet. Come back once the first content weeks are open.</p></section></div>';
+    if (S.i >= S.items.length) return '<div class="rise">' + head + trReport() + '</div>';
+    var it = S.items[S.i], m = it.m;
+    var opts = m.options.map(function (o, oi) {
+      var st = 'display:block;width:100%;text-align:left;border:1.5px solid var(--border);background:#fff;border-radius:10px;padding:10px 14px;margin:0 0 8px;cursor:pointer;font-size:.92rem;line-height:1.45;color:var(--ink)';
+      if (S.revealed && oi === m.answer) st += ';border-color:#1E7B34;background:#F0F7F1';
+      else if (S.revealed && S.sel === oi) st += ';border-color:#B11722;background:#FBE9EA';
+      else if (!S.revealed && S.sel === oi) st += ';border-color:var(--red);background:#FBF4F3';
+      var tail = '';
+      if (S.revealed && oi === m.answer && m.why) tail = '<div style="font-size:.8rem;color:#1E7B34;margin-top:5px">' + esc(m.why) + '</div>';
+      else if (S.revealed && S.sel === oi && m.whyWrong && m.whyWrong[oi]) tail = '<div style="font-size:.8rem;color:var(--ink-faint);margin-top:5px">' + esc(m.whyWrong[oi]) + '</div>';
+      return '<button type="button"' + (S.revealed ? ' disabled' : '') + ' onclick="SOC.trPick(' + oi + ')" style="' + st + '">' + esc(o) + tail + '</button>';
+    }).join('');
+    var confRow = '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0"><span style="font-size:.82rem;color:var(--ink-dim)">How sure are you?</span>'
+      + [['Guessing', 0], ['Think so', 1], ['Sure', 2]].map(function (c) { return '<button type="button"' + (S.revealed ? ' disabled' : '') + ' onclick="SOC.trConf(' + c[1] + ')" class="wk-scope" style="' + (S.conf === c[1] ? 'border-color:var(--red);color:var(--red);font-weight:700' : '') + '">' + c[0] + '</button>'; }).join('') + '</div>';
+    var action = S.revealed
+      ? '<button type="button" class="wk-save" onclick="SOC.trNext()">' + (S.i + 1 >= S.items.length ? 'See your calibration report' : 'Next question') + '</button>'
+      : '<button type="button" class="wk-save"' + ((S.sel == null || S.conf == null) ? ' disabled style="opacity:.5"' : '') + ' onclick="SOC.trReveal()">See how I did</button>';
+    return '<div class="rise">' + head + '<section class="node"><div class="mono" style="font-size:.68rem;color:var(--ink-faint);margin-bottom:8px">QUESTION ' + (S.i + 1) + ' OF ' + S.items.length + ' &middot; FROM WEEK ' + it.w + '</div>'
+      + '<p style="font-size:1rem;font-weight:600;color:var(--ink);margin:0 0 12px">' + esc(m.q) + '</p>' + opts + confRow + action + '</section></div>';
+  }
+  function accessStatement() {
+    return '<section class="node" id="wk-access" style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--red);border-radius:0 12px 12px 0;padding:16px 18px;margin:18px 0 0">'
+      + '<h2 style="font-size:1.05rem;margin:0 0 6px;color:var(--ink)">Accessibility on this site</h2>'
+      + '<p style="font-size:.88rem;line-height:1.6;color:var(--ink-dim);margin:0 0 8px">This site is built to work for every student: it adapts to any screen size, works with keyboard navigation, keeps text resizable, gives every image a text description, and never puts course content behind a timed or scored gate. The Reading Lens offers text sizing, comfortable spacing, a high-legibility font, page tints, a reading ruler, a magnifier, and read-aloud on content pages. Images open in a keyboard-accessible viewer with zoom.</p>'
+      + '<p style="font-size:.88rem;line-height:1.6;color:var(--ink-dim);margin:0">The rebuilt weekly experience player does not yet carry voice narration, and some embedded week videos may not yet have captions; their full scripts are posted in Blackboard while captioning is completed. The page walkthrough videos are silent with on-screen captions by design. If any material is not accessible to you, contact your professor through Blackboard; barriers get fixed, not explained away.</p>'
+      + '</section>';
+  }
+  /* ---------- saved-work export/restore (2026-07-25): device-bound loss fix ---------- */
+  function dataPortSection() {
+    return '<section class="node" id="wk-dataport" style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--red);border-radius:0 12px 12px 0;padding:16px 18px;margin:18px 0 0">'
+      + '<h2 style="font-size:1.05rem;margin:0 0 6px;color:var(--ink)">Take your saved work with you</h2>'
+      + '<p style="font-size:.88rem;line-height:1.55;color:var(--ink-dim);margin:0 0 10px">Everything you type and rate on this site is saved only in this browser. On a shared or lab computer that work can disappear. Download a backup file here, then restore it on any device to carry your work across. The file stays with you; nothing is uploaded anywhere.</p>'
+      + '<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">'
+      + '<button type="button" class="wk-save" onclick="SOC.exportWork()">Download my saved work</button>'
+      + '<label class="wk-scope" style="cursor:pointer;display:inline-block">Restore from a backup file<input type="file" accept="application/json,.json" style="display:none" onchange="SOC.importWork(this)"></label>'
+      + '</div><p id="dataport-msg" role="status" style="font-size:.8rem;color:var(--ink-faint);margin:8px 0 0"></p></section>';
+  }
+  /* ---------- Two-Eyed Seeing Journal wiring (2026-07-25) ---------- */
+  function journalBridge(w) {
+    try {
+      var J = window.SOC122_JOURNAL;
+      var e = J && J.byWeek && (J.byWeek[w] || J.byWeek[String(w)]);
+      if (!e) return '';
+      return '<div style="border:1px solid var(--border);border-left:4px solid var(--red);border-radius:0 10px 10px 0;background:#FBF4F3;padding:12px 15px;margin:0 0 12px">'
+        + '<div class="mono" style="font-size:.64rem;letter-spacing:.07em;color:var(--red);font-weight:700;margin-bottom:5px">THIS FEEDS YOUR JOURNAL</div>'
+        + '<p style="margin:0 0 8px;font-size:.87rem;line-height:1.55;color:var(--ink)">' + esc(e.bridge) + '</p>'
+        + ((e.moves && e.moves.length) ? '<div style="font-size:.84rem;color:var(--ink-dim)">' + e.moves.map(function (m2) { return '<div style="display:flex;gap:8px;padding:3px 0"><span style="color:var(--red);font-weight:700">&rsaquo;</span><span>' + esc(m2) + '</span></div>'; }).join('') + '</div>' : '')
+        + '<button type="button" class="wk-scope" style="margin-top:8px" onclick="SOC.journalCompile()">Compile my reflections so far</button><span id="jc-msg" role="status" style="font-size:.78rem;color:var(--ink-faint);margin-left:8px"></span></div>';
+    } catch (e2) { return ''; }
+  }
+  function protocolSection(w) {
+    try {
+      var P = window.SOC122_PROTOCOLS;
+      var e = P && P.byWeek && (P.byWeek[w] || P.byWeek[String(w)]);
+      if (!e) return '';
+      var rows = [['Arrive prepared', e.prepare], ['Think, pair, share', e.pair], ['How we speak with each other', e.norm]].filter(function (r) { return r[1]; });
+      if (!rows.length) return '';
+      return '<section id="wk-protocol" class="node"><h2 class="wk-sec">How our live class works this week</h2><p class="wk-hint">Live classes are where the interpersonal side of this course happens. Here is exactly how to show up ready.</p>'
+        + rows.map(function (r) { return '<div style="border:1px solid var(--border);border-radius:10px;background:#fff;padding:11px 14px;margin:0 0 8px"><div style="font-size:.72rem;font-weight:700;color:var(--red);margin-bottom:4px">' + esc(r[0].toUpperCase()) + '</div><div style="font-size:.9rem;line-height:1.55;color:var(--ink)">' + esc(r[1]) + '</div></div>'; }).join('')
+        + '</section>';
+    } catch (e2) { return ''; }
+  }
   /* ---------- per-page how-to (2026-07-25): every page teaches itself ---------- */
   function howtoKeys() {
     var s = state.screen;
@@ -4546,7 +4684,9 @@
     if (state.screen === 'pathways') return homeBar() + pathwaysPage();
     if (state.screen === 'contexts') return homeBar() + contextLabPage();
     if (state.screen === 'synthesis') return homeBar() + synthesisPage();
-    if (state.screen === 'site') return homeBar() + siteInfoPage();
+    if (state.screen === 'review') return homeBar() + reviewPage();
+    if (state.screen === 'outcomes') return homeBar() + outcomesPage();
+    if (state.screen === 'site') return homeBar() + siteInfoPage() + dataPortSection() + accessStatement();
     if (state.screen === 'calendar') return homeBar() + calendarPage();
     if (state.screen === 'walkthroughs') return homeBar() + walkthroughsPage();
     if (state.screen === 'videos') return homeBar() + videosPage();
@@ -5113,6 +5253,75 @@
     go: function (s) {
       var target = cleanScreen(s); if (target !== state.screen) rememberPrevious(); markSessionExploration(); state.navOpen = false; if (target === 'library') { state.savedView = false; } if (target === 'reading') { state.rcReading = null; state.lens = 'thematic'; } if (target === 'readings') { state.galWeek = null; state.galTopic = null; } state.screen = target; explorationMark('screens', target); focusTarget = 'soc-main'; render(); topScroll(); },
     howtoToggle: function (k) { state.howtoOpen = state.howtoOpen || {}; state.howtoOpen[k] = !state.howtoOpen[k]; var el = document.getElementById('howto-panel'); if (el) { el.outerHTML = howtoSection(); } else { render(); } },
+    exportWork: function () {
+      try {
+        var pre = SKEY.split('corpus')[0];
+        var out = { site: SKEY, savedAt: new Date().toISOString(), keys: {} };
+        for (var xi = 0; xi < localStorage.length; xi++) { var xk = localStorage.key(xi); if (xk && xk.indexOf(pre) === 0) out.keys[xk] = localStorage.getItem(xk); }
+        var blob = new Blob([JSON.stringify(out, null, 1)], { type: 'application/json' });
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = pre + '-saved-work-' + new Date().toISOString().slice(0, 10) + '.json';
+        document.body.appendChild(a); a.click(); a.remove();
+        var xm = document.getElementById('dataport-msg'); if (xm) xm.textContent = 'Backup file downloaded. Keep it somewhere you can find it again.';
+      } catch (e) { var xe = document.getElementById('dataport-msg'); if (xe) xe.textContent = 'The download did not work in this browser.'; }
+    },
+    importWork: function (inp) {
+      try {
+        var f = inp.files && inp.files[0]; if (!f) return;
+        var pre = SKEY.split('corpus')[0];
+        var rd = new FileReader();
+        rd.onload = function () {
+          try {
+            var data = JSON.parse(String(rd.result));
+            var xm = document.getElementById('dataport-msg');
+            if (!data || !data.keys || String(data.site || '').indexOf(pre) !== 0) { if (xm) xm.textContent = 'That file is not a saved-work backup for this site.'; return; }
+            var n = 0;
+            Object.keys(data.keys).forEach(function (xk) { if (xk.indexOf(pre) === 0) { localStorage.setItem(xk, data.keys[xk]); n++; } });
+            if (xm) xm.textContent = 'Restored ' + n + ' saved records. Reloading the site with your work in place.';
+            setTimeout(function () { location.reload(); }, 900);
+          } catch (e2) { var xe2 = document.getElementById('dataport-msg'); if (xe2) xe2.textContent = 'That file could not be read.'; }
+        };
+        rd.readAsText(f);
+      } catch (e) {}
+    },
+    journalCompile: function () {
+      try {
+        var lines = ['SOC122 reflection notes (compiled from this browser, ' + new Date().toISOString().slice(0, 10) + ')', 'These are your private weekly reflections, gathered as raw material for your Two-Eyed Seeing Journal. Shape them in your own words before anything goes to Blackboard.', ''];
+        var any = false;
+        journeyWeeks().forEach(function (w2) {
+          var r = state.wkReflect && state.wkReflect[w2];
+          if (r && String(r).trim()) { any = true; lines.push('Week ' + w2 + ': ' + weekTitle(w2)); lines.push(String(r).trim()); lines.push(''); }
+        });
+        var el = document.getElementById('jc-msg');
+        if (!any) { if (el) el.textContent = 'No reflections saved yet on this device.'; return; }
+        var blob = new Blob([lines.join('\n')], { type: 'text/plain' });
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'soc122-journal-notes.txt';
+        document.body.appendChild(a); a.click(); a.remove();
+        if (el) el.textContent = 'Downloaded. Your reflections are raw material; the Journal entry you submit should be your own shaped writing.';
+      } catch (e) {}
+    },
+    focusCore: function (w) {
+      state.focusCore = state.focusCore || {};
+      state.focusCore[w] = !state.focusCore[w];
+      persist(); render(); topScroll();
+    },
+    trPick: function (oi) { if (state.trs && !state.trs.revealed) { state.trs.sel = (state.trs.sel === oi ? null : oi); render(); } },
+    trConf: function (c) { if (state.trs && !state.trs.revealed) { state.trs.conf = c; render(); } },
+    trReveal: function () {
+      var S = state.trs; if (!S || S.sel == null || S.conf == null || S.revealed) return;
+      S.revealed = true;
+      var it = S.items[S.i], right = (S.sel === it.m.answer);
+      S.log.push({ q: it.m.q, w: it.w, right: right, conf: S.conf });
+      state.kcHist = state.kcHist || {};
+      var hk = kcHashKey(it.m.q), h = state.kcHist[hk] || { n: 0, right: 0 };
+      h.n = (h.n || 0) + 1; if (right) h.right = (h.right || 0) + 1;
+      state.kcHist[hk] = h; persist(); render();
+    },
+    trNext: function () { var S = state.trs; if (!S) return; S.i++; S.sel = null; S.conf = null; S.revealed = false; render(); topScroll(); },
+    trAgain: function () { trStart(); render(); topScroll(); },
     careerField: function (v) { state.careerField = v; persist(); render(); topScroll(); announce(v ? 'Program route changed.' : 'General stream selected.'); },
     learningEmphasis: function (v) { state.learningEmphasis = cleanEmphasis(v); persist(); renderKeepScroll(); announce('Learning emphasis changed to ' + emphasisOption().label + '.'); },
     lensOff: function () { state.careerField = ''; persist(); render(); },
