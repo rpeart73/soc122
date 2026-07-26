@@ -47,7 +47,9 @@ window.SOC122_HOWTO = {
    "saves": "Your name, emphasis choice, program lens, visited weeks, and saved work stay only in this browser on this device. Nothing is sent anywhere.",
    "graded": "Nothing on this page is graded or reported to your professor. Blackboard is the only official gradebook.",
    "next": "Open the current week's station and start with its Before you begin section.",
-   "clip": "4,18"
+   "clip": "4,18",
+   "video": "videos/tour/journey.mp4",
+   "captions": "videos/tour/journey.vtt"
   },
   "station": {
    "title": "How to use a week page",
@@ -85,7 +87,9 @@ window.SOC122_HOWTO = {
    "saves": "Your ratings, study guide notes, check history, activity work, and reflections are saved only in this browser on this device.",
    "graded": "Every check on this page is practice. None of it is scored, recorded, or visible to your professor. Blackboard is the official channel for graded work.",
    "next": "When the week feels solid, return Home and open the next station.",
-   "clip": "18,32"
+   "clip": "18,32",
+   "video": "videos/tour/station.mp4",
+   "captions": "videos/tour/station.vtt"
   },
   "site": {
    "title": "How to use this page",
@@ -123,7 +127,9 @@ window.SOC122_HOWTO = {
    "saves": "Everything you type or rate on this site stays in this browser on this device. Clear My Work wipes it.",
    "graded": "Nothing on this site is graded. Blackboard is the only official gradebook.",
    "next": "Head back Home and open the current week.",
-   "clip": "32,45"
+   "clip": "32,45",
+   "video": "videos/tour/site.mp4",
+   "captions": "videos/tour/site.vtt"
   },
   "pathways": {
    "title": "How to use Course Pathways",
@@ -153,7 +159,9 @@ window.SOC122_HOWTO = {
    "saves": "This page stores nothing.",
    "graded": "Nothing here is graded.",
    "next": "Open Calendar and Due Dates to put exact dates against this rhythm.",
-   "clip": "45,59"
+   "clip": "45,59",
+   "video": "videos/tour/pathways.mp4",
+   "captions": "videos/tour/pathways.vtt"
   },
   "contexts": {
    "title": "How to use the Cultural Comparison Lab",
@@ -187,7 +195,9 @@ window.SOC122_HOWTO = {
    "saves": "Your selected contexts, week choice, and lab notes stay in this browser on this device.",
    "graded": "Nothing in the lab is scored. It exists to sharpen your written work.",
    "next": "Carry one difference that must remain into the Course Synthesis page.",
-   "clip": "59,73"
+   "clip": "59,73",
+   "video": "videos/tour/contexts.mp4",
+   "captions": "videos/tour/contexts.vtt"
   },
   "synthesis": {
    "title": "How to use Course Synthesis",
@@ -217,7 +227,9 @@ window.SOC122_HOWTO = {
    "saves": "Your four trail notes stay in this browser on this device.",
    "graded": "Nothing here is scored or submitted. Blackboard is the only official channel.",
    "next": "Open Week 14 and carry your trail into the final week's work.",
-   "clip": "73,87"
+   "clip": "73,87",
+   "video": "videos/tour/synthesis.mp4",
+   "captions": "videos/tour/synthesis.vtt"
   },
   "readings": {
    "title": "How to use Readings and Media",
@@ -251,7 +263,9 @@ window.SOC122_HOWTO = {
    "saves": "Your Source Practice notes and answers stay in this browser on this device. Filters last only for this visit.",
    "graded": "Source Practice is never scored.",
    "next": "Take a week's Western and Indigenous reading into Compare Sources and hold them together.",
-   "clip": "87,100"
+   "clip": "87,100",
+   "video": "videos/tour/readings.mp4",
+   "captions": "videos/tour/readings.vtt"
   },
   "compare": {
    "title": "How to use Compare Sources",
@@ -281,7 +295,9 @@ window.SOC122_HOWTO = {
    "saves": "A saved weaving stays in this browser on this device. Your comparison picks last only for this visit.",
    "graded": "Comparisons are never graded.",
    "next": "Carry the comparison into this week's reflection or your Two-Eyed Seeing Journal work.",
-   "clip": "100,114"
+   "clip": "100,114",
+   "video": "videos/tour/compare.mp4",
+   "captions": "videos/tour/compare.vtt"
   },
   "walkthroughs": {
    "title": "How to use Weekly Experiences",
@@ -311,7 +327,9 @@ window.SOC122_HOWTO = {
    "saves": "Your place in each experience is saved in this browser on this device.",
    "graded": "Experiences are teaching, not testing. Nothing is scored.",
    "next": "After an experience, open the same week's Study Guide to lock the idea in.",
-   "clip": "114,128"
+   "clip": "114,128",
+   "video": "videos/tour/walkthroughs.mp4",
+   "captions": "videos/tour/walkthroughs.vtt"
   },
   "videos": {
    "title": "How to use Videos and Podcasts",
@@ -341,7 +359,9 @@ window.SOC122_HOWTO = {
    "saves": "Your Reading Rescue notes and program lens choice stay in this browser on this device.",
    "graded": "Watching is never tracked or graded.",
    "next": "Open the reading the card points to in Readings and Media.",
-   "clip": "128,142"
+   "clip": "128,142",
+   "video": "videos/tour/videos.mp4",
+   "captions": "videos/tour/videos.vtt"
   },
   "glossary": {
    "title": "How to use the Glossary",
@@ -367,7 +387,9 @@ window.SOC122_HOWTO = {
    "saves": "This page stores nothing. Your search and week choice last only for this visit.",
    "graded": "Nothing here is graded.",
    "next": "Turn concepts into memory with Concept Flashcards.",
-   "clip": "142,155"
+   "clip": "142,155",
+   "video": "videos/tour/glossary.mp4",
+   "captions": "videos/tour/glossary.vtt"
   },
   "cards": {
    "title": "How to use Concept Flashcards",
@@ -393,7 +415,9 @@ window.SOC122_HOWTO = {
    "saves": "Your studio answers stay in this browser on this device. The cards themselves store nothing.",
    "graded": "Cards and the studio are pure practice. Nothing is scored.",
    "next": "Take the week's Knowledge Check and see what stuck.",
-   "clip": "155,169"
+   "clip": "155,169",
+   "video": "videos/tour/cards.mp4",
+   "captions": "videos/tour/cards.vtt"
   },
   "assignments": {
    "title": "How to use Understanding Your Assignment",
@@ -423,7 +447,9 @@ window.SOC122_HOWTO = {
    "saves": "Your Assignment Start Lab answers stay in this browser on this device. Nothing is submitted from this site.",
    "graded": "Nothing here is graded. Blackboard is the only submission channel.",
    "next": "Block one hour, open the lab, and leave with a plan.",
-   "clip": "169,183"
+   "clip": "169,183",
+   "video": "videos/tour/assignments.mp4",
+   "captions": "videos/tour/assignments.vtt"
   },
   "career": {
    "title": "How to use Career Choices",
@@ -453,7 +479,9 @@ window.SOC122_HOWTO = {
    "saves": "Your field choice and reflections stay in this browser on this device.",
    "graded": "The graded curriculum is identical for every student. Nothing on this page is scored.",
    "next": "Open the current week and watch the field translation appear inside its concepts.",
-   "clip": "183,197"
+   "clip": "183,197",
+   "video": "videos/tour/career.mp4",
+   "captions": "videos/tour/career.vtt"
   },
   "explore": {
    "title": "How to use Ways to go deeper",
@@ -479,7 +507,9 @@ window.SOC122_HOWTO = {
    "saves": "This page stores nothing itself. Each room saves its own work in this browser on this device.",
    "graded": "Nothing behind these doors is graded.",
    "next": "Start with the room the current week's page pointed you toward.",
-   "clip": "197,211"
+   "clip": "197,211",
+   "video": "videos/tour/explore.mp4",
+   "captions": "videos/tour/explore.vtt"
   },
   "map": {
    "title": "How to use Personal Cartography",
@@ -513,7 +543,9 @@ window.SOC122_HOWTO = {
    "saves": "Your map notes stay in this browser on this device. The pin and layer you pick last only for this visit.",
    "graded": "This is private work. It is never seen or scored; the graded cartography work is submitted on Blackboard.",
    "next": "Add the current week's scholar to your notes while the reading is fresh.",
-   "clip": "211,225"
+   "clip": "211,225",
+   "video": "videos/tour/map.mp4",
+   "captions": "videos/tour/map.vtt"
   },
   "calendar": {
    "title": "How to use Calendar and Due Dates",
@@ -543,7 +575,9 @@ window.SOC122_HOWTO = {
    "saves": "This page stores nothing.",
    "graded": "Nothing here is graded.",
    "next": "Put the due date clusters into your own planner now, before they are close.",
-   "clip": "225,238"
+   "clip": "225,238",
+   "video": "videos/tour/calendar.mp4",
+   "captions": "videos/tour/calendar.vtt"
   },
   "review": {
    "title": "How to use Term Review",
@@ -573,7 +607,9 @@ window.SOC122_HOWTO = {
    "saves": "Your practice history is saved only in this browser and feeds the missed-first ordering here and in the weekly Knowledge Checks.",
    "graded": "Nothing here is scored, recorded, or visible to your professor.",
    "next": "Run one set now, then revisit the week your confident misses point at.",
-   "clip": "238,252"
+   "clip": "238,252",
+   "video": "videos/tour/review.mp4",
+   "captions": "videos/tour/review.vtt"
   },
   "outcomes": {
    "title": "How to use What This Course Builds",
@@ -599,7 +635,9 @@ window.SOC122_HOWTO = {
    "saves": "This page stores nothing.",
    "graded": "Nothing here is graded. Blackboard carries the official documents.",
    "next": "Open a week one of your shakier outcomes points at.",
-   "clip": "252,266"
+   "clip": "252,266",
+   "video": "videos/tour/outcomes.mp4",
+   "captions": "videos/tour/outcomes.vtt"
   }
  }
 };

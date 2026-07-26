@@ -1,0 +1,89 @@
+{
+ "code": "SOC122",
+ "recorded": {
+  "synthesis": {
+   "dur": 75,
+   "kb": 1222,
+   "beats": 8,
+   "cues": 8
+  },
+  "readings": {
+   "dur": 75,
+   "kb": 1085,
+   "beats": 9,
+   "cues": 9
+  },
+  "compare": {
+   "dur": 69,
+   "kb": 1331,
+   "beats": 8,
+   "cues": 8
+  },
+  "walkthroughs": {
+   "dur": 73,
+   "kb": 1285,
+   "beats": 8,
+   "cues": 8
+  },
+  "videos": {
+   "dur": 70,
+   "kb": 1374,
+   "beats": 8,
+   "cues": 8
+  },
+  "glossary": {
+   "dur": 51,
+   "kb": 1694,
+   "beats": 7,
+   "cues": 7
+  },
+  "cards": {
+   "dur": 53,
+   "kb": 1080,
+   "beats": 7,
+   "cues": 7
+  },
+  "assignments": {
+   "dur": 75,
+   "kb": 968,
+   "beats": 8,
+   "cues": 8
+  },
+  "career": {
+   "dur": 73,
+   "kb": 984,
+   "beats": 8,
+   "cues": 8
+  },
+  "explore": {
+   "dur": 46,
+   "kb": 509,
+   "beats": 7,
+   "cues": 7
+  },
+  "map": {
+   "dur": 80,
+   "kb": 1475,
+   "beats": 9,
+   "cues": 9
+  },
+  "calendar": {
+   "dur": 64,
+   "kb": 908,
+   "beats": 8,
+   "cues": 8
+  },
+  "review": {
+   "dur": 70,
+   "kb": 1011,
+   "beats": 8,
+   "cues": 8
+  },
+  "outcomes": {
+   "dur": 61,
+   "kb": 849,
+   "beats": 7,
+   "cues": 7
+  }
+ }
+}
