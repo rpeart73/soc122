@@ -1,6 +1,6 @@
 window.SOC122 = {
  "course": {
-  "code": "SOC122", "mode": "Instructor-Created Companion",
+  "code": "SOC122", "mode": "Instructor-Created Companion", "schedule": "OLB · Fri 12:00-1:00", "scheduleDetail": "Section OLB (LEC 7998). Timetabled Friday 10:45 to 1:25. Our live class runs Fridays 12:00 to 1:00. Some weeks are asynchronous with no live class, and those weeks are marked below.",
   "name": "Introduction to the Social Sciences",
   "frame": "Two-Eyed Seeing (Etuaptmumk)",
   "blackboardNote": "A companion to Blackboard. Official records, discussion, and submission live in Blackboard."
