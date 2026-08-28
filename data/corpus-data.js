@@ -61,6 +61,27 @@ window.SOC122 = {
    "soft": "#FBE8DE",
    "ink": "#9a340a",
    "border": "#f1cdb9"
+  },
+  "institutions": {
+   "name": "Institutions & Public Responsibility",
+   "accent": "#4B5563",
+   "soft": "#ECEFF3",
+   "ink": "#374151",
+   "border": "#D1D5DB"
+  },
+  "history": {
+   "name": "History & Continuing Effects",
+   "accent": "#7C3E24",
+   "soft": "#F5E9E2",
+   "ink": "#63311D",
+   "border": "#E7CDBE"
+  },
+  "health": {
+   "name": "Health, Safety & Well-Being",
+   "accent": "#386641",
+   "soft": "#E5F0E7",
+   "ink": "#2D5134",
+   "border": "#C7DDCB"
   }
  },
  "types": {
@@ -82,6 +103,16 @@ window.SOC122 = {
   "Statement": {
    "icon": "bookmark",
    "color": "#1f4d38",
+   "soft": "#E4F0E9"
+  },
+  "Public Record": {
+   "icon": "clipboard",
+   "color": "#C2410C",
+   "soft": "#FBE8DE"
+  },
+  "Framework": {
+   "icon": "layers",
+   "color": "#2E6B4F",
    "soft": "#E4F0E9"
   }
  },

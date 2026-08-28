@@ -434,7 +434,7 @@ window.SOC122_HERO_THEME = {
       statement: 'Begin with the map as an argument: projection, labels, boundaries, scale, omission, and authority decide what the reader can see.',
       caption: 'A seventeenth-century double-hemisphere world map makes cartographic choices visible.',
       credit: 'Jean-Baptiste Nolin, Vincenzo Coronelli, and Jean-Nicolas Du Tralage; public domain',
-      source: 'https://commons.wikimedia.org/wiki/File:Le_Globe_Terrestre_represente_en_deux_plans-hemispheres._Par_P._Coronelli_Cosmographe,_etc._Corrige_et_augmente_par_le_Sr._(IA_dr_le-globe-terrestre-represente-en-deux-plans-hemispheres-par-p-coronelli-c-14353004).jpg',
+      source: 'https://commons.wikimedia.org/wiki/File%3ALe_Globe_Terrestre_represente_en_deux_plans-hemispheres._Par_P._Coronelli_Cosmographe%2C_etc._Corrig%C3%A9_et_augment%C3%A9_par_le_Sr._%28IA_dr_le-globe-terrestre-represente-en-deux-plans-hemispheres-par-p-coronelli-c-14353004%29.jpg',
       alt: 'An ornate historical world map arranges the earth into two circular hemispheres surrounded by smaller diagrams and decorative labels.',
       position: 'center center',
       fit: 'contain'

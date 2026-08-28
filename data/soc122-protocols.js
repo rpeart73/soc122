@@ -1,6 +1,6 @@
 /* SOC122 live-class interaction protocols, one entry per SYNCHRONOUS week.
-   Synchronous weeks per deliveryMode() in SOC122/_app/app.js: 1, 2, 3, 5, 6, 7, 8, 9, 10, 12
-   (weeks 4 and 11 are asynchronous independent learning; 13 and 14 are office hours, no lecture;
+   Synchronous weeks per deliveryMode() in SOC122/_app/app.js: 1, 2, 3, 4, 5, 7, 8, 9, 10, 12
+   (weeks 6 and 11 are asynchronous independent learning; 13 and 14 are office hours, no lecture;
    Week 7 is the live cumulative review with no new reading; Week 12 is the final substantive live class).
    Grounding:
    - arrive items and pairShare questions are built from that week's WEEKPAGE reflectPrompt and
@@ -31,17 +31,17 @@ window.SOC122_PROTOCOLS = {
       pairShare: "Martin (2012) describes pairing rather than ranking. With a partner, work out the difference, and why she treats pairing as something that has to be practised rather than copied.",
       norm: "Credit each scholar by name when you use their idea, and treat Elder Albert Marshall's Two-Eyed Seeing as a serious stance, not a slogan: he asks that it never be trivialized or co-opted into jargon."
     },
+    /* Grounding: WEEKPAGE week 4 reflectPrompt + guiding (TRC, 2015; Smylie & Anderson, 2006; FNHA). */
+    "4": {
+      arrive: "Choose one institution or professional setting. Bring one responsibility supported by this week's sources, the source that supports it, and one limit or unanswered question.",
+      pairShare: "With a partner, compare what the TRC public record, Smylie and Anderson's analysis of data governance, and the First Nations Health Authority's cultural-safety framework each authorize an institution to claim or change. Keep their purposes and evidence distinct.",
+      norm: "Discuss institutional responsibilities and source limits without asking anyone to disclose personal experience. Do not speak for Survivors or a community, and keep each claim at the level its named source can support."
+    },
     /* Grounding: WEEKPAGE week 5 reflectPrompt + guiding (CBC Marketplace smartphone investigation as methods lab). */
     "5": {
       arrive: "Watch the CBC Marketplace smartphone investigation before class. Bring one moment where the video shows an observation, an association, a plausible mechanism, or a causal claim, and a first judgment on whether the design supports it.",
       pairShare: "Pick one claim from the video together and decide: is it an observation, an association, a plausible mechanism, or a causal claim, and does the design support the move? Then ask how the study would change if the people being studied held co-equal authority over it.",
       norm: "Critique the evidence, not the people in it. Consistent with Elder Albert Marshall's Two-Eyed Seeing, name what the Western research design does well and what it misses, without turning either point into a verdict on the people being studied."
-    },
-    /* Grounding: WEEKPAGE week 6 reflectPrompt + guiding (OpenStax, 2022; Todd, 2016). */
-    "6": {
-      arrive: "Bring one idea, practice, or story you have borrowed from a culture that is not your own, and a first thought on what crediting its source would look like.",
-      pairShare: "Cultural relativism asks you to understand a practice on its own terms. With a partner, work out how that is different from simply agreeing with it (OpenStax, 2022).",
-      norm: "Credit ideas to the people who carry them. Consistent with Elder Albert Marshall's Two-Eyed Seeing, name the thinker behind an idea before you use it, and do not speak for a community that is not your own."
     },
     /* Grounding: walkReviewData() in app.js (Week 7 cumulative review, no new reading; deliveryMode and calendar confirm the live review class). */
     "7": {

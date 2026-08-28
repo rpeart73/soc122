@@ -30,7 +30,94 @@
   }
   function cleanWeek(w) {
     w = Number(w);
-    return (isFinite(w) && w >= 1 && w <= 20) ? w : null;
+    return (isFinite(w) && w % 1 === 0 && w >= 1 && w <= 14) ? w : null;
+  }
+  function cleanText(v, fallback, max) {
+    if (typeof v !== 'string') return fallback == null ? '' : fallback;
+    return v.slice(0, max || 500);
+  }
+  function cleanTextOrNull(v, max) { return typeof v === 'string' && v ? v.slice(0, max || 200) : null; }
+  function cleanTextList(v, maxItems, maxLength) {
+    return Array.isArray(v) ? v.filter(function (x) { return typeof x === 'string'; }).slice(0, maxItems || 20).map(function (x) { return x.slice(0, maxLength || 200); }) : [];
+  }
+  function cleanPlainObject(v) { return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
+  function safeStoredKey(k) { return k !== '__proto__' && k !== 'constructor' && k !== 'prototype'; }
+  function cleanTextMap(v, maxEntries, maxLength) {
+    var src = cleanPlainObject(v), out = {};
+    Object.keys(src).slice(0, maxEntries || 1000).forEach(function (k) {
+      if (safeStoredKey(k) && typeof src[k] === 'string') out[k.slice(0, 250)] = src[k].slice(0, maxLength || 10000);
+    });
+    return out;
+  }
+  function cleanNestedTextMap(v, maxGroups, maxEntries, maxLength) {
+    var src = cleanPlainObject(v), out = {};
+    Object.keys(src).slice(0, maxGroups || 30).forEach(function (k) {
+      if (safeStoredKey(k)) out[k.slice(0, 100)] = cleanTextMap(src[k], maxEntries || 100, maxLength || 5000);
+    });
+    return out;
+  }
+  function cleanScalarMap(v, maxEntries) {
+    var src = cleanPlainObject(v), out = {};
+    Object.keys(src).slice(0, maxEntries || 2000).forEach(function (k) {
+      if (!safeStoredKey(k)) return;
+      var x = src[k], key = k.slice(0, 250);
+      if (typeof x === 'boolean') out[key] = x;
+      else if (typeof x === 'number' && isFinite(x)) out[key] = x;
+      else if (typeof x === 'string') out[key] = x.slice(0, 500);
+      else if (Array.isArray(x)) out[key] = x.filter(function (y) { return typeof y === 'boolean' || (typeof y === 'number' && isFinite(y)) || typeof y === 'string'; }).slice(0, 100).map(function (y) { return typeof y === 'string' ? y.slice(0, 500) : y; });
+    });
+    return out;
+  }
+  function cleanObjectMap(v, maxEntries) {
+    var src = cleanPlainObject(v), out = {};
+    Object.keys(src).slice(0, maxEntries || 500).forEach(function (k) {
+      if (!safeStoredKey(k)) return;
+      var item = cleanPlainObject(src[k]), copy = {};
+      Object.keys(item).slice(0, 50).forEach(function (p) {
+        if (!safeStoredKey(p)) return;
+        var x = item[p];
+        if (typeof x === 'boolean') copy[p.slice(0, 100)] = x;
+        else if (typeof x === 'number' && isFinite(x)) copy[p.slice(0, 100)] = x;
+        else if (typeof x === 'string') copy[p.slice(0, 100)] = x.slice(0, 2000);
+      });
+      out[k.slice(0, 250)] = copy;
+    });
+    return out;
+  }
+  function cleanJsonValue(v, depth) {
+    if (v === null || typeof v === 'boolean') return v;
+    if (typeof v === 'number') return isFinite(v) ? v : null;
+    if (typeof v === 'string') return v.slice(0, 10000);
+    if (depth <= 0) return null;
+    if (Array.isArray(v)) return v.slice(0, 500).map(function (x) { return cleanJsonValue(x, depth - 1); });
+    var src = cleanPlainObject(v), out = {};
+    Object.keys(src).slice(0, 1000).forEach(function (k) { if (safeStoredKey(k)) out[k.slice(0, 250)] = cleanJsonValue(src[k], depth - 1); });
+    return out;
+  }
+  function cleanJsonObject(v, depth) { return cleanJsonValue(cleanPlainObject(v), depth || 6); }
+  function cleanVisits(v) {
+    var src = cleanPlainObject(v), rawDays = cleanPlainObject(src.days), rawWeeks = cleanPlainObject(src.weeks), days = {}, weeks = {}, out = { days: days, weeks: weeks };
+    Object.keys(rawDays).slice(0, 500).forEach(function (k) { if (/^\d{4}-\d{1,2}-\d{1,2}$/.test(k)) days[k] = 1; });
+    Object.keys(rawWeeks).slice(0, 20).forEach(function (k) { var w = cleanWeek(k), item = cleanPlainObject(rawWeeks[k]); if (w) weeks[w] = { n: Math.max(0, Math.min(100000, Number(item.n) || 0)), last: Math.max(0, Number(item.last) || 0) }; });
+    ['screens', 'walkRooms', 'sources', 'contexts'].forEach(function (bucket) {
+      var raw = cleanPlainObject(src[bucket]), clean = {};
+      Object.keys(raw).slice(0, 1000).forEach(function (k) { if (safeStoredKey(k) && (typeof raw[k] === 'number' || raw[k] === true)) clean[k.slice(0, 250)] = raw[k] === true ? 1 : Math.max(0, Number(raw[k]) || 0); });
+      out[bucket] = clean;
+    });
+    return out;
+  }
+  function cleanWeekFilter(v) { if (v === 'all') return 'all'; var w = cleanWeek(v); return w ? String(w) : 'all'; }
+  function cleanLens(v) { return ['thematic', 'stylistic', 'contextual', 'theoretical'].indexOf(v) >= 0 ? v : 'thematic'; }
+  function cleanMapLayer(v) { return v === 'indigenous' ? 'indigenous' : 'admin'; }
+  function cleanMapRegion(v) { return cleanText(v, 'mikmaki-lawrence', 100) || 'mikmaki-lawrence'; }
+  function cleanSpotState(v) {
+    var src = cleanPlainObject(v);
+    return {
+      thresholdPrompted: cleanObjectMap(src.thresholdPrompted, 20),
+      completedForms: cleanObjectMap(src.completedForms, 100),
+      questionSeen: cleanScalarMap(src.questionSeen, 1000),
+      formChoice: cleanTextMap(src.formChoice, 20, 200)
+    };
   }
   function cleanEmphasis(v) { return ['western', 'two', 'indigenous'].indexOf(String(v || '')) >= 0 ? String(v) : 'two'; }
   function cleanWeekPart(part) {
@@ -40,16 +127,33 @@
   function initialRoute() {
     try {
       var p = new URLSearchParams(location.search || '');
+      var invalidRoute = { screen: 'journey', week: null, invalid: true };
+      var known = { screen: 1, week: 1, w: 1, part: 1, walk: 1, _bf_build: 1 }, badKey = false, hasRouteKey = false;
+      p.forEach(function (_, key) { if (!known[key] || p.getAll(key).length !== 1) badKey = true; if (key !== '_bf_build') hasRouteKey = true; });
+      if (badKey || (p.has('week') && p.has('w'))) return invalidRoute;
+      var rawScreen = p.get('screen');
+      var s = cleanScreen(rawScreen);
+      if (p.has('screen') && (!rawScreen || s !== rawScreen)) return invalidRoute;
+      var hasWalk = p.has('walk');
       var walk = cleanWeek(p.get('walk'));
+      if (hasWalk && (!walk || p.has('screen') || p.has('week') || p.has('w') || p.has('part'))) return invalidRoute;
       if (walk) return { screen: 'walkthroughs', week: walk, walk: walk };
+      var hasWeek = p.has('week') || p.has('w');
       var w = cleanWeek(p.get('week') || p.get('w'));
-      if (w) return { screen: 'station', week: w, part: cleanWeekPart(p.get('part')) };
-      if (p.get('screen')) return { screen: cleanScreen(p.get('screen')), week: null };
+      if (hasWeek && !w) return invalidRoute;
+      var part = cleanWeekPart(p.get('part'));
+      if ((p.has('part') && !part) || (p.has('part') && !hasWeek)) return invalidRoute;
+      if (w && p.has('screen') && s !== 'activity' && s !== 'station') return invalidRoute;
+      if (w && s === 'activity' && p.has('part')) return invalidRoute;
+      if (w && s === 'activity') return { screen: 'activity', week: w, activityReturn: w };
+      if (w) return { screen: 'station', week: w, part: part };
+      if (p.get('screen')) return (s === 'activity' || s === 'station') ? invalidRoute : { screen: s, week: null };
+      if (hasRouteKey) return invalidRoute;
     } catch (e) {}
     return null;
   }
   /* Term shell URL: replace with the exact Blackboard course link once the Fall shell is published. */
-  var BB_URL = 'https://learn.senecapolytechnic.ca';
+  var BB_URL = 'https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/outline'; /* SOC122 course shell. Section/course specific: do NOT copy this id to another course or section. */
   var saved0 = load();
   var view0 = loadView();
   var route0 = initialRoute();
@@ -61,7 +165,7 @@
 
   var state = {
     screen: route0 ? route0.screen : (resumeView0 ? cleanScreen(view0.screen) : 'journey'),
-    prevView: (resumeView0 && view0.prevView && typeof view0.prevView === 'object') ? view0.prevView : null,
+    prevView: resumeView0 ? (Object.keys(cleanPlainObject(view0.prevView)).length ? cleanPlainObject(view0.prevView) : null) : null,
     navOpen: false,
     walkWeek: null,
     walkSlide: 0,
@@ -70,15 +174,16 @@
     readerLensY: 86,
     journeyWeek: route0 ? route0.week : (resumeView0 ? cleanWeek(view0.journeyWeek) : null),
     stationWeek: route0 ? route0.week : (resumeView0 ? cleanWeek(view0.stationWeek) : null),
-    sgNotes: (saved0.sgNotes || {}),
-    sgTick: (saved0.sgTick || {}),
-    wkCheck: (saved0.wkCheck && typeof saved0.wkCheck === 'object') ? saved0.wkCheck : {},
-    wkReflect: (saved0.wkReflect && typeof saved0.wkReflect === 'object') ? saved0.wkReflect : {},
+    activityReturn: (route0 && route0.activityReturn) ? cleanWeek(route0.activityReturn) : (resumeView0 ? cleanWeek(view0.activityReturn) : null),
+    sgNotes: cleanTextMap(saved0.sgNotes),
+    sgTick: cleanScalarMap(saved0.sgTick),
+    wkCheck: cleanScalarMap(saved0.wkCheck),
+    wkReflect: cleanTextMap(saved0.wkReflect, 100, 10000),
     wkOpen: {},
     studentName: typeof saved0.studentName === 'string' ? saved0.studentName.slice(0, 40) : '',
-    visits: (saved0.visits && typeof saved0.visits === 'object') ? saved0.visits : {},
-    act: (resumeView0 && view0.act && typeof view0.act === 'object') ? view0.act : {},
-    actResult: (saved0.actResult && typeof saved0.actResult === 'object') ? saved0.actResult : {},
+    visits: cleanVisits(saved0.visits),
+    act: resumeView0 ? cleanScalarMap(view0.act) : {},
+    actResult: cleanScalarMap(saved0.actResult),
     layout: 'byweek',
     search: '',
     activeTypes: [],
@@ -86,61 +191,61 @@
     sort: 'week',
     detailId: null,
     compareIds: [],
-    saved: Array.isArray(saved0.saved) ? saved0.saved : [],
+    saved: cleanTextList(saved0.saved, 500, 200),
     introOpen: true,
     savedView: false,
     lens: 'thematic',
-    cmpNotes: (saved0.cmpNotes && typeof saved0.cmpNotes === 'object') ? saved0.cmpNotes : {},
+    cmpNotes: cleanTextMap(saved0.cmpNotes),
     exampleOpen: false,
     rcReading: null,
-    rcNotes: (saved0.rcNotes && typeof saved0.rcNotes === 'object') ? saved0.rcNotes : {},
+    rcNotes: cleanTextMap(saved0.rcNotes),
     revealed: {},
-    mcSel: (saved0.mcSel && typeof saved0.mcSel === 'object') ? saved0.mcSel : {},
-    mcConf: (saved0.mcConf && typeof saved0.mcConf === 'object') ? saved0.mcConf : {},
+    mcSel: cleanScalarMap(saved0.mcSel),
+    mcConf: cleanScalarMap(saved0.mcConf),
     kcReveal: {},
-    kcShort: (saved0.kcShort && typeof saved0.kcShort === 'object') ? saved0.kcShort : {},
+    kcShort: cleanTextMap(saved0.kcShort),
     kcShortShown: {},
-    kcShortRate: (saved0.kcShortRate && typeof saved0.kcShortRate === 'object') ? saved0.kcShortRate : {},
-    kcHist: (saved0.kcHist && typeof saved0.kcHist === 'object') ? saved0.kcHist : {},
-    careerField: (typeof saved0.careerField === 'string' && saved0.careerField) ? saved0.careerField : (resumeView0 ? (view0.careerField || '') : ''),
+    kcShortRate: cleanScalarMap(saved0.kcShortRate),
+    kcHist: cleanObjectMap(saved0.kcHist),
+    careerField: (typeof saved0.careerField === 'string' && saved0.careerField) ? cleanText(saved0.careerField, '', 200) : (resumeView0 ? cleanText(view0.careerField, '', 200) : ''),
     learningEmphasis: cleanEmphasis(saved0.learningEmphasis || (resumeView0 && view0.learningEmphasis) || 'two'),
-    contextCompare: Array.isArray(saved0.contextCompare) ? saved0.contextCompare.slice(0, 3) : [],
+    contextCompare: cleanTextList(saved0.contextCompare, 3, 200),
     contextWeek: cleanWeek(saved0.contextWeek) || 5,
-    contextNotes: (saved0.contextNotes && typeof saved0.contextNotes === 'object') ? saved0.contextNotes : {},
-    synthesisNotes: (saved0.synthesisNotes && typeof saved0.synthesisNotes === 'object') ? saved0.synthesisNotes : {},
-    spotState: (saved0.spotState && typeof saved0.spotState === 'object') ? saved0.spotState : { completed: {}, dismissed: {} },
-    spotReports: (saved0.spotReports && typeof saved0.spotReports === 'object') ? saved0.spotReports : {},
-    careerReflect: (saved0.careerReflect && typeof saved0.careerReflect === 'object') ? saved0.careerReflect : {},
-    mediaNotes: (saved0.mediaNotes && typeof saved0.mediaNotes === 'object') ? saved0.mediaNotes : {},
+    contextNotes: cleanNestedTextMap(saved0.contextNotes),
+    synthesisNotes: cleanTextMap(saved0.synthesisNotes, 20, 5000),
+    spotState: cleanSpotState(saved0.spotState),
+    spotReports: cleanJsonObject(saved0.spotReports, 7),
+    careerReflect: cleanTextMap(saved0.careerReflect),
+    mediaNotes: cleanTextMap(saved0.mediaNotes),
     libScroll: 0,
     toast: null,
     cardWeek: resumeView0 ? cleanWeek(view0.cardWeek) : null,
-    glossWeek: resumeView0 ? (view0.glossWeek || 'all') : 'all',
-    glossSearch: resumeView0 ? (view0.glossSearch || '') : '',
-    videoWeek: resumeView0 ? (view0.videoWeek || 'all') : 'all',
-    mediaKind: resumeView0 ? (view0.mediaKind || 'all') : 'all',
-    mapLayer: resumeView0 ? (view0.mapLayer || 'admin') : 'admin',
-    mapRegion: resumeView0 ? (view0.mapRegion || 'mikmaki-lawrence') : 'mikmaki-lawrence',
-    mapNotes: (saved0.mapNotes && typeof saved0.mapNotes === 'object') ? saved0.mapNotes : {},
+    glossWeek: resumeView0 ? cleanWeekFilter(view0.glossWeek) : 'all',
+    glossSearch: resumeView0 ? cleanText(view0.glossSearch, '', 500) : '',
+    videoWeek: resumeView0 ? cleanWeekFilter(view0.videoWeek) : 'all',
+    mediaKind: resumeView0 ? (cleanText(view0.mediaKind, 'all', 80) || 'all') : 'all',
+    mapLayer: resumeView0 ? cleanMapLayer(view0.mapLayer) : 'admin',
+    mapRegion: resumeView0 ? cleanMapRegion(view0.mapRegion) : 'mikmaki-lawrence',
+    mapNotes: cleanTextMap(saved0.mapNotes),
     tickerPaused: false,
   };
-  state.spotState = state.spotState || {};
-  state.spotState.thresholdPrompted = (state.spotState.thresholdPrompted && typeof state.spotState.thresholdPrompted === 'object') ? state.spotState.thresholdPrompted : {};
-  state.spotState.completedForms = (state.spotState.completedForms && typeof state.spotState.completedForms === 'object') ? state.spotState.completedForms : {};
-  state.spotState.questionSeen = (state.spotState.questionSeen && typeof state.spotState.questionSeen === 'object') ? state.spotState.questionSeen : {};
-  state.spotState.formChoice = (state.spotState.formChoice && typeof state.spotState.formChoice === 'object') ? state.spotState.formChoice : {};
   if (resumeView0) {
-    state.activityReturn = cleanWeek(view0.activityReturn);
-    state.detailId = view0.detailId || null;
-    state.activeTypes = Array.isArray(view0.activeTypes) ? view0.activeTypes : [];
+    state.detailId = cleanTextOrNull(view0.detailId);
+    state.activeTypes = cleanTextList(view0.activeTypes, 20, 100);
     state.activeWeek = cleanWeek(view0.activeWeek);
-    state.search = view0.search || '';
+    state.search = cleanText(view0.search, '', 500);
     state.savedView = !!view0.savedView;
-    state.rcReading = view0.rcReading || null;
-    state.lens = view0.lens || state.lens || 'thematic';
-    state.compareIds = Array.isArray(view0.compareIds) ? view0.compareIds : [];
+    state.rcReading = cleanTextOrNull(view0.rcReading);
+    state.lens = cleanLens(view0.lens);
+    state.compareIds = cleanTextList(view0.compareIds, 3, 200);
     state.galWeek = cleanWeek(view0.galWeek);
-    state.galTopic = view0.galTopic || null;
+    state.galTopic = cleanTextOrNull(view0.galTopic, 100);
+  }
+  if ((state.screen === 'activity' && !state.activityReturn) || (state.screen === 'station' && !state.stationWeek)) {
+    state.screen = 'journey';
+    state.stationWeek = null;
+    state.activityReturn = null;
+    state.prevView = null;
   }
   function saveView() {
     try {
@@ -559,7 +664,7 @@
       : '';
     return '<section id="rl-panel" class="rl-panel" role="dialog" aria-label="Reading Lens: reading supports" tabindex="-1" onkeydown="SOC.rlPanelKey(event)">'
       + '<div class="rl-head"><strong>Reading Lens</strong><button type="button" class="rl-btn rl-close" onclick="SOC.rlPanel()" aria-label="Close Reading Lens panel">' + ic('x', 16, 2) + '</button></div>'
-      + '<p class="rl-sub">Reading supports for this site. Your choices apply everywhere here and save only in this browser.</p>'
+      + '<p class="rl-sub">Reading supports for this site. Your choices apply everywhere here and, when browser storage is available, may remain only in this browser.</p>'
       + '<div class="rl-row"><b>Text size</b>' + zoomBtns + '</div>'
       + '<div class="rl-row"><b>Comfortable spacing</b>' + rlBtn('', r.space ? 'On' : 'Off', r.space, 'SOC.rlSpace()') + '</div>'
       + '<div class="rl-row"><b>High-legibility font</b>' + rlBtn('', r.font ? 'On' : 'Off', r.font, 'SOC.rlFont()') + '</div>'
@@ -569,7 +674,7 @@
       + '<span class="rl-hint">' + (r.rulerPin ? 'Pinned: drag the band by hand, or press Alt plus Up or Down.' : 'Follows your pointer. Pin it to drag it by hand. Alt plus Up or Down also moves it.') + '</span></div>'
       + '<div class="rl-row"><b>Magnifier</b>' + rlBtn('', state.readerLensOpen ? 'On' : 'Off', !!state.readerLensOpen, 'SOC.toggleReaderLens()') + '<span class="rl-hint">A movable lens that repeats the text under it in large print.</span></div>'
       + speech
-      + '<div class="rl-row"><b>Start fresh</b>' + rlBtn('', 'Reset all supports', false, 'SOC.rlReset()') + '<span class="rl-hint">Everything back to default. Your settings otherwise stay on, even with this panel closed, and are remembered for your next visit.</span></div>'
+      + '<div class="rl-row"><b>Start fresh</b>' + rlBtn('', 'Reset all supports', false, 'SOC.rlReset()') + '<span class="rl-hint">Everything back to default. Your settings stay on while this page is open and, when browser storage is available, may be remembered for your next visit.</span></div>'
       + '<p class="rl-hint" style="margin:10px 0 0">Escape closes this panel. If any part of the site is still hard to use, use Blackboard and contact the instructor so access can be supported.</p>'
       + '</section>';
   }
@@ -789,7 +894,6 @@
     return '<div class="rgvideo" style="position:relative;width:100%;aspect-ratio:16/9;background:#15171C;overflow:hidden">'
       + '<button onclick="SOC.playVideo(this,\'' + v.yt + '\')" aria-label="Play a talk by ' + esc(v.scholar || r.authors) + '" style="position:absolute;inset:0;width:100%;height:100%;border:none;padding:0;cursor:pointer;background:none">'
       + '<div class="vid-cover" aria-hidden="true"><span class="vid-cover-play"></span><span class="vid-cover-note">Loads only when you choose</span></div>'
-      + '<span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center"><span style="display:flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:999px;background:rgba(218,41,28,.94);color:#fff;box-shadow:0 4px 16px rgba(0,0,0,.45)">' + ic('play', 24) + '</span></span>'
       + '<span style="position:absolute;left:0;right:0;bottom:0;padding:22px 13px 10px;background:linear-gradient(transparent,rgba(0,0,0,.9));color:#fff;text-align:left">'
       + '<span class="mono" style="display:block;font-size:.6rem;letter-spacing:.08em;color:#f3b0a8;font-weight:600;margin-bottom:2px">WATCH</span>'
       + '<span style="display:block;font-size:.8125rem;font-weight:700;line-height:1.2">' + esc(v.scholar || r.authors) + '</span>'
@@ -1020,7 +1124,7 @@
     return { label: 'Worth another read', color: '#b23121', bg: '#FBE9E7', icon: 'book', msg: 'This reading has not fully landed yet. The read-out below shows exactly where to focus your next pass.' };
   }
   function readingComp() {
-    var practiceNote = '<div style="display:flex;align-items:flex-start;gap:9px;background:#EEF1F5;border:1px solid #DEE3EA;border-radius:10px;padding:11px 14px;margin:0 0 16px;font-size:.85rem;line-height:1.5;color:#474C57"><span style="display:flex;color:#6B7280;flex:none;margin-top:1px">' + ic('book', 16) + '</span><span>This is a private space for practice and self-study. Nothing here is graded, recorded, or counted toward a mark. It is here to help you check your own understanding and see where to focus.</span></div>';
+    var practiceNote = '<div style="display:flex;align-items:flex-start;gap:9px;background:#EEF1F5;border:1px solid #DEE3EA;border-radius:10px;padding:11px 14px;margin:0 0 16px;font-size:.85rem;line-height:1.5;color:#474C57"><span style="display:flex;color:#6B7280;flex:none;margin-top:1px">' + ic('book', 16) + '</span><span>This companion-site space is for practice and self-study. Nothing here is submitted, graded, or counted toward a mark. When browser storage is available, responses may remain only in this browser until you clear them. It is here to help you check your own understanding and see where to focus.</span></div>';
     var r = state.rcReading ? rec(state.rcReading) : null;
     if (!r) {
       var picks = D.records.map(function (rd) {
@@ -1160,7 +1264,7 @@
             + '<button type="button" onclick="SOC.synPrint()" style="border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.12);color:#fff;border-radius:8px;font-size:.85rem;font-weight:600;padding:8px 14px;cursor:pointer">Print</button>'
             + '<button type="button" onclick="SOC.synSave()" style="border:1px solid rgba(255,255,255,.35);background:#fff;color:#15171C;border-radius:8px;font-size:.85rem;font-weight:600;padding:8px 14px;cursor:pointer">Save to my notes</button>'
             + '</div>'
-            + (state.cmpNotes && state.cmpNotes['saved-synthesis'] ? '<div style="margin-top:10px;font-size:.78rem;color:rgba(255,255,255,.7)">Saved to your notes on this device. Copy or print it above to keep a copy anywhere.</div>' : '')
+            + (state.cmpNotes && state.cmpNotes['saved-synthesis'] ? '<div style="margin-top:10px;font-size:.78rem;color:rgba(255,255,255,.7)">Added to your notes on this page. When browser storage is available, it may remain for a later visit. Copy or print it above to keep a separate copy.</div>' : '')
             + '</div>';
         } else {
           connectNote = '<div style="background:#F7F8FA;border:1px solid #DEE3EA;border-radius:12px;padding:13px 16px;margin-bottom:16px;font-size:.875rem;line-height:1.55;color:#474C57">The readings are set side by side, each one attributed. If you want to see the practice modelled first, the app can show one worked weaving; the weaving that counts is still your own.</div>'
@@ -1240,6 +1344,8 @@
       + '</span></button>';
   }
   function courseCode() { return (D.course && D.course.code) || ''; }
+  function isAssignmentLabKey(k) { var code = courseCode(); return !!code && (k === 'assignment-start-lab.v2.' + code || k === 'assignment-start-lab.v1.' + code); }
+  function isPortableWorkKey(k) { return typeof k === 'string' && (k === SKEY || k.indexOf(SKEY + '.') === 0 || isAssignmentLabKey(k)); }
   function courseTitle() { return (D.course && (D.course.name || D.course.title)) || courseCode() || 'this course'; }
   function siteCard(kicker, title, text) {
     return '<article style="border:1px solid #DEE3EA;border-radius:12px;background:#fff;padding:15px 16px"><div class="mono" style="font-size:.64rem;letter-spacing:.07em;color:var(--red);font-weight:700;margin-bottom:6px">' + esc(kicker) + '</div><h3 style="font-size:1rem;line-height:1.25;margin:0 0 6px;color:var(--ink)">' + esc(title) + '</h3><p style="font-size:.88rem;line-height:1.55;color:var(--ink-dim);margin:0">' + esc(text) + '</p></article>';
@@ -1295,13 +1401,13 @@
     var code = courseCode() || 'this course';
     var svg = '<svg viewBox="0 0 760 260" role="img" aria-labelledby="bbd-t bbd-d" style="width:100%;height:auto;display:block;max-width:760px">'
       + '<title id="bbd-t">How this site and Blackboard work together</title>'
-      + '<desc id="bbd-d">Two panels. This site is for learning and practice and saves only to your device. Blackboard is the official platform where you submit work and receive grades. Arrows show moving between them: submit on Blackboard, come back here to study.</desc>'
+      + '<desc id="bbd-d">Two panels. This site is for learning and practice and uses temporary browser storage when it is available. Blackboard is the official platform where you submit work and receive grades. Arrows show moving between them: submit on Blackboard, come back here to study.</desc>'
       + '<rect x="10" y="20" width="330" height="190" rx="14" fill="#F7F9FB" stroke="#15171C" stroke-width="2"/>'
       + '<text x="30" y="52" font-size="15" font-weight="700" fill="#15171C" style="letter-spacing:.06em">THIS SITE</text>'
       + '<text x="30" y="82" font-size="13.5" fill="#15171C">Weekly pathway, readings, key concepts</text>'
       + '<text x="30" y="108" font-size="13.5" fill="#15171C">Practice checks, notes, study supports</text>'
       + '<text x="30" y="134" font-size="13.5" fill="#15171C">Never graded, nothing submitted here</text>'
-      + '<text x="30" y="160" font-size="13.5" fill="#15171C">Saves only to this device</text>'
+      + '<text x="30" y="160" font-size="13.5" fill="#15171C">Uses temporary browser storage</text>'
       + '<text x="30" y="192" font-size="12" font-weight="600" fill="#6B7280">LEARN AND PRACTICE</text>'
       + '<rect x="420" y="20" width="330" height="190" rx="14" fill="#FFF6F5" stroke="#DA291C" stroke-width="2"/>'
       + '<text x="440" y="52" font-size="15" font-weight="700" fill="#DA291C" style="letter-spacing:.06em">BLACKBOARD</text>'
@@ -1320,7 +1426,7 @@
       + '</svg>';
     return '<section class="node" aria-labelledby="bbd-h" style="margin:16px 0">'
       + '<h2 id="bbd-h" class="wk-sec">How this site works with Blackboard</h2>'
-      + '<p style="margin:0 0 14px;font-size:.95rem;line-height:1.6;color:var(--ink-dim)">Think of the two as one loop. You learn and practice here: the weekly pathway, readings, concepts, checks, and notes. You act on Blackboard: every submission, discussion post, grade, and official date lives there. Nothing you do on this site is graded or visible to anyone, and nothing here replaces a Blackboard step.</p>'
+      + '<p style="margin:0 0 14px;font-size:.95rem;line-height:1.6;color:var(--ink-dim)">Think of the two as one loop. You learn and practise here: the weekly pathway, readings, concepts, checks, and notes. You act on Blackboard: every submission, discussion post, grade, and official date lives there. This site does not submit your practice work for grading, and nothing here replaces a Blackboard step.</p>'
       + svg
       + '<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">'
       + '<a href="' + BB_URL + '" target="_blank" rel="noopener" class="wk-cta" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px">Open Blackboard <span aria-hidden="true">&#8599;</span></a>'
@@ -1333,15 +1439,15 @@
     var title = courseTitle();
     var cards = [
       ['BLACKBOARD', 'Where official course work happens', 'Blackboard remains the official Seneca course platform for announcements, assignment submission, discussions, grades, course records, and required administrative functions.'],
-      ['PRIVACY', 'What this site does not send', 'This site does not require an account, does not collect student submissions, does not store grades, and does not send personal student information to the instructor, Seneca, or any server. The optional first name, notes, and check answers stay in this browser unless you remove or export them.'],
+      ['PRIVACY', 'What this site does not send', 'This site does not require an account, collect course submissions, or store grades. Its own code does not transmit the optional first name, notes, or check answers to the instructor or Seneca. When browser storage is available, those entries may remain in this browser until you clear its site data; browser settings and private-browsing modes can prevent or remove that local copy.'],
       ['COPYRIGHT', 'How readings and media are used', 'Course readings and media are linked for educational use. Copyright remains with the original creators and publishers. Access readings through the provided links, Seneca library access, or Blackboard where applicable.'],
-      ['MEDIA', 'External media', 'Nothing on this site contacts an external service until you choose to load or play a video. When you press a load button, that platform (YouTube in privacy-enhanced mode) applies its own privacy practices inside its player.'],
+      ['MEDIA', 'External media', 'No third-party content loads automatically. A third-party service is contacted only when you choose to open an external link or load external media. YouTube uses its privacy-enhanced player, and each external service applies its own privacy practices.'],
       ['LANGUAGE', 'Reading in another language', 'Your browser can translate this whole site: right click the page and choose Translate (Chrome, Edge, and Safari all offer this, in more than one hundred languages). It is your choice and happens in your browser. One caution: machine translation can bend key course terms and citations, so check important ideas against the English original before you use them in graded work.'],
       ['ACCESS', 'Accessibility support', 'This site is designed to support accessible course navigation. The Reading Lens button at the top of every page offers text size, spacing, a high-legibility font, page tints, a reading ruler, a magnifier, and read-aloud. If you experience a barrier, use Blackboard and contact the instructor so access can be supported.'],
       ['STUDY', 'What this site is for', 'Use this companion website for weekly learning pathways, readings, key concepts, immersive weekly experiences, self-checks, glossary materials, and study supports.'],
-      ['TECHNICAL', 'How this site is built', 'This is a static website: plain HTML, CSS, and JavaScript served from GitHub Pages, with no server, no database, no accounts, and no third-party trackers or analytics. All fonts and scripts load from this site itself.'],
+      ['TECHNICAL', 'How this site is built', 'This is a static website: plain HTML, CSS, and JavaScript served from GitHub Pages, with no application backend, database, accounts, third-party trackers, or analytics. All fonts and scripts load from this site itself.'],
       ['MAINTENANCE', 'How this site is maintained', 'The instructor maintains this site and updates it alongside Blackboard postings each term. If anything here ever looks out of date, Blackboard is the source of truth, and the instructor can be reached through Blackboard.'],
-      ['LIMITS', 'Known limits', 'Saved notes and check answers live only in this browser on this device: clearing browser data removes them, and they do not move between devices. Some week videos may not yet have captions; their full scripts are posted in Blackboard. This site needs JavaScript; everything required for the course also remains available through Blackboard.']
+      ['LIMITS', 'Known limits', 'When browser storage is available, notes and check answers may remain only in this browser on this device. Clearing browser data removes them, private browsing may not retain them, and they do not move between devices unless you download and restore a backup. Class recordings appear only when available and after processing; check the player or Blackboard for current caption and transcript options. This site needs JavaScript; everything required for the course also remains available through Blackboard.']
     ];
     return '<div class="rise path-page">'
       + '<section class="path-hero"><div><div class="mono">COMPANION WEBSITE</div><h1>How This Site Works</h1><p>This page explains how the ' + esc(code) + ' companion website supports ' + esc(title) + ', what belongs on Blackboard, and how readings, privacy, accessibility, and media are handled.</p></div><div class="path-compass" aria-label="Companion website and Blackboard relationship"><span>THIS SITE</span><b>weekly learning pathway</b><i></i><span>BLACKBOARD</span><b>official course platform</b></div></section>'
@@ -1390,7 +1496,7 @@
     var code = courseCode() || 'Course';
     return '<footer role="contentinfo" style="margin:28px 0 0;padding:18px 20px;border:1px solid #DEE3EA;border-top:4px solid var(--red);border-radius:14px;background:#fff;color:var(--ink-dim)">'
       + '<p style="font-size:.9rem;line-height:1.55;margin:0 0 8px"><strong style="color:var(--ink)">' + esc(code) + ' companion website.</strong> Blackboard remains the official course platform for submissions, grades, announcements, discussions, and course records.</p>'
-      + '<p style="font-size:.84rem;line-height:1.55;margin:0 0 8px">This site does not require an account, does not collect student submissions, does not store grades, and does not send personal student information to the instructor, Seneca, or any server. The optional first name, notes, and check answers stay in this browser unless you remove or export them. No external service is contacted unless you choose to play a video.</p>'
+      + '<p style="font-size:.84rem;line-height:1.55;margin:0 0 8px">This site does not require an account, collect course submissions, or store grades. Its own code does not transmit the optional first name, notes, or check answers to the instructor or Seneca. When browser storage is available, those entries may remain locally until you clear site data; opening an external link or media contacts that provider under its own privacy practices.</p>'
       + '<p style="font-size:.84rem;line-height:1.55;margin:0">This site is designed to support accessible course navigation. Students who experience barriers using the site should use Blackboard and contact the instructor so access can be supported.</p>'
       + '</footer>';
   }
@@ -1576,7 +1682,7 @@
     spotFocus = document.activeElement;
     var wing = form.tier, box = document.createElement('div');
     box.id = 'spot-invite'; box.className = 'spot-overlay'; box.setAttribute('data-threshold', form.threshold); box.setAttribute('role', 'dialog'); box.setAttribute('aria-modal', 'true'); box.setAttribute('aria-labelledby', 'spot-invite-title');
-    box.innerHTML = '<section class="spot-invite-card"><div class="spot-eyebrow">REFLECTION WING ' + wing + ' UNLOCKED</div><div class="spot-gauge" aria-label="' + pct + ' percent of the course pathway explored"><i style="width:' + pct + '%"></i></div><span class="spot-percent">' + pct + '% of the course pathway explored on this device</span><h2 id="spot-invite-title">Want to find out what is holding?</h2><p>' + esc(form.subtitle) + '. This optional ' + form.count + '-question check is automatically scored and thoroughly evaluated, but it is worth no course marks and stays private on this device.</p><div class="spot-invite-actions"><button type="button" onclick="SOC.spotStart(\'' + form.id + '\')">Enter this reflection room</button><button type="button" class="secondary" onclick="SOC.spotDismiss(' + form.threshold + ')">Skip this benchmark</button></div><small>Only four benchmark invitations can appear. One of fifteen different forms is selected locally so students do not all receive the same check.</small></section>';
+    box.innerHTML = '<section class="spot-invite-card"><div class="spot-eyebrow">REFLECTION WING ' + wing + ' UNLOCKED</div><div class="spot-gauge" aria-label="' + pct + ' percent of the course pathway explored"><i style="width:' + pct + '%"></i></div><span class="spot-percent">' + pct + '% of the course pathway explored on this device</span><h2 id="spot-invite-title">Want to find out what is holding?</h2><p>' + esc(form.subtitle) + '. This optional ' + form.count + '-question check is automatically scored and thoroughly evaluated, but it is worth no course marks and is not submitted to your instructor. When browser storage is available, its results may remain on this device until cleared, so use Clear My Work on a shared device.</p><div class="spot-invite-actions"><button type="button" onclick="SOC.spotStart(\'' + form.id + '\')">Enter this reflection room</button><button type="button" class="secondary" onclick="SOC.spotDismiss(' + form.threshold + ')">Skip this benchmark</button></div><small>Only four benchmark invitations can appear. One of fifteen different forms is selected locally so students do not all receive the same check.</small></section>';
     document.body.appendChild(box); spotTrap(box); setTimeout(function () { var b = box.querySelector('button'); if (b) b.focus(); }, 0);
   }
   function maybeSpotInvite() {
@@ -1634,11 +1740,11 @@
     var review = (report.review || []).map(function (m, i) { return '<details class="' + (m.correct ? 'correct' : 'miss') + '"' + (m.correct ? '' : ' open') + '><summary><span>' + (m.correct ? '&#10003;' : '&#8594;') + '</span>' + (i + 1) + '. ' + esc(m.q) + '</summary><div><p><b>Your answer:</b> ' + esc(m.chosen) + '</p>' + (m.correct ? '' : '<p><b>Best-supported answer:</b> ' + esc(m.strongest) + '</p>') + '<p><b>Why this answer is better supported:</b> ' + esc(m.why) + '</p><p><b>Your confidence:</b> ' + esc(m.confidence) + '</p><small>Return to: ' + esc(m.revisit) + '</small></div></details>'; }).join('');
     var plan = (report.nextSteps || []).map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('');
     var rubricLinks = Object.keys(report.skillProfile || {}).map(function (s) { return spotSkillInfo(s).rubric; });
-    return '<div class="spot-report"><div class="spot-eyebrow">SCORED PRACTICE | PRIVATE FEEDBACK REPORT</div><h2 id="spot-check-title">' + esc(report.band) + '</h2><div class="spot-report-score"><strong>' + report.correct + '<span> / ' + report.total + '</span></strong><div><b>' + report.pct + '% on this practice check</b><p>This means ' + report.correct + ' answer' + (report.correct === 1 ? '' : 's') + ' matched the best-supported response. It is worth no course marks and does not predict an assessment grade.</p></div></div>'
+    return '<div class="spot-report"><div class="spot-eyebrow">SCORED PRACTICE | PERSONAL FEEDBACK REPORT</div><h2 id="spot-check-title">' + esc(report.band) + '</h2><div class="spot-report-score"><strong>' + report.correct + '<span> / ' + report.total + '</span></strong><div><b>' + report.pct + '% on this practice check</b><p>This means ' + report.correct + ' answer' + (report.correct === 1 ? '' : 's') + ' matched the best-supported response. It is worth no course marks and does not predict an assessment grade.</p></div></div>'
       + '<section class="spot-pattern"><h3>What this result suggests</h3><p>' + esc(report.pattern) + '</p><p>' + esc(report.feedback) + '</p></section>'
       + '<div class="spot-report-grid"><section><h3>What is beginning to hold</h3><ul>' + skillList(report.strengths, 'This short form did not show a stable strength yet. That does not mean you know nothing; it means there was not a reliable pattern to name.') + '</ul></section><section><h3>First priority</h3><ul>' + skillList(report.priority ? [report.priority] : [], 'No urgent repair appeared in this form. Your next task is to explain the ideas without answer choices.') + '</ul></section></div>'
       + '<div class="spot-calibration"><b>Check your confidence</b><span>' + esc(report.confidenceNote) + '</span></div>'
-      + '<section class="spot-action-plan"><h3>Your next 15 minutes</h3><ol>' + plan + '</ol><p><b>Move forward when:</b> ' + esc(report.readyWhen) + '</p></section>'
+      + '<section class="spot-action-plan"><h3>Your next steps</h3><ol>' + plan + '</ol><p><b>Move forward when:</b> ' + esc(report.readyWhen) + '</p></section>'
       + '<section class="spot-skill-profile"><h3>Your skill-by-skill picture</h3><p>The bars show only this form. The plain-language descriptions explain the skill; the rubric terms show where it appears in graded work. These are not criterion grades.</p>' + skillRows + '</section>'
       + '<section class="spot-rubric-note"><h3>How this connects to graded work</h3><p>This form practised ' + esc(listJoin(rubricLinks)) + '. Your actual assessments also require your own examples, positioning, source choices, reflection, and construction of the comparison. A multiple-choice check cannot evaluate ownership, growth across time, your recorded voice, or whether you genuinely build the connection. Those must appear in your work.</p></section>'
       + '<section class="spot-revisit"><h3>Question-by-question feedback</h3><p>Items that need attention are open already. Compare your answer with the best-supported answer, read why the evidence favours it, and use the named return point.</p>' + review + '</section>'
@@ -1650,7 +1756,7 @@
     var q = _spot.questions[_spot.i], answered = _spot.answers[_spot.i] != null, conf = _spot.confidence[_spot.i] || '';
     var opts = q.options.map(function (o, i) { var on = _spot.answers[_spot.i] === i; return '<button type="button" class="spot-option' + (on ? ' on' : '') + '" aria-pressed="' + on + '" onclick="SOC.spotAnswer(' + i + ')"><span>' + String.fromCharCode(65 + i) + '</span>' + esc(o) + '</button>'; }).join('');
     var confidence = answered ? '<div class="spot-confidence"><span>How certain are you?</span>' + [['sure','Sure'],['mid','Think so'],['guess','Guessing']].map(function (c) { return '<button type="button" class="' + (conf === c[0] ? 'on' : '') + '" aria-pressed="' + (conf === c[0]) + '" onclick="SOC.spotConfidence(\'' + c[0] + '\')">' + c[1] + '</button>'; }).join('') + '</div>' : '';
-    box.innerHTML = '<section class="spot-check-card"><header><div><div class="spot-eyebrow">REFLECTION WING ' + _spot.form.tier + ' | ' + esc(_spot.form.title.toUpperCase()) + '</div><span>Question ' + (_spot.i + 1) + ' of ' + _spot.questions.length + '</span></div><button type="button" class="spot-x" onclick="SOC.spotClose()" aria-label="Close this spot check">&#215;</button></header><div class="spot-question-progress"><i style="width:' + ((_spot.i + 1) / _spot.questions.length * 100) + '%"></i></div><main><div class="spot-skill">' + esc(q.skill) + '</div><h2 id="spot-check-title">' + esc(q.q) + '</h2><div class="spot-options">' + opts + '</div>' + confidence + '</main><footer><button type="button" class="secondary" onclick="SOC.spotNav(-1)"' + (_spot.i === 0 ? ' disabled' : '') + '>Previous</button><span>Answers stay hidden until the report.</span><button type="button" onclick="SOC.spotNav(1)"' + (!answered ? ' disabled' : '') + '>' + (_spot.i === _spot.questions.length - 1 ? 'See my feedback' : 'Next question') + '</button></footer></section>';
+    box.innerHTML = '<section class="spot-check-card"><header><div><div class="spot-eyebrow">REFLECTION WING ' + _spot.form.tier + ' | ' + esc(_spot.form.title.toUpperCase()) + '</div><span>Question ' + (_spot.i + 1) + ' of ' + _spot.questions.length + '</span></div><button type="button" class="spot-x" onclick="SOC.spotClose()" aria-label="Close this spot check">&#215;</button></header><div class="spot-question-progress"><i style="width:' + ((_spot.i + 1) / _spot.questions.length * 100) + '%"></i></div><div class="spot-check-main"><div class="spot-skill">' + esc(q.skill) + '</div><h2 id="spot-check-title">' + esc(q.q) + '</h2><div class="spot-options">' + opts + '</div>' + confidence + '</div><footer><button type="button" class="secondary" onclick="SOC.spotNav(-1)"' + (_spot.i === 0 ? ' disabled' : '') + '>Previous</button><span>Answers stay hidden until the report.</span><button type="button" onclick="SOC.spotNav(1)"' + (!answered ? ' disabled' : '') + '>' + (_spot.i === _spot.questions.length - 1 ? 'See my feedback' : 'Next question') + '</button></footer></section>';
     spotTrap(box);
   }
   function wkOpenResetWeek(w) {
@@ -1744,13 +1850,13 @@
       var vweeks = (state.visits && state.visits.weeks) || {};
       var visited = ws.filter(function (w) { return vweeks[w]; });
       if (!visited.length) {
-        recs.push({ t: 'Begin with Week ' + (ws[0] || 1), b: 'Open the first week and try one section. The site keeps your place on this device.', go: 'SOC.station(' + (ws[0] || 1) + ')', gl: 'Open Week ' + (ws[0] || 1) });
+        recs.push({ t: 'Begin with Week ' + (ws[0] || 1), b: 'Open the first week and try one section. When browser storage is available, the site may keep your place on this device.', go: 'SOC.station(' + (ws[0] || 1) + ')', gl: 'Open Week ' + (ws[0] || 1) });
         return recs;
       }
       var lastW = visited[visited.length - 1], lastTs = 0;
       visited.forEach(function (w) { if (vweeks[w].last && vweeks[w].last > lastTs) lastTs = vweeks[w].last; });
       if (lastTs && (Date.now() - lastTs) > 7 * 86400000) {
-        recs.push({ t: 'Ease back in', b: 'It has been more than a week since your last visit. Ten minutes back in your most recent week rebuilds momentum faster than starting something new.', go: 'SOC.station(' + lastW + ')', gl: 'Reopen Week ' + lastW });
+        recs.push({ t: 'Ease back in', b: 'It has been more than a week since your last visit. Returning to your most recent week can rebuild momentum before you start something new.', go: 'SOC.station(' + lastW + ')', gl: 'Reopen Week ' + lastW });
       }
       if (!(state.careerField || '')) {
         recs.push({ t: 'See yourself in this course', b: 'Pick your program area and the course starts speaking your language: each week gains a lens, a scenario, and a career link written for your field. It shapes how the material reads, never what is graded.', go: 'SOC.go(\'career\')', gl: 'Choose your field' });
@@ -1765,7 +1871,7 @@
       }
       var refl = state.wkReflect && String(state.wkReflect[lastW] || '').trim();
       if (!refl && recs.length < 3) {
-        recs.push({ t: 'Close the loop on Week ' + lastW, b: 'A one-minute written reflection is the difference between having seen an idea and being able to use it.', go: 'SOC.jumpWeek(' + lastW + ', \'reflect\')', gl: 'Write it' });
+        recs.push({ t: 'Close the loop on Week ' + lastW, b: 'Writing a brief reflection helps turn an idea you have seen into one you can use.', go: 'SOC.jumpWeek(' + lastW + ', \'reflect\')', gl: 'Write it' });
       }
       if (!recs.length) {
         var nextW = null;
@@ -1786,7 +1892,7 @@
     var greet = name ? ('Welcome back, ' + esc(name) + '.') : 'Your study compass';
     var nameUi = name
       ? '<small class="sc-nameline">Saved as ' + esc(name) + ' in this browser only. <button type="button" class="sc-linkbtn" onclick="SOC.nameClear()">Remove my name</button></small>'
-      : '<form class="sc-nameform" onsubmit="return SOC.nameSave(event)"><label for="sc-name">Add your first name (optional)</label><div><input id="sc-name" maxlength="40" autocomplete="off" placeholder="Your name"><button type="submit">Save</button></div><small>Stays in this browser on this device, is never sent anywhere, and Clear My Work removes it.</small></form>';
+      : '<form class="sc-nameform" onsubmit="return SOC.nameSave(event)"><label for="sc-name">Add your first name (optional)</label><div><input id="sc-name" maxlength="40" autocomplete="off" placeholder="Your name"><button type="submit">Save</button></div><small>The site does not transmit your name. Browser storage is temporary, and Clear My Work removes its local copy.</small></form>';
     var scField = selLabel(state.careerField || '');
     var stats = (days || scField)
       ? '<div class="sc-stats">' + (days ? '<span><b>' + days + '</b> day' + (days === 1 ? '' : 's') + ' here</span><span><b>' + touched + '</b> of ' + total + ' weeks opened</span>' : '') + (scField ? '<span>Your lens: <b>' + esc(scField) + '</b></span>' : '') + '</div>'
@@ -1797,7 +1903,7 @@
     return '<section class="node sc-panel jfade" aria-label="Your study compass">'
       + '<h2 class="wk-sec" style="margin-top:0">' + greet + '</h2>'
       + stats + recHtml + nameUi
-      + '<details class="sc-how"><summary>How these suggestions work</summary><p>No AI and no server. A few fixed rules run in your browser over what you have done on this device: which weeks you opened, whether you tried checks and guides, and whether you wrote reflections. None of it leaves this page, none of it is graded, and Clear My Work in How This Site Works erases all of it.</p></details>'
+      + '<details class="sc-how"><summary>How these suggestions work</summary><p>No AI or application backend is used for these suggestions. A few fixed rules run in your browser over what you have done on this device: which weeks you opened, whether you tried checks and guides, and whether you wrote reflections. The companion site does not transmit that activity, none of it is graded, and Clear My Work in How This Site Works removes any copy this site kept in browser storage.</p></details>'
       + '</section>';
   }
   function courseProgressPanel() {
@@ -1821,7 +1927,7 @@
       var isOpen = !!visits[w], hasWork = worked.indexOf(w) >= 0;
       return '<button type="button" class="progress-week' + (isOpen ? ' opened' : '') + (hasWork ? ' worked' : '') + '" onclick="SOC.station(' + w + ')" aria-label="Open Week ' + w + ': ' + esc(weekTitle(w)) + (hasWork ? '. Work saved on this device.' : (isOpen ? '. Opened on this device.' : '. Not opened on this device.')) + '"><span>' + w + '</span>' + (hasWork ? '<i aria-hidden="true"></i>' : '') + '</button>';
     }).join('');
-    return '<section class="node course-progress" aria-labelledby="course-progress-title"><div class="progress-head"><div><div class="mono">YOUR COURSE MAP</div><h2 id="course-progress-title">You have opened ' + opened.length + ' of ' + ws.length + ' weeks</h2></div><strong aria-label="' + pct + ' percent of weeks opened">' + pct + '%</strong></div><div class="progress-weeks" role="list" aria-label="Course weeks">' + weekButtons + '</div><div class="progress-phases">' + phaseHtml + '</div><p class="progress-note">This is a private orientation aid, not a grade. A week is counted when you open it on this device. A small red marker appears after you write a reflection, try a Knowledge Check, or save a note. Nothing is sent to the instructor or to a server.</p></section>';
+    return '<section class="node course-progress" aria-labelledby="course-progress-title"><div class="progress-head"><div><div class="mono">YOUR COURSE MAP</div><h2 id="course-progress-title">You have opened ' + opened.length + ' of ' + ws.length + ' weeks</h2></div><strong aria-label="' + pct + ' percent of weeks opened">' + pct + '%</strong></div><div class="progress-weeks" role="group" aria-label="Course weeks">' + weekButtons + '</div><div class="progress-phases">' + phaseHtml + '</div><p class="progress-note">This is a personal orientation aid, not a grade. When browser storage is available, a week is counted after you open it and a small red marker appears after you write a reflection, try a Knowledge Check, or save a note. The site does not submit this activity to the instructor or Seneca.</p></section>';
   }
   function weekHasWork(w) {
     try {
@@ -2036,7 +2142,7 @@
     return '<div class="rise">'
       + '<div class="mono" style="font-size:.75rem;letter-spacing:.06em;color:#6B7280;margin-bottom:8px">SELF-CHECK</div>'
       + '<h1 style="font-size:1.75rem;font-weight:600;margin:0 0 8px">Recall the concepts</h1>'
-      + '<p style="font-size:.9375rem;color:#474C57;margin:0 0 18px;">Read the concept, define it in your own words, then flip the card to check yourself. Each card is one concept. Private study, never a test.</p>'
+      + '<p style="font-size:.9375rem;color:#474C57;margin:0 0 18px;">Read the concept, define it in your own words, then flip the card to check yourself. Each card is one concept. Self-study, never a test.</p>'
       + '<label for="soc-cardweek" style="font-size:.8125rem;font-weight:600;color:#474C57;display:block;margin-bottom:6px">Show concepts for</label>'
       + '<select id="soc-cardweek" onchange="SOC.cardWeek(this.value)" style="max-width:360px;padding:9px 12px;border:1px solid #DEE3EA;border-radius:9px;background:#fff;font-size:.9375rem;color:#15171C;margin-bottom:20px">' + opts + '</select>'
       + selfCheckStudio(sel)
@@ -2206,7 +2312,7 @@
     return 'Follow one question through the whole course, week by week. Each week sets up what to read, why it matters, and one thing to do with it. Start at the top, or pick up where you left off.';
   }
   function deliveryOverviewPanel() {
-    return '<section class="node" style="border-top:4px solid var(--red);margin-bottom:22px"><div class="mono" style="font-size:.7rem;letter-spacing:.08em;color:var(--red);font-weight:700;margin-bottom:7px">HOW THE TERM MOVES</div><h2 style="font-size:1.28rem;margin:0 0 8px">Live discussion, independent application, and supported closure</h2><p style="font-size:.95rem;line-height:1.6;color:var(--ink-dim);margin:0 0 12px">Weeks 1 to 3, 5 to 10, and 12 meet live. Week 7 is a live cumulative review with no new reading. Weeks 4 and 11 are independent learning weeks with no lecture. Week 13 protects supported completion, and Week 14 closes the course with optional consultation and no graded deadline.</p><button type="button" class="wk-cta" style="margin:0" onclick="SOC.go(\'calendar\')">See the full calendar and reasons</button></section>';
+    return '<section class="node" style="border-top:4px solid var(--red);margin-bottom:22px"><div class="mono" style="font-size:.7rem;letter-spacing:.08em;color:var(--red);font-weight:700;margin-bottom:7px">HOW THE TERM MOVES</div><h2 style="font-size:1.28rem;margin:0 0 8px">Live discussion, independent application, and supported closure</h2><p style="font-size:.95rem;line-height:1.6;color:var(--ink-dim);margin:0 0 12px">Weeks 1 to 5, 7 to 10, and 12 meet live. Week 7 is a live cumulative review with no new reading. Weeks 6 and 11 are independent learning weeks with no lecture. Week 13 protects supported completion, and Week 14 closes the course with optional consultation and no graded deadline.</p><button type="button" class="wk-cta" style="margin:0" onclick="SOC.go(\'calendar\')">See the full calendar and reasons</button></section>';
   }
 
   /* ---------- Cultural Comparison Lab: up to three named evidence contexts ---------- */
@@ -2412,7 +2518,7 @@
     return '<div class="rise synthesis-page"><section class="synthesis-hero"><div><div class="mono">COURSE SYNTHESIS</div><h1>Turn the globe. Keep the differences.</h1><p>One Earth contains many places, histories, institutions, cultures, knowledge systems, and unequal relationships. Synthesis does not compress them into one answer. It asks you to decide what can travel across a comparison, what changes, what cannot be equated, and what responsibility follows.</p><div><button type="button" onclick="SOC.station(14)">Open Week 14</button><span>The route changes. The final meaning remains yours.</span></div></div><figure class="synthesis-earth"><div><img src="images/lenses/w14_two.jpg" alt="The eastern hemisphere of Earth against black space, with Africa, Europe, Asia, Australia, clouds, oceans, and ice visible together."></div><figcaption><b>One shared Earth, never one uniform context</b><span>NASA imagery by Reto Stockli; public domain</span><a href="https://commons.wikimedia.org/wiki/File:Blue_Marble_Eastern_Hemisphere.jpg" target="_blank" rel="noopener">Image source</a></figcaption></figure></section>'
       + '<section class="synthesis-world"><header><div class="mono">THE LIVING WORLD ATLAS</div><h2>' + esc(world.title) + '</h2><p>' + esc(world.lead) + '</p></header><div class="synthesis-world-grid"><div class="synthesis-mini-globe" aria-hidden="true"><i></i><i></i><i></i><i></i></div><div class="synthesis-routes" role="tablist" aria-label="Choose a synthesis route">' + tabs + '<div class="synthesis-panels">' + panels + '</div></div></div></section>'
       + program + lensVisual + context
-      + '<section class="synthesis-trail"><header><div class="mono">YOUR SYNTHESIS TRAIL</div><h2>Construct the meaning; do not collect a finished answer.</h2><p>These private notes remain in this browser. Each prompt asks for a decision that the site cannot make for you.</p></header><div>'
+      + '<section class="synthesis-trail"><header><div class="mono">YOUR SYNTHESIS TRAIL</div><h2>Construct the meaning; do not collect a finished answer.</h2><p>When browser storage is available, these personal notes may remain in this browser. Each prompt asks for a decision that the site cannot make for you.</p></header><div>'
       + field('question', 'One question worth carrying', 'Name the social-science problem before selecting evidence.', 'The question I can now ask more precisely is...')
       + field('source', 'One source and its job', 'Name who produced it, what it can support, and where it stops.', 'This source can carry the claim that... It cannot establish...')
       + field('difference', 'One difference that must remain', 'Do not reward a smooth synthesis by erasing a history, Nation, method, or purpose.', 'The distinction I must keep visible is...')
@@ -2525,7 +2631,7 @@
     var sel = state.wkCheck[key], opts = ['New to me', 'Getting it', 'I can'];
     return opts.map(function (o, i) { var on = sel === i; return '<button onclick="SOC.wkCheck(\'' + key + '\',' + i + ')" aria-pressed="' + on + '" class="wk-opt' + (on ? ' on' : '') + '">' + o + '</button>'; }).join('');
   }
-  function wkOpts(key) { return '<div class="wk-opts" id="opts-' + key + '">' + wkOptBtns(key) + '</div>'; }
+  function wkOpts(key, labelId) { return '<div class="wk-opts" id="opts-' + key + '" role="group" aria-labelledby="' + labelId + '">' + wkOptBtns(key) + '</div>'; }
   // a check is {t: a key idea from the week, look?: where to revisit it}. The student rates their OWN grasp:
   // New to me (0) / Getting it (1) / I can (2). This monitors understanding; there is no right or wrong.
   function checkText(c) { return (typeof c === 'string') ? c : c.t; }
@@ -2572,6 +2678,7 @@
   }
   function refreshWeekChecks(w, d) {
     if (!d) return;
+    var retainedFocus = captureFocus();
     ['pre', 'post'].forEach(function (ph) {
       d.checks.forEach(function (c, i) {
         var key = ph + '|' + w + '|' + i, el = document.getElementById('opts-' + key);
@@ -2580,9 +2687,10 @@
       var m = document.getElementById('wkmeter-' + ph + '-' + w);
       if (m) m.innerHTML = checkMeter(w, ph, d);
     });
+    restoreFocus(retainedFocus, 'soc-main');
   }
   function wkChecks(w, phase, d) {
-    var qs = d.checks.map(function (c, i) { return '<div class="wk-q">' + (i + 1) + '. ' + esc(checkText(c)) + wkOpts(phase + '|' + w + '|' + i) + '</div>'; }).join('');
+    var qs = d.checks.map(function (c, i) { var qid = 'wkq-' + phase + '-' + w + '-' + i; return '<div class="wk-q"><span id="' + qid + '">' + (i + 1) + '. ' + esc(checkText(c)) + '</span>' + wkOpts(phase + '|' + w + '|' + i, qid) + '</div>'; }).join('');
     var label = phase === 'pre' ? 'Before' : 'Now';
     var reset = '<div class="wk-resetrow"><button onclick="SOC.wkClear(' + w + ',\'' + phase + '\')" class="wk-reset">Reset ' + label + ' ratings</button><span>Click a selected rating again to clear only that idea.</span></div>';
     return qs + reset + '<div id="wkmeter-' + phase + '-' + w + '">' + checkMeter(w, phase, d) + '</div>';
@@ -2611,7 +2719,7 @@
         }).join('') + '</div>';
     }
     /* 2. explain-it-back tiles: one per key concept */
-    var tiles = '<div style="margin:0 0 18px"><h3 style="font-size:1rem;margin:0 0 8px">Explain it back</h3><p class="wk-hint" style="margin:0 0 10px">The real test of understanding: explain each idea to a classmate who missed the week, in your own words. Then compare with the reading\'s version. Nothing you type is recorded or graded.</p>'
+    var tiles = '<div style="margin:0 0 18px"><h3 style="font-size:1rem;margin:0 0 8px">Explain it back</h3><p class="wk-hint" style="margin:0 0 10px">The real test of understanding: explain each idea to a classmate who missed the week, in your own words. Then compare with the reading\'s version. Nothing you type is submitted or graded. When browser storage is available, your notes may remain only in this browser until you clear them.</p>'
       + d.concepts.map(function (c, ci) {
         var nk = 'sg' + w + '|c|' + ci;
         var val = state.sgNotes[nk] || '';
@@ -2649,7 +2757,7 @@
         + '</div>';
     }
     var html = '<section id="wk-sg" class="node"><h2 class="wk-sec">Study Guide</h2>'
-      + '<p class="wk-hint">Your rehearsal space before the Knowledge Check. Nothing here is recorded or graded; it lives only in your browser.</p>'
+      + '<p class="wk-hint">Your rehearsal space before the Knowledge Check. Nothing here is submitted or graded. When browser storage is available, your responses may remain only in this browser until you clear them.</p>'
       + warm + tiles + ladder + '</section>';
     return { html: html };
   }
@@ -2792,7 +2900,7 @@
         var ratedLine = (shown && rated) ? '<p style="margin:9px 0 0;font-size:.82rem;color:var(--ink-faint)">You rated yourself: ' + (rated === 'got' ? 'I had this.' : rated === 'part' ? 'Partly there.' : 'Not yet, and that is fine, that is what the reading is for.') + '</p>' : '';
         return '<div style="background:#F7F8FA;border:1px solid var(--border);border-radius:12px;padding:15px 17px;margin-bottom:11px"><p style="margin:0 0 9px;font-size:.95rem;font-weight:600">' + esc(m.q) + '</p><textarea oninput="SOC.kcShortText(\'' + skey + '\',this.value)" aria-label="Your answer" class="wk-ta" placeholder="Write your answer, then reveal a model to compare..." style="min-height:80px">' + esc(txt) + '</textarea>' + model + ratedLine + '</div>';
       }).join('');
-      shortHtml = '<div style="margin-top:6px"><h3 style="margin:14px 0 4px;font-size:1.05rem">Reflect and compare</h3><p class="wk-hint" style="margin-bottom:11px">Not scored, nothing recorded. Write your own answer first, then reveal a model answer and rate how close you were. The point is the comparison, not a mark.</p>' + srows + '</div>';
+      shortHtml = '<div style="margin-top:6px"><h3 style="margin:14px 0 4px;font-size:1.05rem">Reflect and compare</h3><p class="wk-hint" style="margin-bottom:11px">Not scored or submitted. When browser storage is available, your response may remain only in this browser until you clear it. Write your own answer first, then reveal a model answer and rate how close you were. The point is the comparison, not a mark.</p>' + srows + '</div>';
     }
 
     var setMeta = [['A', 'multiple choice'], ['B', 'more multiple choice'], ['C', 'applied and different']];
@@ -2840,7 +2948,7 @@
 
     var badge = '<span class="mono" style="font-size:.62rem;letter-spacing:.06em;color:var(--green);background:#E9EFE7;border:1px solid #9CC4A8;border-radius:999px;padding:3px 10px;margin-left:10px;vertical-align:middle">NOT GRADED</span>';
     var kc = '<section id="wk-kc" class="node"><h2 class="wk-sec">Knowledge Check ' + badge + '</h2>'
-      + '<p class="wk-hint">Nothing here counts toward your grade and nothing is recorded. Three sets: Set A and Set B are multiple choice; Set C brings scenarios, matching, and short written reflections. Answer, say how sure you were, and the check shows you not just what you got right but where a confident answer was actually wrong, the thing most worth fixing.</p>'
+      + '<p class="wk-hint">Nothing here is submitted or counts toward your grade. When browser storage is available, responses may remain only in this browser until you clear them. Three sets: Set A and Set B are multiple choice; Set C brings scenarios, matching, and short written reflections. Answer, say how sure you were, and the check shows you not just what you got right but where a confident answer was actually wrong, the thing most worth fixing.</p>'
       + '<div style="display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px">' + vers + retake + '</div>'
       + setNote + progress + revealCta + summary + kRows + shortHtml + '</section>';
     return { html: kc, items: kcItems.concat(shortItems) };
@@ -2941,7 +3049,7 @@
       + '<textarea oninput="SOC.wkReflect(' + w + ',this.value)" aria-label="Week ' + w + ' reflection" class="wk-ta" placeholder="Your reflection...">' + esc(state.wkReflect[w] || '') + '</textarea>'
       + '</section>';
     var notes = '<section id="wk-notes" class="node"><h2 class="wk-sec">Generate Your Weekly Notes</h2>'
-      + '<div class="wk-savebox" style="margin-top:0"><h3>Your organized Week ' + w + ' record</h3><p style="margin:0 0 4px;font-size:.9rem">This makes one Word file (.docx) on Seneca letterhead. It organizes your private weekly check answers, activity summary, and reflection for review before Blackboard work.</p><ul><li>your before-and-after answers to the five check questions</li><li>a summary of what you did in this week\'s activity</li><li>your answer to the reflection question</li></ul><button onclick="SOC.saveWeek(' + w + ')" class="wk-save">Generate Your Weekly Notes</button></div>'
+      + '<div class="wk-savebox" style="margin-top:0"><h3>Your organized Week ' + w + ' record</h3><p style="margin:0 0 4px;font-size:.9rem">This makes one Word file (.docx) on Seneca letterhead. It organizes your personal weekly check answers, activity summary, and reflection for review before Blackboard work.</p><ul><li>your before-and-after answers to the five check questions</li><li>a summary of what you did in this week\'s activity</li><li>your answer to the reflection question</li></ul><button onclick="SOC.saveWeek(' + w + ')" class="wk-save">Generate Your Weekly Notes</button></div>'
       + '</section>';
     var navRow = '<div style="display:flex;gap:12px;margin-top:18px;flex-wrap:wrap">'
       + (prev != null ? '<button onclick="SOC.station(' + prev + ')" style="flex:1;min-width:180px;text-align:left;border:1px solid var(--border);background:#fff;border-radius:12px;padding:13px 16px;cursor:pointer"><div class="mono" style="font-size:.66rem;color:var(--ink-faint)">&larr; PREVIOUS</div><div style="font-size:.92rem;font-weight:700;color:var(--ink);margin-top:2px">Week ' + prev + ': ' + esc(weekTitle(prev)) + '</div></button>' : '')
@@ -2954,7 +3062,7 @@
       + [['ov', 'Overview'], ['mode', 'How this week works'], ['rec', deliveryMode(w).kind === 'live' ? 'Class recording and updates' : 'Updates for this week'], ['pre', 'Before you begin'], ['learn', 'Purpose']].concat(emphasis ? [['emphasis', 'Learning emphasis']] : []).concat([['out', 'Learning outcomes'], ['gq', 'Guiding questions']]).concat(plainTerms ? [['language', 'Terms in plain language']] : []).concat(care ? [['care', 'Content and choice']] : []).concat(img ? [['idea', 'Idea in view']] : []).concat(programLens ? [['lens', 'For your program']] : []).concat(media ? [['media', 'Watch and question']] : []).concat([['con', 'Key concepts'], ['term', 'Key terms'], ['read', 'Readings']]).concat(globalContext ? [['context', 'Cultural comparison']] : []).concat(walkWorld(w) ? [['watch', 'Experience']] : []).concat(programCase ? [['case', 'Case study']] : []).concat([['do', 'The activity'], ['reflect', 'Reflection']]).concat(sg ? [['sg', 'Study Guide']] : []).concat(kcItems.length ? [['kc', 'Knowledge Check']] : []).concat([['notes', 'Generate notes']]).map(function (it) { return '<a href="#wk-' + it[0] + '"><span class="s"></span>' + it[1] + '</a>'; }).join('')
       + '<div class="wk-railt">' + ic('calendar', 12) + ' ' + esc(deliveryMode(w).short) + '</div></div></aside>';
     var collBar = '<div class="wk-coll-bar" role="group" aria-label="Section display controls"><button type="button" onclick="SOC.wkCollAll(' + w + ',1)">Collapse all sections</button><button type="button" onclick="SOC.focusCore(' + w + ')" aria-pressed="' + (!!(state.focusCore && state.focusCore[w])) + '"' + ((state.focusCore && state.focusCore[w]) ? ' style="border-color:var(--red);color:var(--red);font-weight:700"' : '') + '>' + ((state.focusCore && state.focusCore[w]) ? 'Show the full week' : 'Show the core path') + '</button><span>Weeks start folded so you can see the whole map. Up to two sections stay open at once; opening a third closes the earliest one. Sections fold again when you leave the week.</span></div>';
-    return '<div class="rise">' + hero + deliveryNotice(w) + protocolSection(w) + recordingSection(w) + '<div class="wk-grid' + ((state.focusCore && state.focusCore[w]) ? ' focus-core' : '') + '"><main>' + collBar + ((state.focusCore && state.focusCore[w]) ? '<div style="border:1px solid var(--border);border-left:4px solid var(--red);border-radius:0 10px 10px 0;background:#fff;padding:10px 14px;margin:0 0 14px;font-size:.85rem;color:var(--ink-dim)"><b style="color:var(--ink)">Core path.</b> You are seeing the essentials: readings, key concepts, the Knowledge Check, and your reflection. Use the button above to bring the full week back.</div>' : '') + pre + purpose + emphasis + outcomes + guiding + plainTerms + care + img + programLens + media + concepts + terms + readings + globalContext + watch + programCase + act + reflect + sg + kc + notes + navRow + '</main>' + rail + '</div></div>';
+    return '<div class="rise">' + hero + deliveryNotice(w) + protocolSection(w) + recordingSection(w) + '<div class="wk-grid' + ((state.focusCore && state.focusCore[w]) ? ' focus-core' : '') + '"><div class="wk-primary">' + collBar + ((state.focusCore && state.focusCore[w]) ? '<div style="border:1px solid var(--border);border-left:4px solid var(--red);border-radius:0 10px 10px 0;background:#fff;padding:10px 14px;margin:0 0 14px;font-size:.85rem;color:var(--ink-dim)"><b style="color:var(--ink)">Core path.</b> You are seeing the essentials: readings, key concepts, the Knowledge Check, and your reflection. Use the button above to bring the full week back.</div>' : '') + pre + purpose + emphasis + outcomes + guiding + plainTerms + care + img + programLens + media + concepts + terms + readings + globalContext + watch + programCase + act + reflect + sg + kc + notes + navRow + '</div>' + rail + '</div></div>';
   }
   /* ---------- generic week activities: match / scenario / toggle / assemble / lab ---------- */
   function actCard(inner) { return '<div style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin:0 0 12px">' + inner + '</div>'; }
@@ -3028,7 +3136,12 @@
   }
   function activityScreen() {
     var w = state.activityReturn, d = weekData(w);
-    if (!d || !d.activity) return '<div style="padding:30px 0;color:var(--ink-dim)">No activity here. <button onclick="SOC.go(\'journey\')" style="background:none;border:none;color:var(--red);font-weight:600;cursor:pointer">Back to your journey</button></div>';
+    if (!d || !d.activity) {
+      var hasWeek = !!cleanWeek(w);
+      var target = hasWeek ? ('Week ' + w) : 'the course journey';
+      var go = hasWeek ? ('SOC.station(' + w + ')') : "SOC.go('journey')";
+      return '<section class="node rise" aria-labelledby="no-activity-title" style="padding:28px 30px"><div class="mono" style="font-size:.7rem;letter-spacing:.06em;color:var(--red);font-weight:700;margin-bottom:7px">ACTIVITY</div><h1 id="no-activity-title" style="font-size:1.55rem;line-height:1.2;margin:0 0 10px">No activity is scheduled' + (hasWeek ? (' for Week ' + w) : ' for this link') + '</h1><p style="margin:0 0 16px;color:var(--ink-dim)">Return to ' + target + ' to continue.</p><button type="button" onclick="' + go + '" class="wk-cta" style="margin:0">Back to ' + target + '</button></section>';
+    }
     var a = d.activity, activityCopy = emphasisActivityCopy(w, a);
     var head = '<section class="jhero" style="margin:0 0 18px;padding:26px 28px"><div class="mono" style="font-size:.7rem;letter-spacing:.06em;color:var(--red);font-weight:700;margin-bottom:7px">WEEK ' + w + ' ACTIVITY &middot; ' + esc(emphasisOption().label.toUpperCase()) + '</div><h1 style="font-size:1.7rem;line-height:1.15;font-weight:700;margin:0 0 12px;color:var(--ink)">' + esc(a.title) + '</h1><div class="wk-whatwhy emphasis-activity-copy" style="margin:0"><b>What this becomes through your selected route:</b> ' + esc(activityCopy.what) + '<br><br><b>Why you are doing it through this route:</b> ' + esc(activityCopy.why) + '</div></section>' + lensActivityBlock(w, a, true);
     var inner = '';
@@ -3060,7 +3173,7 @@
   var WORK_WEEKS = [13, 14];
   function weekDate(w) { return WEEK_DATES[w] || ''; }
   function deliveryMode(w) {
-    if (w === 4) return { kind: 'async', label: 'ASYNCHRONOUS INDEPENDENT LEARNING', short: 'Asynchronous learning; no lecture', reason: 'There is no lecture this week. Use the flexible class time to apply the early foundations independently through Truth and Reconciliation work before the course returns to live discussion.' };
+    if (w === 6) return { kind: 'async', label: 'ASYNCHRONOUS INDEPENDENT LEARNING', short: 'Asynchronous learning; no lecture', reason: 'There is no lecture this week. Use the flexible class time to work through the anthropology survey at your own pace, then bring one question about method or evidence into next week\'s review.' };
     if (w === 11) return { kind: 'async', label: 'ASYNCHRONOUS INDEPENDENT LEARNING', short: 'Asynchronous learning; no lecture', reason: 'There is no lecture this week. Use this deliberate independent synthesis point and the psychology readings and reflection prompts to prepare one connection for the final substantive live class.' };
     if (w === 13) return { kind: 'async', label: 'OFFICE HOURS + SUPPORTED ASYNCHRONOUS COMPLETION', short: 'Office hours; no lecture', reason: 'There is no lecture this week. The usual class window becomes office hours for focused Personal Cartography support and consultation. Office hours are not recorded by default.' };
     if (w === 14) return { kind: 'async', label: 'OFFICE HOURS + ASYNCHRONOUS COURSE CLOSURE', short: 'Office hours; no lecture', reason: 'There is no lecture this week. The usual class window becomes optional office hours for feedback and final questions. No graded work is due, and office hours are not recorded by default.' };
@@ -3100,9 +3213,9 @@
       { d: '2026-09-11', it: [['Week 1 live class', 'Course orientation and shared start', 'class'], ['Personal Cartography 1 opens', 'Build this from Weeks 1 to 3', 'open']] },
       { d: '2026-09-18', it: [['Week 2 live class', '', 'class'], ['Two-Eyed Seeing Journal begins', 'weekly, Weeks 2 to 12', 'open']] },
       { d: '2026-09-25', it: [['Week 3 live class', '', 'class']] },
-      { d: '2026-10-02', it: [['Week 4 asynchronous learning', 'Independent application of the early foundations', 'async'], ['Personal Cartography 1', 'due in Week 4', 'due'], ['Knowledge in Two Eyes opens', 'Build this from Weeks 4 to 6 and 8', 'open']] },
+      { d: '2026-10-02', it: [['Week 4 live class', '', 'class'], ['Personal Cartography 1', 'due in Week 4', 'due'], ['Knowledge in Two Eyes opens', 'Build this from Weeks 4 to 6 and 8', 'open']] },
       { d: '2026-10-09', it: [['Week 5 live class', '', 'class']] },
-      { d: '2026-10-16', it: [['Week 6 live class', '', 'class']] },
+      { d: '2026-10-16', it: [['Week 6 asynchronous learning', 'Independent reading of the anthropology survey', 'async']] },
       { d: '2026-10-23', it: [['Week 7 live class', 'Cumulative review before Study Week; no new reading', 'class']] },
       { d: '2026-10-26', it: [['Study Week', 'Oct 26 to 30. No class and no new module.', 'support']] },
       { d: '2026-11-06', it: [['Week 8 live class', '', 'class'], ['Knowledge in Two Eyes', 'due in Week 8', 'due'], ['A Question of Reconciliation opens', 'Build this toward Week 12', 'open']] },
@@ -3120,8 +3233,8 @@
   function kdMonthDay(iso) { var p = iso.split('-'); return KD_MON[+p[1] - 1] + ' ' + (+p[2]); }
   function deadlineRule() { return '<aside class="deadline-rule" role="note" style="border:1px solid #E7C3BF;border-left:5px solid #DA291C;border-radius:0 11px 11px 0;background:#fff;padding:12px 14px;margin:0 0 16px;color:#15171C"><strong style="color:#961A13">Submission time:</strong> All assignments are due by 11:59 p.m. Eastern Time, EDT or EST as applicable, on the date shown. Blackboard remains the official submission record.</aside>'; }
   function mobileCalendarSubscription() { var code = courseCode(), base = location.protocol + '//' + location.host + location.pathname.replace(/[^\/]*$/, ''), feed = (base + 'calendar/' + code + '_key_dates.ics').replace(/^https?:/i, 'webcal:'); return '<section class="mobile-cal-sub" aria-labelledby="mobile-cal-title"><div class="mono">MOBILE CALENDAR</div><h2 id="mobile-cal-title">Keep these dates on your phone</h2><p>This is a live calendar subscription, not a downloaded copy. Your calendar app can refresh it when the course schedule changes. Blackboard remains the official source.</p><a href="' + esc(feed) + '">Subscribe on this phone <span aria-hidden="true">&#8594;</span></a></section>'; }
-  function mobileAccessPanel() { var url = (location.origin + location.pathname).replace(/index\.html$/i, ''); return '<section class="mobile-access-panel" aria-labelledby="mobile-access-title"><div class="mono">PHONE OR TABLET</div><h2 id="mobile-access-title">Use the same site on any device</h2><p>There is no separate app. This responsive site is the mobile version too. Share or copy the link, then open it on your phone or tablet.</p><div><a href="' + esc(url) + '">Open the site link</a><button type="button" onclick="SOC.shareMobileSite()">Share or copy the link</button></div><small>Your saved notes stay on the device and browser where you typed them.</small></section>'; }
-  function upcomingParts(e) { var title = String(e.title || ''), note = String(e.note || ''), label = 'Course date', name = title, m; if (e.kind === 'open') { label = 'Assignment released'; m = title.match(/^(.*?)\s+(?:opens|begins)(?:\s+(.*))?$/i); if (m) { name = m[1]; if (!note && m[2]) note = m[2]; } } else if (e.kind === 'due') { label = 'Assignment due'; name = title.replace(/\s+(?:due|close|closes)$/i, ''); note = note.replace(/^due,?\s*/i, ''); } else if (/study week/i.test(title)) label = 'Study Week'; else if (e.kind === 'class') label = 'Live class'; else if (e.kind === 'async') label = 'Asynchronous week'; return { label: label, name: name, note: note, date: kdMonthDay(e.date) }; }
+  function mobileAccessPanel() { var url = (location.origin + location.pathname).replace(/index\.html$/i, ''); return '<section class="mobile-access-panel" aria-labelledby="mobile-access-title"><div class="mono">PHONE OR TABLET</div><h2 id="mobile-access-title">Use the same site on any device</h2><p>There is no separate app. This responsive site is the mobile version too. Share or copy the link, then open it on your phone or tablet.</p><div><a href="' + esc(url) + '">Open the site link</a><button type="button" onclick="SOC.shareMobileSite()">Share or copy the link</button></div><small>When browser storage is available, saved notes may remain only on the device and browser where you typed them. Download anything you need to move.</small></section>'; }
+  function upcomingParts(e) { var title = String(e.title || ''), note = String(e.note || ''), label = 'Course date', name = title, m; if (e.kind === 'open') { label = 'Assignment released'; m = title.match(/^(.*?)\s+(?:opens|begins)(?:\s+(.*))?$/i); if (m) { name = m[1]; if (!note && m[2]) note = m[2]; } } else if (e.kind === 'due') { label = 'Assignment due'; name = title.replace(/\s+(?:due|close|closes)$/i, ''); note = note.replace(/^due,?\s*/i, ''); } else if (/study week/i.test(title)) label = 'Study Week'; else if (e.kind === 'class') label = /^(?:(?:First|Last) day of classes|Course opens)$/i.test(title) ? 'Term marker' : 'Live class'; else if (e.kind === 'async') label = 'Asynchronous week'; return { label: label, name: name, note: note, date: kdMonthDay(e.date) }; }
   function upcomingBanner() {
     var rows = keyDatesList(), todayIso = '', entries = [];
     try { var now = new Date(); todayIso = now.getFullYear() + '-' + ('0' + (now.getMonth() + 1)).slice(-2) + '-' + ('0' + now.getDate()).slice(-2); } catch (e) {}
@@ -3134,8 +3247,26 @@
     var first = entries.map(function (e) { return item(e, false); }).join(''), repeat = entries.map(function (e) { return item(e, true); }).join(''), paused = !!state.tickerPaused;
     return '<section class="upcoming-banner' + (paused ? ' paused' : '') + '" aria-label="Coming up in SOC122"><button type="button" class="upcoming-label" onclick="SOC.go(\'calendar\')"><span>Coming up</span><small>Open calendar</small></button><div class="upcoming-window" tabindex="0"><div class="upcoming-track"><div class="upcoming-loop">' + first + '</div><div class="upcoming-loop" aria-hidden="true">' + repeat + '</div></div></div><button type="button" class="upcoming-pause" onclick="SOC.tickerPause()" aria-pressed="' + paused + '">' + (paused ? 'Resume' : 'Pause') + '</button></section>';
   }
-  var upcomingReminderFocus = null;
+  var upcomingReminderFocus = null, upcomingReminderAppState = null;
+  function upcomingReminderLock(on) {
+    var app = document.getElementById('app');
+    if (!app) return;
+    if (on) {
+      upcomingReminderAppState = { ariaHidden: app.getAttribute('aria-hidden'), inert: ('inert' in app) ? app.inert : false };
+      app.setAttribute('aria-hidden', 'true');
+      if ('inert' in app) app.inert = true;
+      document.body.classList.add('upcoming-reminder-open');
+    } else {
+      if (upcomingReminderAppState && upcomingReminderAppState.ariaHidden !== null) app.setAttribute('aria-hidden', upcomingReminderAppState.ariaHidden);
+      else app.removeAttribute('aria-hidden');
+      if ('inert' in app) app.inert = upcomingReminderAppState ? upcomingReminderAppState.inert : false;
+      document.body.classList.remove('upcoming-reminder-open');
+      upcomingReminderAppState = null;
+    }
+  }
   function showUpcomingReminder() {
+    /* Never place a second modal over an active learning experience or dialog. */
+    if (_walk || document.getElementById('walk-overlay') || document.querySelector('[aria-modal="true"]')) return;
     var key = SKEY + '.upcomingReminder.session.v1';
     try { if (sessionStorage.getItem(key) === '1') return; sessionStorage.setItem(key, '1'); } catch (e) {}
     if (document.getElementById('upcoming-reminder')) return;
@@ -3146,14 +3277,15 @@
     upcomingReminderFocus = document.activeElement;
     var box = document.createElement('div'); box.id = 'upcoming-reminder'; box.className = 'upcoming-reminder'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-modal', 'true'); box.setAttribute('aria-labelledby', 'upcoming-reminder-title');
     box.innerHTML = '<div class="upcoming-reminder-card"><div class="mono">BEFORE YOU BEGIN</div><h2 id="upcoming-reminder-title">Here is what is coming up</h2><ul>' + entries.map(function (e) { var p = upcomingParts(e); return '<li><b>' + esc(p.label) + '<small>(' + esc(p.date) + ')</small></b><span>' + esc(p.name) + (p.note ? ' <small>' + esc(p.note) + '</small>' : '') + '</span></li>'; }).join('') + '</ul><p>The banner at the top of every page stays current. Blackboard remains the official source for announcements and changed dates.</p><div><button type="button" onclick="SOC.closeUpcomingReminder();SOC.go(\'calendar\')">Open full calendar</button><button type="button" class="secondary" onclick="SOC.closeUpcomingReminder()">Continue to the site</button></div></div>';
+    upcomingReminderLock(true);
     document.body.appendChild(box);
-    box.addEventListener('keydown', function (e) { if (e.key !== 'Tab') return; var focusable = box.querySelectorAll('button:not([disabled]),a[href],[tabindex]:not([tabindex="-1"])'); if (!focusable.length) return; var first = focusable[0], last = focusable[focusable.length - 1]; if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); } else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); } });
+    box.addEventListener('keydown', function (e) { if (e.key === 'Escape') { e.preventDefault(); SOC.closeUpcomingReminder(); return; } if (e.key !== 'Tab') return; var focusable = box.querySelectorAll('button:not([disabled]),a[href],[tabindex]:not([tabindex="-1"])'); if (!focusable.length) { e.preventDefault(); box.focus(); return; } var first = focusable[0], last = focusable[focusable.length - 1]; if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); } else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); } });
     setTimeout(function () { var b = box.querySelector('button'); if (b) b.focus(); }, 0);
   }
   function keyDatesRows(cats) { var out = '', mon = ''; keyDatesList().forEach(function (row) { var items = row.it.filter(function (x) { return !cats || cats.indexOf(x[2]) >= 0; }); if (!items.length) return; var p = row.d.split('-'), name = KD_MON[+p[1] - 1]; if (name !== mon) { out += '<div class="kd-mon">' + name + '</div>'; mon = name; } out += '<div class="kd-row"><div class="kd-date"><span class="kd-day">' + (+p[2]) + '</span><span class="kd-mo">' + name.slice(0, 3) + '</span></div><div class="kd-items">' + items.map(function (x) { return '<div class="kd-item kd-' + x[2] + '"><span class="kd-dot"></span><span>' + esc(x[0]) + (x[1] ? ' <em>' + esc(x[1]) + '</em>' : '') + '</span></div>'; }).join('') + '</div></div>'; }); return out; }
   function calEventsByIso() { var map = {}; keyDatesList().forEach(function (r) { var due = r.it.filter(function (x) { return x[2] === 'due'; }), a = r.it.filter(function (x) { return x[2] === 'async'; }), s = r.it.filter(function (x) { return x[2] === 'support'; }), c = r.it.filter(function (x) { return x[2] === 'class'; }), o = r.it.filter(function (x) { return x[2] === 'open'; }); if (due.length) map[r.d] = { kind: 'due', label: due.length > 1 ? due.length + ' assessments due' : due[0][0] + ' due' }; else if (a.length) map[r.d] = { kind: 'async', label: a[0][0] }; else if (s.length) map[r.d] = { kind: 'support', label: s[0][0] }; else if (c.length) map[r.d] = { kind: 'class', label: c[0][0] }; else if (o.length) map[r.d] = { kind: 'open', label: o[0][0] }; }); ['2026-10-26','2026-10-27','2026-10-28','2026-10-29','2026-10-30'].forEach(function (d) { map[d] = { kind: 'study', label: 'Study Week' }; }); return map; }
   function calMonthGrid(year, m) { var first = new Date(Date.UTC(year, m, 1)).getUTCDay(), days = new Date(Date.UTC(year, m + 1, 0)).getUTCDate(), ev = calEventsByIso(), dow = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(function (x) { return '<div class="cal-dow">' + x + '</div>'; }).join(''), cells = ''; for (var i = 0; i < first; i++) cells += '<div class="cal-cell cal-blank"></div>'; for (var d = 1; d <= days; d++) { var iso = year + '-' + ('0' + (m + 1)).slice(-2) + '-' + ('0' + d).slice(-2), e = ev[iso]; cells += '<div class="cal-cell' + (e ? ' cal-' + e.kind : '') + '"><span class="cal-num">' + d + '</span>' + (e ? '<span class="cal-tag">' + esc(e.label) + '</span>' : '') + '</div>'; } return '<div class="cal-month"><div class="cal-mhead">' + KD_MON[m] + ' ' + year + '</div><div class="cal-grid">' + dow + cells + '</div></div>'; }
-  function calendarPage() { var grids = [8,9,10,11].map(function (m) { return calMonthGrid(2026, m); }).join(''); return '<div class="rise cal-page">' + (D.course.scheduleDetail ? '<div style="border:1px solid var(--border);border-left:4px solid var(--red);border-radius:10px;background:#fff;padding:12px 16px;margin:0 0 16px"><div class="mono" style="font-size:.66rem;letter-spacing:.07em;color:var(--red);font-weight:700;margin-bottom:5px">CLASS TIME</div><p style="margin:0;font-size:.92rem;line-height:1.55;color:var(--ink)">' + esc(D.course.scheduleDetail) + '</p></div>' : '') + '<div class="mono" style="font-size:.7rem;letter-spacing:.08em;color:var(--red);font-weight:700;margin-bottom:4px">CALENDAR</div><h1 style="font-size:1.9rem;line-height:1.15;font-weight:600;margin:0 0 8px;color:var(--ink)">Every date and delivery mode that matters</h1><p style="font-size:1rem;line-height:1.6;color:var(--ink-dim);margin:0 0 20px">This calendar keeps due dates and delivery modes clearly apart. Seneca red marks due dates. Black marks live classes. Neutral grey marks every asynchronous week with no lecture, including the office-hour weeks. A light grey outline marks Study Week. Week 4 applies the early foundations independently. Week 11 creates a synthesis point before the final live class. Weeks 13 and 14 protect focused completion, consultation, feedback, and closure. Blackboard remains the official word on dates.</p>' + deadlineRule() + mobileCalendarSubscription() + '<div class="cal-legend"><span class="cal-lg"><span class="cal-sw cal-sw-due"></span>Due date</span><span class="cal-lg"><span class="cal-sw cal-sw-class"></span>Live class</span><span class="cal-lg"><span class="cal-sw cal-sw-async"></span>Asynchronous; no lecture</span><span class="cal-lg"><span class="cal-sw cal-sw-study"></span>Study Week</span><span class="cal-lg"><span class="cal-sw cal-sw-support"></span>Term marker</span></div><div class="cal-grids">' + grids + '</div><section class="node"><h2 class="wk-sec">Assessment dates</h2><div>' + keyDatesRows(['due','open']) + '</div><h2 class="wk-sec" style="margin-top:24px">Class and asynchronous schedule</h2><div>' + keyDatesRows(['class','async','support']) + '</div></section></div>'; }
+  function calendarPage() { var grids = [8,9,10,11].map(function (m) { return calMonthGrid(2026, m); }).join(''); return '<div class="rise cal-page">' + (D.course.scheduleDetail ? '<div style="border:1px solid var(--border);border-left:4px solid var(--red);border-radius:10px;background:#fff;padding:12px 16px;margin:0 0 16px"><div class="mono" style="font-size:.66rem;letter-spacing:.07em;color:var(--red);font-weight:700;margin-bottom:5px">CLASS TIME</div><p style="margin:0;font-size:.92rem;line-height:1.55;color:var(--ink)">' + esc(D.course.scheduleDetail) + '</p></div>' : '') + '<div class="mono" style="font-size:.7rem;letter-spacing:.08em;color:var(--red);font-weight:700;margin-bottom:4px">CALENDAR</div><h1 style="font-size:1.9rem;line-height:1.15;font-weight:600;margin:0 0 8px;color:var(--ink)">Every date and delivery mode that matters</h1><p style="font-size:1rem;line-height:1.6;color:var(--ink-dim);margin:0 0 20px">This calendar keeps due dates and delivery modes clearly apart. Seneca red marks due dates. Black marks live classes. Neutral grey marks every asynchronous week with no lecture, including the office-hour weeks. A light grey outline marks Study Week. Week 6 provides independent work with the anthropology survey. Week 11 creates an independent synthesis point before the final live class. Weeks 13 and 14 protect focused completion, consultation, feedback, and closure. Blackboard remains the official word on dates.</p>' + deadlineRule() + mobileCalendarSubscription() + '<div class="cal-legend"><span class="cal-lg"><span class="cal-sw cal-sw-due"></span>Due date</span><span class="cal-lg"><span class="cal-sw cal-sw-class"></span>Live class</span><span class="cal-lg"><span class="cal-sw cal-sw-async"></span>Asynchronous; no lecture</span><span class="cal-lg"><span class="cal-sw cal-sw-study"></span>Study Week</span><span class="cal-lg"><span class="cal-sw cal-sw-support"></span>Term marker</span></div><div class="cal-grids">' + grids + '</div><section class="node"><h2 class="wk-sec">Assessment dates</h2><div>' + keyDatesRows(['due','open']) + '</div><h2 class="wk-sec" style="margin-top:24px">Class and asynchronous schedule</h2><div>' + keyDatesRows(['class','async','support']) + '</div></section></div>'; }
   function workWeekPage(w) {
     var d = weekData(w) || {};
     var ws = journeyWeeks(), idx = ws.indexOf(w), prev = idx > 0 ? ws[idx - 1] : null, next = idx < ws.length - 1 ? ws[idx + 1] : null;
@@ -3179,7 +3311,7 @@
     var terms = sec('term', 'Language to carry forward', '<p class="wk-hint">These are review definitions for your own synthesis, not a new vocabulary list.</p>' + (d.terms || []).map(function (t, i) { return emphasisTermHtml(w, t, i); }).join(''));
     var orderedReadings = emphasisReadingOrder(w, d.readings || []);
     var readings = sec('read', 'Return to earlier sources', '<p class="wk-hint">No new reading is assigned. Reopen only the earlier source you need to verify a claim, quotation, attribution, or boundary in your own work.</p>' + orderedReadings.map(function (r) { var resolves = (typeof rec === 'function') && r.id && rec(r.id); return '<div class="wk-read"><div class="ref">' + esc(r.apa || '') + '</div>' + (r.scope ? '<div style="font-size:.78rem;line-height:1.45;color:var(--ink-faint);margin-top:6px">' + esc(r.scope) + '</div>' : '') + (resolves ? '<button onclick="SOC.read(\'' + r.id + '\')" class="wk-scope">Return to this source &#8599;</button>' : '') + '</div>'; }).join(''));
-    var checklist = sec('check', 'Review checklist', '<p class="wk-hint">Use this to decide what needs one more look before you finish. It is not a quiz and nothing is recorded.</p>' + (d.checks || []).map(function (c) { var look = (typeof c === 'string') ? '' : (c.look || ''); return '<div class="wk-oc"><span class="b"></span><span>' + esc(checkText(c)) + (look ? '<small style="display:block;margin-top:3px;color:var(--ink-faint)">Return to ' + esc(look) + '.</small>' : '') + '</span></div>'; }).join(''));
+    var checklist = sec('check', 'Review checklist', '<p class="wk-hint">Use this to decide what needs one more look before you finish. It is not a quiz and is not submitted or graded.</p>' + (d.checks || []).map(function (c) { var look = (typeof c === 'string') ? '' : (c.look || ''); return '<div class="wk-oc"><span class="b"></span><span>' + esc(checkText(c)) + (look ? '<small style="display:block;margin-top:3px;color:var(--ink-faint)">Return to ' + esc(look) + '.</small>' : '') + '</span></div>'; }).join(''));
     var reflect = '<section id="wk-reflect" class="node"><h2 class="wk-sec">Your reflection</h2>'
       + ((d.youcan || []).length ? '<div class="wk-ocheck"><div class="mono" style="font-size:.78rem;font-weight:700;color:var(--ink-faint);margin-bottom:7px">YOU CAN NOW</div>' + d.youcan.map(function (y) { return '<div class="wk-row"><span class="t">' + ic('check', 14, 2.6) + '</span>' + esc(y) + '</div>'; }).join('') + '</div>' : '')
       + emphasisReflectionPrompt(w, d.reflectPrompt || '')
@@ -3216,7 +3348,7 @@
       time: 'Overview, no readings'
     });
     var how = '<section id="wk-how" class="node"><h2 class="wk-sec">How this course works</h2>'
-      + '<p style="margin:0 0 10px;font-size:1rem;line-height:1.6">This is a blended synchronous course. Weeks 1 to 3, 5 to 10, and 12 meet live. Weeks 4 and 11 are independent asynchronous learning weeks. Week 7 is a live cumulative-review class with no new reading. Week 13 is supported asynchronous completion with office hours, and Week 14 is asynchronous course closure with optional consultation and no graded deadline. Every week page names its mode and purpose. Live weeks include a class-recording space; asynchronous weeks may carry a short instructor update. Study Week, October 26 to 30, falls between Weeks 7 and 8 and has no class or new module. Blackboard remains the official Seneca course platform.</p>'
+      + '<p style="margin:0 0 10px;font-size:1rem;line-height:1.6">This is a blended synchronous course. Weeks 1 to 5, 7 to 10, and 12 meet live. Weeks 6 and 11 are independent asynchronous learning weeks. Week 7 is a live cumulative-review class with no new reading. Week 13 is supported asynchronous completion with office hours, and Week 14 is asynchronous course closure with optional consultation and no graded deadline. Every week page names its mode and purpose. Live weeks include a class-recording space; asynchronous weeks may carry a short instructor update. Study Week, October 26 to 30, falls between Weeks 7 and 8 and has no class or new module. Blackboard remains the official Seneca course platform.</p>'
       + '<p style="margin:0;font-size:1rem;line-height:1.6">This week is your orientation. There are no readings and nothing to submit. When you are ready, begin with Week ' + (next != null ? next : 2) + '.</p></section>';
     var beginRow = (next != null) ? '<div style="margin-top:18px"><button onclick="SOC.station(' + next + ')" style="border:1px solid var(--border);background:#fff;border-radius:12px;padding:13px 18px;cursor:pointer;text-align:left;min-width:220px"><div class="mono" style="font-size:.66rem;color:var(--red)">BEGIN &rarr;</div><div style="font-size:.95rem;font-weight:700;color:var(--ink);margin-top:2px">Week ' + next + ': ' + esc(weekTitle(next)) + '</div></button></div>' : '';
     var img = weekIdeaPanel(w);
@@ -3278,7 +3410,7 @@
     tiles.push(['Compare readings', 'Hold any two readings side by side and see where they meet.', 'columns', 'SOC.go(\'compare\')']);
     tiles.push(['Build reading comprehension', 'Read closely with guided questions, then check yourself.', 'book', 'SOC.go(\'reading\')']);
     var th = tiles.map(function (t) {
-      return '<button class="jtile" onclick="' + t[3] + '" style="min-height:172px"><span style="display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;background:#F6E3E1;color:var(--red)">' + ic(t[2], 22) + '</span><h3 style="font-size:1.1875rem;font-weight:600;margin:6px 0 0;color:var(--ink)">' + t[0] + '</h3><p style="font-size:.9rem;line-height:1.55;color:var(--ink-dim);margin:0">' + t[1] + '</p><span style="margin-top:auto;color:var(--red);font-weight:600;font-size:.875rem">Open &rarr;</span></button>';
+      return '<button class="jtile" onclick="' + t[3] + '" style="min-height:172px"><span style="display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;background:#F6E3E1;color:var(--red)">' + ic(t[2], 22) + '</span><h2 style="font-size:1.1875rem;font-weight:600;margin:6px 0 0;color:var(--ink)">' + t[0] + '</h2><p style="font-size:.9rem;line-height:1.55;color:var(--ink-dim);margin:0">' + t[1] + '</p><span style="margin-top:auto;color:var(--red);font-weight:600;font-size:.875rem">Open &rarr;</span></button>';
     }).join('');
     return '<div class="rise"><div class="mono" style="font-size:.75rem;letter-spacing:.06em;color:var(--red);font-weight:600;margin-bottom:8px">EXPLORE</div><h1 style="font-size:1.75rem;font-weight:600;margin:0 0 8px;color:var(--ink)">Ways to go deeper</h1><p style="font-size:.9375rem;color:var(--ink-dim);margin:0 0 22px;">Beyond the week-by-week path, here are the hands-on tools. Use them whenever you like.</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px">' + th + '</div></div>';
   }
@@ -3916,14 +4048,14 @@
     var steps = [
       ['Prepare', 'Every week', 'Open the week page, read the delivery label, and choose one guiding question.'],
       ['Meet or work independently', 'Follow the week label', 'Live weeks use discussion. Asynchronous weeks use the complete week page for independent application or synthesis.'],
-      ['Return', 'After the main work', 'Complete the activity, reflection, and private checks that help you consolidate the ideas.'],
+      ['Return', 'After the main work', 'Complete the activity, reflection, and self-checks that help you consolidate the ideas.'],
       ['Save', 'Keep your record', 'Generate your weekly notes so your thinking does not remain only in the browser.'],
       ['Carry forward', 'Build the cartography', 'Use the strongest weekly notes and journal entries in the Personal Cartography sequence.']
     ];
-    var route = '<section class="path-route path-sync"><div class="path-route-head"><div class="mono">BLENDED SYNCHRONOUS COURSE</div><h2>One course rhythm with purposeful mode changes</h2><p>Most weeks meet live. Weeks 4 and 11 are independent asynchronous learning. Week 13 protects supported completion, and Week 14 provides asynchronous closure and optional consultation.</p></div><ol>' + steps.map(function (s, i) { return '<li><span>' + (i + 1) + '</span><div><b>' + esc(s[0]) + '</b><em>' + esc(s[1]) + '</em><p>' + esc(s[2]) + '</p></div></li>'; }).join('') + '</ol></section>';
+    var route = '<section class="path-route path-sync"><div class="path-route-head"><div class="mono">BLENDED SYNCHRONOUS COURSE</div><h2>One course rhythm with purposeful mode changes</h2><p>Most weeks meet live. Weeks 6 and 11 are independent asynchronous learning. Week 13 protects supported completion, and Week 14 provides asynchronous closure and optional consultation.</p></div><ol>' + steps.map(function (s, i) { return '<li><span>' + (i + 1) + '</span><div><b>' + esc(s[0]) + '</b><em>' + esc(s[1]) + '</em><p>' + esc(s[2]) + '</p></div></li>'; }).join('') + '</ol></section>';
     return '<div class="rise path-page">'
       + '<section class="path-hero"><div><div class="mono">COURSE RHYTHM</div><h1>Prepare, meet or work independently, reflect, and carry it forward</h1><p>SOC122 uses live discussion and four purposeful asynchronous weeks. The delivery label on every week page tells you exactly how that week works.</p></div><div class="path-compass" aria-label="SOC122 weekly rhythm"><span>PREPARE</span><b>read and orient</b><i></i><span>REFLECT</span><b>connect both ways of seeing</b></div></section>'
-      + '<section class="path-summary"><div><b>Live weeks build shared meaning</b><span>Bring one question and use discussion to test what each reading helps you see.</span></div><div><b>Async weeks have a purpose</b><span>Week 4 applies, Week 11 synthesizes, Week 13 supports completion, and Week 14 closes the course.</span></div><div><b>The cartography is the spine</b><span>Weekly notes and journal entries build the record used in the final sequence.</span></div></section>'
+      + '<section class="path-summary"><div><b>Live weeks build shared meaning</b><span>Bring one question and use discussion to test what each reading helps you see.</span></div><div><b>Async weeks have a purpose</b><span>Week 6 applies the anthropology survey, Week 11 synthesizes, Week 13 supports completion, and Week 14 closes the course.</span></div><div><b>The cartography is the spine</b><span>Weekly notes and journal entries build the record used in the final sequence.</span></div></section>'
       + '<div class="path-routes">' + route + '</div>'
       + '<section class="path-close"><h2>Start with the current week</h2><p>Open the week, check its delivery label and purpose, then follow the route on that page. Blackboard holds graded submissions.</p><div class="path-actions"><button type="button" onclick="SOC.station(1)"><b>Open the weekly journey</b><small>See the mode and weekly route.</small></button><button type="button" onclick="SOC.go(\'calendar\')"><b>Calendar and Due Dates</b><small>See delivery modes and deadlines.</small></button><button type="button" onclick="SOC.careerChoices()"><b>Career Choices</b><small>Connect the course to your path.</small></button><button type="button" onclick="SOC.go(\'assignments\')"><b>Starting Your Assignment</b><small>Plan the graded work.</small></button></div></section>'
       + '</div>';
@@ -3939,7 +4071,7 @@
     }).join('') + '</section>';
   }
   function assignmentStartLabLaunch() {
-    return '<section class="path-close" aria-label="Assignment Start Lab"><div class="mono">PRIVATE PLANNING SUPPORT</div><h2>Not sure how to begin?</h2><p>Add your assignment, progress, exact sticking point, and available time. Fixed course rules create a personal start plan without using AI. Nothing is submitted, and your answers stay in this browser on this device.</p><div class="path-actions"><button type="button" onclick="location.href=\'assignment-start-lab.html\'"><b>Open Assignment Start Lab</b><small>Create a plan you can print or save as PDF.</small></button></div></section>';
+    return '<section class="path-close" aria-label="Assignment Start Lab"><div class="mono">PERSONAL PLANNING SUPPORT</div><h2>Not sure how to begin?</h2><p>Add your assignment, progress, exact sticking point, and available time. Fixed course rules create a personal start plan without using AI. Nothing is submitted. When browser storage is available, your answers may remain in this browser on this device until you clear them.</p><div class="path-actions"><button type="button" onclick="location.href=\'assignment-start-lab.html\'"><b>Open Assignment Start Lab</b><small>Create a plan you can print or save as PDF.</small></button></div></section>';
   }
   function assignmentsPage() {
     var items = [
@@ -4000,11 +4132,16 @@
   }
   function walkTheme() { var r = rlState(); return r.walkTheme === 'light' ? 'light' : 'dark'; }
   function walkWorld(w) { return (window.SOC122_WALKTHROUGH_WORLDS || {})[w] || null; }
+  function cleanWalkResume(saved, w) {
+    saved = cleanPlainObject(saved);
+    var week = typeof saved.week === 'number' ? cleanWeek(saved.week) : null;
+    var index = saved.i;
+    if (!week || (w && week !== w) || typeof index !== 'number' || !isFinite(index) || Math.floor(index) !== index || index <= 0) return null;
+    return { week: week, i: index };
+  }
   function experienceResumeFor(w) {
-    var r = rlState(), all = r.walkResumeByWeek && typeof r.walkResumeByWeek === 'object' ? r.walkResumeByWeek : {};
-    var saved = all[String(w)];
-    if (!saved || Number(saved.week) !== Number(w) || !(Number(saved.i) > 0)) return null;
-    return saved;
+    var r = rlState(), all = cleanPlainObject(r.walkResumeByWeek);
+    return cleanWalkResume(all[String(w)], w);
   }
   function experienceActionLabel(w) { return experienceResumeFor(w) ? 'Re-enter the experience' : 'Enter the experience'; }
   function walkSaveResume(w, i) {
@@ -4090,18 +4227,54 @@
     }
     return s;
   }
-  var _walk = null;
+  function walkSlideName(s) {
+    if (!s) return 'Chapter';
+    if (s.kind === 'cover') return s.title || 'Opening question';
+    if (s.kind === 'emphasis') return (s.option && s.option.label) || 'Selected learning route';
+    if (s.kind === 'idea') return (s.spotlight && s.spotlight.title) || 'Idea in context';
+    if (s.kind === 'signature') return (s.world && s.world.room) || 'Interactive room';
+    if (s.kind === 'media') return (s.item && s.item.title) || 'Media and source';
+    if (s.kind === 'concept') return s.h || 'Key idea';
+    if (s.kind === 'model') return 'Interactive model';
+    if (s.kind === 'atlas') return 'Idea map';
+    if (s.kind === 'context') return 'Context comparison';
+    if (s.kind === 'terms') return 'Words to know';
+    if (s.kind === 'questions') return 'Question to carry';
+    if (s.kind === 'sources') return 'Sources under the experience';
+    if (s.kind === 'twoeyes') return 'Activate the Two-Eyed Seeing frame';
+    if (s.kind === 'close') return 'You can now';
+    return String(s.kind || 'Chapter').replace(/[-_]/g, ' ');
+  }
+  var _walk = null, _walkAppState = null;
   function walkAppLock(on) {
-    var app = document.getElementById('app');
-    if (!app) return;
+    var overlay = document.getElementById('walk-overlay');
     if (on) {
-      app.setAttribute('aria-hidden', 'true');
-      if ('inert' in app) app.inert = true;
+      /* render() can re-apply this lock while an experience is open. Capture the
+         pre-dialog state once so close restores exactly what was there before. */
+      if (!_walkAppState) {
+        _walkAppState = {
+          nodes: Array.prototype.filter.call(document.body.children, function (node) { return node !== overlay; }).map(function (node) {
+            return { node: node, ariaHidden: node.getAttribute('aria-hidden'), inert: ('inert' in node) ? node.inert : false };
+          }),
+          bodyHadWalkOpen: document.body.classList.contains('walk-open')
+        };
+      }
+      _walkAppState.nodes.forEach(function (item) {
+        if (!item.node || !item.node.isConnected) return;
+        item.node.setAttribute('aria-hidden', 'true');
+        if ('inert' in item.node) item.node.inert = true;
+      });
       document.body.classList.add('walk-open');
     } else {
-      app.removeAttribute('aria-hidden');
-      if ('inert' in app) app.inert = false;
-      document.body.classList.remove('walk-open');
+      if (!_walkAppState) return;
+      _walkAppState.nodes.forEach(function (item) {
+        if (!item.node || !item.node.isConnected) return;
+        if (item.ariaHidden === null) item.node.removeAttribute('aria-hidden');
+        else item.node.setAttribute('aria-hidden', item.ariaHidden);
+        if ('inert' in item.node) item.node.inert = item.inert;
+      });
+      document.body.classList.toggle('walk-open', _walkAppState.bodyHadWalkOpen);
+      _walkAppState = null;
     }
   }
   function walkCoverMedia(hm) {
@@ -4207,8 +4380,8 @@
     }
     if (s.kind === 'atlas') {
       return '<div class="walk-kicker">BUILD THE WEEK\'S IDEA MAP</div><h2 class="walk-h" style="color:#15171C">Choose a thread. Watch the map reorganize around it.</h2><div class="walk-atlas">'
-        + '<div class="walk-atlas-nav" role="tablist" aria-label="Key concepts">' + s.items.map(function (c, i) { return '<button type="button" role="tab" aria-selected="' + (i === 0 ? 'true' : 'false') + '" class="' + (i === 0 ? 'on' : '') + '" onclick="SOC.walkAtlas(this,' + i + ')"><span>' + String(i + 1).padStart(2, '0') + '</span>' + esc(c.h) + '</button>'; }).join('') + '</div>'
-        + '<div class="walk-atlas-stage">' + s.items.map(function (c, i) { return '<article role="tabpanel" class="walk-atlas-panel' + (i === 0 ? ' on' : '') + '"' + (i === 0 ? '' : ' hidden') + '><div class="walk-atlas-orbit" aria-hidden="true"><i></i><i></i><i></i></div><span>THREAD ' + String(i + 1).padStart(2, '0') + '</span><h3>' + esc(c.h) + '</h3><p>' + esc(firstSentence(c.body || '')) + '</p><small>' + esc(c.cite || '') + '</small></article>'; }).join('') + '</div>'
+        + '<div class="walk-atlas-nav" role="tablist" aria-label="Key concepts">' + s.items.map(function (c, i) { return '<button id="walk-atlas-tab-' + i + '" type="button" role="tab" aria-selected="' + (i === 0 ? 'true' : 'false') + '" aria-controls="walk-atlas-panel-' + i + '" tabindex="' + (i === 0 ? '0' : '-1') + '" class="' + (i === 0 ? 'on' : '') + '" onclick="SOC.walkAtlas(this,' + i + ')" onkeydown="SOC.walkSigKey(event,this)"><span>' + String(i + 1).padStart(2, '0') + '</span>' + esc(c.h) + '</button>'; }).join('') + '</div>'
+        + '<div class="walk-atlas-stage">' + s.items.map(function (c, i) { return '<article id="walk-atlas-panel-' + i + '" role="tabpanel" aria-labelledby="walk-atlas-tab-' + i + '" class="walk-atlas-panel' + (i === 0 ? ' on' : '') + '"' + (i === 0 ? '' : ' hidden') + '><div class="walk-atlas-orbit" aria-hidden="true"><i></i><i></i><i></i></div><span>THREAD ' + String(i + 1).padStart(2, '0') + '</span><h3>' + esc(c.h) + '</h3><p>' + esc(firstSentence(c.body || '')) + '</p><small>' + esc(c.cite || '') + '</small></article>'; }).join('') + '</div>'
         + '</div>';
     }
     if (s.kind === 'context') {
@@ -4332,26 +4505,40 @@
     });
     var progress = ov.querySelector('.walk-progress');
     if (progress) { progress.style.setProperty('--walk-progress', (((_walk.i + 1) / total) * 100) + '%'); progress.setAttribute('aria-valuemin', '1'); progress.setAttribute('aria-valuemax', String(total)); progress.setAttribute('aria-valuenow', String(_walk.i + 1)); }
+    var dotHost = ov.querySelector('.walk-dots'), activeDot = null;
     Array.prototype.forEach.call(ov.querySelectorAll('.walk-dot'), function (dot, k) {
       dot.classList.toggle('on', k === _walk.i);
       dot.setAttribute('aria-current', k === _walk.i ? 'step' : 'false');
       dot.disabled = _walk.i === 0 && k !== 0;
       dot.setAttribute('aria-disabled', dot.disabled ? 'true' : 'false');
+      if (k === _walk.i) activeDot = dot;
     });
+    /* Long chapter rails exceed the narrow mobile viewport. Keep the current
+       chapter centred in the clipped strip instead of allowing it off-screen. */
+    if (dotHost && activeDot) {
+      dotHost.scrollLeft = Math.max(0, activeDot.offsetLeft - ((dotHost.clientWidth - activeDot.offsetWidth) / 2));
+    }
     var count = ov.querySelector('.walk-count');
     if (count) count.textContent = (_walk.i + 1) + ' / ' + total;
+    var activeHeading = chapters[_walk.i] && chapters[_walk.i].querySelector('h2,h3');
     var status = ov.querySelector('.walk-status');
     if (status) {
-      var activeHeading = chapters[_walk.i] && chapters[_walk.i].querySelector('h2');
       status.textContent = 'Chapter ' + (_walk.i + 1) + ' of ' + total + (activeHeading ? ': ' + activeHeading.textContent.trim() : '');
     }
     var prev = ov.querySelector('.walk-prev'), next = ov.querySelector('.walk-next');
     if (prev) prev.disabled = _walk.i === 0;
     if (next) next.disabled = _walk.i === 0 || _walk.i === total - 1;
     explorationMark('walkRooms', _walk.week + '|' + _walk.i);
+    var focusIndex = _walk.i;
     requestAnimationFrame(function () {
       walkFit();
-      if (focusSlide && chapters[_walk.i]) { try { chapters[_walk.i].focus({ preventScroll: true }); } catch (e) {} }
+      /* A fast Escape/close or another chapter change can invalidate this
+         scheduled focus frame. Do not touch a closed or superseded walk. */
+      if (focusSlide && _walk && _walk.i === focusIndex && ov.isConnected && chapters[focusIndex]) {
+        var focusTarget = activeHeading || chapters[focusIndex];
+        if (activeHeading) activeHeading.setAttribute('tabindex', '-1');
+        try { focusTarget.focus({ preventScroll: true }); } catch (e) { focusTarget.focus(); }
+      }
     });
     walkSaveResume(_walk.week, _walk.i); persist();
     try { sessionStorage.setItem(WKKEY, JSON.stringify({ w: _walk.week, i: _walk.i })); } catch (e) {}
@@ -4359,7 +4546,8 @@
   function walkWire(ov) {
     var viewport = ov.querySelector('.walk-viewport');
     var start = null, wheelLock = false;
-    viewport.addEventListener('pointerdown', function (e) { if (e.target.closest && e.target.closest('.context-card-grid')) { start = null; return; } start = { x: e.clientX, y: e.clientY, id: e.pointerId }; });
+    var gestureBlock = '.context-card-grid,.walk-figview,.walk-modelview,button,a,input,select,textarea,summary,[role="tab"],[role="slider"]';
+    viewport.addEventListener('pointerdown', function (e) { if (e.target.closest && e.target.closest(gestureBlock)) { start = null; return; } start = { x: e.clientX, y: e.clientY, id: e.pointerId }; });
     viewport.addEventListener('pointerup', function (e) {
       if (!start) return;
       var dx = e.clientX - start.x, dy = e.clientY - start.y;
@@ -4368,7 +4556,7 @@
     });
     viewport.addEventListener('pointercancel', function () { start = null; });
     viewport.addEventListener('wheel', function (e) {
-      if ((e.target.closest && e.target.closest('.context-card-grid')) || wheelLock || Math.abs(e.deltaX) < 28 || Math.abs(e.deltaX) < Math.abs(e.deltaY)) return;
+      if ((e.target.closest && e.target.closest(gestureBlock)) || wheelLock || Math.abs(e.deltaX) < 28 || Math.abs(e.deltaX) < Math.abs(e.deltaY)) return;
       e.preventDefault();
       wheelLock = true;
       SOC.walkNav(e.deltaX > 0 ? 1 : -1);
@@ -4383,9 +4571,9 @@
     if (!ov || !_walk) return;
     var slides = _walk.slides, i = Math.max(0, Math.min(slides.length - 1, _walk.i));
     if (!ov.querySelector('.walk-track')) {
-      var dots = slides.map(function (_, k) { return '<button type="button" class="walk-dot' + (k === i ? ' on' : '') + '" onclick="SOC.walkGoto(' + k + ')" aria-label="Chapter ' + (k + 1) + ' of ' + slides.length + '"></button>'; }).join('');
+      var dots = slides.map(function (s, k) { return '<button type="button" class="walk-dot' + (k === i ? ' on' : '') + '" onclick="SOC.walkGoto(' + k + ')" aria-label="Chapter ' + (k + 1) + ' of ' + slides.length + ': ' + esc(walkSlideName(s)) + '"></button>'; }).join('');
       var chapters = slides.map(function (s, k) {
-        return '<section class="walk-slide wkslide-' + s.kind + '" tabindex="-1" aria-label="Chapter ' + (k + 1) + ' of ' + slides.length + '" aria-hidden="' + (k === i ? 'false' : 'true') + '"><div class="walk-fit">' + walkSlideHtml(s, _walk.week) + '</div></section>';
+        return '<section class="walk-slide wkslide-' + s.kind + '" tabindex="-1" aria-label="Chapter ' + (k + 1) + ' of ' + slides.length + ': ' + esc(walkSlideName(s)) + '" aria-hidden="' + (k === i ? 'false' : 'true') + '"><div class="walk-fit">' + walkSlideHtml(s, _walk.week) + '</div></section>';
       }).join('');
       ov.innerHTML = '<header class="walk-head"><div class="walk-brand"><b>SOC122</b> | WEEK ' + _walk.week + ' | IMMERSIVE EXPERIENCE</div><div class="walk-progress" role="progressbar" aria-label="Experience progress"><i></i></div><div class="walk-text-tools" role="group" aria-label="Experience controls"><span>Text size</span><button type="button" onclick="SOC.walkText(-1)" aria-label="Make experience text smaller">A&#8722;</button><output class="walk-text-value" aria-live="polite">100%</output><button type="button" onclick="SOC.walkText(1)" aria-label="Magnify experience text">A+</button><button type="button" class="walk-text-reset" onclick="SOC.walkText(0)" aria-label="Reset experience text size">Reset</button><button type="button" class="walk-start-again" onclick="SOC.walkRestart()" aria-label="Start this experience again" title="Start again">&#8634;</button></div><button type="button" class="walk-close" onclick="SOC.walkClose()" aria-label="Close the experience">' + ic('x', 20) + '</button></header><div class="walk-status skip" role="status" aria-live="polite" aria-atomic="true"></div>'
         + '<div class="walk-viewport"><div class="walk-track" style="--walk-index:' + i + '">' + chapters + '</div></div>'
@@ -4411,17 +4599,17 @@
     }
     else if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === 'ArrowLeft' || e.key === 'PageUp') {
       var target = e.target;
-      if (target && ((target.closest && target.closest('[role="tablist"]')) || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName) || target.isContentEditable)) return;
+      if (target && ((target.closest && target.closest('button,a,input,textarea,select,summary,[role="tablist"],[role="slider"]')) || target.isContentEditable)) return;
       e.preventDefault(); SOC.walkNav(e.key === 'ArrowRight' || e.key === 'PageDown' ? 1 : -1);
     }
   }
-  function walkOpen(w) {
+  function walkOpen(w, resumeOverride) {
     walkCloseDom();
     var slides = walkSlides(w);
     if (!slides.length) return;
     explorationMark('screens', 'walkthroughs');
-    var resume = experienceResumeFor(w) || {};
-    _walk = { week: w, i: Math.max(0, Math.min(slides.length - 1, Number(resume.i) || 0)), slides: slides, fig: null, question: (slides[0] && slides[0].question) || '', returnFocus: document.activeElement };
+    var resume = cleanWalkResume(resumeOverride, w) || experienceResumeFor(w) || {};
+    _walk = { week: w, i: resume.week === w ? Math.max(0, Math.min(slides.length - 1, resume.i)) : 0, slides: slides, fig: null, question: (slides[0] && slides[0].question) || '', returnFocus: document.activeElement };
     var ov = document.createElement('div');
     ov.id = 'walk-overlay'; ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-modal', 'true'); ov.setAttribute('aria-label', 'Week ' + w + ' immersive experience'); ov.tabIndex = -1;
     ov.setAttribute('data-week', String(w));
@@ -4561,7 +4749,7 @@
       return '<div style="border:1px solid var(--border);border-left:4px solid ' + accent + ';border-radius:0 10px 10px 0;background:#fff;padding:12px 16px;margin:0 0 10px"><div style="font-weight:700;font-size:.95rem;color:var(--ink)">' + title + ' (' + list.length + ')</div><p style="font-size:.82rem;color:var(--ink-dim);margin:4px 0 8px">' + hint + '</p>'
         + list.map(function (e) { return '<div style="display:flex;gap:10px;align-items:flex-start;font-size:.86rem;color:var(--ink);padding:5px 0;border-top:1px dashed var(--border)"><span style="flex:1">' + esc(e.q) + '</span><button type="button" onclick="SOC.station(' + e.w + ')" class="wk-scope" style="flex:none">Revisit Week ' + e.w + '</button></div>'; }).join('') + '</div>';
     };
-    return '<section class="node"><h2 class="wk-sec">Your calibration report</h2><p class="wk-hint">Where confidence and accuracy disagree is where your next hour of study earns the most.</p>'
+    return '<section class="node"><h2 class="wk-sec">Your calibration report</h2><p class="wk-hint">Where confidence and accuracy disagree is where your next study block can help the most.</p>'
       + block('Start here: confident misses', 'You were sure and the answer says otherwise. These ideas feel settled but are not yet; they are worth unlearning first.', b.confmiss, '#B11722')
       + block('Fragile: right but unsure', 'You got these right without trusting yourself. One more pass turns them solid.', b.fragile, '#B77400')
       + block('Growing edge', 'Missed while unsure. Normal learning territory; revisit the weeks and try again.', b.growing, '#6B7280')
@@ -4571,7 +4759,7 @@
   function reviewPage() {
     if (!state.trs) trStart();
     var S = state.trs;
-    var head = '<section class="node" style="margin-bottom:14px"><div class="mono" style="font-size:.66rem;letter-spacing:.08em;color:var(--red);font-weight:700;margin-bottom:6px">TERM REVIEW &middot; NEVER SCORED</div><h1 style="font-size:1.55rem;line-height:1.15;margin:0 0 8px;color:var(--ink)">Mixed practice across the whole course</h1><p style="font-size:.92rem;line-height:1.55;color:var(--ink-dim);margin:0">Up to twelve questions drawn from every week so far. Ideas you have missed before come first. Mark how sure you are before revealing; your calibration report at the end shows where confidence and accuracy disagree. Nothing here is scored or seen by anyone.</p></section>';
+    var head = '<section class="node" style="margin-bottom:14px"><div class="mono" style="font-size:.66rem;letter-spacing:.08em;color:var(--red);font-weight:700;margin-bottom:6px">TERM REVIEW &middot; NEVER GRADED</div><h1 style="font-size:1.55rem;line-height:1.15;margin:0 0 8px;color:var(--ink)">Mixed practice across the whole course</h1><p style="font-size:.92rem;line-height:1.55;color:var(--ink-dim);margin:0">Up to twelve questions drawn from every week so far. Ideas you have missed before come first. Mark how sure you are before revealing; your scored practice and calibration report at the end show where confidence and accuracy disagree. It is worth no course marks and is not submitted to the instructor.</p></section>';
     if (!S.items.length) return '<div class="rise">' + head + '<section class="node"><p style="font-size:.95rem;color:var(--ink)">No practice items are available yet. Come back once the first content weeks are open.</p></section></div>';
     if (S.i >= S.items.length) return '<div class="rise">' + head + trReport() + '</div>';
     var it = S.items[S.i], m = it.m;
@@ -4597,14 +4785,14 @@
     return '<section class="node" id="wk-access" style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--red);border-radius:0 12px 12px 0;padding:16px 18px;margin:18px 0 0">'
       + '<h2 style="font-size:1.05rem;margin:0 0 6px;color:var(--ink)">Accessibility on this site</h2>'
       + '<p style="font-size:.88rem;line-height:1.6;color:var(--ink-dim);margin:0 0 8px">This site is built to work for every student: it adapts to any screen size, works with keyboard navigation, keeps text resizable, gives every image a text description, and never puts course content behind a timed or scored gate. The Reading Lens offers text sizing, comfortable spacing, a high-legibility font, page tints, a reading ruler, a magnifier, and read-aloud on content pages. Images open in a keyboard-accessible viewer with zoom.</p>'
-      + '<p style="font-size:.88rem;line-height:1.6;color:var(--ink-dim);margin:0">The rebuilt weekly experience player does not yet carry voice narration, and some embedded week videos may not yet have captions; their full scripts are posted in Blackboard while captioning is completed. The page walkthrough videos are silent with on-screen captions by design. If any material is not accessible to you, contact your professor through Blackboard; barriers get fixed, not explained away.</p>'
+      + '<p style="font-size:.88rem;line-height:1.6;color:var(--ink-dim);margin:0">The weekly experience player does not include voice narration. Class recordings appear only when available and after processing; check the player or Blackboard for current caption and transcript options. When a current page walkthrough video is available, it is silent with on-screen captions. If any material is not accessible to you, contact your professor through Blackboard; barriers get fixed, not explained away.</p>'
       + '</section>';
   }
   /* ---------- saved-work export/restore (2026-07-25): device-bound loss fix ---------- */
   function dataPortSection() {
     return '<section class="node" id="wk-dataport" style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--red);border-radius:0 12px 12px 0;padding:16px 18px;margin:18px 0 0">'
       + '<h2 style="font-size:1.05rem;margin:0 0 6px;color:var(--ink)">Take your saved work with you</h2>'
-      + '<p style="font-size:.88rem;line-height:1.55;color:var(--ink-dim);margin:0 0 10px">Everything you type and rate on this site is saved only in this browser. On a shared or lab computer that work can disappear. Download a backup file here, then restore it on any device to carry your work across. The file stays with you; nothing is uploaded anywhere.</p>'
+      + '<p style="font-size:.88rem;line-height:1.55;color:var(--ink-dim);margin:0 0 10px">When browser storage is available, what you type and rate may remain only in this browser. Browser settings, private browsing, or clearing site data can remove that work. Download a backup file here, then restore it on another device to carry your work across. This site does not upload the backup.</p>'
       + '<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">'
       + '<button type="button" class="wk-save" onclick="SOC.exportWork()">Download my saved work</button>'
       + '<label class="wk-scope" style="cursor:pointer;display:inline-block">Restore from a backup file<input type="file" accept="application/json,.json" style="display:none" onchange="SOC.importWork(this)"></label>'
@@ -4628,7 +4816,7 @@
       var P = window.SOC122_PROTOCOLS;
       var e = P && P.byWeek && (P.byWeek[w] || P.byWeek[String(w)]);
       if (!e) return '';
-      var rows = [['Arrive prepared', e.prepare], ['Think, pair, share', e.pair], ['How we speak with each other', e.norm]].filter(function (r) { return r[1]; });
+      var rows = [['Arrive prepared', e.arrive], ['Think, pair, share', e.pairShare], ['How we speak with each other', e.norm]].filter(function (r) { return r[1]; });
       if (!rows.length) return '';
       return '<section id="wk-protocol" class="node"><h2 class="wk-sec">How our live class works this week</h2><p class="wk-hint">Live classes are where the interpersonal side of this course happens. Here is exactly how to show up ready.</p>'
         + rows.map(function (r) { return '<div style="border:1px solid var(--border);border-radius:10px;background:#fff;padding:11px 14px;margin:0 0 8px"><div style="font-size:.72rem;font-weight:700;color:var(--red);margin-bottom:4px">' + esc(r[0].toUpperCase()) + '</div><div style="font-size:.9rem;line-height:1.55;color:var(--ink)">' + esc(r[1]) + '</div></div>'; }).join('')
@@ -4666,7 +4854,7 @@
         inner = '<div style="border:1px solid var(--border);border-top:none;border-left:4px solid var(--red);border-radius:0 0 10px 10px;background:#fff;padding:14px 18px 16px">'
           + (d.intro ? '<p style="margin:0 0 10px;font-size:.92rem;line-height:1.55;color:var(--ink)">' + esc(d.intro) + '</p>' : '')
           + '<ol style="margin:0 0 12px;padding-left:20px">' + (d.steps || []).map(function (s2) { return '<li style="margin:0 0 8px;font-size:.9rem;line-height:1.5;color:var(--ink)"><b>' + esc(s2.do) + '</b>' + (s2.detail ? ' <span style="color:var(--ink-dim)">' + esc(s2.detail) + '</span>' : '') + '</li>'; }).join('') + '</ol>'
-          + (d.saves ? '<p style="margin:0 0 6px;font-size:.82rem;line-height:1.5;color:var(--ink-dim)"><b style="color:var(--ink)">On this device:</b> ' + esc(d.saves) + '</p>' : '')
+          + (d.saves ? '<p style="margin:0 0 6px;font-size:.82rem;line-height:1.5;color:var(--ink-dim)"><b style="color:var(--ink)">Storage and privacy:</b> ' + esc(d.saves) + '</p>' : '')
           + (d.graded ? '<p style="margin:0 0 6px;font-size:.82rem;line-height:1.5;color:var(--ink-dim)"><b style="color:var(--ink)">Grading:</b> ' + esc(d.graded) + '</p>' : '')
           + (d.next ? '<p style="margin:0 0 10px;font-size:.82rem;line-height:1.5;color:var(--ink-dim)"><b style="color:var(--ink)">Where next:</b> ' + esc(d.next) + '</p>' : '')
           + (vidSrc
@@ -4772,7 +4960,7 @@
     }
     if (f.roles && f.roles.length) out += card('WHERE THIS SHOWS UP', 'Possible roles and settings', '<p style="margin:0;font-size:.95rem;line-height:1.6;color:var(--ink)">' + f.roles.map(esc).join(' | ') + '</p>');
     var rk = 'career|' + (program || area), rv = esc((state.careerReflect && state.careerReflect[rk]) || '');
-    out += '<div class="career-note"><h3 style="margin:10px 0 4px;font-size:1.02rem">What do you want to remember?</h3><p class="wk-hint" style="margin-bottom:8px">A quick note to yourself, saved in this browser on this device. Nothing is submitted, and it will be here when you come back in this browser. Use Generate Your Weekly Notes to keep a permanent copy.</p>'
+    out += '<div class="career-note"><h3 style="margin:10px 0 4px;font-size:1.02rem">What do you want to remember?</h3><p class="wk-hint" style="margin-bottom:8px">A quick note to yourself. Nothing is submitted. When browser storage is available, it may remain on this device for a later visit; use Generate Your Weekly Notes to keep a permanent copy.</p>'
       + '<textarea oninput="SOC.careerReflect(\'' + rk + '\',this.value)" aria-label="Your reflection" class="wk-ta" placeholder="One place I can already picture this showing up in my field...">' + rv + '</textarea></div></section>';
     return wrap(out);
   }
@@ -4785,11 +4973,72 @@
     var k = navKey();
     try {
       if (__lastNavKey === null) history.replaceState(viewSnapshot(), '');
-      else if (k !== __lastNavKey) { history.pushState(viewSnapshot(), ''); __pushed = true; }
+      else if (k !== __lastNavKey) { history.pushState(viewSnapshot(), '', location.pathname); __pushed = true; }
     } catch (e) {}
     __lastNavKey = k;
   }
+  function focusMatches(root, snap) {
+    if (!root || !snap || !snap.tag) return [];
+    var nodes = root.querySelectorAll(snap.tag), out = [];
+    for (var i = 0; i < nodes.length; i++) {
+      var n = nodes[i];
+      if (snap.key) { if ((n.getAttribute('data-focus-key') || '') !== snap.key) continue; }
+      else if (snap.id) { if ((n.id || '') !== snap.id) continue; }
+      else if (snap.click || snap.change) {
+        if ((n.getAttribute('onclick') || '') !== snap.click || (n.getAttribute('onchange') || '') !== snap.change) continue;
+      } else if (snap.label) { if ((n.getAttribute('aria-label') || '') !== snap.label) continue; }
+      else if (snap.text) { if ((n.textContent || '').replace(/\s+/g, ' ').trim() !== snap.text) continue; }
+      else continue;
+      out.push(n);
+    }
+    return out;
+  }
+  function captureFocus() {
+    try {
+      var root = document.getElementById('app'), el = document.activeElement;
+      if (!root || !el || el === document.body || !root.contains(el)) return null;
+      var snap = {
+        tag: (el.tagName || '').toLowerCase(), id: el.id || '', key: el.getAttribute('data-focus-key') || '',
+        click: el.getAttribute('onclick') || '', change: el.getAttribute('onchange') || '',
+        label: el.getAttribute('aria-label') || '', text: (el.textContent || '').replace(/\s+/g, ' ').trim()
+      };
+      var matches = focusMatches(root, snap);
+      snap.index = matches.indexOf(el);
+      return snap;
+    } catch (e) { return null; }
+  }
+  function restoreFocus(snap, fallbackId) {
+    if (!snap) return false;
+    try {
+      var root = document.getElementById('app'), matches = focusMatches(root, snap), target = null;
+      if (snap.index >= 0 && snap.index < matches.length) target = matches[snap.index];
+      else if (matches.length === 1) target = matches[0];
+      if (target && (target.disabled || target.getAttribute('aria-hidden') === 'true' || target.hidden)) target = null;
+      if (!target && fallbackId) target = document.getElementById(fallbackId);
+      if (!target) return false;
+      if (!target.hasAttribute('tabindex') && !/^(a|button|input|select|textarea|summary)$/i.test(target.tagName || '')) target.setAttribute('tabindex', '-1');
+      try { target.focus({ preventScroll: true }); } catch (e1) { target.focus(); }
+      if (document.activeElement === target) return true;
+      var fallback = fallbackId && document.getElementById(fallbackId);
+      if (!fallback || fallback === target) return false;
+      if (!fallback.hasAttribute('tabindex') && !/^(a|button|input|select|textarea|summary)$/i.test(fallback.tagName || '')) fallback.setAttribute('tabindex', '-1');
+      try { fallback.focus({ preventScroll: true }); } catch (e3) { fallback.focus(); }
+      return document.activeElement === fallback;
+    } catch (e2) { return false; }
+  }
+  function replaceOuterKeepingFocus(id, html, fallbackId) {
+    var snap = captureFocus(), el = document.getElementById(id);
+    if (!el) return false;
+    el.outerHTML = html;
+    wkEnhanceSections();
+    restoreFocus(snap, fallbackId || 'soc-main');
+    return true;
+  }
   function render() {
+    var retainedFocus = captureFocus(), focusRestored = false;
+    var nextStationWeek = state.screen === 'station' ? cleanWeek(state.stationWeek) : null;
+    if (render._stationWeek && render._stationWeek !== nextStationWeek) wkOpenResetWeek(render._stationWeek);
+    render._stationWeek = nextStationWeek;
     if (state.screen !== 'compare' && render._prev !== undefined && render._prev !== state.screen && (state.compareIds.length || state.showSynthesis)) { state.compareIds = []; state.showSynthesis = false; }
     render._prev = state.screen;
     var toast = state.toast ? '<div role="status" style="position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:80;background:#15171C;color:#fff;font-size:.9375rem;font-weight:500;padding:12px 20px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.24);display:flex;align-items:center;gap:10px"><span style="display:flex;color:#6B7280">' + ic('check', 16, 2.2) + '</span>' + esc(state.toast) + '</div>' : '';
@@ -4801,14 +5050,15 @@
       + '</div>' + readerLensOverlay() + rlPanelOverlay() + listenOverlay() + toast + '</div>';
     if (refocusSearch) {
       var el = document.getElementById('soc-search');
-      if (el) { el.focus(); var v = el.value; el.setSelectionRange(v.length, v.length); }
+      if (el) { el.focus(); var v = el.value; el.setSelectionRange(v.length, v.length); focusRestored = true; }
       refocusSearch = false;
     }
     if (focusTarget) {
       var ft = document.getElementById(focusTarget);
-      if (ft) { if (!ft.hasAttribute('tabindex')) ft.setAttribute('tabindex', '-1'); ft.focus(); }
+      if (ft) { if (!ft.hasAttribute('tabindex')) ft.setAttribute('tabindex', '-1'); ft.focus(); focusRestored = true; }
       focusTarget = null;
     }
+    if (!focusRestored && retainedFocus) restoreFocus(retainedFocus, 'soc-main');
     var ann = screenAnnounceText();
     if (ann && render._announced !== ann) {
       render._announced = ann;
@@ -4818,7 +5068,6 @@
     }
     saveView();
     wkEnhanceSections();
-    setTimeout(showUpcomingReminder, 80);
     navHistorySync();
     maybeSpotInvite();
     if (_walk) walkAppLock(true);
@@ -4883,31 +5132,36 @@
     if (!state.prevView || !sameView(v, state.prevView)) state.prevView = v;
   }
   function restoreView(v) {
-    v = v || { screen: 'journey' };
+    v = cleanPlainObject(v);
     state.screen = cleanScreen(v.screen);
     state.journeyWeek = cleanWeek(v.journeyWeek);
     state.stationWeek = cleanWeek(v.stationWeek);
     state.activityReturn = cleanWeek(v.activityReturn);
-    state.detailId = v.detailId || null;
+    state.detailId = cleanTextOrNull(v.detailId);
     state.cardWeek = cleanWeek(v.cardWeek);
-    state.activeTypes = Array.isArray(v.activeTypes) ? v.activeTypes.slice() : [];
+    state.activeTypes = cleanTextList(v.activeTypes, 20, 100);
     state.activeWeek = cleanWeek(v.activeWeek);
-    state.search = v.search || '';
+    state.search = cleanText(v.search, '', 500);
     state.savedView = !!v.savedView;
-    state.rcReading = v.rcReading || null;
-    state.lens = v.lens || 'thematic';
-    state.compareIds = Array.isArray(v.compareIds) ? v.compareIds.slice() : [];
+    state.rcReading = cleanTextOrNull(v.rcReading);
+    state.lens = cleanLens(v.lens);
+    state.compareIds = cleanTextList(v.compareIds, 3, 200);
     state.showSynthesis = !!v.showSynthesis;
     state.galWeek = cleanWeek(v.galWeek);
-    state.galTopic = v.galTopic || null;
-    state.glossWeek = v.glossWeek || 'all';
-    state.glossSearch = v.glossSearch || '';
-    state.mapLayer = v.mapLayer || 'admin';
-    state.mapRegion = v.mapRegion || 'mikmaki-lawrence';
-    state.act = (v.act && typeof v.act === 'object') ? v.act : (state.act || {});
-    state.videoWeek = v.videoWeek || 'all';
-    state.mediaKind = v.mediaKind || 'all';
+    state.galTopic = cleanTextOrNull(v.galTopic, 100);
+    state.glossWeek = cleanWeekFilter(v.glossWeek);
+    state.glossSearch = cleanText(v.glossSearch, '', 500);
+    state.mapLayer = cleanMapLayer(v.mapLayer);
+    state.mapRegion = cleanMapRegion(v.mapRegion);
+    state.act = cleanScalarMap(v.act);
+    state.videoWeek = cleanWeekFilter(v.videoWeek);
+    state.mediaKind = cleanText(v.mediaKind, 'all', 80) || 'all';
     state.navOpen = false;
+    if ((state.screen === 'activity' && !state.activityReturn) || (state.screen === 'station' && !state.stationWeek)) {
+      state.screen = 'journey';
+      state.stationWeek = null;
+      state.activityReturn = null;
+    }
   }
   function goPrevious() {
     if (__pushed) { try { history.back(); return; } catch (e) {} }
@@ -5080,7 +5334,7 @@
           state.spotReports[_spot.form.id] = _spot.report;
           state.spotState.completedForms[_spot.form.id] = { date: _spot.report.date, pct: _spot.report.pct, threshold: _spot.form.threshold };
           _spot.questions.forEach(function (q) { state.spotState.questionSeen[q.id] = (state.spotState.questionSeen[q.id] || 0) + 1; });
-          persist(); spotRender(); announce('Your private feedback report is ready.'); return;
+          persist(); spotRender(); announce('Your companion-site feedback report is ready.'); return;
         }
       }
       spotRender(); setTimeout(function () { var h = document.getElementById('spot-check-title'); if (h) { h.tabIndex = -1; h.focus(); } }, 0);
@@ -5101,14 +5355,14 @@
         { h: 'What this result suggests', t: report.pattern + '\n\n' + report.feedback },
         { h: 'What is beginning to hold', type: 'list', items: report.strengths.length ? report.strengths.map(function (s) { var info = spotSkillInfo(s); return s + ': ' + info.plain; }) : ['This short form did not show a stable strength yet. That does not mean you know nothing; it means there was not a reliable pattern to name.'] },
         { h: 'First priority', t: priorityInfo ? report.priority + ': ' + priorityInfo.plain + '\n\nRubric connection: ' + priorityInfo.rubric : 'No urgent repair appeared in this form. The next task is to explain the ideas without answer choices.' },
-        { h: 'Your next 15 minutes', type: 'list', items: report.nextSteps || [] },
+        { h: 'Your next steps', type: 'list', items: report.nextSteps || [] },
         { h: 'Move forward when', t: report.readyWhen },
         { h: 'Check your confidence', t: report.confidenceNote },
         { h: 'Your skill-by-skill picture', type: 'table', rows: skillRows },
         { h: 'Question-by-question feedback', type: 'list', items: review },
         { h: 'What this practice cannot assess', t: 'This check cannot assess ownership, positioning, specificity from your own life, growth across time, your recorded voice, or whether you genuinely build the connection among sources. Those must appear in your submitted work. The official instructions and grading remain on Blackboard.' }
       ];
-      var sub = ['Private, automatically evaluated practice | Worth no course marks', 'Reflection Wing ' + report.tier + ' | ' + report.title, 'Course pathway explored at completion: ' + report.explorationProgress + '%'];
+      var sub = ['Companion-site practice, automatically evaluated | Worth no course marks', 'Reflection Wing ' + report.tier + ' | ' + report.title, 'Course pathway explored at completion: ' + report.explorationProgress + '%'];
       if (state.studentName) sub.unshift('Prepared for ' + state.studentName);
       senecaDoc('SOC122', 'Reflection Wing ' + report.tier + ' Feedback Report', sub, sections, 'SOC122_Reflection_Wing_' + report.tier + '_feedback');
     },
@@ -5147,7 +5401,7 @@
       state.studentName = v;
       persist();
       render();
-      announce('Saved. Your name stays in this browser only.');
+      announce('Updated. When browser storage is available, your name may remain in this browser only.');
       return false;
     },
     nameClear: function () {
@@ -5165,10 +5419,16 @@
     },
     clearMyWork: function () {
       if (!window.confirm('Remove all notes, check answers, and settings saved by this site in this browser? Downloaded files are not affected.')) return;
+      var cleared = true;
       try {
         var prefix = SKEY; /* full site-scoped key: never touch another course site's saves on the shared github.io origin */
-        Object.keys(localStorage).forEach(function (k) { if (k.indexOf(prefix) === 0) localStorage.removeItem(k); });
-      } catch (e) {}
+        Object.keys(localStorage).forEach(function (k) { if (k === prefix || k.indexOf(prefix + '.') === 0 || isAssignmentLabKey(k)) localStorage.removeItem(k); });
+      } catch (e) { cleared = false; }
+      try {
+        [VKEY, WKKEY, SKEY + '.spotPrompt.session', SKEY + '.upcomingReminder.session.v1'].forEach(function (k) { sessionStorage.removeItem(k); });
+        sessionStorage.setItem(HKEY, '1'); /* pagehide may save the old view again; the next boot must discard it */
+      } catch (e) { cleared = false; }
+      if (!cleared) window.alert('The browser prevented confirmation that every saved item was removed. Clear this site\'s browser data before leaving a shared device.');
       location.reload();
     },
     tickerPause: function () {
@@ -5185,7 +5445,10 @@
     closeUpcomingReminder: function () {
       var box = document.getElementById('upcoming-reminder');
       if (box) box.remove();
-      if (upcomingReminderFocus && upcomingReminderFocus.focus) { try { upcomingReminderFocus.focus(); } catch (e) {} }
+      upcomingReminderLock(false);
+      var returnFocus = upcomingReminderFocus;
+      if (!returnFocus || returnFocus === document.body || returnFocus === document.documentElement || !document.documentElement.contains(returnFocus)) returnFocus = document.getElementById('soc-main');
+      if (returnFocus && returnFocus.focus) { try { returnFocus.focus(); } catch (e) {} }
       upcomingReminderFocus = null;
     },
     rlPanel: function () { state.rlPanelOpen = !state.rlPanelOpen; renderKeepScroll(); announce(state.rlPanelOpen ? 'Reading Lens panel open.' : 'Reading Lens panel closed.'); if (state.rlPanelOpen) { var p = document.getElementById('rl-panel'); if (p) p.focus(); } else { var b = document.querySelector('.reader-lens-btn'); if (b) b.focus(); } },
@@ -5253,12 +5516,23 @@
     },
     go: function (s) {
       var target = cleanScreen(s); if (target !== state.screen) rememberPrevious(); markSessionExploration(); state.navOpen = false; if (target === 'library') { state.savedView = false; } if (target === 'reading') { state.rcReading = null; state.lens = 'thematic'; } if (target === 'readings') { state.galWeek = null; state.galTopic = null; } state.screen = target; explorationMark('screens', target); focusTarget = 'soc-main'; render(); topScroll(); },
-    howtoToggle: function (k) { state.howtoOpen = state.howtoOpen || {}; state.howtoOpen[k] = !state.howtoOpen[k]; var el = document.getElementById('howto-panel'); if (el) { el.outerHTML = howtoSection(); } else { render(); } },
+    howtoToggle: function (k) {
+      state.howtoOpen = state.howtoOpen || {};
+      state.howtoOpen[k] = !state.howtoOpen[k];
+      var el = document.getElementById('howto-panel');
+      if (el) {
+        el.outerHTML = howtoSection();
+        var toggle = document.querySelector('#howto-panel > button');
+        if (toggle) { try { toggle.focus({ preventScroll: true }); } catch (e) { toggle.focus(); } }
+      } else {
+        render();
+      }
+    },
     exportWork: function () {
       try {
         var pre = SKEY.split('corpus')[0];
         var out = { site: SKEY, savedAt: new Date().toISOString(), keys: {} };
-        for (var xi = 0; xi < localStorage.length; xi++) { var xk = localStorage.key(xi); if (xk && xk.indexOf(pre) === 0) out.keys[xk] = localStorage.getItem(xk); }
+        for (var xi = 0; xi < localStorage.length; xi++) { var xk = localStorage.key(xi); if (isPortableWorkKey(xk)) out.keys[xk] = localStorage.getItem(xk); }
         var blob = new Blob([JSON.stringify(out, null, 1)], { type: 'application/json' });
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
@@ -5270,15 +5544,14 @@
     importWork: function (inp) {
       try {
         var f = inp.files && inp.files[0]; if (!f) return;
-        var pre = SKEY.split('corpus')[0];
         var rd = new FileReader();
         rd.onload = function () {
           try {
             var data = JSON.parse(String(rd.result));
             var xm = document.getElementById('dataport-msg');
-            if (!data || !data.keys || String(data.site || '').indexOf(pre) !== 0) { if (xm) xm.textContent = 'That file is not a saved-work backup for this site.'; return; }
+            if (!data || data.site !== SKEY || !data.keys || typeof data.keys !== 'object' || Array.isArray(data.keys)) { if (xm) xm.textContent = 'That file is not a saved-work backup for this site.'; return; }
             var n = 0;
-            Object.keys(data.keys).forEach(function (xk) { if (xk.indexOf(pre) === 0) { localStorage.setItem(xk, data.keys[xk]); n++; } });
+            Object.keys(data.keys).forEach(function (xk) { if (isPortableWorkKey(xk) && typeof data.keys[xk] === 'string') { localStorage.setItem(xk, data.keys[xk]); n++; } });
             if (xm) xm.textContent = 'Restored ' + n + ' saved records. Reloading the site with your work in place.';
             setTimeout(function () { location.reload(); }, 900);
           } catch (e2) { var xe2 = document.getElementById('dataport-msg'); if (xe2) xe2.textContent = 'That file could not be read.'; }
@@ -5288,14 +5561,14 @@
     },
     journalCompile: function () {
       try {
-        var lines = ['SOC122 reflection notes (compiled from this browser, ' + new Date().toISOString().slice(0, 10) + ')', 'These are your private weekly reflections, gathered as raw material for your Two-Eyed Seeing Journal. Shape them in your own words before anything goes to Blackboard.', ''];
+        var lines = ['SOC122 reflection notes (compiled from this browser, ' + new Date().toISOString().slice(0, 10) + ')', 'These are your personal weekly reflections, gathered as raw material for your Two-Eyed Seeing Journal. The companion site does not submit them. Shape them in your own words before anything goes to Blackboard.', ''];
         var any = false;
         journeyWeeks().forEach(function (w2) {
           var r = state.wkReflect && state.wkReflect[w2];
           if (r && String(r).trim()) { any = true; lines.push('Week ' + w2 + ': ' + weekTitle(w2)); lines.push(String(r).trim()); lines.push(''); }
         });
         var el = document.getElementById('jc-msg');
-        if (!any) { if (el) el.textContent = 'No reflections saved yet on this device.'; return; }
+        if (!any) { if (el) el.textContent = 'No reflections are available to download in this browser.'; return; }
         var blob = new Blob([lines.join('\n')], { type: 'text/plain' });
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
@@ -5323,26 +5596,25 @@
     },
     trNext: function () { var S = state.trs; if (!S) return; S.i++; S.sel = null; S.conf = null; S.revealed = false; render(); topScroll(); },
     trAgain: function () { trStart(); render(); topScroll(); },
-    careerField: function (v) { state.careerField = v; persist(); render(); topScroll(); announce(v ? 'Program route changed.' : 'General stream selected.'); },
+    careerField: function (v) { v = cleanText(v, '', 200); state.careerField = v; persist(); render(); topScroll(); announce(v ? 'Program route changed.' : 'General stream selected.'); },
     learningEmphasis: function (v) { state.learningEmphasis = cleanEmphasis(v); persist(); renderKeepScroll(); announce('Learning emphasis changed to ' + emphasisOption().label + '.'); },
     lensOff: function () { state.careerField = ''; persist(); render(); },
-    careerReflect: function (k, v) { state.careerReflect = state.careerReflect || {}; state.careerReflect[k] = v; persist(); },
-    mediaNote: function (k, v) { state.mediaNotes = state.mediaNotes || {}; state.mediaNotes[k] = v; persist(); },
-    videoWeek: function (w) { state.videoWeek = w || 'all'; render(); topScroll(); },
-    mediaKind: function (k) { state.mediaKind = k || 'all'; render(); topScroll(); },
+    careerReflect: function (k, v) { k = cleanText(k, '', 250); if (!k) return; state.careerReflect = state.careerReflect || {}; state.careerReflect[k] = cleanText(v, '', 10000); persist(); },
+    mediaNote: function (k, v) { k = cleanText(k, '', 250); if (!k) return; state.mediaNotes = state.mediaNotes || {}; state.mediaNotes[k] = cleanText(v, '', 10000); persist(); },
+    videoWeek: function (w) { state.videoWeek = cleanWeekFilter(w); render(); topScroll(); },
+    mediaKind: function (k) { k = cleanText(k, 'all', 80) || 'all'; state.mediaKind = (k === 'all' || scholarMedia().some(function (m) { return m.kind === k; })) ? k : 'all'; render(); topScroll(); },
     careerLens: function () { if (state.screen !== 'career') rememberPrevious(); state.screen = 'career'; focusTarget = 'soc-main'; render(); scrollToId('career-sel'); },
     careerChoices: function () { if (state.screen !== 'career') rememberPrevious(); state.screen = 'career'; focusTarget = 'soc-main'; render(); scrollToId('career-choices'); },
-    station: function (w) { w = cleanWeek(w) || w; if (state.screen !== 'station' || state.stationWeek !== w) rememberPrevious(); markSessionExploration(); state.navOpen = false; state.stationWeek = w; state.journeyWeek = w; state.activityReturn = null; state.screen = 'station'; trackVisit(w); persist(); focusTarget = 'soc-main'; render(); topScroll(); },
-    jumpWeek: function (w, part) { w = cleanWeek(w) || w; if (state.screen !== 'station' || state.stationWeek !== w) rememberPrevious(); markSessionExploration(); state.navOpen = false; state.stationWeek = w; state.journeyWeek = w; state.activityReturn = null; state.screen = 'station'; trackVisit(w); persist(); focusTarget = 'soc-main'; render(); scrollWeekPart(part); },
-    startActivity: function (s, w) { rememberPrevious(); state.activityReturn = cleanWeek(w) || w; state.screen = cleanScreen(s || 'activity'); explorationMark('screens', state.screen); focusTarget = 'soc-main'; render(); topScroll(); },
+    station: function (w) { w = cleanWeek(w); if (!w) { window.SOC.go('journey'); return; } if (state.screen !== 'station' || state.stationWeek !== w) rememberPrevious(); markSessionExploration(); state.navOpen = false; state.stationWeek = w; state.journeyWeek = w; state.activityReturn = null; state.screen = 'station'; trackVisit(w); persist(); focusTarget = 'soc-main'; render(); topScroll(); },
+    jumpWeek: function (w, part) { w = cleanWeek(w); if (!w) { window.SOC.go('journey'); return; } if (state.screen !== 'station' || state.stationWeek !== w) rememberPrevious(); markSessionExploration(); state.navOpen = false; state.stationWeek = w; state.journeyWeek = w; state.activityReturn = null; state.screen = 'station'; trackVisit(w); persist(); focusTarget = 'soc-main'; render(); scrollWeekPart(part); },
+    startActivity: function (s, w) { w = cleanWeek(w); if (!w || !weekData(w)) { window.SOC.go('journey'); return; } rememberPrevious(); state.activityReturn = w; state.screen = cleanScreen(s || 'activity'); explorationMark('screens', state.screen); focusTarget = 'soc-main'; render(); topScroll(); },
     wkCheck: function (k, o) {
       if (state.wkCheck[k] === o) delete state.wkCheck[k]; else state.wkCheck[k] = o;
       persist();
-      var el = document.getElementById('opts-' + k); if (el) el.innerHTML = wkOptBtns(k);
       var parts = k.split('|'), w = +parts[1], d = weekData(w);
       refreshWeekChecks(w, d);
     },
-    wkReflect: function (w, v) { state.wkReflect[w] = v; persist(); },
+    wkReflect: function (w, v) { w = cleanWeek(w); if (!w) return; state.wkReflect[w] = cleanText(v, '', 10000); persist(); },
     wkClear: function (w, phase) {
       var d = weekData(w); if (!d) return;
       d.checks.forEach(function (c, i) { delete state.wkCheck[phase + '|' + w + '|' + i]; });
@@ -5374,19 +5646,19 @@
       ];
       senecaDoc((D.course && D.course.code) || '', weekTitle(w) + ' (Week ' + w + ')', ['Seneca ' + ((D.course && D.course.code) || ''), 'Your week record'], sections, ((D.course && D.course.code) || '') + '_Week' + w + '_my_work');
     },
-    goWeek: function (s, w) { if (state.screen !== cleanScreen(s) || state.cardWeek !== w) rememberPrevious(); markSessionExploration(); state.cardWeek = w; state.screen = cleanScreen(s); focusTarget = 'soc-main'; render(); topScroll(); },
-    galWeek: function (w) { var m = document.getElementById('soc-main'); var y = m ? m.scrollTop : 0; state.galWeek = (state.galWeek === w) ? null : w; render(); var m2 = document.getElementById('soc-main'); if (m2) m2.scrollTop = y; },
-    galTopic: function (t) { var m = document.getElementById('soc-main'); var y = m ? m.scrollTop : 0; state.galTopic = (state.galTopic === t) ? null : t; render(); var m2 = document.getElementById('soc-main'); if (m2) m2.scrollTop = y; },
+    goWeek: function (s, w) { var target = cleanScreen(s), week = cleanWeek(w); if (!week) { window.SOC.go('journey'); return; } if (state.screen !== target || state.cardWeek !== week) rememberPrevious(); markSessionExploration(); state.cardWeek = week; state.screen = target; focusTarget = 'soc-main'; render(); topScroll(); },
+    galWeek: function (w) { w = cleanWeek(w); var m = document.getElementById('soc-main'); var y = m ? m.scrollTop : 0; state.galWeek = (w && state.galWeek !== w) ? w : null; render(); var m2 = document.getElementById('soc-main'); if (m2) m2.scrollTop = y; },
+    galTopic: function (t) { t = cleanTextOrNull(t, 100); var m = document.getElementById('soc-main'); var y = m ? m.scrollTop : 0; state.galTopic = (t && state.galTopic !== t) ? t : null; render(); var m2 = document.getElementById('soc-main'); if (m2) m2.scrollTop = y; },
     galClear: function () { state.galWeek = null; state.galTopic = null; render(); },
     playVideo: function (el, id, title) { var box = el.closest ? el.closest('.rgvideo, .vid-frame, .wk-rec-frame, .walk-media-frame') : el.parentNode; var frameTitle = title || (el && el.getAttribute && el.getAttribute('aria-label')) || 'Scholar media'; if (box && /^[A-Za-z0-9_-]{6,20}$/.test(String(id || ''))) { box.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1&cc_load_policy=1&cc_lang_pref=en" referrerpolicy="strict-origin-when-cross-origin" title="' + esc(frameTitle) + '" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>'; } },
     back: function () { if (state.screen !== 'library') rememberPrevious(); state.screen = 'library'; focusTarget = 'soc-main'; render(); var m = document.getElementById('soc-main'); if (m) m.scrollTop = state.libScroll || 0; },
-    open: function (id) { rememberPrevious(); var m = document.getElementById('soc-main'); if (m) state.libScroll = m.scrollTop; state.screen = 'detail'; state.detailId = id; explorationMark('sources', id); focusTarget = 'soc-main'; render(); topScroll(); },
+    open: function (id) { id = cleanText(id, '', 200); if (!rec(id)) { window.SOC.go('library'); return; } rememberPrevious(); var m = document.getElementById('soc-main'); if (m) state.libScroll = m.scrollTop; state.screen = 'detail'; state.detailId = id; explorationMark('sources', id); focusTarget = 'soc-main'; render(); topScroll(); },
     layout: function (l) { state.layout = l; persist(); render(); },
     sort: function (s) { state.sort = s; render(); },
-    search: function (v) { state.search = v; refocusSearch = true; render(); },
+    search: function (v) { state.search = cleanText(v, '', 500); refocusSearch = true; render(); },
     clearSearch: function () { state.search = ''; render(); },
-    type: function (t) { state.activeTypes = (state.activeTypes.length === 1 && state.activeTypes[0] === t) ? [] : [t]; render(); },
-    week: function (w) { if (state.screen !== 'library' || state.activeWeek !== w) rememberPrevious(); state.activeWeek = (state.activeWeek === w) ? null : w; state.savedView = false; state.screen = 'library'; focusTarget = 'soc-main'; render(); topScroll(); },
+    type: function (t) { t = cleanText(t, '', 100); if (!D.types[t]) { state.activeTypes = []; render(); return; } state.activeTypes = (state.activeTypes.length === 1 && state.activeTypes[0] === t) ? [] : [t]; render(); },
+    week: function (w) { w = cleanWeek(w); if (!w) { window.SOC.go('library'); return; } if (state.screen !== 'library' || state.activeWeek !== w) rememberPrevious(); state.activeWeek = (state.activeWeek === w) ? null : w; state.savedView = false; state.screen = 'library'; focusTarget = 'soc-main'; render(); topScroll(); },
     clearFilters: function () { state.activeTypes = []; state.activeWeek = null; state.search = ''; state.savedView = false; render(); },
     dismissIntro: function () { state.introOpen = false; persist(); render(); },
     save: function (id) { var a = state.saved, i = a.indexOf(id); var msg; if (i >= 0) { a.splice(i, 1); msg = 'Removed from saved.'; } else { a.push(id); msg = 'Saved to your shelf.'; } persist(); flash(msg); },
@@ -5413,12 +5685,12 @@
       state.cmpNotes['saved-synthesis'] = txt;
       persist();
       renderKeepScroll();
-      announce('Saved to your notes on this device. It will be here when you come back in this browser.');
+      announce('Updated on this page. When browser storage is available, the note may remain for a later visit in this browser.');
     },
     clearCompare: function () { state.compareIds = []; state.showSynthesis = false; render(); },
     synthesize: function () { state.showSynthesis = true; render(); },
-    enterExperience: function (w) { markSessionExploration(); walkOpen(cleanWeek(w) || w); },
-    playWalk: function (w) { markSessionExploration(); walkOpen(cleanWeek(w) || w); },
+    enterExperience: function (w) { w = cleanWeek(w); if (!w) { window.SOC.go('journey'); return; } markSessionExploration(); walkOpen(w); },
+    playWalk: function (w) { w = cleanWeek(w); if (!w) { window.SOC.go('journey'); return; } markSessionExploration(); walkOpen(w); },
     walkEnter: function () { if (!_walk || _walk.i !== 0 || _walk.slides.length < 2) return; _walk.i = 1; walkMount(true); },
     walkRestart: function () { if (!_walk) return; _walk.i = 0; walkSaveResume(_walk.week, 0); persist(); walkMount(true); announce('Week ' + _walk.week + ' experience restarted. Select Enter the experience to begin.'); },
     walkNav: function (dir) { if (!_walk || (_walk.i === 0 && dir > 0)) return; var n = Math.max(0, Math.min(_walk.slides.length - 1, _walk.i + dir)); if (n === _walk.i) return; _walk.i = n; walkMount(true); },
@@ -5504,7 +5776,7 @@
     walkAtlas: function (el, i) {
       var atlas = el && el.closest('.walk-atlas');
       if (!atlas) return;
-      Array.prototype.forEach.call(atlas.querySelectorAll('.walk-atlas-nav button'), function (b, k) { var on = k === i; b.classList.toggle('on', on); b.setAttribute('aria-selected', on ? 'true' : 'false'); });
+      Array.prototype.forEach.call(atlas.querySelectorAll('.walk-atlas-nav button'), function (b, k) { var on = k === i; b.classList.toggle('on', on); b.setAttribute('aria-selected', on ? 'true' : 'false'); b.setAttribute('tabindex', on ? '0' : '-1'); });
       Array.prototype.forEach.call(atlas.querySelectorAll('.walk-atlas-panel'), function (p, k) { var on = k === i; p.classList.toggle('on', on); if (on) p.removeAttribute('hidden'); else p.setAttribute('hidden', ''); });
       requestAnimationFrame(walkFit);
     },
@@ -5516,7 +5788,7 @@
       var cue = el.querySelector('.walk-term-cue'); if (cue) cue.textContent = on ? 'Revealed' : 'Tap to reveal';
       requestAnimationFrame(walkFit);
     },
-    walkClose: function () { walkCloseDom(); _walk = null; refreshExperienceEntryLabels(); maybeSpotInvite(); },
+    walkClose: function () { walkCloseDom(); _walk = null; refreshExperienceEntryLabels(); maybeSpotInvite(); try { if (/[?&](?:walk|experience)=/i.test(location.search)) history.replaceState(viewSnapshot(), '', location.pathname); } catch (e) {} },
     walkGoWeek: function () { var w = _walk && _walk.week; walkCloseDom(); _walk = null; if (w) SOC.station(w); },
     walkTheme: function () { var r = rlState(); r.walkTheme = (r.walkTheme === 'light' ? 'dark' : 'light'); persist(); walkMount(); },
     walkFig: function (op) {
@@ -5531,36 +5803,36 @@
 
 
     hideSynthesis: function () { state.showSynthesis = false; render(); },
-    setLens: function (l) { state.lens = l; render(); },
-    rcPick: function (id) { state.rcReading = id; state.lens = 'thematic'; persist(); render(); topScroll(); },
+    setLens: function (l) { state.lens = cleanLens(l); render(); },
+    rcPick: function (id) { id = cleanText(id, '', 200); state.rcReading = rec(id) ? id : null; state.lens = 'thematic'; persist(); render(); topScroll(); },
     rcClear: function () { state.rcReading = null; render(); topScroll(); },
-    rcNote: function (k, v) { state.rcNotes[k] = v; persist(); },
+    rcNote: function (k, v) { k = cleanText(k, '', 250); if (!k) return; state.rcNotes[k] = cleanText(v, '', 10000); persist(); },
     rcReveal: function (k) { var m = document.getElementById('soc-main'); var top = m ? m.scrollTop : 0; state.revealed[k] = !state.revealed[k]; render(); var m2 = document.getElementById('soc-main'); if (m2) m2.scrollTop = top; },
-    sgNote: function (k, v) { state.sgNotes = state.sgNotes || {}; state.sgNotes[k] = v; persist(); },
-    sgCompare: function (k, w) { state.sgShow = state.sgShow || {}; state.sgShow[k] = !state.sgShow[k]; var sec = document.getElementById('wk-sg'); if (sec) sec.outerHTML = sgSection(w).html; },
-    sgFlip: function (k, w) { state.sgFlip = state.sgFlip || {}; state.sgFlip[k] = !state.sgFlip[k]; var sec = document.getElementById('wk-sg'); if (sec) sec.outerHTML = sgSection(w).html; },
-    sgTickRung: function (k, w) { state.sgTick = state.sgTick || {}; state.sgTick[k] = true; persist(); var sec = document.getElementById('wk-sg'); if (sec) sec.outerHTML = sgSection(w).html; },
+    sgNote: function (k, v) { k = cleanText(k, '', 250); if (!k) return; state.sgNotes = state.sgNotes || {}; state.sgNotes[k] = cleanText(v, '', 10000); persist(); },
+    sgCompare: function (k, w) { state.sgShow = state.sgShow || {}; state.sgShow[k] = !state.sgShow[k]; replaceOuterKeepingFocus('wk-sg', sgSection(w).html, 'soc-main'); },
+    sgFlip: function (k, w) { state.sgFlip = state.sgFlip || {}; state.sgFlip[k] = !state.sgFlip[k]; replaceOuterKeepingFocus('wk-sg', sgSection(w).html, 'soc-main'); },
+    sgTickRung: function (k, w) { state.sgTick = state.sgTick || {}; state.sgTick[k] = true; persist(); replaceOuterKeepingFocus('wk-sg', sgSection(w).html, 'soc-main'); },
     mcPick: function (k, i) {
       if (state.mcSel[k] === i) { delete state.mcSel[k]; } else { state.mcSel[k] = i; }
+      persist();
       var kcm = /^wk(\d+)\|kc/.exec(k);
       if (kcm) {
-        var sec = document.getElementById('wk-kc');
-        if (sec) { sec.outerHTML = kcSection(Number(kcm[1])).html; return; }
+        if (replaceOuterKeepingFocus('wk-kc', kcSection(Number(kcm[1])).html, 'soc-main')) return;
       }
       var m = document.getElementById('soc-main'); var top = m ? m.scrollTop : 0; var wy = window.scrollY;
       render();
       var m2 = document.getElementById('soc-main'); if (m2) m2.scrollTop = top;
       window.scrollTo(0, wy);
     },
-    kcVer: function (w, v) { state.kcVersion = state.kcVersion || {}; state.kcVersion[w] = v; var sec = document.getElementById('wk-kc'); if (sec) { sec.outerHTML = kcSection(w).html; } },
-    kcClear: function (w, v) { var pre = 'wk' + w + '|kc' + v + '|'; [state.mcSel, state.mcConf].forEach(function (map) { if (!map) return; Object.keys(map).forEach(function (k) { if (k.indexOf(pre) === 0) delete map[k]; }); }); if (state.kcReveal) delete state.kcReveal[w + '|' + v]; var sec = document.getElementById('wk-kc'); if (sec) { sec.outerHTML = kcSection(w).html; } },
-    mcConf: function (k, c, w) { state.mcConf = state.mcConf || {}; if (state.mcConf[k] === c) delete state.mcConf[k]; else state.mcConf[k] = c; var sec = document.getElementById('wk-kc'); if (sec) sec.outerHTML = kcSection(w).html; },
-    mcPickSel: function (k, v) { v = Number(v); if (isNaN(v) || v < 0) delete state.mcSel[k]; else state.mcSel[k] = v; var kcm = /^wk(\d+)\|kc/.exec(k); if (kcm) { var sec = document.getElementById('wk-kc'); if (sec) { sec.outerHTML = kcSection(Number(kcm[1])).html; return; } } render(); },
-    kcShow: function (w) { var v = (state.kcVersion && state.kcVersion[w]) || 0; state.kcReveal = state.kcReveal || {}; state.kcReveal[w + '|' + v] = true; var sec = document.getElementById('wk-kc'); if (sec) sec.outerHTML = kcSection(w).html; },
-    kcShortText: function (k, v) { state.kcShort = state.kcShort || {}; state.kcShort[k] = v; persist(); },
-    kcShortReveal: function (k, w) { state.kcShortShown = state.kcShortShown || {}; state.kcShortShown[k] = !state.kcShortShown[k]; var sec = document.getElementById('wk-kc'); if (sec) sec.outerHTML = kcSection(w).html; },
-    kcShortRate: function (k, r, w) { state.kcShortRate = state.kcShortRate || {}; state.kcShortRate[k] = r; persist(); var sec = document.getElementById('wk-kc'); if (sec) sec.outerHTML = kcSection(w).html; },
-    mcReset: function (id) { var m = document.getElementById('soc-main'); var top = m ? m.scrollTop : 0; var keep = {}; Object.keys(state.mcSel).forEach(function (k) { if (k.indexOf(id + '|mc|') !== 0) keep[k] = state.mcSel[k]; }); state.mcSel = keep; render(); var m2 = document.getElementById('soc-main'); if (m2) m2.scrollTop = top; },
+    kcVer: function (w, v) { state.kcVersion = state.kcVersion || {}; state.kcVersion[w] = v; replaceOuterKeepingFocus('wk-kc', kcSection(w).html, 'soc-main'); },
+    kcClear: function (w, v) { var pre = 'wk' + w + '|kc' + v + '|'; [state.mcSel, state.mcConf].forEach(function (map) { if (!map) return; Object.keys(map).forEach(function (k) { if (k.indexOf(pre) === 0) delete map[k]; }); }); if (state.kcReveal) delete state.kcReveal[w + '|' + v]; persist(); replaceOuterKeepingFocus('wk-kc', kcSection(w).html, 'soc-main'); },
+    mcConf: function (k, c, w) { state.mcConf = state.mcConf || {}; if (state.mcConf[k] === c) delete state.mcConf[k]; else state.mcConf[k] = c; persist(); replaceOuterKeepingFocus('wk-kc', kcSection(w).html, 'soc-main'); },
+    mcPickSel: function (k, v) { v = Number(v); if (isNaN(v) || v < 0) delete state.mcSel[k]; else state.mcSel[k] = v; persist(); var kcm = /^wk(\d+)\|kc/.exec(k); if (kcm && replaceOuterKeepingFocus('wk-kc', kcSection(Number(kcm[1])).html, 'soc-main')) return; render(); },
+    kcShow: function (w) { var v = (state.kcVersion && state.kcVersion[w]) || 0; state.kcReveal = state.kcReveal || {}; state.kcReveal[w + '|' + v] = true; replaceOuterKeepingFocus('wk-kc', kcSection(w).html, 'soc-main'); },
+    kcShortText: function (k, v) { k = cleanText(k, '', 250); if (!k) return; state.kcShort = state.kcShort || {}; state.kcShort[k] = cleanText(v, '', 10000); persist(); },
+    kcShortReveal: function (k, w) { state.kcShortShown = state.kcShortShown || {}; state.kcShortShown[k] = !state.kcShortShown[k]; replaceOuterKeepingFocus('wk-kc', kcSection(w).html, 'soc-main'); },
+    kcShortRate: function (k, r, w) { state.kcShortRate = state.kcShortRate || {}; state.kcShortRate[k] = r; persist(); replaceOuterKeepingFocus('wk-kc', kcSection(w).html, 'soc-main'); },
+    mcReset: function (id) { var m = document.getElementById('soc-main'); var top = m ? m.scrollTop : 0; var keep = {}; Object.keys(state.mcSel).forEach(function (k) { if (k.indexOf(id + '|mc|') !== 0) keep[k] = state.mcSel[k]; }); state.mcSel = keep; persist(); render(); var m2 = document.getElementById('soc-main'); if (m2) m2.scrollTop = top; },
     saveReadingNotes: function () {
       var r = state.rcReading && rec(state.rcReading); if (!r) { flash('Pick a reading first.'); return; }
       var cc = (D.course && D.course.code) || 'Course';
@@ -5628,17 +5900,20 @@
       var m2 = document.getElementById('soc-main'); if (m2) m2.scrollTop = top;
     },
     mapPick: function (id) {
-      state.mapRegion = id;
+      id = cleanText(id, '', 100);
+      state.mapRegion = firstWhere(MAP_REGIONS, function (m) { return m.id === id; }) ? id : 'mikmaki-lawrence';
       persist();
       focusTarget = 'map-detail';
       render();
     },
     mapNote: function (k, v) {
-      state.mapNotes[k] = v;
+      k = cleanText(k, '', 100); if (!k) return;
+      state.mapNotes[k] = cleanText(v, '', 10000);
       persist();
     },
     mapSelect: function (id) {
-      state.mapRegion = id;
+      id = cleanText(id, '', 100);
+      state.mapRegion = firstWhere(MAP_REGIONS, function (m) { return m.id === id; }) ? id : 'mikmaki-lawrence';
       persist();
       focusTarget = 'map-detail';
       render();
@@ -5657,9 +5932,9 @@
     read: function (id) { var r = rec(id); var u = r && readUrl(r); markSessionExploration(); explorationMark('sources', id); if (u) { window.open(u, '_blank', 'noopener'); maybeSpotInvite(); } else { rememberPrevious(); state.screen = 'detail'; state.detailId = id; focusTarget = 'soc-main'; render(); topScroll(); } },
     source: function (id) { var r = rec(id); var u = r && sourceUrl(r); explorationMark('sources', id); if (u) window.open(u, '_blank', 'noopener'); },
     openSaved: function () { if (state.screen !== 'library') rememberPrevious(); state.screen = 'library'; state.activeTypes = []; state.activeWeek = null; state.search = ''; state.savedView = state.saved.length > 0; flash(state.saved.length ? 'Your saved shelf.' : 'Nothing saved yet. Tap the bookmark on any reading.'); topScroll(); },
-    cardWeek: function (v) { state.cardWeek = (v === '' ? null : parseInt(v, 10)); render(); },
-    glossWeek: function (v) { state.glossWeek = v; var o = document.getElementById('soc-gout'); if (o) o.innerHTML = glossaryByWeek(v); },
-    glossSearch: function (v) { state.glossSearch = v; var o = document.getElementById('soc-gsearchout'); if (o) o.innerHTML = glossarySearchHTML(v); },
+    cardWeek: function (v) { state.cardWeek = cleanWeek(v); render(); },
+    glossWeek: function (v) { v = cleanWeekFilter(v); state.glossWeek = v; var o = document.getElementById('soc-gout'); if (o) o.innerHTML = glossaryByWeek(v); },
+    glossSearch: function (v) { v = cleanText(v, '', 500); state.glossSearch = v; var o = document.getElementById('soc-gsearchout'); if (o) o.innerHTML = glossarySearchHTML(v); },
     glossWeekGo: function (w) { state.glossWeek = String(w); var sel = document.getElementById('soc-gweek'); if (sel) sel.value = String(w); var o = document.getElementById('soc-gout'); if (o) { o.innerHTML = glossaryByWeek(String(w)); o.scrollIntoView({ behavior: 'smooth', block: 'start' }); } },
     flip: function (el) { var c = el && (el.classList && el.classList.contains('flip') ? el : (el.closest ? el.closest('.flip') : null)); if (c) c.classList.toggle('flipped'); },
   };
@@ -5667,10 +5942,15 @@
   state.wkOpen = {};
   render();
   if (route0 && route0.walk) walkOpen(route0.walk);
-  try { if (location.search) history.replaceState(viewSnapshot(), '', location.pathname + location.hash); } catch (e) {}
+  try {
+    if (location.search) {
+      if (route0 && route0.invalid) history.replaceState(viewSnapshot(), '', location.pathname);
+      else history.replaceState(viewSnapshot(), '');
+    }
+  } catch (e) {}
   window.addEventListener('popstate', function (e) {
     var __ov = document.getElementById('walk-overlay');
-    if (__ov) { try { walkCloseDom(); _walk = null; } catch (er) {} try { history.pushState(viewSnapshot(), ''); } catch (er) {} return; }
+    if (__ov) { try { walkCloseDom(); _walk = null; } catch (er) {} try { history.pushState(viewSnapshot(), '', location.pathname); } catch (er) {} return; }
     __fromPop = true;
     try { restoreView(e.state && typeof e.state === 'object' && e.state.screen ? e.state : { screen: 'journey' }); } catch (er) {}
     __lastNavKey = navKey();
@@ -5678,7 +5958,16 @@
     __fromPop = false;
   });
   if (routePart0) scrollWeekPart(routePart0);
-  if (!(route0 && route0.walk)) try { var __wk = JSON.parse(sessionStorage.getItem(WKKEY) || 'null'); if (__wk && __wk.w) { walkOpen(cleanWeek(__wk.w) || __wk.w); if (_walk && __wk.i) { _walk.i = Math.max(0, Math.min(_walk.slides.length - 1, __wk.i)); walkMount(); } } } catch (e) {}
+  if (!route0) try {
+    var __wkRaw = sessionStorage.getItem(WKKEY);
+    var __wk = __wkRaw === null ? null : JSON.parse(__wkRaw);
+    var __resume = __wk && typeof __wk === 'object' && !Array.isArray(__wk)
+      ? cleanWalkResume({ week: __wk.w, i: __wk.i })
+      : null;
+    if (__resume) walkOpen(__resume.week, __resume);
+    else if (__wkRaw !== null) sessionStorage.removeItem(WKKEY);
+  } catch (e) { try { sessionStorage.removeItem(WKKEY); } catch (er) {} }
+  else if (!route0.walk) try { sessionStorage.removeItem(WKKEY); } catch (e) {}
 
   /* Reading Supports boot: apply saved settings, keep them across renders, stop speech on navigation */
   try {
@@ -5687,7 +5976,7 @@
       window.speechSynthesis.addEventListener('voiceschanged', function () { if (state.rlPanelOpen) renderKeepScroll(); });
     }
     var rlSaved = load();
-    if (rlSaved && rlSaved.rl && typeof rlSaved.rl === 'object') state.rl = rlSaved.rl;
+    if (rlSaved && rlSaved.rl && typeof rlSaved.rl === 'object') state.rl = cleanJsonObject(rlSaved.rl, 3);
     rlApply();
     var rlMo = new MutationObserver(function () {
       if (rlSpeaking) rlSpeakStop();

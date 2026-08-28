@@ -1,4 +1,4 @@
-/* SOC122 official outcomes registry (2026-07-25). CLO and EES wording extracted VERBATIM from the official course outline documents; week and assessment mappings only where a document states them. Sources: /mnt/c/Users/raymo/Tresorit/Tresorit Ecosystem/Workbench/Seneca/Courses/Fall/2026/SOC122/Course Outline/SOC122_Course_Outline_Fall2026.docx; /mnt/c/Users/raymo/Tresorit/Tresorit Ecosystem/Workbench/Seneca/Courses/Fall/2026/SOC122/_Course_Plans/SOC122_Curriculum_Alignment_Map_Fall2026.md; /mnt/c/Users/raymo/Tresorit/Tresorit Ecosystem/Workbench/Seneca/Courses/Fall/2026/SOC122/Assessments/SOC122_Evaluation_Addenda_Fall2026.docx */
+/* SOC122 official outcomes registry (2026-07-25). CLO and EES wording extracted VERBATIM from the official course outline documents; week and assessment mappings only where a document states them. Sources: SOC122 Fall 2026 course outline; SOC122 Fall 2026 curriculum alignment map; SOC122 Fall 2026 evaluation addenda. */
 window.SOC122_OUTCOMES = {
  "note": "Wording is taken verbatim from the official course outline. Blackboard carries the official documents; if anything differs, Blackboard wins.",
  "clos": [

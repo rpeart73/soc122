@@ -10,7 +10,17 @@ UID:soc122-mode-w1@rpeart73.github.io
 DTSTART;VALUE=DATE:20260911
 DTEND;VALUE=DATE:20260912
 SUMMARY:SOC122 Week 1: live class
-DESCRIPTION:Course orientation and shared start. The week page includes the class recording space.
+DESCRIPTION:Course orientation and shared start. The week page includes the
+  class recording space.
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20260708T120000Z
+UID:soc122-personal-cartography-1-opens@rpeart73.github.io
+DTSTART;VALUE=DATE:20260911
+DTEND;VALUE=DATE:20260912
+SUMMARY:SOC122: Personal Cartography 1 opens
+DESCRIPTION:Build this from Weeks 1 to 3. Blackboard confirms the official
+ instructions and submission details.
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20260708T120000Z
@@ -18,7 +28,8 @@ UID:soc122-mode-w2@rpeart73.github.io
 DTSTART;VALUE=DATE:20260918
 DTEND;VALUE=DATE:20260919
 SUMMARY:SOC122 Week 2: live class
-DESCRIPTION:Two-Eyed Seeing Journal begins. Prepare on the week page and return after class for the recording.
+DESCRIPTION:Two-Eyed Seeing Journal begins. Prepare on the week page and
+  return after class for the recording.
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20260708T120000Z
@@ -26,15 +37,18 @@ UID:soc122-mode-w3@rpeart73.github.io
 DTSTART;VALUE=DATE:20260925
 DTEND;VALUE=DATE:20260926
 SUMMARY:SOC122 Week 3: live class
-DESCRIPTION:Prepare on the week page and return after class for reflection and the recording.
+DESCRIPTION:Prepare on the week page and return after class for reflection
+  and the recording.
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20260708T120000Z
+SEQUENCE:1
 UID:soc122-mode-w4@rpeart73.github.io
 DTSTART;VALUE=DATE:20261002
 DTEND;VALUE=DATE:20261003
-SUMMARY:SOC122 Week 4: asynchronous independent learning
-DESCRIPTION:Independent application of the early foundations. Personal Cartography 1 is due. Check Blackboard for the exact submission time.
+SUMMARY:SOC122 Week 4: live class
+DESCRIPTION:Live class on the early foundations. Personal Cartography 1 is
+  due. Check Blackboard for the exact submission time.
 BEGIN:VALARM
 TRIGGER:-P2D
 ACTION:DISPLAY
@@ -43,19 +57,32 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20260708T120000Z
+UID:soc122-knowledge-in-two-eyes-opens@rpeart73.github.io
+DTSTART;VALUE=DATE:20261002
+DTEND;VALUE=DATE:20261003
+SUMMARY:SOC122: Knowledge in Two Eyes opens
+DESCRIPTION:Build this from Weeks 4 to 6 and 8. Blackboard confirms the
+ official instructions and submission details.
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20260708T120000Z
 UID:soc122-mode-w5@rpeart73.github.io
 DTSTART;VALUE=DATE:20261009
 DTEND;VALUE=DATE:20261010
 SUMMARY:SOC122 Week 5: live class
-DESCRIPTION:Prepare on the week page and return after class for reflection and the recording.
+DESCRIPTION:Prepare on the week page and return after class for reflection
+  and the recording.
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20260708T120000Z
+SEQUENCE:1
 UID:soc122-mode-w6@rpeart73.github.io
 DTSTART;VALUE=DATE:20261016
 DTEND;VALUE=DATE:20261017
-SUMMARY:SOC122 Week 6: live class
-DESCRIPTION:Prepare on the week page and return after class for reflection and the recording.
+SUMMARY:SOC122 Week 6: asynchronous independent learning
+DESCRIPTION:No live class. Work independently through the anthropology
+  survey and bring one question about method or evidence into next week's
+  review.
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20260708T120000Z
@@ -78,7 +105,7 @@ DTSTAMP:20260708T120000Z
 UID:soc122-mode-w8@rpeart73.github.io
 DTSTART;VALUE=DATE:20261106
 DTEND;VALUE=DATE:20261107
-SUMMARY:SOC122 Week 8: live class; Knowledge in Two Eyes due
+SUMMARY:SOC122 Week 8: live class\; Knowledge in Two Eyes due
 DESCRIPTION:Check Blackboard for the exact submission time.
 BEGIN:VALARM
 TRIGGER:-P2D
@@ -88,11 +115,21 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20260708T120000Z
+UID:soc122-question-of-reconciliation-opens@rpeart73.github.io
+DTSTART;VALUE=DATE:20261106
+DTEND;VALUE=DATE:20261107
+SUMMARY:SOC122: A Question of Reconciliation opens
+DESCRIPTION:Build this toward Week 12. Blackboard confirms the official
+ instructions and submission details.
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20260708T120000Z
 UID:soc122-mode-w9@rpeart73.github.io
 DTSTART;VALUE=DATE:20261113
 DTEND;VALUE=DATE:20261114
 SUMMARY:SOC122 Week 9: live class
-DESCRIPTION:Prepare on the week page and return after class for reflection and the recording.
+DESCRIPTION:Prepare on the week page and return after class for reflection
+  and the recording.
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20260708T120000Z
@@ -100,7 +137,8 @@ UID:soc122-mode-w10@rpeart73.github.io
 DTSTART;VALUE=DATE:20261120
 DTEND;VALUE=DATE:20261121
 SUMMARY:SOC122 Week 10: live class
-DESCRIPTION:Prepare on the week page and return after class for reflection and the recording.
+DESCRIPTION:Prepare on the week page and return after class for reflection
+  and the recording.
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20260708T120000Z
@@ -108,15 +146,17 @@ UID:soc122-mode-w11@rpeart73.github.io
 DTSTART;VALUE=DATE:20261127
 DTEND;VALUE=DATE:20261128
 SUMMARY:SOC122 Week 11: asynchronous independent learning
-DESCRIPTION:Independent synthesis before the final substantive live class. No live class.
+DESCRIPTION:Independent synthesis before the final substantive live class.
+  No live class.
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20260708T120000Z
 UID:soc122-mode-w12@rpeart73.github.io
 DTSTART;VALUE=DATE:20261204
 DTEND;VALUE=DATE:20261205
-SUMMARY:SOC122 Week 12: final substantive live class; two assessments due
-DESCRIPTION:Two-Eyed Seeing Journal final check and A Question of Reconciliation are due. Check Blackboard for the exact submission time.
+SUMMARY:SOC122 Week 12: final substantive live class\; two assessments due
+DESCRIPTION:Two-Eyed Seeing Journal final check and A Question of
+  Reconciliation are due. Check Blackboard for the exact submission time.
 BEGIN:VALARM
 TRIGGER:-P2D
 ACTION:DISPLAY
@@ -128,8 +168,19 @@ DTSTAMP:20260708T120000Z
 UID:soc122-mode-w13@rpeart73.github.io
 DTSTART;VALUE=DATE:20261207
 DTEND;VALUE=DATE:20261212
-SUMMARY:SOC122 Week 13: office hours and supported asynchronous completion
-DESCRIPTION:No lecture. The usual class window becomes office hours for focused completion. Office hours are not recorded.
+SUMMARY:SOC122 Week 13: office hours and supported asynchronous
+  completion
+DESCRIPTION:No lecture. The usual class window becomes office hours for
+  focused completion. Office hours are not recorded.
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20260708T120000Z
+UID:soc122-revisiting-personal-cartography-opens@rpeart73.github.io
+DTSTART;VALUE=DATE:20261207
+DTEND;VALUE=DATE:20261208
+SUMMARY:SOC122: Revisiting Personal Cartography opens
+DESCRIPTION:Introduced in Week 13. Blackboard confirms the official
+ instructions and submission details.
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20260708T120000Z
@@ -150,6 +201,7 @@ UID:soc122-mode-w14@rpeart73.github.io
 DTSTART;VALUE=DATE:20261214
 DTEND;VALUE=DATE:20261217
 SUMMARY:SOC122 Week 14: asynchronous office hours and course closure
-DESCRIPTION:No lecture. Optional office hours, feedback, and final questions. No graded work is due. Office hours are not recorded.
+DESCRIPTION:No lecture. Optional office hours\, feedback\, and final
+  questions. No graded work is due. Office hours are not recorded.
 END:VEVENT
 END:VCALENDAR

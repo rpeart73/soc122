@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-CA">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,6 +23,7 @@
     var r=cv.getBoundingClientRect(); W=r.width; H=r.height;
     cv.width=Math.max(1,W*DPR); cv.height=Math.max(1,H*DPR); ctx.setTransform(DPR,0,0,DPR,0,0);
     build();
+    if(reduce) draw();
   }
   function build(){
     P=[]; var n=Math.round(Math.max(46,Math.min(104, W*H/3600)));
@@ -76,7 +77,7 @@
   function loop(ts){ var dt=Math.min(0.05,(ts-last)/1000||0.016); last=ts; t+=dt; step(dt); draw(); requestAnimationFrame(loop); }
   window.addEventListener('resize',resize);
   resize();
-  requestAnimationFrame(loop);
+  if(!reduce) requestAnimationFrame(loop);
 })();
 </script>
 </body>
