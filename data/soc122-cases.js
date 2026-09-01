@@ -102,7 +102,7 @@
   D.records.forEach(function (r) { seen[r.id] = true; });
   records.forEach(function (r) { if (!seen[r.id]) D.records.push(r); });
   var gone = D.records.filter(function (r) { return r.id === 'gone2023'; })[0];
-  if (gone) gone.url = 'https://direct.mit.edu/daed/article/152/4/130/118231/Indigenous-Historical-Trauma-Alter-Native';
+  if (gone) gone.url = 'https://www.amacad.org/publication/daedalus/indigenous-historical-trauma-alter-native-explanations-mental-health-inequities';
   function connect(id, ids) {
     var r = D.records.filter(function (x) { return x.id === id; })[0];
     if (!r) return;

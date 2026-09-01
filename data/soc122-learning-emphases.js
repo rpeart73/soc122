@@ -78,18 +78,18 @@
       frame: 'Begin with a Western institutional question: how do universities, health systems, curricula, and states decide what counts as knowledge and who has authority? Then use Debbie Martin and Brunette-Debassige and colleagues to expose the difference between adding Indigenous content and changing the structure that governs knowledge.',
       route: ['Map the Western institution: committees, credentials, evidence rules, and decision rights.', 'Martin: examine equal consideration and the limits of positivist dismissal in health research.', 'Brunette-Debassige and colleagues: distinguish representation from Indigenous leadership and structural change.'],
       question: 'When does institutional inclusion alter authority, and when does it leave the original structure intact?',
-      conceptMove: 'Use institution, authority, and sovereignty to move beyond a simple diversity count.',
+      conceptMove: 'Use institution, decision rights, and structural authority to move beyond a simple diversity count.',
       termMove: 'Do not use “Indigenizing” as a synonym for adding content. Define the structural change and identify who holds decision-making power.',
       activity: 'Audit a fictional curriculum committee: track who proposes, approves, frames, teaches, evaluates, and can refuse.',
       reflection: 'Which institutional change would redistribute authority rather than only improve representation?',
-      limit: 'A Western institutional analysis can map power but cannot decide on Indigenous communities’ behalf what sovereignty or appropriate participation requires.'
+      limit: 'A Western institutional analysis can map power but cannot decide on Indigenous communities’ behalf what leadership, autonomy, or appropriate participation requires.'
     },
     {
       frame: 'Hold two questions together: what makes respectful knowledge pairing possible, and what structural authority must change for the pairing to be real? Martin addresses Two-Eyed Seeing in health research; Brunette-Debassige and colleagues address curriculum change. Their settings and claims differ even when both challenge Western monopoly over knowledge.',
       route: ['Read Martin for respectful pairing and equal consideration in a specific research context.', 'Read Brunette-Debassige and colleagues for governance, leadership, and structural curriculum change.', 'Compare the authority problem across the two settings without treating health research and curriculum as equivalent.'],
       question: 'What has to change in both relationship and structure before “including another perspective” becomes shared authority?',
       conceptMove: 'Pair respectful knowledge relation with institutional power analysis; neither one substitutes for the other.',
-      termMove: 'Distinguish Two-Eyed Seeing, respectful pairing, Indigenizing, and sovereignty rather than using them as interchangeable approval words.',
+      termMove: 'Distinguish Two-Eyed Seeing, respectful pairing, Indigenizing, and institutional authority rather than using them as interchangeable approval words.',
       activity: 'Build a two-column authority map: conditions for respectful relation on one side, decision rights and structural changes on the other.',
       reflection: 'Where did the two readings reinforce one another, and where did their different institutional purposes have to remain separate?',
       limit: 'The shared question does not erase differences in authorship, field, method, or the people affected.'
@@ -98,11 +98,11 @@
       frame: 'Begin with the assigned Indigenous scholarship on research and curriculum authority. Martin asks how Two-Eyed Seeing can reshape Indigenous health research; Brunette-Debassige and colleagues distinguish adding content from redistributing curriculum authority. Read the specificity of each intervention before bringing Western institutional language into relation.',
       route: ['Martin: identify what changes when Indigenous and Western knowledge receive equal consideration in research.', 'Brunette-Debassige and colleagues: trace Indigenous leadership, governance, and structural revision.', 'Use Western institutional analysis afterwards to locate where authority currently sits and where it must move.'],
       question: 'How do named Indigenous scholars define the difference between being represented inside an institution and holding authority over its work?',
-      conceptMove: 'Lead with sovereignty and Indigenous leadership; use institutional analysis to identify obstacles, not to translate those concepts into generic diversity management.',
+      conceptMove: 'Lead with the Indigenous leadership and autonomy discussed by Brunette-Debassige and colleagues; use institutional analysis to identify obstacles, not to translate those claims into generic diversity management.',
       termMove: 'Keep each term tied to its source and context. Do not speak of one Indigenous position across health, education, Nations, and communities.',
       activity: 'Identify one institutional decision that cannot be changed by content alone, then name whose authority and consent would be required.',
       reflection: 'What did starting with Indigenous authority make visible before the institution’s own language appeared?',
-      limit: 'This emphasis does not authorize the learner to design sovereignty for others or to treat all Indigenous institutions and communities as alike.'
+      limit: 'This emphasis does not authorize the learner to design institutional arrangements for others or to treat all Indigenous institutions and communities as alike.'
     });
 
   add(4,
