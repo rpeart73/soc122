@@ -16,7 +16,7 @@
   var HKEY = SKEY + '.hardResetNext';
   var WKKEY = SKEY + '.walk.v1';
   function load() { try { var o = JSON.parse(localStorage.getItem(SKEY) || '{}'); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } }
-  function persist() { try { localStorage.setItem(SKEY, JSON.stringify({ saved: state.saved, cmpNotes: state.cmpNotes, rcNotes: state.rcNotes, sgNotes: state.sgNotes, sgTick: state.sgTick, mapNotes: state.mapNotes, wkCheck: state.wkCheck, wkReflect: state.wkReflect, actResult: state.actResult, mcSel: state.mcSel, mcConf: state.mcConf, kcShort: state.kcShort, kcShortRate: state.kcShortRate, kcHist: state.kcHist, mediaNotes: state.mediaNotes, careerReflect: state.careerReflect, careerField: state.careerField, learningEmphasis: state.learningEmphasis, contextCompare: state.contextCompare, contextWeek: state.contextWeek, contextNotes: state.contextNotes, synthesisNotes: state.synthesisNotes, spotState: state.spotState, spotReports: state.spotReports, rl: state.rl, studentName: state.studentName, visits: state.visits })); } catch (e) {} }
+  function persist() { try { localStorage.setItem(SKEY, JSON.stringify({ saved: state.saved, cmpNotes: state.cmpNotes, rcNotes: state.rcNotes, sgNotes: state.sgNotes, sgTick: state.sgTick, mapNotes: state.mapNotes, wkCheck: state.wkCheck, wkReflect: state.wkReflect, actResult: state.actResult, mcSel: state.mcSel, mcConf: state.mcConf, kcShort: state.kcShort, kcShortRate: state.kcShortRate, kcHist: state.kcHist, mediaNotes: state.mediaNotes, careerReflect: state.careerReflect, careerField: state.careerField, learningEmphasis: state.learningEmphasis, contextCompare: state.contextCompare, contextWeek: state.contextWeek, contextNotes: state.contextNotes, synthesisNotes: state.synthesisNotes, spotState: state.spotState, spotReports: state.spotReports, noteVaultUpdated: state.noteVaultUpdated, rl: state.rl, studentName: state.studentName, visits: state.visits })); } catch (e) {} }
   function loadView() { try { var o = JSON.parse(sessionStorage.getItem(VKEY) || '{}'); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } }
   function clearView() { try { sessionStorage.removeItem(VKEY); sessionStorage.removeItem(HKEY); } catch (e) {} }
   function shouldResumeView(v) {
@@ -63,8 +63,8 @@
       var x = src[k], key = k.slice(0, 250);
       if (typeof x === 'boolean') out[key] = x;
       else if (typeof x === 'number' && isFinite(x)) out[key] = x;
-      else if (typeof x === 'string') out[key] = x.slice(0, 500);
-      else if (Array.isArray(x)) out[key] = x.filter(function (y) { return typeof y === 'boolean' || (typeof y === 'number' && isFinite(y)) || typeof y === 'string'; }).slice(0, 100).map(function (y) { return typeof y === 'string' ? y.slice(0, 500) : y; });
+      else if (typeof x === 'string') out[key] = x.slice(0, 2000);
+      else if (Array.isArray(x)) out[key] = x.filter(function (y) { return typeof y === 'boolean' || (typeof y === 'number' && isFinite(y)) || typeof y === 'string'; }).slice(0, 100).map(function (y) { return typeof y === 'string' ? y.slice(0, 2000) : y; });
     });
     return out;
   }
@@ -182,7 +182,7 @@
     wkOpen: {},
     studentName: typeof saved0.studentName === 'string' ? saved0.studentName.slice(0, 40) : '',
     visits: cleanVisits(saved0.visits),
-    act: resumeView0 ? cleanScalarMap(view0.act) : {},
+    act: Object.assign({}, cleanScalarMap(saved0.actResult), resumeView0 ? cleanScalarMap(view0.act) : {}),
     actResult: cleanScalarMap(saved0.actResult),
     layout: 'byweek',
     search: '',
@@ -217,6 +217,7 @@
     spotReports: cleanJsonObject(saved0.spotReports, 7),
     careerReflect: cleanTextMap(saved0.careerReflect),
     mediaNotes: cleanTextMap(saved0.mediaNotes),
+    noteVaultUpdated: Number(saved0.noteVaultUpdated) || 0,
     libScroll: 0,
     toast: null,
     cardWeek: resumeView0 ? cleanWeek(view0.cardWeek) : null,
@@ -287,6 +288,70 @@
     }
   }, true);
   var refocusSearch = false, focusTarget = null, toastTimer = null;
+  /* Student-authored notes use three browser-local layers. The site preserves exact text;
+     it may add headings for organization but never rewrites a student's words. */
+  var STUDENT_NOTE_SESSION_KEY = SKEY + '.allStudentNotesMirror.v1';
+  var STUDENT_NOTE_IMPORT_MARKER = SKEY + '.restoredBackupNext.v1';
+  var STUDENT_NOTE_DB = 'seneca-student-notes-v1';
+  var STUDENT_NOTE_STORE = 'student-note-vault';
+  var STUDENT_NOTE_FIELDS = ['cmpNotes', 'rcNotes', 'sgNotes', 'mapNotes', 'wkReflect', 'actResult', 'kcShort', 'mediaNotes', 'careerReflect', 'contextNotes', 'synthesisNotes'];
+  var studentNoteBackupTimer = null;
+  function studentNoteClone(value) { try { return JSON.parse(JSON.stringify(value)); } catch (e) { return null; } }
+  function studentNoteSnapshot() {
+    var values = {};
+    STUDENT_NOTE_FIELDS.forEach(function (field) { values[field] = studentNoteClone(state[field]); });
+    return { version: 1, savedAt: Number(state.noteVaultUpdated) || 0, values: values };
+  }
+  function studentNoteHasContent() {
+    return STUDENT_NOTE_FIELDS.some(function (field) { var value = state[field]; return typeof value === 'string' ? value !== '' : !!(value && typeof value === 'object' && Object.keys(value).length); });
+  }
+  function studentNoteApplySnapshot(snapshot) {
+    if (!snapshot || snapshot.version !== 1 || !snapshot.values || typeof snapshot.values !== 'object') return false;
+    var savedAt = Number(snapshot.savedAt) || 0;
+    if (!savedAt || savedAt <= (Number(state.noteVaultUpdated) || 0)) return false;
+    STUDENT_NOTE_FIELDS.forEach(function (field) {
+      var value = snapshot.values[field];
+      if (typeof value === 'string' || (value && typeof value === 'object' && !Array.isArray(value))) state[field] = studentNoteClone(value);
+    });
+    state.noteVaultUpdated = savedAt;
+    return true;
+  }
+  function studentNoteDbOpen() {
+    return new Promise(function (resolve, reject) {
+      if (!window.indexedDB) { reject(new Error('IndexedDB unavailable')); return; }
+      var request = indexedDB.open(STUDENT_NOTE_DB, 2);
+      request.onupgradeneeded = function () { var db = request.result; if (!db.objectStoreNames.contains('walkthrough-notes')) db.createObjectStore('walkthrough-notes', { keyPath: 'id' }); if (!db.objectStoreNames.contains(STUDENT_NOTE_STORE)) db.createObjectStore(STUDENT_NOTE_STORE, { keyPath: 'id' }); };
+      request.onsuccess = function () { resolve(request.result); };
+      request.onerror = function () { reject(request.error || new Error('IndexedDB unavailable')); };
+      request.onblocked = function () { reject(new Error('Close another course tab so note recovery storage can update')); };
+    });
+  }
+  function studentNoteIdbWrite(snapshot) {
+    return studentNoteDbOpen().then(function (db) { return new Promise(function (resolve, reject) { var tx = db.transaction(STUDENT_NOTE_STORE, 'readwrite'); tx.objectStore(STUDENT_NOTE_STORE).put({ id: SKEY, snapshot: snapshot }); tx.oncomplete = function () { db.close(); resolve(true); }; tx.onerror = function () { db.close(); reject(tx.error || new Error('Note backup failed')); }; tx.onabort = tx.onerror; }); });
+  }
+  function studentNoteIdbRead() {
+    return studentNoteDbOpen().then(function (db) { return new Promise(function (resolve) { var tx = db.transaction(STUDENT_NOTE_STORE, 'readonly'), request = tx.objectStore(STUDENT_NOTE_STORE).get(SKEY); request.onsuccess = function () { var result = request.result; db.close(); resolve(result && result.snapshot ? result.snapshot : null); }; request.onerror = function () { db.close(); resolve(null); }; }); }).catch(function () { return null; });
+  }
+  function studentNoteIdbClear() {
+    return studentNoteDbOpen().then(function (db) { return new Promise(function (resolve, reject) { var tx = db.transaction(STUDENT_NOTE_STORE, 'readwrite'); tx.objectStore(STUDENT_NOTE_STORE).delete(SKEY); tx.oncomplete = function () { db.close(); resolve(true); }; tx.onerror = function () { db.close(); reject(tx.error || new Error('Could not clear note recovery copy')); }; tx.onabort = tx.onerror; }); }).catch(function () { return false; });
+  }
+  function studentNotesChanged() {
+    state.noteVaultUpdated = Math.max(Date.now(), (Number(state.noteVaultUpdated) || 0) + 1);
+    persist();
+    var snapshot = studentNoteSnapshot();
+    try { sessionStorage.setItem(STUDENT_NOTE_SESSION_KEY, JSON.stringify(snapshot)); } catch (e) {}
+    if (studentNoteBackupTimer) clearTimeout(studentNoteBackupTimer);
+    studentNoteBackupTimer = setTimeout(function () { studentNoteIdbWrite(studentNoteSnapshot()).catch(function () {}); }, 180);
+  }
+  function studentNoteRecoverSession() {
+    var snapshot = null;
+    try { snapshot = JSON.parse(sessionStorage.getItem(STUDENT_NOTE_SESSION_KEY) || 'null'); } catch (e) {}
+    if (!studentNoteApplySnapshot(snapshot)) return false;
+    persist(); return true;
+  }
+  function studentNoteRecover() {
+    return studentNoteIdbRead().then(function (snapshot) { if (!studentNoteApplySnapshot(snapshot)) return false; persist(); try { sessionStorage.setItem(STUDENT_NOTE_SESSION_KEY, JSON.stringify(studentNoteSnapshot())); } catch (e) {} return true; });
+  }
 
   /* ---------- helpers ---------- */
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
@@ -1027,16 +1092,7 @@
     contextual: { label: 'Contextual', hint: 'the history, culture, and who is speaking', diff: 'How do the authors background, time, or community shape what each one says?' },
     theoretical: { label: 'Theoretical', hint: 'a critical lens, for example power or whose knowledge counts', diff: 'Read both through one lens, for example power or whose knowledge counts. What does that lens show in each?' }
   };
-  var CMP_EXAMPLE = [
-    ['The subject', 'Two newspapers report the same event: a 1.5% city property tax increase.'],
-    ['Article A, the Community Gazette', 'A human-interest lens. Empathetic, a little critical. Leads with retirees on fixed incomes and asks whether the council tried other cuts first.'],
-    ['Article B, the Metro Financial Daily', 'An economic lens. Objective and forward-looking. Focuses on the transit and roads the revenue funds, and the long-run savings.'],
-    ['Similarities', 'Both agree on the core fact, a 1.5% increase, and both treat it as controversial.'],
-    ['Differences', 'The Gazette uses a local, emotional frame. The Financial Daily uses a structural, analytical one.'],
-    ['The insight', 'A city makeup and its politics shape how the same policy gets framed in the press. The framing is the story behind the story.']
-  ];
   function comparativeStudio(recs) {
-    var lens = LENSES[state.lens] || LENSES.thematic;
     function zone(n, title, prompt, key, ph) {
       var v = esc((state.cmpNotes && state.cmpNotes[key]) || '');
       return '<div style="background:#fff;border:1px solid #DEE3EA;border-radius:12px;padding:15px 17px;margin-bottom:11px">'
@@ -1044,24 +1100,12 @@
         + '<p style="margin:0 0 8px;font-size:.875rem;color:#474C57">' + prompt + '</p>'
         + '<textarea oninput="SOC.cmpNote(\'' + key + '\',this.value)" aria-label="' + esc(title + ' notes') + '" placeholder="' + ph + '" style="width:100%;min-height:68px;font:inherit;font-size:.9rem;line-height:1.5;padding:10px 12px;border:1px solid #DEE3EA;border-radius:8px;color:#15171C;background:#fff;resize:vertical">' + v + '</textarea></div>';
     }
-    var chips = Object.keys(LENSES).map(function (k) {
-      var on = state.lens === k;
-      return '<button onclick="SOC.setLens(\'' + k + '\')" style="border:1px solid ' + (on ? '#15171C' : '#DEE3EA') + ';background:' + (on ? '#15171C' : '#fff') + ';color:' + (on ? '#fff' : '#15171C') + ';border-radius:999px;padding:7px 15px;font-size:.85rem;font-weight:600">' + LENSES[k].label + '</button>';
-    }).join(' ');
-    var ex = state.exampleOpen
-      ? '<div style="background:#15171C;color:#fff;border-radius:13px;padding:16px 18px;margin-bottom:15px"><div style="display:flex;align-items:center;margin-bottom:10px"><span class="mono" style="font-size:.72rem;letter-spacing:.05em;color:#fff">A WORKED EXAMPLE</span><button onclick="SOC.toggleExample()" style="margin-left:auto;background:rgba(255,255,255,.14);border:none;border-radius:7px;color:#fff;padding:4px 10px;font-size:.78rem;font-weight:600">Hide</button></div>'
-        + CMP_EXAMPLE.map(function (r) { return '<div style="margin-bottom:8px"><div class="mono" style="font-size:.6875rem;letter-spacing:.04em;color:#9aa3b2">' + esc(r[0]).toUpperCase() + '</div><div style="font-size:.875rem;line-height:1.5;color:rgba(255,255,255,.93)">' + esc(r[1]) + '</div></div>'; }).join('') + '</div>'
-      : '<button onclick="SOC.toggleExample()" style="background:none;border:1px solid #DEE3EA;border-radius:9px;padding:9px 14px;font-size:.875rem;font-weight:600;color:#15171C;margin-bottom:15px">See a worked example</button>';
     return '<div style="margin-bottom:18px">'
-      + '<h2 style="font-size:1.25rem;margin:0 0 4px">Compare them</h2>'
-      + '<p style="font-size:.9375rem;color:#474C57;margin:0 0 14px;">Comparative reading goes past what each text says on its own. Read the two together and look for what they share, how they differ, and why those differences matter.</p>'
-      + ex
-      + '<div style="font-size:.8125rem;font-weight:600;color:#15171C;margin-bottom:7px">Read them through a lens</div>'
-      + '<div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:6px">' + chips + '</div>'
-      + '<p style="font-size:.82rem;color:#6B7280;margin:0 0 16px">' + esc(lens.label) + ': ' + esc(lens.hint) + '.</p>'
-      + zone('1', 'Similarities', 'What do these readings share? Where do they agree, in facts, topic, or the same idea?', 'sim', 'They both...')
-      + zone('2', 'Differences', esc(lens.diff), 'diff', 'The first... while the second...')
-      + zone('3', 'Why the differences matter', 'Finish the thought: these differences matter because...', 'ins', 'These differences matter because...')
+      + '<h2 style="font-size:1.25rem;margin:0 0 4px">Build your own weaving</h2>'
+      + '<p style="font-size:.9375rem;color:#474C57;margin:0 0 14px;">Keep every reading whole and attributed. Your task is to name what each one lets you see, where they can be held together, and where collapsing them would erase a difference that matters.</p>'
+      + zone('1', 'What each reading lets you see', 'Name the distinct contribution of each reading in its own terms. Do not turn one into a translation of the other.', 'sim', 'The first reading lets me see... The second lets me see...')
+      + zone('2', 'Where they meet without collapsing', 'Where do the readings speak to the same problem, and what difference must remain visible?', 'diff', 'They meet around... The difference I must keep visible is...')
+      + zone('3', 'Your location and responsibility', 'What do you bring to this relationship, and what responsible action or question follows from holding both readings together?', 'ins', 'I am positioned... The responsibility or question I carry forward is...')
       + '<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:4px"><button onclick="SOC.saveComparison()" style="background:var(--red);border:none;color:#fff;border-radius:9px;padding:10px 18px;font-size:.9rem;font-weight:600">Save my comparison</button></div>'
       + '</div>';
   }
@@ -1271,7 +1315,8 @@
             + '<button onclick="SOC.synthesize()" style="display:inline-flex;align-items:center;gap:8px;border:none;border-radius:9px;padding:12px 22px;font-size:1rem;font-weight:600;color:#fff;background:#15171C;margin-bottom:18px">' + ic('sparkle', 16) + 'Show a worked weaving</button>';
         }
       }
-      left = hint + connectNote + '<div class="hshelf" style="display:flex;gap:16px;align-items:stretch;overflow-x:auto;padding-bottom:10px">' + cols + '</div>';
+      left = hint + connectNote + '<div class="hshelf" style="display:flex;gap:16px;align-items:stretch;overflow-x:auto;padding-bottom:10px">' + cols + '</div>'
+        + (recs.length >= 2 ? '<div style="margin-top:24px">' + comparativeStudio(recs) + '</div>' : '');
     } else {
       left = '<div style="background:#fff;border:1px dashed #DEE3EA;border-radius:14px;padding:48px 26px;text-align:center;color:#474C57"><div style="display:inline-flex;color:#C9D1DC;margin-bottom:12px">' + ic('columns', 40, 1.4) + '</div><div style="font-size:1.0625rem;font-weight:600;color:#15171C;margin-bottom:6px">Nothing selected yet.</div><p style="font-size:.9375rem;margin:0">Choose two or three readings from the list on the right.</p></div>';
     }
@@ -2611,6 +2656,217 @@
       14: {"deck": "", "time": "Flexible pacing: work in manageable blocks and use breaks and accessibility supports as needed.", "overview": "This is the final week, and the work this week is yours. All term you have made Western social science visible and worked with named Indigenous scholars and knowledge holders. Those scholars, Nations, communities, and teachings are not one interchangeable Indigenous perspective. Now you hold the whole course together in your own way. Two-Eyed Seeing, Mi'kmaw Elder Albert Marshall's gift, asks you to see with one eye the strengths of Indigenous ways of knowing and with the other the strengths of Western ways of knowing, and to use both eyes together (Marshall, 2017). The synthesis is yours to write. This page does not write it for you, and it does not hand you a finished account that ties the two eyes together. It gives you the threads of the course, one at a time, and asks you to articulate what you now see, in your own words. Both eyes stay whole. You are the one who holds them together.", "purpose": "Week 14 closes the course by asking you to perform your own Two-Eyed Seeing across everything you have met. You return to the frame in the words of the Elder who named it, Albert Marshall, and to Leroy Little Bear on why two worldviews can describe the same world and still differ at the root (Marshall, 2017; Little Bear, 2000). The aim is for you, not the app, to revisit the big threads of the term, the strengths and limits of Western disciplines, the distinct contributions of named Indigenous scholars, and the places Marshall's relational frame changed what became visible, and to hold them together in your own account. The integration is your work, and it stays your work.", "outcomes": ["By the end of this week you can revisit the whole course and name, in your own words, what social science has asked you to do, keeping the work of holding both eyes as your own (Marshall, 2017).", "By the end of this week you can describe the strengths and limits of Western disciplines and the distinct contributions of named Indigenous scholars without ranking, merging, or treating one source as universal (Marshall, 2017).", "By the end of this week you can name, for yourself, places across the term where each eye saw something the other could not, holding the two side by side rather than collapsing them into one (Little Bear, 2000).", "By the end of this week you can state what Two-Eyed Seeing asks of you as you leave the course, treating it as an ongoing responsibility and a gift from Elder Albert Marshall, not a slogan (Marshall, 2017)."], "guiding": ["Looking back across the whole term, how would you say in your own words what social science has asked you to do, and what it now lets you see that you could not see before (Marshall, 2017)?", "Across the course you met Western disciplines and named Indigenous scholars. How would you describe what each specific source contributes without making any one source the default or a spokesperson for a whole people (Marshall, 2017)?", "Little Bear says the two worldviews differ at the root. Where in this course did each eye see something the other could not, and how would you name those moments yourself (Little Bear, 2000)?", "As you leave this course, what does Two-Eyed Seeing ask of you now, and how will you keep it an ongoing responsibility rather than letting it become a slogan (Marshall, 2017)?"], "checks": [{"t": "That the synthesis of this course is your own work to write, and that holding both eyes together is something you do, not something the page does for you", "look": "the Marshall reading and the activity"}, {"t": "What social science has asked of you across the whole term, in your own words, and what it now lets you see", "look": "the activity and your own notes from across the course"}, {"t": "The strengths and limits of Western disciplines and the distinct contributions of named Indigenous scholars, with no source treated as universal or interchangeable", "look": "the Marshall reading and your week-by-week notes"}, {"t": "Places across the term where each eye saw something the other could not, named by you and held side by side rather than blended into one", "look": "the Little Bear reading and the activity"}, {"t": "What Two-Eyed Seeing asks of you as you leave the course, as Elder Albert Marshall's gift and an ongoing responsibility, not a slogan", "look": "the Marshall reading and your own reflection"}], "concepts": [{"h": "The synthesis is yours to write", "body": "Two-Eyed Seeing is Mi'kmaw Elder Albert Marshall's guiding principle: seeing with one eye the strengths of Indigenous ways of knowing, with the other the strengths of Western ways of knowing, and using both eyes together for the benefit of all. In a closing week the temptation is to be handed a finished answer that ties the two eyes into one. Marshall's stance refuses that. The holding together is the learner's own ongoing work, returned to over time. This page gives you the threads and asks you to do the integrating yourself, in your own words.", "cite": "Marshall, 2017"}, {"h": "Two whole eyes, revisited", "body": "Across the term you met Western social-science disciplines and named Indigenous scholars from distinct intellectual, community, and Nation-specific contexts. Marshall's principle asks that Indigenous knowledge not be reduced to an add-on judged by Western science. The course does not claim that its readings combine into one universal Indigenous eye. As you revisit the course, name each source on its own terms, explain what it contributes, and keep unearned connections unmade.", "cite": "Marshall, 2017"}, {"h": "Why each eye sees what the other cannot", "body": "Leroy Little Bear explains why holding both eyes open is real work. Indigenous and Eurocentric worldviews differ at their philosophical roots, in their assumptions about time, relationship, and reality. Because they reach the world differently, each eye can see something the other cannot. Naming those places across the course is part of taking the difference seriously. Your work this week is to find those moments yourself and hold the two views side by side with respect, rather than collapsing them into a single account that would erase what makes each distinct.", "cite": "Little Bear, 2000"}, {"h": "A responsibility you carry forward", "body": "Marshall is clear that Two-Eyed Seeing is a journey, not a finished idea you master and set down. It is ongoing co-learning between knowledge traditions, grounded in responsibility and the well-being of future generations, and he warns against letting it be trivialized, romanticized, or co-opted into jargon. As you leave the course, the stance becomes something you carry: a way of working you keep practising, in your own words and your own life, not a label you apply once and consider finished.", "cite": "Marshall, 2017"}], "terms": [{"term": "Two-Eyed Seeing (Etuaptmumk)", "def": "Mi'kmaw Elder Albert Marshall's guiding principle of using the strengths of Indigenous ways of knowing through one eye and the strengths of Western ways of knowing through the other, and using both eyes together for the benefit of all. In this closing week it names the work you do yourself: holding both eyes whole and together across the whole course, in your own words, rather than receiving a finished synthesis from anyone else. It is Elder Albert Marshall's gift and the frame for your own final project.", "cite": "Marshall, 2017"}, {"term": "Co-learning journey", "def": "Marshall's description of Two-Eyed Seeing as an ongoing, respectful practice between knowledge traditions, not a slogan to be trivialized, romanticized, or co-opted. As the course ends, it names why your synthesis is never finished: each person keeps learning to see with both eyes over time, carrying the practice forward as a responsibility rather than completing it.", "cite": "Marshall, 2017"}, {"term": "Root difference of worldviews", "def": "Little Bear's account of how Indigenous and Eurocentric worldviews differ at their philosophical roots, in their assumptions about time, relationship, and reality. Because the two reach the world differently, each eye can see something the other cannot, which is why this week asks you to find and name those places yourself and hold the two views side by side rather than blending them into one.", "cite": "Little Bear, 2000"}, {"term": "Both eyes whole", "def": "the requirement, in Marshall's framing, that each way of knowing stays a whole, complete eye in its own right: the Western eye not treated as the default, the Indigenous eye not treated as a supplement. As you revisit the course, holding both eyes whole means describing each on its own terms and keeping them distinct even as you, the learner, hold them together.", "cite": "Marshall, 2017"}], "readings": [{"apa": "Marshall, A. (2017). Two-Eyed Seeing: Elder Albert Marshall's guiding principle. Thinkers Lodge, Centre for Local Prosperity.", "scope": "The frame for your own synthesis", "id": "amarshall"}, {"apa": "Little Bear, L. (2000). Jagged worldviews colliding. In M. Battiste (Ed.), Reclaiming Indigenous voice and vision (pp. 77-85). UBC Press.", "scope": "The frame for your own synthesis", "id": "littlebear"}], "youcan": ["You can now revisit the whole course and say, in your own words, what social science has asked of you and what it lets you see, keeping the work of holding both eyes as your own", "You can now describe the strengths and limits of Western disciplines and the distinct contributions of named Indigenous scholars without ranking or merging them", "You can now carry Two-Eyed Seeing forward as Elder Albert Marshall's gift and an ongoing responsibility, holding both eyes together in your own way rather than treating the stance as a slogan"], "reflectPrompt": "In a sentence or two, and in your own words: now that the course is done, what does it mean to you to hold both eyes together, and what is one place across the term where you saw something through one eye that you could not have seen through the other? The synthesis is yours: write what you see, not what anyone else has woven for you.", "activity": {"screen": "activity", "archetype": "capstone", "title": "Your own Two-Eyed Seeing of the whole course", "what": "You revisit the big threads of the course one at a time and hold them together in your own words. The page gives you the threads; you write what you now see.", "why": "so the integration is yours: you practise Two-Eyed Seeing on the whole course, keeping both eyes whole and distinct while you, not the app, hold them together.", "data": {"prompt": "Hold the course together in your own way, one thread at a time. The synthesis is yours to write; the app does not write it for you.", "items": [{"label": "What social science asks", "prompt": "In your own words, write what social science has asked you to do across this course, and what you can now see that you could not see at the start. Do not summarize the readings back; say what the term means to you.", "cite": "Marshall, 2017"}, {"label": "The Western disciplines, kept as one eye", "prompt": "Name the Western social science disciplines and ideas you met this term and describe them as one whole eye in its own right. Write what this eye does well, in your own words, without making it the default that everything else is measured against.", "cite": "Marshall, 2017"}, {"label": "Named Indigenous scholars, kept distinct and attributed", "prompt": "Choose two named Indigenous scholars from the term. For each, state the scholar's Nation or context when supported, the exact question or contribution, the evidence used, and one limit. Do not merge them into one Indigenous position or speak for Indigenous peoples in general.", "cite": "Marshall, 2017"}, {"label": "Where each eye saw what the other could not", "prompt": "Find one or two places across the course where each eye saw something the other could not, and name them yourself. Set the two side by side in your own words. Do not fold them into a single account; keep each distinct and say what each one shows.", "cite": "Little Bear, 2000"}, {"label": "The root difference, held with respect", "prompt": "In your own words, say why holding both eyes open took real effort across this course, drawing on the idea that the two worldviews differ at the root. Write how you kept them distinct rather than blending them, and why that mattered to you.", "cite": "Little Bear, 2000"}, {"label": "What Two-Eyed Seeing asks of you now", "prompt": "Write what Two-Eyed Seeing asks of you as you leave this course, in your own words. Name one ongoing responsibility you will carry forward, and how you will keep the stance a living practice rather than a slogan.", "cite": "Marshall, 2017"}], "callout": "Your final project: your own Two-Eyed Seeing of the whole course, in your words. Both eyes stay whole; you hold them together."}}},
     }
   };
+  /* These activities require analysis or student-authored work. They do not
+     simulate community consent, professional authority, diagnosis, or protocol. */
+  var SOC_ACTIVITY_REPAIRS = {
+    2: {
+      screen: 'activity', archetype: 'audit', title: 'Keep both eyes whole',
+      what: 'Audit six statements about Two-Eyed Seeing and distinguish respectful co-learning from ranking, blending, or slogan use.',
+      why: 'so Elder Albert Marshall\'s principle remains attributed, relational, and demanding rather than becoming a decorative phrase.',
+      data: {
+        case: 'A student group is planning how to discuss an Indigenous-authored source beside a Western social-science chapter. Judge the proposed moves, not the people proposing them.',
+        options: ['Holds both eyes whole', 'Ranks or blends the eyes', 'Turns the stance into a slogan'],
+        records: [
+          { text: 'Name each source, its author and context, then explain what each lets the group see before making any connection.', answer: 0, feedback: 'Each source remains attributable and intelligible on its own terms before the learner makes a connection.', cite: 'Marshall, 2017' },
+          { text: 'Use the Indigenous source to add cultural colour after the Western chapter has already supplied the real explanation.', answer: 1, feedback: 'One eye has been made the default and the other reduced to an addition.', cite: 'Marshall, 2017' },
+          { text: 'Blend the two accounts into a single universal model so the differences no longer complicate the conclusion.', answer: 1, feedback: 'Smoothing away difference prevents either eye from remaining whole.', cite: 'Little Bear, 2000' },
+          { text: 'Put "Two-Eyed Seeing" in the title without naming Elder Albert Marshall or changing how sources are selected and interpreted.', answer: 2, feedback: 'The phrase is being used as branding rather than an accountable co-learning practice.', cite: 'Marshall, 2017' },
+          { text: 'Leave a tension unresolved when the sources rest on different assumptions, and explain why the tension matters.', answer: 0, feedback: 'Respectful comparison does not require a forced synthesis.', cite: 'Little Bear, 2000' },
+          { text: 'Claim that one assigned reading represents the Indigenous view for every Nation and community.', answer: 2, feedback: 'A named, contextual source cannot stand in for all Indigenous knowledge or peoples.', cite: 'Course source boundary' }
+        ],
+        fields: [{ id: 'responsibility', label: 'One responsibility I will carry into the next comparison', prompt: 'Write a concrete source, attribution, or boundary practice you will use.' }]
+      }
+    },
+    3: {
+      screen: 'activity', archetype: 'audit', title: 'Trace who holds curriculum authority',
+      what: 'Audit a fictional curriculum redesign by tracking who proposes, approves, frames, teaches, evaluates, and can refuse the change.',
+      why: 'so adding Indigenous content is not mistaken for changing institutional authority or centring Indigenous leadership.',
+      data: {
+        case: 'A fictional college committee wants to "Indigenize" a required first-year course. The committee includes a dean, faculty members, one paid Indigenous community adviser, and two students. The final approval still belongs to the dean.',
+        options: ['Consultation or content addition', 'Change in institutional authority', 'Not enough evidence to tell'],
+        records: [
+          { text: 'The adviser recommends two community-authored sources, and faculty add them to the reading list.', answer: 0, feedback: 'The content changed, but the scenario does not show that authority over framing, teaching, or approval changed.', cite: 'Brunette-Debassige et al., 2022' },
+          { text: 'The adviser and a community-designated knowledge holder have paid decision-making roles over learning outcomes, source selection, and evaluation.', answer: 1, feedback: 'This changes who has recognized decision-making authority within the fictional process.', cite: 'Brunette-Debassige et al., 2022' },
+          { text: 'The syllabus uses the phrase Two-Eyed Seeing and says both traditions are equally valued.', answer: 2, feedback: 'Martin supports equal consideration and reshaped questions, but this statement alone does not establish how authority is distributed.', cite: 'Martin, 2012' },
+          { text: 'Students attend one guest talk, but the dean alone can accept, alter, or remove every recommendation.', answer: 0, feedback: 'Participation occurred, while final institutional control remained unchanged.', cite: 'Brunette-Debassige et al., 2022' },
+          { text: 'The community partner can refuse the use of specific material and the refusal changes the course plan.', answer: 1, feedback: 'A meaningful right to refuse changes the decision structure, not only the content.', cite: 'Brunette-Debassige et al., 2022' }
+        ],
+        fields: [
+          { id: 'authority', label: 'Authority map', prompt: 'Who proposes, who approves, who frames, who teaches, who evaluates, and who can refuse in this case?' },
+          { id: 'difference', label: 'The structural difference', prompt: 'What would have to change for Indigenous leadership to shape the institution rather than only advise it?' }
+        ]
+      }
+    },
+    4: {
+      screen: 'activity', archetype: 'evidencewall', title: 'Match evidence to institutional responsibility',
+      what: 'Match three assigned sources to bounded institutional actions, then state what each source does and does not establish.',
+      why: 'so responsibility follows the evidence instead of becoming a broad promise detached from its source.',
+      data: {
+        case: 'A fictional public college is reviewing student support, research data, and curriculum after the Truth and Reconciliation Commission\'s Calls to Action.',
+        options: ['Review education commitments and institutional response', 'Change Indigenous health-data governance', 'Embed cultural safety and humility in health services'],
+        records: [
+          { source: 'Truth and Reconciliation Commission of Canada, Calls to Action', text: 'Which action is most directly grounded in this source?', answer: 0, feedback: 'The Calls to Action provide the relevant public commitments. The source does not by itself show that this fictional college has fulfilled them.', cite: 'TRC, 2015' },
+          { source: 'Smylie and Anderson', text: 'Which action follows their methodological and governance concerns?', answer: 1, feedback: 'They identify problems of coverage, jurisdiction, governance, and capacity in Indigenous health information.', cite: 'Smylie & Anderson, 2006' },
+          { source: 'First Nations Health Authority', text: 'Which action fits this practice framework?', answer: 2, feedback: 'Cultural safety and humility concern health-service relationships and systems; the source is not a universal protocol for every classroom.', cite: 'FNHA, n.d.' }
+        ],
+        fields: [
+          { id: 'action', label: 'One bounded institutional action', prompt: 'Choose one source and name an action the fictional college could take.' },
+          { id: 'limit', label: 'Evidence boundary', prompt: 'What result would still need to be checked rather than assumed?' }
+        ]
+      }
+    },
+    5: {
+      screen: 'activity', archetype: 'classify', title: 'Audit what the evidence can support',
+      what: 'Classify claims from a fictional consumer investigation as direct findings, cautious inferences, or overclaims.',
+      why: 'so a striking result is separated from what the sample, measure, and design can actually establish.',
+      data: {
+        case: 'A Marketplace-style investigation sends 30 samples of three products to one laboratory and interviews six consumers. The activity is fictional but uses realistic research decisions.',
+        prompt: 'Classify each sentence by the strength of the evidence described.',
+        options: ['Direct finding from this investigation', 'Cautious inference', 'Overclaim'],
+        examples: [
+          { text: 'The laboratory reported that 8 of the 30 tested samples exceeded the investigation\'s stated threshold.', answer: 0, feedback: 'This reports the observed result and its base without extending beyond the tested samples.', cite: 'OpenStax, 2021' },
+          { text: 'The results suggest a possible product-category problem worth testing with a larger, independently selected sample.', answer: 1, feedback: 'The language is conditional and identifies the next evidence needed.', cite: 'OpenStax, 2021' },
+          { text: 'These products are unsafe everywhere and are causing illness across Canada.', answer: 2, feedback: 'The design does not establish national prevalence, safety outcomes, or causation.', cite: 'OpenStax, 2021' },
+          { text: 'Five interviewees said they changed what they bought after seeing the story.', answer: 0, feedback: 'This is a bounded report about the interviewed participants, not all consumers.', cite: 'OpenStax, 2021' },
+          { text: 'The story changed Canadian consumer behaviour.', answer: 2, feedback: 'Six interviews cannot establish a population-level effect.', cite: 'OpenStax, 2021' }
+        ],
+        fields: [
+          { id: 'conclusion', label: 'A careful conclusion', prompt: 'Write one sentence this investigation could responsibly support.' },
+          { id: 'nextstudy', label: 'The next evidence needed', prompt: 'Name one sampling, measurement, comparison, or replication improvement.' }
+        ]
+      }
+    },
+    9: {
+      screen: 'activity', archetype: 'trace', title: 'Trace an engineered inequality',
+      what: 'Follow one outcome that can look personal back through a legal or institutional mechanism and forward through reproduction over time.',
+      why: 'so structural inequality is explained through a documented mechanism rather than individual character or an unsupported statistic.',
+      data: {
+        case: 'Use Palmater\'s analysis of First Nations poverty as the source case. Keep the account specific to her legal and political argument; do not generalize it to every Indigenous people or community.',
+        nodes: [
+          { id: 'outcome', label: 'The outcome that may be misread as personal', prompt: 'Name the material outcome without blaming the people living it.', cite: 'Palmater, 2011' },
+          { id: 'mechanism', label: 'The legal or institutional mechanism', prompt: 'Name the law, policy relationship, or institutional control Palmater identifies.', cite: 'Palmater, 2011' },
+          { id: 'history', label: 'How the mechanism was built', prompt: 'What history of dispossession or imposed control makes the outcome intelligible?', cite: 'Palmater, 2011' },
+          { id: 'reproduction', label: 'How it continues over time', prompt: 'What keeps the structure operating rather than making the outcome a one-time event?', cite: 'Palmater, 2011' },
+          { id: 'explanation', label: 'The structural explanation', prompt: 'Write a conclusion that links the outcome to the mechanism and stays within Palmater\'s evidence.', cite: 'Palmater, 2011' }
+        ],
+        fields: [{ id: 'limit', label: 'Source limit', prompt: 'What does this one source or 2011 publication date require you to avoid claiming?' }]
+      }
+    },
+    10: {
+      screen: 'activity', archetype: 'builder', title: 'Write a non-diagnostic structural briefing',
+      what: 'Build a short public-health briefing that names a community-level pattern, its historical and structural explanation, an appropriate response level, and an evidence limit.',
+      why: 'so Gone\'s historical-trauma argument stays at the level of community, history, and institutions and is not turned into a diagnosis.',
+      data: {
+        layout: 'briefing', case: 'You are briefing a fictional public-health committee. Do not diagnose a person, infer symptoms, or use the activity as self-assessment.',
+        fields: [
+          { id: 'pattern', label: 'Community-level pattern', prompt: 'Describe the inequity at the level used by the source.' },
+          { id: 'cause', label: 'Historical and structural explanation', prompt: 'Name colonization or dispossession as Gone frames it, without reducing the account to an individual deficit.' },
+          { id: 'response', label: 'Response level', prompt: 'Name a response at the level of reconciliation, redress, or structural reform.' },
+          { id: 'boundary', label: 'Evidence boundary', prompt: 'State what the source does not allow you to diagnose or claim about any individual.' }
+        ],
+        callout: 'Historical trauma is used here as Gone\'s alter-Native explanatory framework. It is not a symptom checklist or a universal Indigenous diagnosis. (Gone, 2023)'
+      }
+    },
+    11: {
+      screen: 'activity', archetype: 'trace', title: 'Audit an intergenerational pathway',
+      what: 'Place institutional harm, family history, contemporary stressors, and cumulative effects into a sourced pathway, then identify one overclaim.',
+      why: 'so the research remains a structural and historical account rather than becoming a prediction or diagnosis of a person.',
+      data: {
+        case: 'Use Bombay, Matheson, and Anisman\'s review as a research-pathway exercise. Do not apply the pathway to a classmate, family, or individual case.',
+        nodes: [
+          { id: 'institution', label: 'Documented institutional harm', prompt: 'What institution and historical harm begin the pathway?', cite: 'Bombay et al., 2014' },
+          { id: 'family', label: 'Familial history examined', prompt: 'What family-history relationship do the authors study?', cite: 'Bombay et al., 2014' },
+          { id: 'stressors', label: 'Contemporary conditions', prompt: 'What present-day stressor pattern is associated with that history?', cite: 'Bombay et al., 2014' },
+          { id: 'effects', label: 'Cumulative effects', prompt: 'How do the authors describe accumulation across generations?', cite: 'Bombay et al., 2014' },
+          { id: 'overclaim', label: 'A claim the research does not support', prompt: 'Write one prediction, diagnosis, or causal claim that would go beyond this evidence.', cite: 'Evidence boundary' }
+        ],
+        fields: [{ id: 'careful', label: 'A careful structural conclusion', prompt: 'Write one sentence that keeps the pathway historical, structural, and non-diagnostic.' }]
+      }
+    },
+    12: {
+      screen: 'activity', archetype: 'audit', title: 'Redesign a fictional service intake',
+      what: 'Compare narrow household categories with questions about care, responsibility, and support, then identify what each source contributes.',
+      why: 'so family categories are treated as consequential design choices without turning Anderson\'s work into a universal intake protocol.',
+      data: {
+        case: 'A fictional student-support service asks only for marital status, legal dependants, and people at the same address. It wants to understand who actually provides care and support without asking students to disclose more than necessary.',
+        options: ['Narrow category', 'Care-and-responsibility question', 'Intrusive or unsupported'],
+        records: [
+          { text: 'Select one: single, married, divorced, widowed.', answer: 0, feedback: 'This records a formal status but may not show the relationships doing daily support work.', cite: 'OpenStax, 2021' },
+          { text: 'Who, if anyone, regularly helps you meet study, transportation, caregiving, or household responsibilities?', answer: 1, feedback: 'This asks about support work rather than assuming it from a household label.', cite: 'Course application of Anderson, 2020' },
+          { text: 'Explain your community\'s traditional kinship system so staff can decide whether it is valid.', answer: 2, feedback: 'The question is intrusive, positions staff as judges, and is not supported as a universal protocol.', cite: 'Source and privacy boundary' },
+          { text: 'Which responsibilities outside school affect when or how you can use this service?', answer: 1, feedback: 'The question makes relevant work visible while allowing the student to choose what to disclose.', cite: 'Course application' },
+          { text: 'Only people at your current address count as family support.', answer: 0, feedback: 'The rule turns one household form into the only recognized relationship structure.', cite: 'OpenStax, 2021' }
+        ],
+        fields: [
+          { id: 'revision', label: 'One revised intake question', prompt: 'Write a voluntary, relevant question about care, responsibility, or support.' },
+          { id: 'sources', label: 'Source attribution', prompt: 'State separately what OpenStax contributes and what Anderson contributes to your course analysis.' },
+          { id: 'limit', label: 'Application limit', prompt: 'Explain why your revision is a course application, not a universal Indigenous protocol.' }
+        ]
+      }
+    },
+    13: {
+      screen: 'activity', archetype: 'builder', title: 'Revise your Personal Cartography with evidence',
+      what: 'Write six evidence-bearing revisions to your map, including named sources, a visible change in your thinking, and an unresolved tension.',
+      why: 'so the revision shows intellectual movement instead of checking off prepared prompts.',
+      data: {
+        layout: 'cartography', case: 'The map and connections remain yours. Name specific sources and keep Nation-specific or author-specific contexts visible where the course evidence supports them.',
+        fields: [
+          { id: 'indigenous', label: 'One named Indigenous source', prompt: 'Name the author or knowledge holder, context, contribution, and source limit.' },
+          { id: 'western', label: 'One Western social-science source', prompt: 'Name its discipline, contribution, evidence, and limit.' },
+          { id: 'earlier', label: 'My earlier understanding', prompt: 'State one earlier idea accurately.' },
+          { id: 'revised', label: 'My revised understanding', prompt: 'Show what changed and which evidence changed it.' },
+          { id: 'tension', label: 'A tension I am leaving open', prompt: 'Name a difference you should not smooth into one account.' },
+          { id: 'responsibility', label: 'What the revision asks of me', prompt: 'Name one attribution, relationship, or evidence responsibility you will carry forward.' }
+        ]
+      }
+    },
+    14: {
+      screen: 'activity', archetype: 'builder', title: 'Write your whole-course synthesis',
+      what: 'Build a synthesis from named and bounded sources, keep distinct contributions visible, and end with an ongoing responsibility.',
+      why: 'so the final integration is authored by you and does not collapse diverse Indigenous scholarship into one position.',
+      data: {
+        layout: 'synthesis', case: 'This is a course synthesis, not permission to speak for a Nation, community, or knowledge tradition. Connections must remain attributable to the sources you actually studied.',
+        fields: [
+          { id: 'socialscience', label: 'What social science now asks me to do', prompt: 'State the course-level practice in your own words.' },
+          { id: 'western', label: 'Western disciplines and their limits', prompt: 'Name the disciplines or concepts and what each does and does not make visible.' },
+          { id: 'sourceone', label: 'Named Indigenous source 1', prompt: 'Name the author or knowledge holder, context, exact contribution, evidence, and limit.' },
+          { id: 'sourcetwo', label: 'Named Indigenous source 2', prompt: 'Choose a distinct source and keep its context and contribution separate.' },
+          { id: 'difference', label: 'Where the accounts remain different', prompt: 'Name one difference you will not blend or rank.' },
+          { id: 'connection', label: 'A connection I can defend', prompt: 'Explain one connection and show which part is your interpretation.' },
+          { id: 'responsibility', label: 'My ongoing responsibility', prompt: 'Name a concrete practice of attribution, evidence, relationship, or refusal you will carry forward.' }
+        ],
+        callout: 'Two-Eyed Seeing is attributed here to Mi\'kmaw Elder Albert Marshall. Treat it as an ongoing co-learning responsibility, not a generic synonym for combining viewpoints. (Marshall, 2017)'
+      }
+    }
+  };
+  Object.keys(SOC_ACTIVITY_REPAIRS).forEach(function (w) { if (WEEKPAGE.SOC122[w]) WEEKPAGE.SOC122[w].activity = SOC_ACTIVITY_REPAIRS[w]; });
+  var SOC_READING_CITATIONS = {
+    brunette2022: 'Brunette-Debassige, C., Wakeham, P., Smithers-Graeme, C., Haque, A., & Chitty, S. M. (2022). Mapping approaches to decolonizing and Indigenizing the curriculum at Canadian universities: Critical reflections on current practices, challenges, and possibilities. The International Indigenous Policy Journal, 13(3), Article 14109. https://doi.org/10.18584/iipj.2022.13.3.14109',
+    smylie: 'Smylie, J., & Anderson, M. (2006). Understanding the health of Indigenous peoples in Canada: Key methodological and conceptual challenges. CMAJ, 175(6), 602-605. https://doi.org/10.1503/cmaj.060940',
+    gone2023: 'Gone, J. P. (2023). Indigenous historical trauma: Alter-Native explanations for mental health inequities. Daedalus, 152(4), 130-150. https://doi.org/10.1162/daed_a_02035',
+    palmater: 'Palmater, P. D. (2011). Stretched beyond human limits: Death by poverty in First Nations. Canadian Review of Social Policy / Revue canadienne de politique sociale, 65/66, 112-127.',
+    trc2015: 'Truth and Reconciliation Commission of Canada. (2015). Honouring the truth, reconciling for the future: Summary of the final report of the Truth and Reconciliation Commission of Canada.',
+    'fnha-cultural-safety': 'First Nations Health Authority. (n.d.). Cultural safety and humility. https://fnha.ca/services-and-support/culturally-grounded-care/cultural-safety-and-humility/'
+  };
+  Object.keys(WEEKPAGE.SOC122).forEach(function (w) {
+    var week = WEEKPAGE.SOC122[w];
+    (week.readings || []).forEach(function (reading) { if (SOC_READING_CITATIONS[reading.id]) reading.apa = SOC_READING_CITATIONS[reading.id]; });
+  });
+  (function repairWeekThreeAttribution() {
+    var week = WEEKPAGE.SOC122[3];
+    week.guiding[3] = 'Martin explains equal consideration in Indigenous health research. Brunette-Debassige and colleagues analyse structural curriculum authority. What does each source let you claim, and where must their different settings remain visible?';
+    week.checks[3] = { t: 'Why equal consideration in Martin is a relational research standard, while structural authority and Indigenous leadership are grounded here in Brunette-Debassige and colleagues', look: 'both readings, kept in their distinct settings' };
+    week.concepts[3] = {
+      h: 'Institutional authority is more than representation',
+      body: 'Brunette-Debassige and colleagues distinguish minor additions from structural curriculum change. Asking who can propose, approve, frame, teach, evaluate, and refuse makes decision rights visible. Their review calls for structural revision with Indigenous leadership and autonomy. Martin contributes a different, relational standard: Indigenous and Western knowledge receive equal consideration in Indigenous health research. The two sources can be compared, but Martin should not be used as evidence for a curriculum-governance claim she did not make.',
+      cite: 'Brunette-Debassige et al., 2022; Martin, 2012 provides the distinct research-pairing frame'
+    };
+    week.terms[3] = {
+      term: 'Institutional authority',
+      def: 'the recognized power to shape curriculum decisions, including who selects sources, defines outcomes, approves changes, teaches, evaluates, and can refuse a proposed use. In this week the structural claim is grounded in Brunette-Debassige and colleagues, not attributed to Martin.',
+      cite: 'Brunette-Debassige et al., 2022'
+    };
+  })();
   function weekData(w) {
     var c = (D.course && D.course.code) || '';
     var base = (WEEKPAGE[c] && WEEKPAGE[c][w]) || null;
@@ -2619,6 +2875,7 @@
     var out = {}, k;
     for (k in base) out[k] = Array.isArray(base[k]) ? base[k].slice() : base[k];
     for (k in add) {
+      if (k === 'activity' && SOC_ACTIVITY_REPAIRS[w]) continue;
       if (/Mode$/.test(k)) continue;
       if (Array.isArray(add[k])) {
         if (add[k + 'Mode'] === 'replace') out[k] = add[k].slice();
@@ -3069,6 +3326,64 @@
   function actCite(c) { return c ? '<div style="font-size:.74rem;color:var(--ink-faint);margin-top:6px">(' + esc(c) + ')</div>' : ''; }
   function actBadge(harm) { return harm ? '<span style="display:inline-block;background:#FBE9EA;color:#B11722;font-size:.7rem;font-weight:700;border-radius:999px;padding:2px 9px;margin-left:8px">a weaker move</span>' : '<span style="display:inline-block;background:#E7F3EC;color:var(--green);font-size:.7rem;font-weight:700;border-radius:999px;padding:2px 9px;margin-left:8px">a stronger move</span>'; }
   function actCaseBox(label, txt) { return txt ? '<div style="background:#15171C;color:#fff;border-radius:12px;padding:14px 18px;margin:0 0 16px"><div style="font-size:.7rem;font-weight:700;color:#6B7280;margin-bottom:4px">' + label + '</div><div style="font-size:.98rem;line-height:1.5">' + esc(txt) + '</div></div>' : ''; }
+  function actStored(key) {
+    if (state.act && Object.prototype.hasOwnProperty.call(state.act, key)) return state.act[key];
+    if (state.actResult && Object.prototype.hasOwnProperty.call(state.actResult, key)) return state.actResult[key];
+    return null;
+  }
+  function actField(key, field, group) {
+    var value = actStored(key);
+    return '<label class="act-field"><span>' + esc(field.label) + '</span><small>' + esc(field.prompt) + '</small><textarea rows="4" maxlength="2000" data-activity-field="' + esc(key) + '" oninput="SOC.actText(\'' + key + '\',this.value)" placeholder="Write your own response here.">' + esc(typeof value === 'string' ? value : '') + '</textarea><em>Your wording is kept exactly on this device when browser storage is available.</em></label>';
+  }
+  function actFields(w, fields, group) {
+    return '<div class="act-fields act-fields-' + esc(group || 'form') + '">' + (fields || []).map(function (f) { return actField('a|' + w + '|' + (group || 'f') + '|' + f.id, f, group); }).join('') + '</div>';
+  }
+  function actDecisionRows(w, data, group) {
+    var rows = data.records || data.examples || [], options = data.options || [];
+    return '<div class="act-decision-grid">' + rows.map(function (r, i) {
+      var key = 'a|' + w + '|' + group + '|' + i, sel = actStored(key);
+      var buttons = options.map(function (option, oi) {
+        var picked = sel === oi, correct = oi === r.answer, border = picked ? (correct ? 'var(--green)' : '#B11722') : 'var(--border)', bg = picked ? (correct ? '#E7F3EC' : '#FBE9EA') : '#fff';
+        return '<button type="button" data-activity-choice="' + key + '|' + oi + '" aria-pressed="' + picked + '" onclick="SOC.actPick(\'' + key + '\',' + oi + ')" style="border-color:' + border + ';background:' + bg + '">' + esc(option) + '</button>';
+      }).join('');
+      var feedback = sel == null ? '' : '<div class="act-feedback ' + (sel === r.answer ? 'is-correct' : 'is-retry') + '"><b>' + (sel === r.answer ? 'Supported.' : 'Look again.') + '</b> ' + esc(r.feedback || '') + actCite(r.cite) + '</div>';
+      return '<article class="act-decision"><div class="act-decision-no">' + (r.source ? esc(r.source) : 'CASE ' + (i + 1)) + '</div><h3>' + esc(r.text) + '</h3><div class="act-choice-row">' + buttons + '</div>' + feedback + '</article>';
+    }).join('') + '</div>';
+  }
+  function actSequence(w, a) {
+    var d = a.data || {}, key = 'a|' + w + '|sequence', order = actStored(key) || [], attempt = actStored(key + '|try'), steps = d.steps || [];
+    var choices = steps.map(function (step, i) { var used = order.indexOf(i) >= 0; return '<button type="button" data-activity-choice="' + key + '|' + i + '" ' + (used ? 'disabled' : '') + ' onclick="SOC.actSequencePick(\'' + key + '\',' + i + ')" class="act-sequence-choice"><b>' + esc(step.label) + '</b><span>' + (used ? 'Placed in the sequence' : 'Choose as the next move') + '</span></button>'; }).join('');
+    var built = order.map(function (i, n) { var s = steps[i] || {}; return '<li><span>' + (n + 1) + '</span><div><b>' + esc(s.label) + '</b><p>' + esc(s.role) + '</p>' + actCite(s.cite) + '</div></li>'; }).join('');
+    var note = attempt == null ? '' : '<div class="act-feedback is-retry"><b>Not next yet.</b> Use the completed links to decide what has to happen first.</div>';
+    return '<section class="act-workspace act-sequence" data-archetype="sequence">' + actCaseBox('THE TASK', d['case']) + '<p class="act-instruction">' + esc(d.prompt) + '</p><div class="act-sequence-layout"><div><h2>Moves available</h2>' + choices + note + '</div><div><h2>Your sequence</h2><ol>' + (built || '<li class="act-empty">Choose the first move.</li>') + '</ol><button type="button" class="act-reset" onclick="SOC.actSequenceReset(\'' + key + '\')">Reset the sequence</button></div></div>' + actFields(w, d.fields, 'f') + '</section>';
+  }
+  function actClassify(w, a) {
+    var d = a.data || {};
+    return '<section class="act-workspace act-classify" data-archetype="classify">' + actCaseBox('METHODS FILE', d['case']) + '<p class="act-instruction">' + esc(d.prompt) + '</p>' + actDecisionRows(w, d, 'class') + actFields(w, d.fields, 'f') + '</section>';
+  }
+  function actMap(w, a) {
+    var d = a.data || {};
+    var layers = (d.layers || []).map(function (layer, i) { return '<article class="act-map-layer"><div class="act-layer-index">' + (i + 1) + '</div><div><h3>' + esc(layer.label) + '</h3><p>' + esc(layer.prompt) + '</p>' + actCite(layer.cite) + actField('a|' + w + '|map|' + layer.id, { label: 'Your reading of this layer', prompt: 'Use only the evidence supplied in the case.' }, 'map') + '</div></article>'; }).join('');
+    return '<section class="act-workspace act-map" data-archetype="map">' + actCaseBox('FICTIONAL CASE', d['case']) + '<div class="act-map-stack">' + layers + '</div>' + actFields(w, d.fields, 'f') + '</section>';
+  }
+  function actBuilder(w, a) {
+    var d = a.data || {}, options = d.options || [], optionKey = 'a|' + w + '|options', chosen = actStored(optionKey) || [], pick = Math.min(Number(d.pick) || options.length, options.length);
+    var optionHtml = options.length ? '<fieldset class="act-option-bank"><legend>Choose up to ' + pick + '</legend>' + options.map(function (option, i) { var on = chosen.indexOf(i) >= 0; return '<button type="button" aria-pressed="' + on + '" onclick="SOC.actLabPick(\'' + optionKey + '\',' + i + ',' + pick + ')" class="' + (on ? 'selected' : '') + '">' + esc(option) + '</button>'; }).join('') + '<small>' + chosen.length + ' of ' + pick + ' selected</small></fieldset>' : '';
+    return '<section class="act-workspace act-builder act-builder-' + esc(d.layout || 'form') + '" data-archetype="builder">' + actCaseBox('WORKING BOUNDARY', d['case']) + optionHtml + actFields(w, d.fields, 'f') + (d.callout ? '<div class="act-source-boundary">' + esc(d.callout) + '</div>' : '') + '</section>';
+  }
+  function actAudit(w, a) {
+    var d = a.data || {};
+    return '<section class="act-workspace act-audit" data-archetype="audit">' + actCaseBox('FICTIONAL FILE', d['case']) + actDecisionRows(w, d, 'audit') + '<div class="act-audit-write"><h2>Turn the audit into a responsibility</h2>' + actFields(w, d.fields, 'f') + '</div></section>';
+  }
+  function actEvidenceWall(w, a) {
+    var d = a.data || {};
+    return '<section class="act-workspace act-evidence-wall" data-archetype="evidencewall">' + actCaseBox('INSTITUTIONAL QUESTION', d['case']) + actDecisionRows(w, d, 'evidence') + '<div class="act-evidence-write"><h2>From source to action</h2>' + actFields(w, d.fields, 'f') + '</div></section>';
+  }
+  function actTrace(w, a) {
+    var d = a.data || {};
+    var nodes = (d.nodes || []).map(function (node, i) { return '<article class="act-trace-node"><span>' + (i + 1) + '</span><div><h3>' + esc(node.label) + '</h3><p>' + esc(node.prompt) + '</p>' + actCite(node.cite) + actField('a|' + w + '|trace|' + node.id, { label: 'Your evidence-based entry', prompt: 'Write the link in the pathway without adding facts the source does not establish.' }, 'trace') + '</div></article>'; }).join('');
+    return '<section class="act-workspace act-trace" data-archetype="trace">' + actCaseBox('SOURCE CASE', d['case']) + '<div class="act-trace-line">' + nodes + '</div>' + actFields(w, d.fields, 'f') + '</section>';
+  }
   function actMatch(w, a) {
     var d = a.data || {}, pairs = d.pairs || [], uniq = [], seen = {};
     pairs.forEach(function (p) { if (!seen[p.match]) { seen[p.match] = 1; uniq.push(p.match); } });
@@ -3145,7 +3460,7 @@
     var a = d.activity, activityCopy = emphasisActivityCopy(w, a);
     var head = '<section class="jhero" style="margin:0 0 18px;padding:26px 28px"><div class="mono" style="font-size:.7rem;letter-spacing:.06em;color:var(--red);font-weight:700;margin-bottom:7px">WEEK ' + w + ' ACTIVITY &middot; ' + esc(emphasisOption().label.toUpperCase()) + '</div><h1 style="font-size:1.7rem;line-height:1.15;font-weight:700;margin:0 0 12px;color:var(--ink)">' + esc(a.title) + '</h1><div class="wk-whatwhy emphasis-activity-copy" style="margin:0"><b>What this becomes through your selected route:</b> ' + esc(activityCopy.what) + '<br><br><b>Why you are doing it through this route:</b> ' + esc(activityCopy.why) + '</div></section>' + lensActivityBlock(w, a, true);
     var inner = '';
-    switch (a.archetype) { case 'match': inner = actMatch(w, a); break; case 'scenario': inner = actScenario(w, a); break; case 'toggle': inner = actToggle(w, a); break; case 'assemble': inner = actAssemble(w, a); break; case 'lab': inner = actLab(w, a); break; case 'capstone': inner = actCapstone(w, a); break; default: inner = '<p style="color:var(--ink-dim)">This activity is not set up yet.</p>'; }
+    switch (a.archetype) { case 'match': inner = actMatch(w, a); break; case 'scenario': inner = actScenario(w, a); break; case 'toggle': inner = actToggle(w, a); break; case 'assemble': inner = actAssemble(w, a); break; case 'lab': inner = actLab(w, a); break; case 'capstone': inner = actCapstone(w, a); break; case 'sequence': inner = actSequence(w, a); break; case 'classify': inner = actClassify(w, a); break; case 'map': inner = actMap(w, a); break; case 'builder': inner = actBuilder(w, a); break; case 'audit': inner = actAudit(w, a); break; case 'evidencewall': inner = actEvidenceWall(w, a); break; case 'trace': inner = actTrace(w, a); break; default: inner = '<p style="color:var(--ink-dim)">This activity is not set up yet.</p>'; }
     var foot = '<div style="margin-top:22px;padding-top:18px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap"><div style="font-size:.86rem;color:var(--ink-dim)">When you are done, go back to the week to answer the reflection and save your work.</div><button onclick="SOC.station(' + w + ')" class="wk-cta" style="margin:0">Back to Week ' + w + ' ' + ic('chevron', 16, 2.4) + '</button></div>';
     return '<div class="rise" style="margin:0 auto">' + head + inner + foot + '</div>';
   }
@@ -3157,6 +3472,21 @@
       return audited.length ? ('You audited ' + audited.length + ' of 3 systems. Every system you tested failed darker-skinned women the most (up to 34.7 percent), against near-zero error for lighter-skinned men. The disparity was hidden by overall accuracy and only an intersectional cut revealed it.') : '(activity not run yet)';
     }
     var data = a.data || {};
+    if (['sequence', 'classify', 'map', 'builder', 'audit', 'evidencewall', 'trace'].indexOf(a.archetype) >= 0) {
+      var responses = [], choices = 0, selected = actMap['a|' + w + '|options'] || [];
+      function add(key, label) { var value = actMap[key]; if (typeof value === 'string' && value.trim()) responses.push(label + ':\n' + value); }
+      (data.fields || []).forEach(function (f) { add('a|' + w + '|f|' + f.id, f.label); });
+      (data.layers || []).forEach(function (f) { add('a|' + w + '|map|' + f.id, f.label); });
+      (data.nodes || []).forEach(function (f) { add('a|' + w + '|trace|' + f.id, f.label); });
+      var group = { classify: 'class', audit: 'audit', evidencewall: 'evidence' }[a.archetype];
+      if (a.archetype === 'sequence') choices = (actMap['a|' + w + '|sequence'] || []).length;
+      else if (group) Object.keys(actMap).forEach(function (key) { if (key.indexOf('a|' + w + '|' + group + '|') === 0 && typeof actMap[key] === 'number') choices++; });
+      var status = [];
+      if (choices) status.push(choices + ' activity decisions completed');
+      if (selected.length) status.push(selected.length + ' items selected');
+      if (responses.length) status.push(responses.length + ' student-authored entries');
+      return (status.length ? status.join('; ') + '.' : '(activity not started yet)') + (responses.length ? '\n\nStudent-authored activity work, preserved exactly:\n\n' + responses.join('\n\n') : '');
+    }
     if (a.archetype === 'match') { var pairs = data.pairs || [], uniq = [], seen = {}, done = 0, correct = 0; pairs.forEach(function (q) { if (!seen[q.match]) { seen[q.match] = 1; uniq.push(q.match); } }); pairs.forEach(function (p, i) { var s = actMap['a|' + w + '|m|' + i]; if (s != null) { done++; if (uniq[s] === p.match) correct++; } }); return done ? ('You matched ' + correct + ' of ' + pairs.length + ' examples to the mechanism each one shows.') : '(activity not started yet)'; }
     if (a.archetype === 'scenario') { var steps = data.steps || [], n = 0; steps.forEach(function (st, i) { if (actMap['a|' + w + '|s|' + i] != null) n++; }); return n ? ('You worked through ' + n + ' of ' + steps.length + ' decision points and saw which design choices lead to harm.') : '(activity not started yet)'; }
     if (a.archetype === 'toggle') { var tgs = data.toggles || [], n2 = 0; tgs.forEach(function (t, i) { if (actMap['a|' + w + '|t|' + i]) n2++; }); return 'You explored the system defaults and saw who each one harms (' + n2 + ' of ' + tgs.length + ' turned on).'; }
@@ -3233,7 +3563,7 @@
   function kdMonthDay(iso) { var p = iso.split('-'); return KD_MON[+p[1] - 1] + ' ' + (+p[2]); }
   function deadlineRule() { return '<aside class="deadline-rule" role="note" style="border:1px solid #E7C3BF;border-left:5px solid #DA291C;border-radius:0 11px 11px 0;background:#fff;padding:12px 14px;margin:0 0 16px;color:#15171C"><strong style="color:#961A13">Submission time:</strong> All assignments are due by 11:59 p.m. Eastern Time, EDT or EST as applicable, on the date shown. Blackboard remains the official submission record.</aside>'; }
   function mobileCalendarSubscription() { var code = courseCode(), base = location.protocol + '//' + location.host + location.pathname.replace(/[^\/]*$/, ''), feed = (base + 'calendar/' + code + '_key_dates.ics').replace(/^https?:/i, 'webcal:'); return '<section class="mobile-cal-sub" aria-labelledby="mobile-cal-title"><div class="mono">MOBILE CALENDAR</div><h2 id="mobile-cal-title">Keep these dates on your phone</h2><p>This is a live calendar subscription, not a downloaded copy. Your calendar app can refresh it when the course schedule changes. Blackboard remains the official source.</p><a href="' + esc(feed) + '">Subscribe on this phone <span aria-hidden="true">&#8594;</span></a></section>'; }
-  function mobileAccessPanel() { var url = (location.origin + location.pathname).replace(/index\.html$/i, ''); return '<section class="mobile-access-panel" aria-labelledby="mobile-access-title"><div class="mono">PHONE OR TABLET</div><h2 id="mobile-access-title">Use the same site on any device</h2><p>There is no separate app. This responsive site is the mobile version too. Share or copy the link, then open it on your phone or tablet.</p><div><a href="' + esc(url) + '">Open the site link</a><button type="button" onclick="SOC.shareMobileSite()">Share or copy the link</button></div><small>When browser storage is available, saved notes may remain only on the device and browser where you typed them. Download anything you need to move.</small></section>'; }
+  function mobileAccessPanel() { var url = location.origin + canonicalRouteUrl(_walk && _walk.week); return '<section class="mobile-access-panel" aria-labelledby="mobile-access-title"><div class="mono">PHONE OR TABLET</div><h2 id="mobile-access-title">Use the same site on any device</h2><p>There is no separate app. This responsive site is the mobile version too. Share or copy this page link, then open it on your phone or tablet.</p><div><a href="' + esc(url) + '">Open this page link</a><button type="button" onclick="SOC.shareMobileSite()">Share or copy this page</button></div><small>When browser storage is available, saved notes may remain only on the device and browser where you typed them. Download anything you need to move.</small></section>'; }
   function upcomingParts(e) { var title = String(e.title || ''), note = String(e.note || ''), label = 'Course date', name = title, m; if (e.kind === 'open') { label = 'Assignment released'; m = title.match(/^(.*?)\s+(?:opens|begins)(?:\s+(.*))?$/i); if (m) { name = m[1]; if (!note && m[2]) note = m[2]; } } else if (e.kind === 'due') { label = 'Assignment due'; name = title.replace(/\s+(?:due|close|closes)$/i, ''); note = note.replace(/^due,?\s*/i, ''); } else if (/study week/i.test(title)) label = 'Study Week'; else if (e.kind === 'class') label = /^(?:(?:First|Last) day of classes|Course opens)$/i.test(title) ? 'Term marker' : 'Live class'; else if (e.kind === 'async') label = 'Asynchronous week'; return { label: label, name: name, note: note, date: kdMonthDay(e.date) }; }
   function upcomingBanner() {
     var rows = keyDatesList(), todayIso = '', entries = [];
@@ -4784,7 +5114,7 @@
   function accessStatement() {
     return '<section class="node" id="wk-access" style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--red);border-radius:0 12px 12px 0;padding:16px 18px;margin:18px 0 0">'
       + '<h2 style="font-size:1.05rem;margin:0 0 6px;color:var(--ink)">Accessibility on this site</h2>'
-      + '<p style="font-size:.88rem;line-height:1.6;color:var(--ink-dim);margin:0 0 8px">This site is built to work for every student: it adapts to any screen size, works with keyboard navigation, keeps text resizable, gives every image a text description, and never puts course content behind a timed or scored gate. The Reading Lens offers text sizing, comfortable spacing, a high-legibility font, page tints, a reading ruler, a magnifier, and read-aloud on content pages. Images open in a keyboard-accessible viewer with zoom.</p>'
+      + '<p style="font-size:.88rem;line-height:1.6;color:var(--ink-dim);margin:0 0 8px">This site is designed and tested to support different screen sizes, keyboard navigation, resizable text, text descriptions for images, and untimed, unscored course practice. The Reading Lens offers text sizing, comfortable spacing, a high-legibility font, page tints, a reading ruler, a magnifier, and read-aloud on content pages. Images open in a keyboard-accessible viewer with zoom. If any feature creates a barrier, use Report a problem so it can be corrected.</p>'
       + '<p style="font-size:.88rem;line-height:1.6;color:var(--ink-dim);margin:0">The weekly experience player does not include voice narration. Class recordings appear only when available and after processing; check the player or Blackboard for current caption and transcript options. When a current page walkthrough video is available, it is silent with on-screen captions. If any material is not accessible to you, contact your professor through Blackboard; barriers get fixed, not explained away.</p>'
       + '</section>';
   }
@@ -4792,8 +5122,9 @@
   function dataPortSection() {
     return '<section class="node" id="wk-dataport" style="background:#fff;border:1px solid var(--border);border-left:4px solid var(--red);border-radius:0 12px 12px 0;padding:16px 18px;margin:18px 0 0">'
       + '<h2 style="font-size:1.05rem;margin:0 0 6px;color:var(--ink)">Take your saved work with you</h2>'
-      + '<p style="font-size:.88rem;line-height:1.55;color:var(--ink-dim);margin:0 0 10px">When browser storage is available, what you type and rate may remain only in this browser. Browser settings, private browsing, or clearing site data can remove that work. Download a backup file here, then restore it on another device to carry your work across. This site does not upload the backup.</p>'
+      + '<p style="font-size:.88rem;line-height:1.55;color:var(--ink-dim);margin:0 0 10px">Your note fields are saved as you type in a primary browser copy, a session mirror, and a local recovery vault when those features are available. The site preserves your exact wording and only adds context headings when it organizes an export. Download the Seneca document for a readable copy, and download the backup file to move all saved work to another browser or device. Nothing is uploaded by this site.</p>'
       + '<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">'
+      + '<button type="button" class="wk-save" onclick="SOC.exportAllNotes()">Download all organized notes (.docx)</button>'
       + '<button type="button" class="wk-save" onclick="SOC.exportWork()">Download my saved work</button>'
       + '<label class="wk-scope" style="cursor:pointer;display:inline-block">Restore from a backup file<input type="file" accept="application/json,.json" style="display:none" onchange="SOC.importWork(this)"></label>'
       + '</div><p id="dataport-msg" role="status" style="font-size:.8rem;color:var(--ink-faint);margin:8px 0 0"></p></section>';
@@ -4968,12 +5299,21 @@
   function navKey() {
     return [state.screen, state.stationWeek, state.journeyWeek, state.detailId, state.cardWeek, state.activeWeek, state.galWeek, state.galTopic, state.assignmentTab, state.assignmentFaq, state.rcReading, state.showSynthesis ? 1 : 0, (state.compareIds || []).length].join('~');
   }
+  function canonicalRouteUrl(walkWeek) {
+    var path = location.pathname || './', q = [], w = cleanWeek(walkWeek);
+    if (w) q.push('walk=' + w);
+    else if (state.screen === 'activity' && cleanWeek(state.activityReturn)) q.push('week=' + state.activityReturn, 'screen=activity');
+    else if (state.screen === 'station' && cleanWeek(state.stationWeek)) q.push('week=' + state.stationWeek);
+    else if (state.screen && state.screen !== 'journey' && state.screen !== 'detail') q.push('screen=' + encodeURIComponent(state.screen));
+    else if (state.screen === 'detail') q.push('screen=library');
+    return path + (q.length ? '?' + q.join('&') : '');
+  }
   function navHistorySync() {
     if (__fromPop) return;
     var k = navKey();
     try {
-      if (__lastNavKey === null) history.replaceState(viewSnapshot(), '');
-      else if (k !== __lastNavKey) { history.pushState(viewSnapshot(), '', location.pathname); __pushed = true; }
+      if (__lastNavKey === null) history.replaceState(viewSnapshot(), '', canonicalRouteUrl(null));
+      else if (k !== __lastNavKey) { history.pushState(viewSnapshot(), '', canonicalRouteUrl(null)); __pushed = true; }
     } catch (e) {}
     __lastNavKey = k;
   }
@@ -5238,6 +5578,48 @@
       flash('Export stopped: the Seneca logo could not be embedded.');
     });
   }
+  function studentNotePresent(value) { return typeof value === 'string' && value !== ''; }
+  function studentExactBlock(label, value) { return label + '\nStudent-authored note, preserved exactly:\n' + value; }
+  function studentMasterNoteSections() {
+    var sections = [];
+    for (var w = 1; w <= 14; w++) {
+      var blocks = [];
+      if (studentNotePresent(state.wkReflect && state.wkReflect[w])) blocks.push(studentExactBlock('Weekly reflection', state.wkReflect[w]));
+      Object.keys(state.sgNotes || {}).sort().forEach(function (key) {
+        var match = new RegExp('^sg' + w + '\\|(c|r)\\|(\\d+)$').exec(key), value = state.sgNotes[key];
+        if (!match || !studentNotePresent(value)) return;
+        blocks.push(studentExactBlock('Study guide · ' + (match[1] === 'c' ? 'concept note ' : 'guiding response ') + (Number(match[2]) + 1), value));
+      });
+      Object.keys(state.rcNotes || {}).sort().forEach(function (key) {
+        var parts = key.split('|'), reading = parts.length >= 3 ? rec(parts[0]) : null, value = state.rcNotes[key];
+        if (!reading || reading.week !== w || !studentNotePresent(value)) return;
+        var questions = RC_QUESTIONS[parts[1]] || [], question = questions[Number(parts[2])] || ('Response ' + (Number(parts[2]) + 1));
+        blocks.push(studentExactBlock('Source practice · ' + reading.title + '\n' + question, value));
+      });
+      scholarMedia().filter(function (item) { return item.week === w && state.mediaNotes && studentNotePresent(state.mediaNotes[item.key]); }).forEach(function (item) {
+        blocks.push(studentExactBlock('Scholar media · ' + item.title + (item.scholar ? ' (' + item.scholar + ')' : ''), state.mediaNotes[item.key]));
+      });
+      Object.keys(state.kcShort || {}).sort().forEach(function (key) {
+        var value = state.kcShort[key];
+        if (new RegExp('^wk' + w + '\\|').test(key) && studentNotePresent(value)) blocks.push(studentExactBlock('Knowledge check written response · ' + key, value));
+      });
+      var context = state.contextNotes && state.contextNotes['w' + w];
+      Object.keys(context || {}).sort().forEach(function (key) { if (studentNotePresent(context[key])) blocks.push(studentExactBlock('Cultural Comparison Lab · ' + key, context[key])); });
+      if (blocks.length) sections.push({ h: 'Week ' + w + ': ' + weekTitle(w), t: blocks.join('\n\n----------------------------------------\n\n') });
+    }
+    var comparisons = Object.keys(state.cmpNotes || {}).filter(function (key) { return studentNotePresent(state.cmpNotes[key]); }).sort().map(function (key) {
+      var labels = { sim: 'What each reading lets you see', diff: 'Where they meet without collapsing', ins: 'Your location and responsibility', 'saved-synthesis': 'Saved worked weaving' };
+      return key === 'saved-synthesis' ? labels[key] + '\n' + state.cmpNotes[key] : studentExactBlock(labels[key] || 'Weaving note', state.cmpNotes[key]);
+    });
+    if (comparisons.length) sections.push({ h: 'Two-Eyed Seeing Weaving', t: comparisons.join('\n\n----------------------------------------\n\n') });
+    var map = Object.keys(state.mapNotes || {}).filter(function (key) { return studentNotePresent(state.mapNotes[key]); }).sort().map(function (key) { return studentExactBlock('Personal Cartography · ' + key, state.mapNotes[key]); });
+    if (map.length) sections.push({ h: 'Personal Cartography', t: map.join('\n\n----------------------------------------\n\n') });
+    var synthesis = Object.keys(state.synthesisNotes || {}).filter(function (key) { return studentNotePresent(state.synthesisNotes[key]); }).sort().map(function (key) { return studentExactBlock('Synthesis Studio · ' + key, state.synthesisNotes[key]); });
+    if (synthesis.length) sections.push({ h: 'Synthesis Studio', t: synthesis.join('\n\n----------------------------------------\n\n') });
+    var career = Object.keys(state.careerReflect || {}).filter(function (key) { return studentNotePresent(state.careerReflect[key]); }).sort().map(function (key) { return studentExactBlock('Program or career lens · ' + key.replace(/^career\|/, ''), state.careerReflect[key]); });
+    if (career.length) sections.push({ h: 'Program and Career Reflections', t: career.join('\n\n----------------------------------------\n\n') });
+    return sections;
+  }
   window.SOC = {
     openNav: function () { state.navOpen = true; renderKeepScroll(); },
     toggleNav: function () { state.navOpen = !state.navOpen; renderKeepScroll(); },
@@ -5273,7 +5655,7 @@
       state.contextNotes = state.contextNotes || {};
       state.contextNotes[wk] = state.contextNotes[wk] || {};
       state.contextNotes[wk][key] = String(value || '').slice(0, 4000);
-      persist();
+      studentNotesChanged();
     },
     contextClear: function () { state.contextCompare = ['', '', '']; persist(); renderKeepScroll(); announce('The comparison wall is clear.'); },
     synthesisPick: function (btn, idx) {
@@ -5288,7 +5670,7 @@
       if (['question','source','difference','responsibility'].indexOf(key) < 0) return;
       state.synthesisNotes = state.synthesisNotes || {};
       state.synthesisNotes[key] = String(value || '').slice(0, 5000);
-      persist();
+      studentNotesChanged();
     },
     spotDismiss: function (threshold) {
       threshold = Number(threshold) || 0;
@@ -5419,17 +5801,18 @@
     },
     clearMyWork: function () {
       if (!window.confirm('Remove all notes, check answers, and settings saved by this site in this browser? Downloaded files are not affected.')) return;
+      if (studentNoteBackupTimer) { clearTimeout(studentNoteBackupTimer); studentNoteBackupTimer = null; }
       var cleared = true;
       try {
         var prefix = SKEY; /* full site-scoped key: never touch another course site's saves on the shared github.io origin */
         Object.keys(localStorage).forEach(function (k) { if (k === prefix || k.indexOf(prefix + '.') === 0 || isAssignmentLabKey(k)) localStorage.removeItem(k); });
       } catch (e) { cleared = false; }
       try {
-        [VKEY, WKKEY, SKEY + '.spotPrompt.session', SKEY + '.upcomingReminder.session.v1'].forEach(function (k) { sessionStorage.removeItem(k); });
+        [VKEY, WKKEY, STUDENT_NOTE_SESSION_KEY, STUDENT_NOTE_IMPORT_MARKER, SKEY + '.spotPrompt.session', SKEY + '.upcomingReminder.session.v1'].forEach(function (k) { sessionStorage.removeItem(k); });
         sessionStorage.setItem(HKEY, '1'); /* pagehide may save the old view again; the next boot must discard it */
       } catch (e) { cleared = false; }
       if (!cleared) window.alert('The browser prevented confirmation that every saved item was removed. Clear this site\'s browser data before leaving a shared device.');
-      location.reload();
+      studentNoteIdbClear().then(function () { location.reload(); });
     },
     tickerPause: function () {
       state.tickerPaused = !state.tickerPaused;
@@ -5496,8 +5879,25 @@
     readerLensPointerDown: function () {},
     readerLensKey: function () {},
     prev: goPrevious,
+    camCtl: function (ev, op, dir) {
+      if (ev && ev.preventDefault) ev.preventDefault();
+      var host = ev && ev.currentTarget && ev.currentTarget.closest ? ev.currentTarget.closest('.wk-model-shell') : null;
+      var cv = host ? host.querySelector('canvas[data-topic-model]') : null;
+      if (!cv || !cv.__camApi) return false;
+      if (op === 'zoom') cv.__camApi.zoom(dir);
+      else if (op === 'spin') cv.__camApi.spin(dir);
+      else cv.__camApi.reset();
+      return false;
+    },
+    cmpNote: function (key, value) { state.cmpNotes = state.cmpNotes || {}; state.cmpNotes[String(key || 'comparison-note')] = String(value == null ? '' : value); studentNotesChanged(); },
+    saveComparison: function () {
+      var labels = { sim: 'What each reading lets you see', diff: 'Where they meet without collapsing', ins: 'Your location and responsibility', 'saved-synthesis': 'Saved worked weaving' };
+      var sections = Object.keys(state.cmpNotes || {}).filter(function (key) { return typeof state.cmpNotes[key] === 'string' && state.cmpNotes[key] !== ''; }).sort().map(function (key) { return { h: labels[key] || 'Weaving note', t: 'Student-authored note, preserved exactly:\n' + state.cmpNotes[key] }; });
+      if (!sections.length) { flash('Write a weaving note first.'); return; }
+      senecaDoc('SOC122', 'Two-Eyed Seeing Weaving Notes', ['Introduction to the Social Sciences', 'Student-authored notes preserved verbatim'], sections, 'SOC122_two_eyed_seeing_weaving_notes');
+    },
     shareMobileSite: function () {
-      var url = (location.origin + location.pathname).replace(/index\.html$/i, '');
+      var url = location.origin + canonicalRouteUrl(_walk && _walk.week);
       if (navigator.share) { navigator.share({ title: courseCode() + ' companion website', url: url }).then(function () { announce('Site link shared.'); }).catch(function () {}); return; }
       if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(url).then(function () { announce('Site link copied.'); }).catch(function () { announce('Copy the address from your browser to use this site on another device.'); }); return; }
       announce('Copy the address from your browser to use this site on another device.');
@@ -5528,6 +5928,11 @@
         render();
       }
     },
+    exportAllNotes: function () {
+      var sections = studentMasterNoteSections();
+      if (!sections.length) { flash('No written notes are available to export yet.'); return; }
+      senecaDoc('SOC122', 'My Organized Course Notes', ['Introduction to the Social Sciences', 'Student-authored wording preserved verbatim'], sections, 'SOC122_my_organized_course_notes');
+    },
     exportWork: function () {
       try {
         var pre = SKEY.split('corpus')[0];
@@ -5553,7 +5958,8 @@
             var n = 0;
             Object.keys(data.keys).forEach(function (xk) { if (isPortableWorkKey(xk) && typeof data.keys[xk] === 'string') { localStorage.setItem(xk, data.keys[xk]); n++; } });
             if (xm) xm.textContent = 'Restored ' + n + ' saved records. Reloading the site with your work in place.';
-            setTimeout(function () { location.reload(); }, 900);
+            try { sessionStorage.setItem(STUDENT_NOTE_IMPORT_MARKER, '1'); sessionStorage.removeItem(STUDENT_NOTE_SESSION_KEY); } catch (e3) {}
+            studentNoteIdbClear().then(function () { setTimeout(function () { location.reload(); }, 450); });
           } catch (e2) { var xe2 = document.getElementById('dataport-msg'); if (xe2) xe2.textContent = 'That file could not be read.'; }
         };
         rd.readAsText(f);
@@ -5565,7 +5971,7 @@
         var any = false;
         journeyWeeks().forEach(function (w2) {
           var r = state.wkReflect && state.wkReflect[w2];
-          if (r && String(r).trim()) { any = true; lines.push('Week ' + w2 + ': ' + weekTitle(w2)); lines.push(String(r).trim()); lines.push(''); }
+          if (r && String(r).trim()) { any = true; lines.push('Week ' + w2 + ': ' + weekTitle(w2)); lines.push(String(r)); lines.push(''); }
         });
         var el = document.getElementById('jc-msg');
         if (!any) { if (el) el.textContent = 'No reflections are available to download in this browser.'; return; }
@@ -5599,8 +6005,8 @@
     careerField: function (v) { v = cleanText(v, '', 200); state.careerField = v; persist(); render(); topScroll(); announce(v ? 'Program route changed.' : 'General stream selected.'); },
     learningEmphasis: function (v) { state.learningEmphasis = cleanEmphasis(v); persist(); renderKeepScroll(); announce('Learning emphasis changed to ' + emphasisOption().label + '.'); },
     lensOff: function () { state.careerField = ''; persist(); render(); },
-    careerReflect: function (k, v) { k = cleanText(k, '', 250); if (!k) return; state.careerReflect = state.careerReflect || {}; state.careerReflect[k] = cleanText(v, '', 10000); persist(); },
-    mediaNote: function (k, v) { k = cleanText(k, '', 250); if (!k) return; state.mediaNotes = state.mediaNotes || {}; state.mediaNotes[k] = cleanText(v, '', 10000); persist(); },
+    careerReflect: function (k, v) { k = cleanText(k, '', 250); if (!k) return; state.careerReflect = state.careerReflect || {}; state.careerReflect[k] = cleanText(v, '', 10000); studentNotesChanged(); },
+    mediaNote: function (k, v) { k = cleanText(k, '', 250); if (!k) return; state.mediaNotes = state.mediaNotes || {}; state.mediaNotes[k] = cleanText(v, '', 10000); studentNotesChanged(); },
     videoWeek: function (w) { state.videoWeek = cleanWeekFilter(w); render(); topScroll(); },
     mediaKind: function (k) { k = cleanText(k, 'all', 80) || 'all'; state.mediaKind = (k === 'all' || scholarMedia().some(function (m) { return m.kind === k; })) ? k : 'all'; render(); topScroll(); },
     careerLens: function () { if (state.screen !== 'career') rememberPrevious(); state.screen = 'career'; focusTarget = 'soc-main'; render(); scrollToId('career-sel'); },
@@ -5614,7 +6020,7 @@
       var parts = k.split('|'), w = +parts[1], d = weekData(w);
       refreshWeekChecks(w, d);
     },
-    wkReflect: function (w, v) { w = cleanWeek(w); if (!w) return; state.wkReflect[w] = cleanText(v, '', 10000); persist(); },
+    wkReflect: function (w, v) { w = cleanWeek(w); if (!w) return; state.wkReflect[w] = cleanText(v, '', 10000); studentNotesChanged(); },
     wkClear: function (w, phase) {
       var d = weekData(w); if (!d) return;
       d.checks.forEach(function (c, i) { delete state.wkCheck[phase + '|' + w + '|' + i]; });
@@ -5624,6 +6030,9 @@
     actToggle: function (key) { var m = document.getElementById('soc-main'), top = m ? m.scrollTop : 0; var val = !state.act[key]; state.act[key] = val; state.actResult = state.actResult || {}; state.actResult[key] = val; persist(); render(); var m2 = document.getElementById('soc-main'); if (m2) m2.scrollTop = top; },
     actAdd: function (key, idx) { var m = document.getElementById('soc-main'), top = m ? m.scrollTop : 0; var arr = state.act[key] || []; if (arr.indexOf(idx) < 0) arr.push(idx); state.act[key] = arr; state.actResult = state.actResult || {}; state.actResult[key] = arr.slice(); persist(); render(); var m2 = document.getElementById('soc-main'); if (m2) m2.scrollTop = top; },
     actLabPick: function (key, idx, max) { var m = document.getElementById('soc-main'), top = m ? m.scrollTop : 0; var arr = state.act[key] || [], p = arr.indexOf(idx); if (p >= 0) arr.splice(p, 1); else { if (arr.length >= max) arr.shift(); arr.push(idx); } state.act[key] = arr; state.actResult = state.actResult || {}; state.actResult[key] = arr.slice(); persist(); render(); var m2 = document.getElementById('soc-main'); if (m2) m2.scrollTop = top; },
+    actText: function (key, value) { if (!/^a\|\d{1,2}\|(?:f|map|trace)\|[a-z0-9_-]{1,40}$/i.test(String(key || ''))) return; value = cleanText(String(value == null ? '' : value), '', 2000); state.act[key] = value; state.actResult = state.actResult || {}; state.actResult[key] = value; studentNotesChanged(); },
+    actSequencePick: function (key, idx) { var m = document.getElementById('soc-main'), top = m ? m.scrollTop : 0, arr = actStored(key) || []; arr = Array.isArray(arr) ? arr.slice() : []; if (idx === arr.length) { arr.push(idx); state.act[key + '|try'] = null; state.actResult[key + '|try'] = null; } else { state.act[key + '|try'] = idx; state.actResult[key + '|try'] = idx; } state.act[key] = arr; state.actResult[key] = arr.slice(); persist(); render(); var m2 = document.getElementById('soc-main'); if (m2) m2.scrollTop = top; },
+    actSequenceReset: function (key) { state.act[key] = []; state.act[key + '|try'] = null; state.actResult[key] = []; state.actResult[key + '|try'] = null; persist(); renderKeepScroll(); },
     saveWeek: function (w) {
       var d = weekData(w); if (!d) { flash('Open a week first.'); return; }
       var er = emphasisRecord(w), eo = emphasisOption();
@@ -5642,7 +6051,7 @@
         { h: 'Your learning emphasis: ' + eo.label, t: er ? er.frame + '\n\nQuestion foregrounded: ' + er.question + '\n\nBoundary: ' + er.limit : 'The common course route was used.' },
         { h: 'Before and after, your check answers', t: scoreLine + '\n\n' + checkLines },
         { h: 'The activity: ' + d.activity.title, t: (er ? 'Selected-route purpose: ' + er.activity + '\n\n' : '') + auditText },
-        { h: 'Your reflection', t: (er ? 'Selected-route question: ' + er.reflection + '\n\n' : '') + ((state.wkReflect[w] || '').trim() || '(not written yet)') }
+        { h: 'Your reflection', t: (er ? 'Selected-route question: ' + er.reflection + '\n\n' : '') + (studentNotePresent(state.wkReflect[w]) ? state.wkReflect[w] : '(not written yet)') }
       ];
       senecaDoc((D.course && D.course.code) || '', weekTitle(w) + ' (Week ' + w + ')', ['Seneca ' + ((D.course && D.course.code) || ''), 'Your week record'], sections, ((D.course && D.course.code) || '') + '_Week' + w + '_my_work');
     },
@@ -5683,14 +6092,14 @@
       if (!txt) { announce('Nothing to save yet.'); return; }
       state.cmpNotes = state.cmpNotes || {};
       state.cmpNotes['saved-synthesis'] = txt;
-      persist();
+      studentNotesChanged();
       renderKeepScroll();
       announce('Updated on this page. When browser storage is available, the note may remain for a later visit in this browser.');
     },
     clearCompare: function () { state.compareIds = []; state.showSynthesis = false; render(); },
     synthesize: function () { state.showSynthesis = true; render(); },
-    enterExperience: function (w) { w = cleanWeek(w); if (!w) { window.SOC.go('journey'); return; } markSessionExploration(); walkOpen(w); },
-    playWalk: function (w) { w = cleanWeek(w); if (!w) { window.SOC.go('journey'); return; } markSessionExploration(); walkOpen(w); },
+    enterExperience: function (w) { w = cleanWeek(w); if (!w) { window.SOC.go('journey'); return; } markSessionExploration(); walkOpen(w); try { history.pushState(viewSnapshot(), '', canonicalRouteUrl(w)); } catch (e) {} },
+    playWalk: function (w) { w = cleanWeek(w); if (!w) { window.SOC.go('journey'); return; } markSessionExploration(); walkOpen(w); try { history.pushState(viewSnapshot(), '', canonicalRouteUrl(w)); } catch (e) {} },
     walkEnter: function () { if (!_walk || _walk.i !== 0 || _walk.slides.length < 2) return; _walk.i = 1; walkMount(true); },
     walkRestart: function () { if (!_walk) return; _walk.i = 0; walkSaveResume(_walk.week, 0); persist(); walkMount(true); announce('Week ' + _walk.week + ' experience restarted. Select Enter the experience to begin.'); },
     walkNav: function (dir) { if (!_walk || (_walk.i === 0 && dir > 0)) return; var n = Math.max(0, Math.min(_walk.slides.length - 1, _walk.i + dir)); if (n === _walk.i) return; _walk.i = n; walkMount(true); },
@@ -5788,7 +6197,7 @@
       var cue = el.querySelector('.walk-term-cue'); if (cue) cue.textContent = on ? 'Revealed' : 'Tap to reveal';
       requestAnimationFrame(walkFit);
     },
-    walkClose: function () { walkCloseDom(); _walk = null; refreshExperienceEntryLabels(); maybeSpotInvite(); try { if (/[?&](?:walk|experience)=/i.test(location.search)) history.replaceState(viewSnapshot(), '', location.pathname); } catch (e) {} },
+    walkClose: function () { walkCloseDom(); _walk = null; refreshExperienceEntryLabels(); maybeSpotInvite(); try { if (/[?&](?:walk|experience)=/i.test(location.search)) history.replaceState(viewSnapshot(), '', canonicalRouteUrl(null)); } catch (e) {} },
     walkGoWeek: function () { var w = _walk && _walk.week; walkCloseDom(); _walk = null; if (w) SOC.station(w); },
     walkTheme: function () { var r = rlState(); r.walkTheme = (r.walkTheme === 'light' ? 'dark' : 'light'); persist(); walkMount(); },
     walkFig: function (op) {
@@ -5806,9 +6215,9 @@
     setLens: function (l) { state.lens = cleanLens(l); render(); },
     rcPick: function (id) { id = cleanText(id, '', 200); state.rcReading = rec(id) ? id : null; state.lens = 'thematic'; persist(); render(); topScroll(); },
     rcClear: function () { state.rcReading = null; render(); topScroll(); },
-    rcNote: function (k, v) { k = cleanText(k, '', 250); if (!k) return; state.rcNotes[k] = cleanText(v, '', 10000); persist(); },
+    rcNote: function (k, v) { k = cleanText(k, '', 250); if (!k) return; state.rcNotes[k] = cleanText(v, '', 10000); studentNotesChanged(); },
     rcReveal: function (k) { var m = document.getElementById('soc-main'); var top = m ? m.scrollTop : 0; state.revealed[k] = !state.revealed[k]; render(); var m2 = document.getElementById('soc-main'); if (m2) m2.scrollTop = top; },
-    sgNote: function (k, v) { k = cleanText(k, '', 250); if (!k) return; state.sgNotes = state.sgNotes || {}; state.sgNotes[k] = cleanText(v, '', 10000); persist(); },
+    sgNote: function (k, v) { k = cleanText(k, '', 250); if (!k) return; state.sgNotes = state.sgNotes || {}; state.sgNotes[k] = cleanText(v, '', 10000); studentNotesChanged(); },
     sgCompare: function (k, w) { state.sgShow = state.sgShow || {}; state.sgShow[k] = !state.sgShow[k]; replaceOuterKeepingFocus('wk-sg', sgSection(w).html, 'soc-main'); },
     sgFlip: function (k, w) { state.sgFlip = state.sgFlip || {}; state.sgFlip[k] = !state.sgFlip[k]; replaceOuterKeepingFocus('wk-sg', sgSection(w).html, 'soc-main'); },
     sgTickRung: function (k, w) { state.sgTick = state.sgTick || {}; state.sgTick[k] = true; persist(); replaceOuterKeepingFocus('wk-sg', sgSection(w).html, 'soc-main'); },
@@ -5829,7 +6238,7 @@
     mcConf: function (k, c, w) { state.mcConf = state.mcConf || {}; if (state.mcConf[k] === c) delete state.mcConf[k]; else state.mcConf[k] = c; persist(); replaceOuterKeepingFocus('wk-kc', kcSection(w).html, 'soc-main'); },
     mcPickSel: function (k, v) { v = Number(v); if (isNaN(v) || v < 0) delete state.mcSel[k]; else state.mcSel[k] = v; persist(); var kcm = /^wk(\d+)\|kc/.exec(k); if (kcm && replaceOuterKeepingFocus('wk-kc', kcSection(Number(kcm[1])).html, 'soc-main')) return; render(); },
     kcShow: function (w) { var v = (state.kcVersion && state.kcVersion[w]) || 0; state.kcReveal = state.kcReveal || {}; state.kcReveal[w + '|' + v] = true; replaceOuterKeepingFocus('wk-kc', kcSection(w).html, 'soc-main'); },
-    kcShortText: function (k, v) { k = cleanText(k, '', 250); if (!k) return; state.kcShort = state.kcShort || {}; state.kcShort[k] = cleanText(v, '', 10000); persist(); },
+    kcShortText: function (k, v) { k = cleanText(k, '', 250); if (!k) return; state.kcShort = state.kcShort || {}; state.kcShort[k] = cleanText(v, '', 10000); studentNotesChanged(); },
     kcShortReveal: function (k, w) { state.kcShortShown = state.kcShortShown || {}; state.kcShortShown[k] = !state.kcShortShown[k]; replaceOuterKeepingFocus('wk-kc', kcSection(w).html, 'soc-main'); },
     kcShortRate: function (k, r, w) { state.kcShortRate = state.kcShortRate || {}; state.kcShortRate[k] = r; persist(); replaceOuterKeepingFocus('wk-kc', kcSection(w).html, 'soc-main'); },
     mcReset: function (id) { var m = document.getElementById('soc-main'); var top = m ? m.scrollTop : 0; var keep = {}; Object.keys(state.mcSel).forEach(function (k) { if (k.indexOf(id + '|mc|') !== 0) keep[k] = state.mcSel[k]; }); state.mcSel = keep; persist(); render(); var m2 = document.getElementById('soc-main'); if (m2) m2.scrollTop = top; },
@@ -5837,7 +6246,7 @@
       var r = state.rcReading && rec(state.rcReading); if (!r) { flash('Pick a reading first.'); return; }
       var cc = (D.course && D.course.code) || 'Course';
       var L = (LENSES[state.lens] || LENSES.thematic).label, qs = RC_QUESTIONS[state.lens] || RC_QUESTIONS.thematic;
-      var sections = qs.map(function (q, i) { return { h: q, t: (state.rcNotes[r.id + '|' + state.lens + '|' + i] || '').trim() }; });
+      var sections = qs.map(function (q, i) { return { h: q, t: state.rcNotes[r.id + '|' + state.lens + '|' + i] || '' }; });
       var mcItems = MC[r.id] || [];
       if (mcItems.length) {
         var ans = 0, cor = 0, miss = [];
@@ -5909,7 +6318,7 @@
     mapNote: function (k, v) {
       k = cleanText(k, '', 100); if (!k) return;
       state.mapNotes[k] = cleanText(v, '', 10000);
-      persist();
+      studentNotesChanged();
     },
     mapSelect: function (id) {
       id = cleanText(id, '', 100);
@@ -5925,7 +6334,7 @@
         { h: 'Caveat', t: MAP_CAVEAT },
         { h: 'Selected anchor', t: 'Scholar: ' + m.scholar + ' (' + m.nation + ')\nRegion: ' + m.region + '\nConcept: ' + m.concept },
         { h: 'Readings connected to this anchor', t: readings },
-        { h: 'What this place makes visible', t: (state.mapNotes.apply || '').trim() }
+        { h: 'What this place makes visible', t: state.mapNotes.apply || '' }
       ];
       senecaDoc('SOC122', 'Personal Cartography Workspace', ['SOC122 Introduction to the Social Sciences', 'Selected anchor: ' + m.scholar + ' (' + m.nation + ')'], sections, 'SOC122_personal_cartography_workspace');
     },
@@ -5940,8 +6349,16 @@
   };
 
   state.wkOpen = {};
+  var restoredBackup0 = false;
+  try { restoredBackup0 = sessionStorage.getItem(STUDENT_NOTE_IMPORT_MARKER) === '1'; sessionStorage.removeItem(STUDENT_NOTE_IMPORT_MARKER); } catch (e) {}
+  if (!restoredBackup0) studentNoteRecoverSession();
+  if (restoredBackup0 || (!state.noteVaultUpdated && studentNoteHasContent())) studentNotesChanged();
   render();
-  if (route0 && route0.walk) walkOpen(route0.walk);
+  studentNoteRecover().then(function (changed) { if (changed) renderKeepScroll(); });
+  if (route0 && route0.walk) {
+    walkOpen(route0.walk);
+    try { history.replaceState(viewSnapshot(), '', canonicalRouteUrl(route0.walk)); } catch (e) {}
+  }
   try {
     if (location.search) {
       if (route0 && route0.invalid) history.replaceState(viewSnapshot(), '', location.pathname);
@@ -5950,7 +6367,7 @@
   } catch (e) {}
   window.addEventListener('popstate', function (e) {
     var __ov = document.getElementById('walk-overlay');
-    if (__ov) { try { walkCloseDom(); _walk = null; } catch (er) {} try { history.pushState(viewSnapshot(), '', location.pathname); } catch (er) {} return; }
+    if (__ov) { try { walkCloseDom(); _walk = null; } catch (er) {} }
     __fromPop = true;
     try { restoreView(e.state && typeof e.state === 'object' && e.state.screen ? e.state : { screen: 'journey' }); } catch (er) {}
     __lastNavKey = navKey();

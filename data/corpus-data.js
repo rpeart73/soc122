@@ -637,7 +637,7 @@ window.SOC122 = {
    "type": "Article",
    "access": "open",
    "title": "Mapping Approaches to Decolonizing and Indigenizing the Curriculum at Canadian Universities: Critical Reflections on Current Practices, Challenges, and Possibilities",
-   "authors": "Brunette-Debassige and colleagues",
+   "authors": "Candace Brunette-Debassige, Pauline Wakeham, Christopher Smithers-Graeme, Ayesha Haque, and Stephanie M. Chitty",
    "year": 2022,
    "themes": [
     "reconciliation",
@@ -732,8 +732,8 @@ window.SOC122 = {
    "week": 10,
    "abstract": "Joseph P. Gone (Aaniiih) examines Indigenous historical trauma as an alter-Native explanation that contests mainstream psychiatric categories of mental disorder, addiction, trauma, and suicide. Instead of locating distress inside the individual, the historical trauma account designates the legacies of colonial dispossession as central to present-day community mental health inequities, recasting these problems as postcolonial pathologies that call for reconciliation, redress, and structural reform. For a student, this shows Indigenous communities reworking what mental health means on their own terms rather than accepting an outside clinical frame.",
    "coreIdea": "Indigenous historical trauma reframes mental health inequities as consequences of colonization rather than individual disorder, demanding redress and structural change.",
+   "doi": "10.1162/daed_a_02035",
    "url": "https://www.amacad.org/publication/daedalus/indigenous-historical-trauma-alter-native-explanations-mental-health-inequities",
-   "pdfUrl": "https://www.amacad.org/sites/default/files/publication/downloads/Daedalus_Fa23_08_Mental-Health_Gone.pdf",
    "related": [
     "psy-intro",
     "psy-social"
@@ -907,8 +907,8 @@ window.SOC122 = {
    "eye": "indigenous",
    "type": "Article",
    "access": "open",
-   "title": "Understanding the health of Indigenous peoples in Canada",
-   "authors": "Smylie & Anderson",
+   "title": "Understanding the health of Indigenous peoples in Canada: Key methodological and conceptual challenges",
+   "authors": "Janet Smylie and Marcia Anderson",
    "year": 2006,
    "themes": [
     "reconciliation",
@@ -948,7 +948,7 @@ window.SOC122 = {
    "week": 4,
    "abstract": "The Truth and Reconciliation Commission of Canada built a public record of the residential school system from Survivor testimony, institutional records, and research. Its summary documents the system, its harms, and continuing effects, and it connects that record to Calls to Action directed at governments, churches, schools, professional bodies, archives, and other institutions. This is an official public record with a specific mandate; it does not replace the knowledge or authority of any Nation, community, Survivor, or family.",
    "coreIdea": "Reconciliation requires a truthful public record, acknowledgement of harm, and sustained action by the institutions and people named in the Calls to Action.",
-   "url": "https://publications.gc.ca/collections/collection_2015/trc/IR4-7-2015-eng.pdf",
+   "url": "https://nctr.ca/wp-content/uploads/2021/01/Executive_Summary_English_Web.pdf",
    "related": [
     "smylie",
     "fnha-cultural-safety",
@@ -975,7 +975,7 @@ window.SOC122 = {
    "week": 4,
    "abstract": "The First Nations Health Authority presents a First Nations-led framework for cultural safety and humility in health services. Cultural safety is an outcome of respectful engagement that recognizes and works to address power imbalances, racism, and discrimination. Cultural humility is the continuing practice of self-reflection and relationship-building that can support that outcome. This framework is specific to its First Nations health context and should not be turned into a generic description of all Indigenous peoples or all institutions.",
    "coreIdea": "Cultural safety is an outcome experienced in conditions where power imbalances, racism, and discrimination are addressed; cultural humility is the ongoing practice that helps make that outcome possible.",
-   "url": "https://www.fnha.ca/what-we-do/cultural-safety-and-humility",
+   "url": "https://fnha.ca/services-and-support/culturally-grounded-care/cultural-safety-and-humility/",
    "related": [
     "smylie",
     "trc2015"
@@ -1079,9 +1079,9 @@ window.SOC122 = {
    "week": 3
   },
   {
-   "term": "Sovereignty",
-   "def": "The authority of a people to govern themselves according to their own laws and relationships. In the context of knowledge, it includes the right of Indigenous communities to control their own knowledge and to set the terms on which it is shared and used. Pairing approaches respect sovereignty by ensuring Indigenous knowledge is engaged on its own terms rather than extracted into a Western frame.",
-   "cite": "Martin, D. H. (2012). Two-eyed Seeing: A framework for understanding Indigenous and non-Indigenous approaches to Indigenous health research.",
+   "term": "Institutional authority",
+   "def": "The recognized power to shape curriculum decisions, including who selects sources, defines learning outcomes, approves changes, teaches, evaluates, and can refuse a proposed use. Brunette-Debassige and colleagues distinguish minor content additions from structural change with Indigenous leadership and autonomy.",
+   "cite": "Brunette-Debassige, C., et al. (2022). Mapping Approaches to Decolonizing and Indigenizing the Curriculum at Canadian Universities: Critical Reflections on Current Practices, Challenges, and Possibilities.",
    "week": 3
   },
   {
