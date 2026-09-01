@@ -2257,9 +2257,9 @@
     var notice = useBase
       ? (base.notice || 'Read this as one named and attributed context, not as a symbol for a whole people or knowledge tradition.')
       : ((visual && visual.credit && /instructor-created/i.test(visual.credit))
-        ? 'This is a conceptual teaching image, not documentary evidence. It organizes the week\'s questions but does not prove a claim about people or communities.'
+        ? ''
         : 'This photograph shows only the named scene and source context. It does not prove the week\'s wider claim by itself.');
-    if (er.limit) notice += ' ' + er.limit;
+    if (er.limit) notice = [notice, er.limit].filter(Boolean).join(' ');
     return {
       emphasisId: id,
       emphasisLabel: option.label,
@@ -2284,25 +2284,31 @@
     if (item.fit === 'contain') styles.push('object-fit:contain;background:#15171C');
     return styles.length ? ' style="' + styles.join(';') + '"' : '';
   }
+  function visibleImageCredit(value) {
+    value = String(value || '').trim();
+    return /instructor-created|ai-generated conceptual image|conceptual image,? not documentary evidence/i.test(value) ? '' : value;
+  }
   function spotlightPageMedia(m) {
     var gallery = m.items.length > 1;
     var tiles = m.items.map(function (item) {
+      var credit = visibleImageCredit(item.credit);
       return '<div class="idea-media-tile"><img src="' + esc(item.file) + '" alt="' + esc(item.alt || '') + '" loading="lazy" decoding="async"' + spotlightItemStyle(item) + ' onerror="var t=this.closest(&quot;.idea-media-tile&quot;);if(t)t.remove()">'
-        + (gallery ? '<div class="idea-media-credit">' + (item.label ? '<b>' + esc(item.label) + '</b>' : '') + '<span>' + esc(item.credit || '') + '</span>' + (item.source ? '<a href="' + esc(item.source) + '" target="_blank" rel="noopener">Image source <span aria-hidden="true">&#8599;</span></a>' : '') + '</div>' : '')
+        + (gallery ? '<div class="idea-media-credit">' + (item.label ? '<b>' + esc(item.label) + '</b>' : '') + (credit ? '<span>' + esc(credit) + '</span>' : '') + (item.source ? '<a href="' + esc(item.source) + '" target="_blank" rel="noopener">Image source <span aria-hidden="true">&#8599;</span></a>' : '') + '</div>' : '')
         + '</div>';
     }).join('');
+    var credit = visibleImageCredit(m.credit);
     return '<figure class="idea-figure' + (gallery ? ' is-gallery' : '') + '"><div class="idea-media">' + tiles + '</div><figcaption>'
       + (m.caption ? '<b>' + esc(m.caption) + '</b>' : '')
-      + (!gallery && m.credit ? '<span>' + esc(m.credit) + '</span>' : '')
-      + (m.generated ? '<strong>Conceptual image, not documentary evidence</strong>' : '')
+      + (!gallery && credit ? '<span>' + esc(credit) + '</span>' : '')
       + (!gallery && m.source ? '<a href="' + esc(m.source) + '" target="_blank" rel="noopener">Open the image source <span aria-hidden="true">&#8599;</span></a>' : '')
       + '</figcaption></figure>';
   }
   function spotlightWalkMedia(m) {
     var gallery = m.items.length > 1;
     return '<div class="walk-figview walk-spotlight-media' + (gallery ? ' is-gallery' : '') + '">' + m.items.map(function (item) {
+      var credit = visibleImageCredit(item.credit);
       return '<figure class="walk-spotlight-tile"><img class="walk-figimg" src="' + esc(item.file) + '" alt="' + esc(item.alt || m.title) + '"' + spotlightItemStyle(item) + ' onerror="var t=this.closest(&quot;.walk-spotlight-tile&quot;);if(t)t.remove()">'
-        + (gallery ? '<figcaption>' + (item.label ? '<b>' + esc(item.label) + '</b>' : '') + '<span>' + esc(item.credit || '') + '</span>' + (item.source ? '<a href="' + esc(item.source) + '" target="_blank" rel="noopener">Source</a>' : '') + '</figcaption>' : '')
+        + (gallery ? '<figcaption>' + (item.label ? '<b>' + esc(item.label) + '</b>' : '') + (credit ? '<span>' + esc(credit) + '</span>' : '') + (item.source ? '<a href="' + esc(item.source) + '" target="_blank" rel="noopener">Source</a>' : '') + '</figcaption>' : '')
         + '</figure>';
     }).join('') + '</div>';
   }
@@ -4334,6 +4340,7 @@
     }
     if (s.kind === 'idea') {
       var sm = s.spotlight || {};
+      var smCredit = visibleImageCredit(sm.credit);
       var sp = sm.program ? '<div class="walk-spotlight-program"><span>IN ' + esc(sm.program.profile.program.toUpperCase()) + '</span><p>' + esc(sm.program.scenario) + '</p><p><b>How this route changes the inquiry.</b> ' + esc(sm.program.emphasis) + '</p><p><b>Evidence boundary.</b> ' + esc(sm.program.evidence) + '</p></div>' : '';
       return '<div class="walk-figwrap">'
         + '<div class="walk-figtext">'
@@ -4344,7 +4351,7 @@
         + (sm.notice ? '<div class="walk-notice"><span>What it can and cannot show</span><p>' + esc(sm.notice) + '</p></div>' : '')
         + sp
         + (sm.question ? '<div class="walk-q"><span>Question to carry forward</span><b>' + esc(sm.question) + '</b></div>' : '')
-        + '<p class="walk-cite">' + esc(sm.credit || '') + (sm.generated ? ' Conceptual image, not documentary evidence.' : '') + (sm.source ? ' <a href="' + esc(sm.source) + '" target="_blank" rel="noopener">Source</a>' : '') + '</p>'
+        + ((smCredit || sm.source) ? '<p class="walk-cite">' + esc(smCredit) + (sm.source ? ' <a href="' + esc(sm.source) + '" target="_blank" rel="noopener">Source</a>' : '') + '</p>' : '')
         + '</div>'
         + spotlightWalkMedia(sm)
         + '</div>';
