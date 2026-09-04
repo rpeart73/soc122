@@ -2518,9 +2518,9 @@
   }
   function contextAssessmentBridge(w) {
     var special = '';
-    if (w === 8) special = '<p><b>Knowledge in Two Eyes:</b> this lab can help you audit a category or numerical claim, but it does not replace the required Western and Indigenous course sources, your own community or life observation, or your 60 to 90 second voice reflection.</p>';
-    else if (w === 12) special = '<p><b>A Question of Reconciliation:</b> a global comparison cannot substitute for a specific Call to Action or local reconciliation question. Use it only to clarify why histories and responsibilities are not interchangeable.</p>';
-    else if (w >= 2 && w <= 12) special = '<p><b>Two-Eyed Seeing Journal:</b> use a context only after reading the assigned sources. Record what changed in your thinking; do not turn the context into a generic example or replace the named Indigenous source.</p>';
+    if (w === 8) special = '<p><b>Research Choices Lab:</b> this lab can help you audit a category or numerical claim, but it does not replace the required Western and Indigenous course sources, your own community or life observation, or your 60 to 90 second voice reflection.</p>';
+    else if (w === 12) special = '<p><b>Reconciliation in Practice: A Community Question:</b> a global comparison cannot substitute for a specific Call to Action or local reconciliation question. Use it only to clarify why histories and responsibilities are not interchangeable.</p>';
+    else if (w >= 2 && w <= 12) special = '<p><b>Two-Eyed Seeing Observation Journal:</b> use a context only after reading the assigned sources. Record what changed in your thinking; do not turn the context into a generic example or replace the named Indigenous source.</p>';
     return '<aside class="context-assessment"><div class="mono">ASSESSMENT TRANSFER, NOT AN ANSWER</div><h3>Carry your decisions, not generated prose.</h3>'
       + special
       + '<p>The official instructions, required sources, submission format, and grading remain on Blackboard.</p><button type="button" onclick="SOC.go(\'assignments\')">See the assessment pathway <span aria-hidden="true">&#8594;</span></button></aside>';
@@ -3550,22 +3550,22 @@
   var KD_MON = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   function keyDatesList() {
     return [
-      { d: '2026-09-11', it: [['Week 1 live class', 'Course orientation and shared start', 'class'], ['Personal Cartography 1 opens', 'Build this from Weeks 1 to 3', 'open']] },
-      { d: '2026-09-18', it: [['Week 2 live class', '', 'class'], ['Two-Eyed Seeing Journal begins', 'weekly, Weeks 2 to 12', 'open']] },
+      { d: '2026-09-11', it: [['Week 1 live class', 'Course orientation and shared start', 'class']] },
+      { d: '2026-09-18', it: [['Week 2 live class', '', 'class'], ['Where I Stand: Social Location Map opens', 'build a privacy-safe map of social location', 'open'], ['Two-Eyed Seeing Observation Journal Set 1 opens', 'two private entries', 'open']] },
       { d: '2026-09-25', it: [['Week 3 live class', '', 'class']] },
-      { d: '2026-10-02', it: [['Week 4 live class', '', 'class'], ['Personal Cartography 1', 'due in Week 4', 'due'], ['Knowledge in Two Eyes opens', 'Build this from Weeks 4 to 6 and 8', 'open']] },
-      { d: '2026-10-09', it: [['Week 5 live class', '', 'class']] },
-      { d: '2026-10-16', it: [['Week 6 asynchronous learning', 'Independent reading of the anthropology survey', 'async']] },
-      { d: '2026-10-23', it: [['Week 7 live class', 'Cumulative review before Study Week; no new reading', 'class']] },
-      { d: '2026-10-26', it: [['Study Week', 'Oct 26 to 30. No class and no new module.', 'support']] },
-      { d: '2026-11-06', it: [['Week 8 live class', '', 'class'], ['Knowledge in Two Eyes', 'due in Week 8', 'due'], ['A Question of Reconciliation opens', 'Build this toward Week 12', 'open']] },
+      { d: '2026-10-02', it: [['Week 4 live class', '', 'class'], ['Where I Stand: Social Location Map', 'due; 20 percent', 'due']] },
+      { d: '2026-10-09', it: [['Week 5 live class', '', 'class'], ['Research Choices Lab scenario room opens', 'begin with the research decisions', 'open']] },
+      { d: '2026-10-16', it: [['Week 6 asynchronous learning', 'Independent reading of the anthropology survey', 'async'], ['Research Choices Lab full instructions open', 'design the small ethical study', 'open']] },
+      { d: '2026-10-23', it: [['Week 7 live class', 'Cumulative review before Study Week', 'class'], ['Two-Eyed Seeing Observation Journal Set 1', 'two-entry set due; 10 percent', 'due']] },
+      { d: '2026-10-26', it: [['Study Week', 'October 26 to 30. No class, new module, or graded deadline.', 'support']] },
+      { d: '2026-11-06', it: [['Week 8 live class', '', 'class'], ['Research Choices Lab', 'due; 20 percent', 'due'], ['Two-Eyed Seeing Observation Journal Set 2 opens', 'two new private entries', 'open'], ['Reconciliation in Practice: A Community Question opens', 'begin the bounded community question', 'open'], ['Personal Cartography: Society and Me Milestone 1 opens', 'begin the five-point route', 'open']] },
       { d: '2026-11-13', it: [['Week 9 live class', '', 'class']] },
-      { d: '2026-11-20', it: [['Week 10 live class', '', 'class']] },
+      { d: '2026-11-20', it: [['Week 10 live class', '', 'class'], ['Personal Cartography: Society and Me Milestone 2 opens', 'develop the route with dated evidence', 'open']] },
       { d: '2026-11-27', it: [['Week 11 asynchronous learning', 'Independent synthesis before the final live class', 'async']] },
-      { d: '2026-12-04', it: [['Week 12 live class', 'Final substantive class meeting', 'class'], ['Two-Eyed Seeing Journal', 'final check in Week 12', 'due'], ['A Question of Reconciliation', 'due in Week 12', 'due']] },
-      { d: '2026-12-07', it: [['Week 13 asynchronous office hours and supported completion begin', 'No lecture; focused work and consultation', 'async'], ['Revisiting Personal Cartography opens', 'Introduced in Week 13', 'open']] },
-      { d: '2026-12-11', it: [['Revisiting Personal Cartography', 'due in Week 13', 'due']] },
-      { d: '2026-12-14', it: [['Week 14 asynchronous office hours and course closure', 'No lecture; optional consultation, feedback, and final questions', 'async']] },
+      { d: '2026-12-04', it: [['Week 12 live class', 'Final substantive class meeting', 'class'], ['Two-Eyed Seeing Observation Journal Set 2', 'two-entry set due; 10 percent', 'due'], ['Reconciliation in Practice: A Community Question', 'due; 20 percent', 'due'], ['Personal Cartography: Society and Me Milestone 3 and final area open', 'complete the five-point route', 'open']] },
+      { d: '2026-12-07', it: [['Week 13 asynchronous office hours and supported completion begin', 'No lecture; focused work and consultation', 'async']] },
+      { d: '2026-12-11', it: [['Personal Cartography: Society and Me', 'final project due; 20 percent', 'due']] },
+      { d: '2026-12-14', it: [['Week 14 asynchronous office hours and course closure', 'No lecture; optional consultation and final questions', 'async']] },
       { d: '2026-12-16', it: [['Last day of the term', 'No graded work is due in Week 14', 'support']] }
     ];
   }
@@ -4419,14 +4419,14 @@
   }
   function assignmentsPage() {
     var items = [
-      ['Personal Cartography sequence', 'Course spine', 'Use the weekly rooms to build the map slowly instead of trying to invent it at the end.'],
-      ['Two-Eyed Seeing Journal', 'Recurring work', 'Keep each entry grounded in the named source and in respectful, attributed language.'],
-      ['Knowledge in Two Eyes', 'Reading and evidence practice', 'Compare one Western and one Indigenous-authored source, then interpret one numerical, statistical, sample, or measurement claim and state what it cannot prove.'],
-      ['A Question of Reconciliation', 'Later-term application', 'Connect course concepts to responsibility without speaking for a community.'],
-      ['Final project integration', 'Week 13 window', 'Bring the whole course map together with Blackboard as the official submission point.']
+      ['Two-Eyed Seeing Observation Journal', '20 percent | Sets due October 23 and December 4', 'Complete four private, dated entries in two sets. Hold a social science lens beside a named Indigenous or Two-Eyed Seeing course source without blending or inventing perspectives.'],
+      ['Where I Stand: Social Location Map', '20 percent | September 18 to October 2', 'Map the institutions, roles, places, relationships, and structural forces that shape what you can see, while controlling what you keep private.'],
+      ['Research Choices Lab', '20 percent | Scenario room October 9; due November 6', 'Explain three research decisions, then design one small ethical study with a question, method, consent and benefit plan, and two limits.'],
+      ['Reconciliation in Practice: A Community Question', '20 percent | November 6 to December 4', 'Develop one bounded public or local question and a responsible next step grounded in an Indigenous-led or official community source and a social science source.'],
+      ['Personal Cartography: Society and Me', '20 percent | Milestones begin November 6; final due December 11', 'Create a five-point route showing how your social analysis changed and what informed citizenship now requires from you.']
     ];
     var steps = items.map(function (x, i) { return '<li><span>' + (i + 1) + '</span><div><b>' + esc(x[0]) + '</b><em>' + esc(x[1]) + '</em><p>' + esc(x[2]) + '</p></div></li>'; }).join('');
-    return '<div class="rise path-page"><section class="path-hero"><div><div class="mono">ASSIGNMENT PLANNING</div><h1>Understanding Your Assignment</h1><p>This page helps you read the assignment, identify the course ideas and evidence it needs, plan the work, and then submit the final version in Blackboard.</p></div><div class="path-compass"><span>SITE</span><b>practice, notes, evidence</b><i></i><span>BLACKBOARD</span><b>official brief, dropbox, grade</b></div></section><section class="path-summary"><div><b>Blackboard is official</b><span>Due dates, dropboxes, rubrics, feedback, and grades stay in Blackboard.</span></div><div><b>Use weekly notes</b><span>Generate notes from the weeks that feed the assignment before drafting.</span></div><div><b>Keep the course lens visible</b><span>Name the source, the course concept, the limit, and the responsibility question.</span></div></section>' + assignmentIntegrityNotice() + assignmentStartLabLaunch() + '<section class="path-route"><div class="path-route-head"><div class="mono">ASSIGNMENT ROUTE</div><h2>Start from the active SOC122 package</h2><p>Use this as a planning map only. Always check Blackboard for the complete instructions before submitting.</p></div><ol>' + steps + '</ol></section><section class="path-close"><h2>Start with the week that feeds the work</h2><p>Open the relevant weekly room, generate your notes, then come back to this assignment map when you are ready to draft.</p><div class="path-actions"><button type="button" onclick="SOC.station(4)"><b>Week 4</b><small>Cartography start.</small></button><button type="button" onclick="SOC.station(8)"><b>Week 8</b><small>Sociology and evidence.</small></button><button type="button" onclick="SOC.station(12)"><b>Week 12</b><small>Responsibility question.</small></button><button type="button" onclick="SOC.station(13)"><b>Week 13</b><small>Final project integration.</small></button></div></section></div>';
+    return '<div class="rise path-page"><section class="path-hero"><div><div class="mono">ASSIGNMENT PLANNING</div><h1>Understanding Your Assignments</h1><p>Use this page to understand the assessment path and prepare with course ideas and evidence. Blackboard holds each complete brief, rubric, submission, feedback, and grade.</p></div><div class="path-compass"><span>SITE</span><b>practice, notes, evidence</b><i></i><span>BLACKBOARD</span><b>official brief, dropbox, grade</b></div></section><section class="path-summary"><div><b>Blackboard is official</b><span>Release dates, deadlines, dropboxes, rubrics, feedback, and grades stay in Blackboard.</span></div><div><b>Five distinct assessments</b><span>The tasks move from social location and observation to research choices, community responsibility, and final integration.</span></div><div><b>Keep the course lens visible</b><span>Name the source, the course concept, the limit, and the responsibility question.</span></div></section>' + assignmentIntegrityNotice() + assignmentStartLabLaunch() + '<section class="path-route"><div class="path-route-head"><div class="mono">THE FIVE GRADED PIECES</div><h2>Follow the staged assessment route</h2><p>Use this as a planning map only. Blackboard releases the complete instructions and submission areas on the approved schedule.</p></div><ol>' + steps + '</ol></section><section class="path-close"><h2>Start with the week that feeds the work</h2><p>Open the relevant weekly room, generate your notes, then come back to this assessment map when you are ready to plan.</p><div class="path-actions"><button type="button" onclick="SOC.station(2)"><b>Week 2</b><small>Journal Set 1 and Where I Stand.</small></button><button type="button" onclick="SOC.station(5)"><b>Week 5</b><small>Research scenarios.</small></button><button type="button" onclick="SOC.station(8)"><b>Week 8</b><small>Research due; later work opens.</small></button><button type="button" onclick="SOC.station(12)"><b>Week 12</b><small>Journal and community question due.</small></button><button type="button" onclick="SOC.station(13)"><b>Week 13</b><small>Final project support.</small></button></div></section></div>';
   }
   function scholarMedia() {
     var out = [];
@@ -5144,7 +5144,7 @@
       + '<label class="wk-scope" style="cursor:pointer;display:inline-block">Restore from a backup file<input type="file" accept="application/json,.json" style="display:none" onchange="SOC.importWork(this)"></label>'
       + '</div><p id="dataport-msg" role="status" style="font-size:.8rem;color:var(--ink-faint);margin:8px 0 0"></p></section>';
   }
-  /* ---------- Two-Eyed Seeing Journal wiring (2026-07-25) ---------- */
+  /* ---------- Two-Eyed Seeing Observation Journal wiring (2026-07-25) ---------- */
   function journalBridge(w) {
     try {
       var J = window.SOC122_JOURNAL;
@@ -5982,7 +5982,7 @@
     },
     journalCompile: function () {
       try {
-        var lines = ['SOC122 reflection notes (compiled from this browser, ' + new Date().toISOString().slice(0, 10) + ')', 'These are your personal weekly reflections, gathered as raw material for your Two-Eyed Seeing Journal. The companion site does not submit them. Shape them in your own words before anything goes to Blackboard.', ''];
+        var lines = ['SOC122 reflection notes (compiled from this browser, ' + new Date().toISOString().slice(0, 10) + ')', 'These are your personal weekly reflections, gathered as raw material for your Two-Eyed Seeing Observation Journal. The companion site does not submit them. Shape them in your own words before anything goes to Blackboard.', ''];
         var any = false;
         journeyWeeks().forEach(function (w2) {
           var r = state.wkReflect && state.wkReflect[w2];
