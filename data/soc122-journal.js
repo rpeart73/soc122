@@ -1,5 +1,5 @@
 /* SOC122 journal bridge data: connects each week's saved reflection to the
-   Two-Eyed Seeing Journal assessment (20 percent, weekly entries Weeks 2 to 12).
+   Two-Eyed Seeing Observation Journal assessment (20 percent, four dated entries in two sets).
    Grounding:
    - Week reflectPrompt + guiding questions: SOC122/_app/app.js, WEEKPAGE (weeks 2-6, 8-12)
      and walkReviewData() for the Week 7 cumulative review (no WEEKPAGE entry exists for Week 7).
@@ -106,6 +106,6 @@ window.SOC122_JOURNAL = {
   compiler: {
     /* Grounding: brief submission rules (eleven entries, journal tool on Blackboard, flag two in Week 12);
        browser-only note grounded in the site's own LIMITS text in app.js (saved notes live only in this browser). */
-    intro: "This page gathers your saved weekly reflections in one place so you can see your Two-Eyed Seeing practice as a running record. The Journal asks for eleven weekly entries, Weeks 2 to 12, posted in the journal tool on Blackboard, with two entries flagged in Week 12 for grading, and consistency counts: strong work shows entries that \"appear across the weeks, not assembled at the end.\" Notes saved here live only in this browser on this device, so treat this page as your working space and post each finished entry in Blackboard."
+    intro: "This page gathers your saved weekly reflections in one place so you can see your Two-Eyed Seeing practice as a running record. The graded Journal requires four dated entries in two private Blackboard sets: two entries due October 23 and two new entries due December 4. Each entry begins with a specific class artefact, public issue, or low-risk observation, then holds one social science lens beside a named Indigenous or Two-Eyed Seeing course source. Notes saved here live only in this browser on this device, so treat this page as working space and submit the required entries in Blackboard."
   }
 };

@@ -15,7 +15,7 @@ window.SOC122_OUTCOMES = {
     14
    ],
    "assessments": [
-    "Knowledge in Two Eyes"
+    "Research Choices Lab"
    ]
   },
   {
@@ -32,8 +32,8 @@ window.SOC122_OUTCOMES = {
     14
    ],
    "assessments": [
-    "Knowledge in Two Eyes",
-    "A Question of Reconciliation"
+    "Research Choices Lab",
+    "Reconciliation in Practice: A Community Question"
    ]
   },
   {
@@ -51,11 +51,11 @@ window.SOC122_OUTCOMES = {
     14
    ],
    "assessments": [
-    "Two-Eyed Seeing Journal",
-    "Personal Cartography 1: Locating Yourself",
-    "Knowledge in Two Eyes",
-    "A Question of Reconciliation",
-    "Revisiting Personal Cartography"
+    "Two-Eyed Seeing Observation Journal",
+    "Where I Stand: Social Location Map",
+    "Research Choices Lab",
+    "Reconciliation in Practice: A Community Question",
+    "Personal Cartography: Society and Me"
    ]
   },
   {
@@ -71,10 +71,10 @@ window.SOC122_OUTCOMES = {
     14
    ],
    "assessments": [
-    "Two-Eyed Seeing Journal",
-    "Personal Cartography 1: Locating Yourself",
-    "A Question of Reconciliation",
-    "Revisiting Personal Cartography"
+    "Two-Eyed Seeing Observation Journal",
+    "Where I Stand: Social Location Map",
+    "Reconciliation in Practice: A Community Question",
+    "Personal Cartography: Society and Me"
    ]
   },
   {
@@ -94,11 +94,11 @@ window.SOC122_OUTCOMES = {
     14
    ],
    "assessments": [
-    "Two-Eyed Seeing Journal",
-    "Personal Cartography 1: Locating Yourself",
-    "Knowledge in Two Eyes",
-    "A Question of Reconciliation",
-    "Revisiting Personal Cartography"
+    "Two-Eyed Seeing Observation Journal",
+    "Where I Stand: Social Location Map",
+    "Research Choices Lab",
+    "Reconciliation in Practice: A Community Question",
+    "Personal Cartography: Society and Me"
    ]
   },
   {
@@ -120,11 +120,11 @@ window.SOC122_OUTCOMES = {
     14
    ],
    "assessments": [
-    "Two-Eyed Seeing Journal",
-    "Personal Cartography 1: Locating Yourself",
-    "Knowledge in Two Eyes",
-    "A Question of Reconciliation",
-    "Revisiting Personal Cartography"
+    "Two-Eyed Seeing Observation Journal",
+    "Where I Stand: Social Location Map",
+    "Research Choices Lab",
+    "Reconciliation in Practice: A Community Question",
+    "Personal Cartography: Society and Me"
    ]
   },
   {
@@ -142,9 +142,9 @@ window.SOC122_OUTCOMES = {
     14
    ],
    "assessments": [
-    "Two-Eyed Seeing Journal",
-    "Personal Cartography 1: Locating Yourself",
-    "Revisiting Personal Cartography"
+    "Two-Eyed Seeing Observation Journal",
+    "Where I Stand: Social Location Map",
+    "Personal Cartography: Society and Me"
    ]
   },
   {
@@ -167,11 +167,11 @@ window.SOC122_OUTCOMES = {
     14
    ],
    "assessments": [
-    "Two-Eyed Seeing Journal",
-    "Personal Cartography 1: Locating Yourself",
-    "Knowledge in Two Eyes",
-    "A Question of Reconciliation",
-    "Revisiting Personal Cartography"
+    "Two-Eyed Seeing Observation Journal",
+    "Where I Stand: Social Location Map",
+    "Research Choices Lab",
+    "Reconciliation in Practice: A Community Question",
+    "Personal Cartography: Society and Me"
    ]
   },
   {
@@ -193,11 +193,11 @@ window.SOC122_OUTCOMES = {
     14
    ],
    "assessments": [
-    "Two-Eyed Seeing Journal",
-    "Personal Cartography 1: Locating Yourself",
-    "Knowledge in Two Eyes",
-    "A Question of Reconciliation",
-    "Revisiting Personal Cartography"
+    "Two-Eyed Seeing Observation Journal",
+    "Where I Stand: Social Location Map",
+    "Research Choices Lab",
+    "Reconciliation in Practice: A Community Question",
+    "Personal Cartography: Society and Me"
    ]
   },
   {
@@ -210,8 +210,8 @@ window.SOC122_OUTCOMES = {
     14
    ],
    "assessments": [
-    "Knowledge in Two Eyes (partial coverage only)",
-    "Revisiting Personal Cartography (partial coverage only)"
+    "Research Choices Lab (partial coverage only)",
+    "Personal Cartography: Society and Me (partial coverage only)"
    ]
   },
   {
@@ -226,7 +226,7 @@ window.SOC122_OUTCOMES = {
     14
    ],
    "assessments": [
-    "Knowledge in Two Eyes"
+    "Research Choices Lab"
    ]
   },
   {
@@ -249,11 +249,11 @@ window.SOC122_OUTCOMES = {
     14
    ],
    "assessments": [
-    "Two-Eyed Seeing Journal",
-    "Personal Cartography 1: Locating Yourself",
-    "Knowledge in Two Eyes",
-    "A Question of Reconciliation",
-    "Revisiting Personal Cartography"
+    "Two-Eyed Seeing Observation Journal",
+    "Where I Stand: Social Location Map",
+    "Research Choices Lab",
+    "Reconciliation in Practice: A Community Question",
+    "Personal Cartography: Society and Me"
    ]
   }
  ],

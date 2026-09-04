@@ -138,7 +138,7 @@ window.SOC122_HOWTO = {
     },
     {
      "do": "Build the cartography as you go.",
-     "detail": "Your weekly notes and journal entries feed the Personal Cartography sequence. Building it slowly beats inventing it at the end."
+     "detail": "Dated weekly notes and assessment artefacts feed Personal Cartography: Society and Me. Build the five-point route as the milestones open."
     },
     {
      "do": "Start with the current week.",
@@ -271,7 +271,7 @@ window.SOC122_HOWTO = {
    ],
    "saves": "When browser storage is available, a saved weaving may remain in this browser on this device until site data is cleared. Your comparison picks last only for this visit.",
    "graded": "Comparisons are never graded.",
-   "next": "Carry the comparison into this week's reflection or your Two-Eyed Seeing Journal work."
+   "next": "Carry the comparison into this week's reflection or your Two-Eyed Seeing Observation Journal work."
   },
   "walkthroughs": {
    "title": "How to use Weekly Experiences",
@@ -387,11 +387,11 @@ window.SOC122_HOWTO = {
    "steps": [
     {
      "do": "Walk the five assessments in order.",
-     "detail": "From the Personal Cartography sequence and the Two-Eyed Seeing Journal to the final integration, each item names what kind of work it is and how the weekly rooms feed it."
+     "detail": "The five assessments move from social location and observation to research choices, community responsibility, and Personal Cartography: Society and Me. Each item names its purpose and timing."
     },
     {
      "do": "Keep the journal grounded.",
-     "detail": "Two-Eyed Seeing Journal entries always work from the named source, in respectful, attributed language. That standard holds on every route."
+     "detail": "Two-Eyed Seeing Observation Journal entries always work from the named source, in respectful, attributed language. That standard holds on every route."
     },
     {
      "do": "Read the dates and the integrity notes.",

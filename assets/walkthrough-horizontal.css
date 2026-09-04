@@ -333,3 +333,34 @@
 #walk-overlay[data-week] .walk-context-intro,#walk-overlay[data-week] .walk-context-foot,#walk-overlay[data-week] .walk-context-mobile-cue{font-size:1rem;line-height:1.55}
 #walk-overlay[data-week] .context-selectors label>span{font-size:.78rem}#walk-overlay[data-week] .context-selectors select{font-size:1rem;padding:9px 30px 9px 10px}
 #walk-overlay[data-week] .context-card h3{font-size:1.08rem}#walk-overlay[data-week] .context-place{font-size:.85rem;line-height:1.45}#walk-overlay[data-week] .context-card dt{font-size:.72rem}#walk-overlay[data-week] .context-card dd{font-size:1rem;line-height:1.55}
+
+/* Tactile micro-interactions and focus rings for walkthrough activities */
+#walk-overlay .walk-sig-tabs>button:active,
+#walk-overlay .walk-qlist button:active,
+#walk-overlay .walk-collect-trays>button:active,
+#walk-overlay .walk-notebook>button:active,
+#walk-overlay .walk-hearing [role="group"] button:active,
+#walk-overlay .walk-house-front button:active,
+#walk-overlay .walk-globe-routes>button:active,
+#walk-overlay .walk-prev:active,
+#walk-overlay .walk-next:active,
+#walk-overlay .walk-cta:active,
+#walk-overlay .walk-enter:active {
+  transform: scale(0.985);
+  transition: transform .08s ease;
+}
+
+#walk-overlay .walk-sig-tabs>button:focus-visible,
+#walk-overlay .walk-qlist button:focus-visible,
+#walk-overlay .walk-collect-trays>button:focus-visible,
+#walk-overlay .walk-notebook>button:focus-visible,
+#walk-overlay .walk-hearing [role="group"] button:focus-visible,
+#walk-overlay .walk-house-front button:focus-visible,
+#walk-overlay .walk-globe-routes>button:focus-visible,
+#walk-overlay .walk-prev:focus-visible,
+#walk-overlay .walk-next:focus-visible,
+#walk-overlay .walk-cta:focus-visible,
+#walk-overlay .walk-enter:focus-visible {
+  outline: 2.5px solid var(--walk-red) !important;
+  outline-offset: 2px !important;
+}
