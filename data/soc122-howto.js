@@ -138,7 +138,7 @@ window.SOC122_HOWTO = {
     },
     {
      "do": "Build the cartography as you go.",
-     "detail": "Dated weekly notes and assessment artefacts feed Personal Cartography: Society and Me. Build the five-point route as the milestones open."
+     "detail": "Dated weekly notes and assessment artefacts feed Personal Cartography: Society and Me. Build the five-point route using your dated course work and planning notes."
     },
     {
      "do": "Start with the current week.",

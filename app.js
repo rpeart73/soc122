@@ -3329,7 +3329,7 @@
       + (next != null ? '<button type="button" onclick="SOC.station(' + next + ')" style="flex:1;border:1px solid #DEE3EA;background:#fff;border-radius:7px;padding:5px 8px;font-size:.72rem;font-weight:600;color:var(--red);cursor:pointer;text-align:center" title="Week ' + next + ': ' + esc(weekTitle(next)) + '">Wk ' + next + ' &rarr;</button>' : '')
       + '</div></div></aside>';
     var collBar = '<div class="wk-coll-bar" role="group" aria-label="Section display controls"><button type="button" onclick="SOC.wkCollAll(' + w + ',1)">Collapse all sections</button><button type="button" onclick="SOC.focusCore(' + w + ')" aria-pressed="' + (!!(state.focusCore && state.focusCore[w])) + '"' + ((state.focusCore && state.focusCore[w]) ? ' style="border-color:var(--red);color:var(--red);font-weight:700"' : '') + '>' + ((state.focusCore && state.focusCore[w]) ? 'Show the full week' : 'Show the core path') + '</button><span>Weeks start folded so you can see the whole map. Up to two sections stay open at once; opening a third closes the earliest one. Sections fold again when you leave the week.</span></div>';
-    return '<div class="rise">' + hero + deliveryNotice(w) + protocolSection(w) + recordingSection(w) + '<div class="wk-grid' + ((state.focusCore && state.focusCore[w]) ? ' focus-core' : '') + '"><div class="wk-primary">' + collBar + ((state.focusCore && state.focusCore[w]) ? '<div style="border:1px solid var(--border);border-left:4px solid var(--red);border-radius:0 10px 10px 0;background:#fff;padding:10px 14px;margin:0 0 14px;font-size:.85rem;color:var(--ink-dim)"><b style="color:var(--ink)">Core path.</b> You are seeing the essentials: readings, key concepts, the Knowledge Check, and your reflection. Use the button above to bring the full week back.</div>' : '') + pre + purpose + emphasis + outcomes + guiding + plainTerms + care + img + programLens + media + concepts + terms + readings + globalContext + watch + programCase + act + reflect + sg + kc + notes + navRow + '</div>' + rail + '</div></div>';
+    return CourseAssessmentGuides.week(w) + '<div class="rise">' + hero + deliveryNotice(w) + protocolSection(w) + recordingSection(w) + '<div class="wk-grid' + ((state.focusCore && state.focusCore[w]) ? ' focus-core' : '') + '"><div class="wk-primary">' + collBar + ((state.focusCore && state.focusCore[w]) ? '<div style="border:1px solid var(--border);border-left:4px solid var(--red);border-radius:0 10px 10px 0;background:#fff;padding:10px 14px;margin:0 0 14px;font-size:.85rem;color:var(--ink-dim)"><b style="color:var(--ink)">Core path.</b> You are seeing the essentials: readings, key concepts, the Knowledge Check, and your reflection. Use the button above to bring the full week back.</div>' : '') + pre + purpose + emphasis + outcomes + guiding + plainTerms + care + img + programLens + media + concepts + terms + readings + globalContext + watch + programCase + act + reflect + sg + kc + notes + navRow + '</div>' + rail + '</div></div>';
   }
   /* ---------- generic week activities: match / scenario / toggle / assemble / lab ---------- */
   function actCard(inner) { return '<div style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin:0 0 12px">' + inner + '</div>'; }
@@ -3550,24 +3550,299 @@
   var KD_MON = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   function keyDatesList() {
     return [
-      { d: '2026-09-11', it: [['Week 1 live class', 'Course orientation and shared start', 'class']] },
-      { d: '2026-09-18', it: [['Week 2 live class', '', 'class'], ['Where I Stand: Social Location Map opens', 'build a privacy-safe map of social location', 'open'], ['Two-Eyed Seeing Observation Journal Set 1 opens', 'two private entries', 'open']] },
-      { d: '2026-09-25', it: [['Week 3 live class', '', 'class']] },
-      { d: '2026-10-02', it: [['Week 4 live class', '', 'class'], ['Where I Stand: Social Location Map', 'due; 20 percent', 'due']] },
-      { d: '2026-10-09', it: [['Week 5 live class', '', 'class'], ['Research Choices Lab scenario room opens', 'begin with the research decisions', 'open']] },
-      { d: '2026-10-16', it: [['Week 6 asynchronous learning', 'Independent reading of the anthropology survey', 'async'], ['Research Choices Lab full instructions open', 'design the small ethical study', 'open']] },
-      { d: '2026-10-23', it: [['Week 7 live class', 'Cumulative review before Study Week', 'class'], ['Two-Eyed Seeing Observation Journal Set 1', 'two-entry set due; 10 percent', 'due']] },
-      { d: '2026-10-26', it: [['Study Week', 'October 26 to 30. No class, new module, or graded deadline.', 'support']] },
-      { d: '2026-11-06', it: [['Week 8 live class', '', 'class'], ['Research Choices Lab', 'due; 20 percent', 'due'], ['Two-Eyed Seeing Observation Journal Set 2 opens', 'two new private entries', 'open'], ['Reconciliation in Practice: A Community Question opens', 'begin the bounded community question', 'open'], ['Personal Cartography: Society and Me Milestone 1 opens', 'begin the five-point route', 'open']] },
-      { d: '2026-11-13', it: [['Week 9 live class', '', 'class']] },
-      { d: '2026-11-20', it: [['Week 10 live class', '', 'class'], ['Personal Cartography: Society and Me Milestone 2 opens', 'develop the route with dated evidence', 'open']] },
-      { d: '2026-11-27', it: [['Week 11 asynchronous learning', 'Independent synthesis before the final live class', 'async']] },
-      { d: '2026-12-04', it: [['Week 12 live class', 'Final substantive class meeting', 'class'], ['Two-Eyed Seeing Observation Journal Set 2', 'two-entry set due; 10 percent', 'due'], ['Reconciliation in Practice: A Community Question', 'due; 20 percent', 'due'], ['Personal Cartography: Society and Me Milestone 3 and final area open', 'complete the five-point route', 'open']] },
-      { d: '2026-12-07', it: [['Week 13 asynchronous office hours and supported completion begin', 'No lecture; focused work and consultation', 'async']] },
-      { d: '2026-12-11', it: [['Personal Cartography: Society and Me', 'final project due; 20 percent', 'due']] },
-      { d: '2026-12-14', it: [['Week 14 asynchronous office hours and course closure', 'No lecture; optional consultation and final questions', 'async']] },
-      { d: '2026-12-16', it: [['Last day of the term', 'No graded work is due in Week 14', 'support']] }
-    ];
+  {
+    "d": "2026-09-11",
+    "it": [
+      [
+        "Week 1 live class",
+        "Course orientation and shared start",
+        "class"
+      ]
+    ]
+  },
+  {
+    "d": "2026-09-18",
+    "it": [
+      [
+        "Week 2 live class",
+        "",
+        "class"
+      ]
+    ]
+  },
+  {
+    "d": "2026-09-18",
+    "it": [
+      [
+        "Where I Stand: Social Location Map opens",
+        "20%; submit in Blackboard",
+        "open",
+        "where-i-stand"
+      ]
+    ]
+  },
+  {
+    "d": "2026-09-18",
+    "it": [
+      [
+        "Two-Eyed Seeing Observation Journal: Set 1 opens",
+        "10%; submit in Blackboard",
+        "open",
+        "journal"
+      ]
+    ]
+  },
+  {
+    "d": "2026-09-25",
+    "it": [
+      [
+        "Week 3 live class",
+        "",
+        "class"
+      ]
+    ]
+  },
+  {
+    "d": "2026-10-02",
+    "it": [
+      [
+        "Week 4 live class",
+        "",
+        "class"
+      ]
+    ]
+  },
+  {
+    "d": "2026-10-02",
+    "it": [
+      [
+        "Where I Stand: Social Location Map",
+        "due; 20%",
+        "due",
+        "where-i-stand"
+      ]
+    ]
+  },
+  {
+    "d": "2026-10-09",
+    "it": [
+      [
+        "Week 5 live class",
+        "",
+        "class"
+      ]
+    ]
+  },
+  {
+    "d": "2026-10-16",
+    "it": [
+      [
+        "Week 6 asynchronous learning",
+        "Independent reading of the anthropology survey",
+        "async"
+      ]
+    ]
+  },
+  {
+    "d": "2026-10-16",
+    "it": [
+      [
+        "Research Choices Lab opens",
+        "20%; submit in Blackboard",
+        "open",
+        "research-choices"
+      ]
+    ]
+  },
+  {
+    "d": "2026-10-23",
+    "it": [
+      [
+        "Week 7 live class",
+        "Cumulative review before Study Week",
+        "class"
+      ]
+    ]
+  },
+  {
+    "d": "2026-10-23",
+    "it": [
+      [
+        "Two-Eyed Seeing Observation Journal: Set 1",
+        "due; 10%",
+        "due",
+        "journal"
+      ]
+    ]
+  },
+  {
+    "d": "2026-10-26",
+    "it": [
+      [
+        "Study Week",
+        "October 26 to 30. No class, new module, or graded deadline.",
+        "support"
+      ]
+    ]
+  },
+  {
+    "d": "2026-11-06",
+    "it": [
+      [
+        "Week 8 live class",
+        "",
+        "class"
+      ]
+    ]
+  },
+  {
+    "d": "2026-11-06",
+    "it": [
+      [
+        "Research Choices Lab",
+        "due; 20%",
+        "due",
+        "research-choices"
+      ]
+    ]
+  },
+  {
+    "d": "2026-11-06",
+    "it": [
+      [
+        "Two-Eyed Seeing Observation Journal: Set 2 opens",
+        "10%; submit in Blackboard",
+        "open",
+        "journal-2"
+      ]
+    ]
+  },
+  {
+    "d": "2026-11-06",
+    "it": [
+      [
+        "Reconciliation in Practice: A Community Question opens",
+        "20%; submit in Blackboard",
+        "open",
+        "reconciliation"
+      ]
+    ]
+  },
+  {
+    "d": "2026-11-13",
+    "it": [
+      [
+        "Week 9 live class",
+        "",
+        "class"
+      ]
+    ]
+  },
+  {
+    "d": "2026-11-20",
+    "it": [
+      [
+        "Week 10 live class",
+        "",
+        "class"
+      ]
+    ]
+  },
+  {
+    "d": "2026-11-27",
+    "it": [
+      [
+        "Week 11 asynchronous learning",
+        "Independent synthesis before the final live class",
+        "async"
+      ]
+    ]
+  },
+  {
+    "d": "2026-12-04",
+    "it": [
+      [
+        "Week 12 live class",
+        "Final substantive class meeting",
+        "class"
+      ]
+    ]
+  },
+  {
+    "d": "2026-12-04",
+    "it": [
+      [
+        "Two-Eyed Seeing Observation Journal: Set 2",
+        "due; 10%",
+        "due",
+        "journal-2"
+      ]
+    ]
+  },
+  {
+    "d": "2026-12-04",
+    "it": [
+      [
+        "Reconciliation in Practice: A Community Question",
+        "due; 20%",
+        "due",
+        "reconciliation"
+      ]
+    ]
+  },
+  {
+    "d": "2026-12-04",
+    "it": [
+      [
+        "Personal Cartography: Society and Me opens",
+        "20%; submit in Blackboard",
+        "open",
+        "personal-cartography"
+      ]
+    ]
+  },
+  {
+    "d": "2026-12-07",
+    "it": [
+      [
+        "Week 13 asynchronous office hours and supported completion begin",
+        "No lecture; focused work and consultation",
+        "async"
+      ]
+    ]
+  },
+  {
+    "d": "2026-12-11",
+    "it": [
+      [
+        "Personal Cartography: Society and Me",
+        "due; 20%",
+        "due",
+        "personal-cartography"
+      ]
+    ]
+  },
+  {
+    "d": "2026-12-14",
+    "it": [
+      [
+        "Week 14 asynchronous office hours and course closure",
+        "No lecture; optional consultation and final questions",
+        "async"
+      ]
+    ]
+  },
+  {
+    "d": "2026-12-16",
+    "it": [
+      [
+        "Last day of the term",
+        "No graded work is due in Week 14",
+        "support"
+      ]
+    ]
+  }
+];
   }
   function kdDaysUntil(iso) { try { var t = new Date(); var a = Date.UTC(t.getFullYear(), t.getMonth(), t.getDate()); var p = iso.split('-'); return Math.round((Date.UTC(+p[0], +p[1] - 1, +p[2]) - a) / 86400000); } catch (e) { return 999; } }
   function kdMonthDay(iso) { var p = iso.split('-'); return KD_MON[+p[1] - 1] + ' ' + (+p[2]); }
@@ -4418,15 +4693,7 @@
     return '<section class="path-close" aria-label="Assignment Start Lab"><div class="mono">PERSONAL PLANNING SUPPORT</div><h2>Not sure how to begin?</h2><p>Add your assignment, progress, exact sticking point, and available time. Fixed course rules create a personal start plan without using AI. Nothing is submitted. When browser storage is available, your answers may remain in this browser on this device until you clear them.</p><div class="path-actions"><button type="button" onclick="location.href=\'assignment-start-lab.html\'"><b>Open Assignment Start Lab</b><small>Create a plan you can print or save as PDF.</small></button></div></section>';
   }
   function assignmentsPage() {
-    var items = [
-      ['Two-Eyed Seeing Observation Journal', '20 percent | Sets due October 23 and December 4', 'Complete four private, dated entries in two sets. Hold a social science lens beside a named Indigenous or Two-Eyed Seeing course source without blending or inventing perspectives.', 'journal'],
-      ['Where I Stand: Social Location Map', '20 percent | September 18 to October 2', 'Map the institutions, roles, places, relationships, and structural forces that shape what you can see, while controlling what you keep private.', 'where-i-stand'],
-      ['Research Choices Lab', '20 percent | Scenario room October 9; due November 6', 'Explain three research decisions, then design one small ethical study with a question, method, consent and benefit plan, and two limits.', 'research-choices'],
-      ['Reconciliation in Practice: A Community Question', '20 percent | November 6 to December 4', 'Develop one bounded public or local question and a responsible next step grounded in an Indigenous-led or official community source and a social science source.', 'reconciliation'],
-      ['Personal Cartography: Society and Me', '20 percent | Milestones begin November 6; final due December 11', 'Create a five-point route showing how your social analysis changed and what informed citizenship now requires from you.', 'personal-cartography']
-    ];
-    var steps = items.map(function (x, i) { return '<li><span>' + (i + 1) + '</span><div><b>' + esc(x[0]) + '</b><em>' + esc(x[1]) + '</em><p>' + esc(x[2]) + '</p><a class="wk-cta" style="display:inline-flex;margin:8px 0 0;text-decoration:none;font-size:.82rem" href="assignment-start-lab.html?assignment=' + x[3] + '">Plan in Assignment Start Lab <span aria-hidden="true">&#8594;</span></a></div></li>'; }).join('');
-    return '<div class="rise path-page"><section class="path-hero"><div><div class="mono">ASSIGNMENT PLANNING</div><h1>Understanding Your Assignments</h1><p>Use this page to understand the assessment path and prepare with course ideas and evidence. Blackboard holds each complete brief, rubric, submission, feedback, and grade.</p></div><div class="path-compass"><span>SITE</span><b>practice, notes, evidence</b><i></i><span>BLACKBOARD</span><b>official brief, dropbox, grade</b></div></section><section class="path-summary"><div><b>Blackboard is official</b><span>Release dates, deadlines, dropboxes, rubrics, feedback, and grades stay in Blackboard.</span></div><div><b>Five distinct assessments</b><span>The tasks move from social location and observation to research choices, community responsibility, and final integration.</span></div><div><b>Keep the course lens visible</b><span>Name the source, the course concept, the limit, and the responsibility question.</span></div></section>' + assignmentIntegrityNotice() + assignmentStartLabLaunch() + '<section class="path-route"><div class="path-route-head"><div class="mono">THE FIVE GRADED PIECES</div><h2>Follow the staged assessment route</h2><p>Use this as a planning map only. Blackboard releases the complete instructions and submission areas on the approved schedule.</p></div><ol>' + steps + '</ol></section><section class="path-close"><h2>Start with the week that feeds the work</h2><p>Open the relevant weekly room, generate your notes, then come back to this assessment map when you are ready to plan.</p><div class="path-actions"><button type="button" onclick="SOC.station(2)"><b>Week 2</b><small>Journal Set 1 and Where I Stand.</small></button><button type="button" onclick="SOC.station(5)"><b>Week 5</b><small>Research scenarios.</small></button><button type="button" onclick="SOC.station(8)"><b>Week 8</b><small>Research due; later work opens.</small></button><button type="button" onclick="SOC.station(12)"><b>Week 12</b><small>Journal and community question due.</small></button><button type="button" onclick="SOC.station(13)"><b>Week 13</b><small>Final project support.</small></button></div></section></div>';
+    return CourseAssessmentGuides.directory();
   }
   function scholarMedia() {
     var out = [];
@@ -5924,7 +6191,7 @@
       var ua = (navigator.userAgent || '').slice(0, 160);
       var course = (D.course && D.course.code) || 'Course';
       var subject = course + ' companion site: problem report';
-      var body = 'Hi Professor Peart,\n\nI ran into a problem on the ' + course + ' companion website.\n\nWhat happened (please describe):\n\n\n---- details that help fix it (please leave these) ----\nPage: ' + scr + wk + '\nAddress: ' + (location.href || '') + '\nScreen: ' + vp + '\nBrowser: ' + ua + '\n';
+      var body = 'Hi Raymond,\n\nI ran into a problem on the ' + course + ' companion website.\n\nWhat happened (please describe):\n\n\n---- details that help fix it (please leave these) ----\nPage: ' + scr + wk + '\nAddress: ' + (location.href || '') + '\nScreen: ' + vp + '\nBrowser: ' + ua + '\n';
       var href = 'mailto:raymond.peart@senecapolytechnic.ca?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
       try { window.location.href = href; } catch (e) {}
       announce('Opening your email app with the page details filled in. Add what happened, then send.');

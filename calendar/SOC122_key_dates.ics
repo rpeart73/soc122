@@ -1,10 +1,7 @@
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//SOC122//Companion//EN
+PRODID:-//Seneca//SOC122 Fall 2026//EN
 CALSCALE:GREGORIAN
-METHOD:PUBLISH
-X-WR-CALNAME:SOC122 Course Schedule and Key Dates (Fall 2026)
-X-WR-TIMEZONE:America/Toronto
 BEGIN:VEVENT
 DTSTAMP:20260902T160000Z
 SEQUENCE:3
@@ -134,78 +131,6 @@ END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20260902T160000Z
 SEQUENCE:3
-UID:soc122-where-open@rpeart73.github.io
-DTSTART;VALUE=DATE:20260918
-DTEND;VALUE=DATE:20260919
-SUMMARY:SOC122: Where I Stand opens
-DESCRIPTION:Begin the privacy-safe Social Location Map in Blackboard.
-URL:https://rpeart73.github.io/soc122/?screen=assignments
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20260902T160000Z
-SEQUENCE:3
-UID:soc122-journal-1-open@rpeart73.github.io
-DTSTART;VALUE=DATE:20260918
-DTEND;VALUE=DATE:20260919
-SUMMARY:SOC122: Observation Journal Set 1 opens
-DESCRIPTION:Complete two private Two-Eyed Seeing Observation Journal entr
- ies.
-URL:https://rpeart73.github.io/soc122/?screen=assignments
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20260902T160000Z
-SEQUENCE:3
-UID:soc122-where-due@rpeart73.github.io
-DTSTART;VALUE=DATE:20261002
-DTEND;VALUE=DATE:20261003
-SUMMARY:SOC122: Where I Stand due (20 percent)
-DESCRIPTION:The Social Location Map is due by 11:59 p.m. Eastern.
-URL:https://rpeart73.github.io/soc122/?screen=assignments
-BEGIN:VALARM
-TRIGGER:-P2D
-ACTION:DISPLAY
-DESCRIPTION:SOC122: Where I Stand due (20 percent) in 2 days
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20260902T160000Z
-SEQUENCE:3
-UID:soc122-research-scenarios@rpeart73.github.io
-DTSTART;VALUE=DATE:20261009
-DTEND;VALUE=DATE:20261010
-SUMMARY:SOC122: Research Choices Lab scenario room opens
-DESCRIPTION:Begin the research decisions in Blackboard.
-URL:https://rpeart73.github.io/soc122/?screen=assignments
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20260902T160000Z
-SEQUENCE:3
-UID:soc122-research-full@rpeart73.github.io
-DTSTART;VALUE=DATE:20261016
-DTEND;VALUE=DATE:20261017
-SUMMARY:SOC122: Research Choices Lab full instructions open
-DESCRIPTION:Design the small ethical study after completing the scenarios
- .
-URL:https://rpeart73.github.io/soc122/?screen=assignments
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20260902T160000Z
-SEQUENCE:3
-UID:soc122-journal-1-due@rpeart73.github.io
-DTSTART;VALUE=DATE:20261023
-DTEND;VALUE=DATE:20261024
-SUMMARY:SOC122: Observation Journal Set 1 due (10 percent)
-DESCRIPTION:Two private entries are due by 11:59 p.m. Eastern.
-URL:https://rpeart73.github.io/soc122/?screen=assignments
-BEGIN:VALARM
-TRIGGER:-P2D
-ACTION:DISPLAY
-DESCRIPTION:SOC122: Observation Journal Set 1 due (10 percent) in 2 days
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20260902T160000Z
-SEQUENCE:3
 UID:soc122-study-week@rpeart73.github.io
 DTSTART;VALUE=DATE:20261026
 DTEND;VALUE=DATE:20261031
@@ -214,115 +139,87 @@ DESCRIPTION:Study Week runs October 26 to 30. No class\, new module\, or
  graded work is due.
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260902T160000Z
-SEQUENCE:3
-UID:soc122-research-due@rpeart73.github.io
-DTSTART;VALUE=DATE:20261106
-DTEND;VALUE=DATE:20261107
-SUMMARY:SOC122: Research Choices Lab due (20 percent)
-DESCRIPTION:Due by 11:59 p.m. Eastern in Blackboard.
-URL:https://rpeart73.github.io/soc122/?screen=assignments
-BEGIN:VALARM
-TRIGGER:-P2D
-ACTION:DISPLAY
-DESCRIPTION:SOC122: Research Choices Lab due (20 percent) in 2 days
-END:VALARM
+UID:soc122-_27272596_1-release@seneca-assessments
+DTSTAMP:20260905T030000Z
+DTSTART:20260918T040100Z
+SUMMARY:SOC122: Where I Stand: Social Location Map opens (20%)
+DESCRIPTION:Complete this assessment in Blackboard. https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/assessment/test/_27272596_1
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260902T160000Z
-SEQUENCE:3
-UID:soc122-journal-2-open@rpeart73.github.io
-DTSTART;VALUE=DATE:20261106
-DTEND;VALUE=DATE:20261107
-SUMMARY:SOC122: Observation Journal Set 2 opens
-DESCRIPTION:Complete two new private journal entries.
-URL:https://rpeart73.github.io/soc122/?screen=assignments
+UID:soc122-_27272596_1-due@seneca-assessments
+DTSTAMP:20260905T030000Z
+DTSTART:20261003T035900Z
+SUMMARY:SOC122: Where I Stand: Social Location Map due (20%)
+DESCRIPTION:Complete this assessment in Blackboard. https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/assessment/test/_27272596_1
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260902T160000Z
-SEQUENCE:3
-UID:soc122-reconciliation-open@rpeart73.github.io
-DTSTART;VALUE=DATE:20261106
-DTEND;VALUE=DATE:20261107
-SUMMARY:SOC122: Reconciliation in Practice opens
-DESCRIPTION:Begin the bounded community question in Blackboard.
-URL:https://rpeart73.github.io/soc122/?screen=assignments
+UID:soc122-_27272715_1-release@seneca-assessments
+DTSTAMP:20260905T030000Z
+DTSTART:20260918T040100Z
+SUMMARY:SOC122: Two-Eyed Seeing Observation Journal: Set 1 opens (10%)
+DESCRIPTION:Complete this assessment in Blackboard. https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/journal/_27272715_1
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260902T160000Z
-SEQUENCE:3
-UID:soc122-cartography-m1@rpeart73.github.io
-DTSTART;VALUE=DATE:20261106
-DTEND;VALUE=DATE:20261107
-SUMMARY:SOC122: Personal Cartography Milestone 1 opens
-DESCRIPTION:Begin the five-point Society and Me route.
-URL:https://rpeart73.github.io/soc122/?screen=assignments
+UID:soc122-_27272715_1-due@seneca-assessments
+DTSTAMP:20260905T030000Z
+DTSTART:20261024T035943Z
+SUMMARY:SOC122: Two-Eyed Seeing Observation Journal: Set 1 due (10%)
+DESCRIPTION:Complete this assessment in Blackboard. https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/journal/_27272715_1
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260902T160000Z
-SEQUENCE:3
-UID:soc122-cartography-m2@rpeart73.github.io
-DTSTART;VALUE=DATE:20261120
-DTEND;VALUE=DATE:20261121
-SUMMARY:SOC122: Personal Cartography Milestone 2 opens
-DESCRIPTION:Develop the route with dated course evidence.
-URL:https://rpeart73.github.io/soc122/?screen=assignments
+UID:soc122-_27378912_1-release@seneca-assessments
+DTSTAMP:20260905T030000Z
+DTSTART:20261016T040100Z
+SUMMARY:SOC122: Research Choices Lab opens (20%)
+DESCRIPTION:Complete this assessment in Blackboard. https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/assessment/test/_27378912_1
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260902T160000Z
-SEQUENCE:3
-UID:soc122-journal-2-due@rpeart73.github.io
-DTSTART;VALUE=DATE:20261204
-DTEND;VALUE=DATE:20261205
-SUMMARY:SOC122: Observation Journal Set 2 due (10 percent)
-DESCRIPTION:Two new private entries are due by 11:59 p.m. Eastern.
-URL:https://rpeart73.github.io/soc122/?screen=assignments
-BEGIN:VALARM
-TRIGGER:-P2D
-ACTION:DISPLAY
-DESCRIPTION:SOC122: Observation Journal Set 2 due (10 percent) in 2 days
-END:VALARM
+UID:soc122-_27378912_1-due@seneca-assessments
+DTSTAMP:20260905T030000Z
+DTSTART:20261107T045900Z
+SUMMARY:SOC122: Research Choices Lab due (20%)
+DESCRIPTION:Complete this assessment in Blackboard. https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/assessment/test/_27378912_1
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260902T160000Z
-SEQUENCE:3
-UID:soc122-reconciliation-due@rpeart73.github.io
-DTSTART;VALUE=DATE:20261204
-DTEND;VALUE=DATE:20261205
-SUMMARY:SOC122: Reconciliation in Practice due (20 percent)
-DESCRIPTION:The Community Question brief is due by 11:59 p.m. Eastern.
-URL:https://rpeart73.github.io/soc122/?screen=assignments
-BEGIN:VALARM
-TRIGGER:-P2D
-ACTION:DISPLAY
-DESCRIPTION:SOC122: Reconciliation in Practice due (20 percent) in 2 days
-END:VALARM
+UID:soc122-_27272716_1-release@seneca-assessments
+DTSTAMP:20260905T030000Z
+DTSTART:20261106T050100Z
+SUMMARY:SOC122: Two-Eyed Seeing Observation Journal: Set 2 opens (10%)
+DESCRIPTION:Complete this assessment in Blackboard. https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/journal/_27272716_1
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260902T160000Z
-SEQUENCE:3
-UID:soc122-cartography-final@rpeart73.github.io
-DTSTART;VALUE=DATE:20261204
-DTEND;VALUE=DATE:20261205
-SUMMARY:SOC122: Personal Cartography Milestone 3 and final area open
-DESCRIPTION:Complete the five-point Society and Me route.
-URL:https://rpeart73.github.io/soc122/?screen=assignments
+UID:soc122-_27272716_1-due@seneca-assessments
+DTSTAMP:20260905T030000Z
+DTSTART:20261205T045957Z
+SUMMARY:SOC122: Two-Eyed Seeing Observation Journal: Set 2 due (10%)
+DESCRIPTION:Complete this assessment in Blackboard. https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/journal/_27272716_1
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260902T160000Z
-SEQUENCE:3
-UID:soc122-cartography-due@rpeart73.github.io
-DTSTART;VALUE=DATE:20261211
-DTEND;VALUE=DATE:20261212
-SUMMARY:SOC122: Personal Cartography: Society and Me due (20 percent)
-DESCRIPTION:The final project is due by 11:59 p.m. Eastern.
-URL:https://rpeart73.github.io/soc122/?screen=assignments
-BEGIN:VALARM
-TRIGGER:-P2D
-ACTION:DISPLAY
-DESCRIPTION:SOC122: Personal Cartography: Society and Me due (20 percent)
-  in 2 days
-END:VALARM
+UID:soc122-_27272598_1-release@seneca-assessments
+DTSTAMP:20260905T030000Z
+DTSTART:20261106T050100Z
+SUMMARY:SOC122: Reconciliation in Practice: A Community Question opens (20%)
+DESCRIPTION:Complete this assessment in Blackboard. https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/assessment/test/_27272598_1
+END:VEVENT
+BEGIN:VEVENT
+UID:soc122-_27272598_1-due@seneca-assessments
+DTSTAMP:20260905T030000Z
+DTSTART:20261205T045900Z
+SUMMARY:SOC122: Reconciliation in Practice: A Community Question due (20%)
+DESCRIPTION:Complete this assessment in Blackboard. https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/assessment/test/_27272598_1
+END:VEVENT
+BEGIN:VEVENT
+UID:soc122-_27272599_1-release@seneca-assessments
+DTSTAMP:20260905T030000Z
+DTSTART:20261204T050100Z
+SUMMARY:SOC122: Personal Cartography: Society and Me opens (20%)
+DESCRIPTION:Complete this assessment in Blackboard. https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/assessment/test/_27272599_1
+END:VEVENT
+BEGIN:VEVENT
+UID:soc122-_27272599_1-due@seneca-assessments
+DTSTAMP:20260905T030000Z
+DTSTART:20261212T045900Z
+SUMMARY:SOC122: Personal Cartography: Society and Me due (20%)
+DESCRIPTION:Complete this assessment in Blackboard. https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/assessment/test/_27272599_1
 END:VEVENT
 END:VCALENDAR
-
