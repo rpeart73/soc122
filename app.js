@@ -3933,7 +3933,7 @@
       route: d.activity ? [isFinal ? 'Synthesize' : 'Project', 'Reflect', 'Save notes'] : ['Reflect', 'Save notes'],
       startPart: d.activity ? 'do' : 'reflect',
       startLabel: d.activity ? (isFinal ? 'Open course closure' : 'Open final project') : 'Start reflection',
-      question: 'No new readings or teaching material this week. This time is yours: focus on your work' + (isFinal ? ' and close out the course. Nothing is due.' : '. Your final project is due this week.'),
+      question: 'No new readings or teaching material this week. This time is yours: focus on your work' + (isFinal ? ' and complete the Final Learning Reflection in Blackboard by Sunday, December 13, at 11:59 p.m. Eastern.' : '. Your final project is due this week.'),
       time: 'No new material'
     });
     var workActivityCopy = d.activity ? emphasisActivityCopy(w, d.activity) : null;
