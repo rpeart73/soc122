@@ -2363,7 +2363,7 @@
     return 'Follow one question through the whole course, week by week. Each week sets up what to read, why it matters, and one thing to do with it. Start at the top, or pick up where you left off.';
   }
   function deliveryOverviewPanel() {
-    return '<section class="node" style="border-top:4px solid var(--red);margin-bottom:22px"><div class="mono" style="font-size:.7rem;letter-spacing:.08em;color:var(--red);font-weight:700;margin-bottom:7px">HOW THE TERM MOVES</div><h2 style="font-size:1.28rem;margin:0 0 8px">Live discussion, independent application, and supported closure</h2><p style="font-size:.95rem;line-height:1.6;color:var(--ink-dim);margin:0 0 12px">Weeks 1 to 5, 7 to 10, and 12 meet live. Week 7 is a live cumulative review with no new reading. Weeks 6 and 11 are independent learning weeks with no lecture. Week 13 protects supported completion, and Week 14 closes the course with optional consultation and no graded deadline.</p><button type="button" class="wk-cta" style="margin:0" onclick="SOC.go(\'calendar\')">See the full calendar and reasons</button></section>';
+    return '<section class="node" style="border-top:4px solid var(--red);margin-bottom:22px"><div class="mono" style="font-size:.7rem;letter-spacing:.08em;color:var(--red);font-weight:700;margin-bottom:7px">HOW THE TERM MOVES</div><h2 style="font-size:1.28rem;margin:0 0 8px">Live discussion, independent application, and supported closure</h2><p style="font-size:.95rem;line-height:1.6;color:var(--ink-dim);margin:0 0 12px">Weeks 1 to 5, 7 to 10, and 12 meet live. Week 7 is a live cumulative review with no new reading. Weeks 6 and 11 are independent learning weeks with no lecture. Week 13 protects supported completion, and Week 14 closes the course with optional consultation and the Final Learning Reflection due Sunday, December 13.</p><button type="button" class="wk-cta" style="margin:0" onclick="SOC.go(\'calendar\')">See the full calendar and reasons</button></section>';
   }
 
   /* ---------- Cultural Comparison Lab: up to three named evidence contexts ---------- */
@@ -3516,7 +3516,7 @@
     if (w === 6) return { kind: 'async', label: 'ASYNCHRONOUS INDEPENDENT LEARNING', short: 'Asynchronous learning; no lecture', reason: 'There is no lecture this week. Use the flexible class time to work through the anthropology survey at your own pace, then bring one question about method or evidence into next week\'s review.' };
     if (w === 11) return { kind: 'async', label: 'ASYNCHRONOUS INDEPENDENT LEARNING', short: 'Asynchronous learning; no lecture', reason: 'There is no lecture this week. Use this deliberate independent synthesis point and the psychology readings and reflection prompts to prepare one connection for the final substantive live class.' };
     if (w === 13) return { kind: 'async', label: 'OFFICE HOURS + SUPPORTED ASYNCHRONOUS COMPLETION', short: 'Office hours; no lecture', reason: 'There is no lecture this week. The usual class window becomes office hours for focused Personal Cartography support and consultation. Office hours are not recorded by default.' };
-    if (w === 14) return { kind: 'async', label: 'OFFICE HOURS + ASYNCHRONOUS COURSE CLOSURE', short: 'Office hours; no lecture', reason: 'There is no lecture this week. The usual class window becomes optional office hours for feedback and final questions. No graded work is due, and office hours are not recorded by default.' };
+    if (w === 14) return { kind: 'async', label: 'OFFICE HOURS + ASYNCHRONOUS COURSE CLOSURE', short: 'Office hours; no lecture', reason: 'There is no lecture this week. The usual class window becomes optional office hours for feedback and final questions. Submit your Final Learning Reflection by Sunday, December 13, at 11:59 p.m. Eastern. Office hours are optional and are not recorded by default.' };
     return { kind: 'live', label: 'SYNCHRONOUS LIVE CLASS', short: 'Live class', reason: w === 12 ? 'This is the final substantive live class. Bring the connection you prepared in Week 11 and use the meeting to strengthen the whole-course synthesis.' : 'Our class meets live this week. Use the week page before class to prepare and return after class to reflect, practise, and save what matters.' };
   }
   function deliveryNotice(w) {
@@ -3722,7 +3722,7 @@
     "it": [
       [
         "Reconciliation in Practice: A Community Question opens",
-        "20%; submit in Blackboard",
+        "15%; submit in Blackboard",
         "open",
         "reconciliation"
       ]
@@ -3759,6 +3759,17 @@
     ]
   },
   {
+    "d": "2026-11-30",
+    "it": [
+      [
+        "Final Learning Reflection opens",
+        "10%; submit in Blackboard",
+        "open",
+        "final-reflection"
+      ]
+    ]
+  },
+  {
     "d": "2026-12-04",
     "it": [
       [
@@ -3784,7 +3795,7 @@
     "it": [
       [
         "Reconciliation in Practice: A Community Question",
-        "due; 20%",
+        "due; 15%",
         "due",
         "reconciliation"
       ]
@@ -3795,7 +3806,7 @@
     "it": [
       [
         "Personal Cartography: Society and Me opens",
-        "20%; submit in Blackboard",
+        "15%; submit in Blackboard",
         "open",
         "personal-cartography"
       ]
@@ -3816,14 +3827,25 @@
     "it": [
       [
         "Personal Cartography: Society and Me",
-        "due; 20%",
+        "due; 15%",
         "due",
         "personal-cartography"
       ]
     ]
   },
   {
-    "d": "2026-12-14",
+    "d": "2026-12-13",
+    "it": [
+      [
+        "Final Learning Reflection",
+        "due; 10%",
+        "due",
+        "final-reflection"
+      ]
+    ]
+  },
+  {
+    "d": "2026-12-13",
     "it": [
       [
         "Week 14 asynchronous office hours and course closure",
@@ -3837,7 +3859,7 @@
     "it": [
       [
         "Last day of the term",
-        "No graded work is due in Week 14",
+        "The Final Learning Reflection is due Sunday, December 13, at 11:59 p.m. Eastern",
         "support"
       ]
     ]
@@ -3967,7 +3989,7 @@
       time: 'Overview, no readings'
     });
     var how = '<section id="wk-how" class="node"><h2 class="wk-sec">How this course works</h2>'
-      + '<p style="margin:0 0 10px;font-size:1rem;line-height:1.6">This is a blended synchronous course. Weeks 1 to 5, 7 to 10, and 12 meet live. Weeks 6 and 11 are independent asynchronous learning weeks. Week 7 is a live cumulative-review class with no new reading. Week 13 is supported asynchronous completion with office hours, and Week 14 is asynchronous course closure with optional consultation and no graded deadline. Every week page names its mode and purpose. Live weeks include a class-recording space; asynchronous weeks may carry a short instructor update. Study Week, October 26 to 30, falls between Weeks 7 and 8 and has no class or new module. Blackboard remains the official Seneca course platform.</p>'
+      + '<p style="margin:0 0 10px;font-size:1rem;line-height:1.6">This is a blended synchronous course. Weeks 1 to 5, 7 to 10, and 12 meet live. Weeks 6 and 11 are independent asynchronous learning weeks. Week 7 is a live cumulative-review class with no new reading. Week 13 is supported asynchronous completion with office hours, and Week 14 is asynchronous course closure with optional consultation and the Final Learning Reflection due Sunday, December 13. Every week page names its mode and purpose. Live weeks include a class-recording space; asynchronous weeks may carry a short instructor update. Study Week, October 26 to 30, falls between Weeks 7 and 8 and has no class or new module. Blackboard remains the official Seneca course platform.</p>'
       + '<p style="margin:0;font-size:1rem;line-height:1.6">This week is your orientation. There are no readings and nothing to submit. When you are ready, begin with Week ' + (next != null ? next : 2) + '.</p></section>';
     var beginRow = (next != null) ? '<div style="margin-top:18px"><button onclick="SOC.station(' + next + ')" style="border:1px solid var(--border);background:#fff;border-radius:12px;padding:13px 18px;cursor:pointer;text-align:left;min-width:220px"><div class="mono" style="font-size:.66rem;color:var(--red)">BEGIN &rarr;</div><div style="font-size:.95rem;font-weight:700;color:var(--ink);margin-top:2px">Week ' + next + ': ' + esc(weekTitle(next)) + '</div></button></div>' : '';
     var img = weekIdeaPanel(w);
@@ -4671,7 +4693,7 @@
       ['Save', 'Keep your record', 'Generate your weekly notes so your thinking does not remain only in the browser.'],
       ['Carry forward', 'Build the cartography', 'Use the strongest weekly notes and journal entries in the Personal Cartography sequence.']
     ];
-    var route = '<section class="path-route path-sync"><div class="path-route-head"><div class="mono">BLENDED SYNCHRONOUS COURSE</div><h2>One course rhythm with purposeful mode changes</h2><p>Most weeks meet live. Weeks 6 and 11 are independent asynchronous learning. Week 13 protects supported completion, and Week 14 provides asynchronous closure and optional consultation.</p></div><ol>' + steps.map(function (s, i) { return '<li><span>' + (i + 1) + '</span><div><b>' + esc(s[0]) + '</b><em>' + esc(s[1]) + '</em><p>' + esc(s[2]) + '</p></div></li>'; }).join('') + '</ol></section>';
+    var route = '<section class="path-route path-sync"><div class="path-route-head"><div class="mono">BLENDED SYNCHRONOUS COURSE</div><h2>One course rhythm with purposeful mode changes</h2><p>Most weeks meet live. Weeks 6 and 11 are independent asynchronous learning. Week 13 protects supported completion, and Week 14 begins Sunday, December 13, with the graded Final Learning Reflection due that night. Optional consultation supports course closure.</p></div><ol>' + steps.map(function (s, i) { return '<li><span>' + (i + 1) + '</span><div><b>' + esc(s[0]) + '</b><em>' + esc(s[1]) + '</em><p>' + esc(s[2]) + '</p></div></li>'; }).join('') + '</ol></section>';
     return '<div class="rise path-page">'
       + '<section class="path-hero"><div><div class="mono">COURSE RHYTHM</div><h1>Prepare, meet or work independently, reflect, and carry it forward</h1><p>SOC122 uses live discussion and four purposeful asynchronous weeks. The delivery label on every week page tells you exactly how that week works.</p></div><div class="path-compass" aria-label="SOC122 weekly rhythm"><span>PREPARE</span><b>read and orient</b><i></i><span>REFLECT</span><b>connect both ways of seeing</b></div></section>'
       + '<section class="path-summary"><div><b>Live weeks build shared meaning</b><span>Bring one question and use discussion to test what each reading helps you see.</span></div><div><b>Async weeks have a purpose</b><span>Week 6 applies the anthropology survey, Week 11 synthesizes, Week 13 supports completion, and Week 14 closes the course.</span></div><div><b>The cartography is the spine</b><span>Weekly notes and journal entries build the record used in the final sequence.</span></div></section>'

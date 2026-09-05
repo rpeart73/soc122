@@ -198,28 +198,42 @@ BEGIN:VEVENT
 UID:soc122-_27272598_1-release@seneca-assessments
 DTSTAMP:20260905T030000Z
 DTSTART:20261106T050100Z
-SUMMARY:SOC122: Reconciliation in Practice: A Community Question opens (20%)
+SUMMARY:SOC122: Reconciliation in Practice: A Community Question opens (15%)
 DESCRIPTION:Complete this assessment in Blackboard. https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/assessment/test/_27272598_1
 END:VEVENT
 BEGIN:VEVENT
 UID:soc122-_27272598_1-due@seneca-assessments
 DTSTAMP:20260905T030000Z
 DTSTART:20261205T045900Z
-SUMMARY:SOC122: Reconciliation in Practice: A Community Question due (20%)
+SUMMARY:SOC122: Reconciliation in Practice: A Community Question due (15%)
 DESCRIPTION:Complete this assessment in Blackboard. https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/assessment/test/_27272598_1
 END:VEVENT
 BEGIN:VEVENT
 UID:soc122-_27272599_1-release@seneca-assessments
 DTSTAMP:20260905T030000Z
 DTSTART:20261204T050100Z
-SUMMARY:SOC122: Personal Cartography: Society and Me opens (20%)
+SUMMARY:SOC122: Personal Cartography: Society and Me opens (15%)
 DESCRIPTION:Complete this assessment in Blackboard. https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/assessment/test/_27272599_1
 END:VEVENT
 BEGIN:VEVENT
 UID:soc122-_27272599_1-due@seneca-assessments
 DTSTAMP:20260905T030000Z
 DTSTART:20261212T045900Z
-SUMMARY:SOC122: Personal Cartography: Society and Me due (20%)
+SUMMARY:SOC122: Personal Cartography: Society and Me due (15%)
 DESCRIPTION:Complete this assessment in Blackboard. https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/assessment/test/_27272599_1
+END:VEVENT
+BEGIN:VEVENT
+UID:soc122-_27380330_1-release@seneca-assessments
+DTSTAMP:20260905T030000Z
+DTSTART:20261130T050000Z
+SUMMARY:SOC122: Final Learning Reflection opens (10%)
+DESCRIPTION:Complete this assessment in Blackboard. https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/assessment/test/_27380330_1
+END:VEVENT
+BEGIN:VEVENT
+UID:soc122-_27380330_1-due@seneca-assessments
+DTSTAMP:20260905T030000Z
+DTSTART:20261214T045900Z
+SUMMARY:SOC122: Final Learning Reflection due (10%)
+DESCRIPTION:Complete this assessment in Blackboard. https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/assessment/test/_27380330_1
 END:VEVENT
 END:VCALENDAR
