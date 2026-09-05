@@ -202,7 +202,7 @@ window.SOC122_OUTCOMES = {
   },
   {
    "id": "CLO10",
-   "text": "Develop critical writing skills, interpret, critically analyze, and discuss central aspects and theories of anthropology, economics, and political science.",
+   "text": "Develop critical writing skills, interpret, critically analyse, and discuss central aspects and theories of anthropology, economics, and political science.",
    "weeks": [
     6,
     7,

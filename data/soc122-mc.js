@@ -73,7 +73,7 @@ window.SOC122_MC = {
     "a testable proposition that research is designed to evaluate",
     "a proven fact about society",
     "an opinion that cannot be checked",
-    "a conclusion reached only after all the data are analyzed"
+    "a conclusion reached only after all the data are analysed"
    ],
    "answer": 0,
    "why": "OpenStax defines a hypothesis as a testable proposition, the starting point for designed research.",

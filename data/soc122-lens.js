@@ -128,7 +128,7 @@ window.SOC122_LENS = {
    "5": "Research skills carry across every subject. This week's methods sharpen how you gather evidence, read data, and question sources.",
    "6": "Anthropology studies human cultures across time. It broadens how you see people and deepens the questions you bring to any field.",
    "8": "Sociology studies how groups shape us. It gives you a sharper lens on the society behind every subject you study.",
-   "9": "This week examines power and inequality. It gives you tools to analyze injustice in history, politics, and everyday life.",
+   "9": "This week examines power and inequality. It gives you tools to analyse injustice in history, politics, and everyday life.",
    "10": "Psychology studies how the mind works. It grounds your understanding of people across literature, history, and the social sciences.",
    "11": "This week covers emotion, memory, and motivation. It sharpens how you understand human choices in any subject you pursue.",
    "12": "The family shapes every society. Understanding it deepens your reading of history, literature, and the social sciences you'll transfer into."
