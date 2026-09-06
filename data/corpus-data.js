@@ -758,32 +758,40 @@ window.SOC122 = {
  "sourceUrl": "https://www.amacad.org/publication/daedalus/indigenous-historical-trauma-alter-native-explanations-mental-health-inequities"
 },
   {
-   "id": "anderson2019",
-   "video": { "yt": "_R9Sa_fxWqI", "title": "Indigenous Women's Speakers Series | featuring Kim Anderson & Jennifer Adese", "channel": "The Centre for Indigenous Knowledges and Languages", "scholar": "Kim Anderson" },
-   "eye": "indigenous",
-   "type": "Article",
-   "access": "library",
-   "title": "On Seasons of an Indigenous Feminism, Kinship, and the Program of Home Management",
-   "authors": "Kim Anderson",
-   "year": 2020,
-   "themes": [
-    "family",
-    "twoeyed"
-   ],
-   "origin": "Canada",
-   "len": "~20 min read",
-   "diff": 2,
-   "week": 12,
-   "abstract": "Kim Anderson (Cree-Métis) reflects on kinship, motherhood, and the everyday work of running a home as Indigenous feminist practice, holding the family as relationship and responsibility rather than only a household structure. She reframes kinship not as a fixed list of relatives but as ongoing labour and obligation, the daily work that builds and sustains belonging across the seasons of a life. For a student, this is a view of family from the inside, where standing comes from the care and responsibility a person carries, not from a category on a chart.",
-   "coreIdea": "Kinship is not only who you are related to; it is the work you do and the responsibility you carry to keep a family and a home going.",
-   "doi": "10.1017/hyp.2019.10",
-   "related": [
-    "soc-family"
-   ],
-   "url": "https://seneca.primo.exlibrisgroup.com/discovery/search?vid=01SENC_INST:01SENC_NDE&tab=Everything&offset=0&lang=en&query=any%2Ccontains%2COn%20Seasons%20of%20an%20Indigenous%20Feminism%20Kinship%20Anderson",
-   "fulltext": false,
-   "senecaLib": true
-  },
+ "id": "anderson2019",
+ "video": {
+  "yt": "_R9Sa_fxWqI",
+  "title": "Indigenous Women's Speakers Series | featuring Kim Anderson & Jennifer Adese",
+  "channel": "The Centre for Indigenous Knowledges and Languages",
+  "scholar": "Kim Anderson"
+ },
+ "eye": "indigenous",
+ "type": "Article",
+ "access": "course",
+ "title": "On Seasons of an Indigenous Feminism, Kinship, and the Program of Home Management",
+ "authors": "Kim Anderson",
+ "year": 2020,
+ "themes": [
+  "family",
+  "twoeyed"
+ ],
+ "origin": "Canada",
+ "len": "~20 min read",
+ "diff": 2,
+ "week": 12,
+ "abstract": "Kim Anderson (Cree-Métis) reflects on kinship, motherhood, and the everyday work of running a home as Indigenous feminist practice, holding the family as relationship and responsibility rather than only a household structure. She reframes kinship not as a fixed list of relatives but as ongoing labour and obligation, the daily work that builds and sustains belonging across the seasons of a life. For a student, this is a view of family from the inside, where standing comes from the care and responsibility a person carries, not from a category on a chart.",
+ "coreIdea": "Kinship is not only who you are related to; it is the work you do and the responsibility you carry to keep a family and a home going.",
+ "doi": "10.1017/hyp.2019.10",
+ "related": [
+  "soc-family"
+ ],
+ "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27416963-dt-content-rid-223994953_2/xid-223994953_2",
+ "fulltext": true,
+ "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27416963-dt-content-rid-223994953_2/xid-223994953_2",
+ "primaryLabel": "Open full article in Blackboard",
+ "blackboardFullText": true,
+ "sourceUrl": "https://www.cambridge.org/core/journals/hypatia/article/abs/on-seasons-of-an-indigenous-feminism-kinship-and-the-program-of-home-management/35B53C3A1960EA732B1832B6228D5DDD"
+},
   {
  "id": "bombay2014",
  "video": {
