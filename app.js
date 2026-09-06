@@ -837,7 +837,7 @@
     var calActive = s.screen === 'calendar';
     var cal = '<button onclick="SOC.go(\'calendar\')" aria-current="' + (calActive ? 'page' : 'false') + '" style="display:flex;align-items:center;gap:11px;width:100%;border:none;border-radius:10px;padding:10px 12px;font-size:.9375rem;font-weight:' + (calActive ? '600' : '500') + ';background:' + (calActive ? '#EEF1F5' : 'transparent') + ';color:' + (calActive ? '#15171C' : '#474C57') + ';text-align:left"><span style="display:flex;align-items:center;justify-content:center;width:22px;height:22px;flex:none;color:' + (calActive ? 'var(--red)' : '#6B7280') + '">' + ic('calendar', 19) + '</span><span style="flex:1;text-align:left">Calendar and Due Dates</span></button>';
     var walk = '<button onclick="SOC.go(\'walkthroughs\')" aria-current="' + (wkActive ? 'page' : 'false') + '" style="display:flex;align-items:center;gap:11px;width:100%;border:none;border-radius:10px;padding:10px 12px;font-size:.9375rem;font-weight:' + (wkActive ? '600' : '500') + ';background:' + (wkActive ? '#EEF1F5' : 'transparent') + ';color:' + (wkActive ? '#15171C' : '#474C57') + ';text-align:left"><span style="display:flex;align-items:center;justify-content:center;width:22px;height:22px;flex:none;color:' + (wkActive ? 'var(--red)' : '#6B7280') + '">' + ic('layers', 19) + '</span><span style="flex:1;text-align:left">Weekly Experiences</span></button>';
-    var guide = '<div style="border-radius:10px;padding:10px 12px;color:#474C57"><div style="display:flex;align-items:flex-start;gap:11px;font-size:.9375rem;font-weight:500;line-height:1.25"><span style="display:flex;align-items:center;justify-content:center;width:22px;height:22px;flex:none;color:#6B7280">' + ic('file', 19) + '</span><span style="flex:1;min-width:0">Course Website Instructions</span></div><div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 0 33px"><a href="./guide/" target="_blank" rel="noopener" style="font-size:.75rem;font-weight:600;color:#15171C;background:#EEF1F5;border:1px solid #DEE3EA;border-radius:999px;padding:4px 9px;text-decoration:none">Online guide <span aria-hidden="true">&#8599;</span></a><a href="./guide/SOC122-Companion-Guide.pdf?v=20260905-035850" download style="font-size:.75rem;font-weight:600;color:#15171C;background:#EEF1F5;border:1px solid #DEE3EA;border-radius:999px;padding:4px 9px;text-decoration:none">PDF <span aria-hidden="true">&#8595;</span></a></div></div>';
+    var guide = '<div style="border-radius:10px;padding:10px 12px;color:#474C57"><div style="display:flex;align-items:flex-start;gap:11px;font-size:.9375rem;font-weight:500;line-height:1.25"><span style="display:flex;align-items:center;justify-content:center;width:22px;height:22px;flex:none;color:#6B7280">' + ic('file', 19) + '</span><span style="flex:1;min-width:0">Course Website Instructions</span></div><div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 0 33px"><a href="./guide/" target="_blank" rel="noopener" style="font-size:.75rem;font-weight:600;color:#15171C;background:#EEF1F5;border:1px solid #DEE3EA;border-radius:999px;padding:4px 9px;text-decoration:none">Online guide <span aria-hidden="true">&#8599;</span></a><a href="./guide/SOC122-Companion-Guide.pdf?v=deadline-policy-20260906" download style="font-size:.75rem;font-weight:600;color:#15171C;background:#EEF1F5;border:1px solid #DEE3EA;border-radius:999px;padding:4px 9px;text-decoration:none">PDF <span aria-hidden="true">&#8595;</span></a></div></div>';
     var repActive = s.screen === 'report';
     var report = '<button onclick="SOC.reportProblem()" style="display:flex;align-items:center;gap:11px;width:100%;border:none;border-radius:10px;padding:10px 12px;font-size:.9375rem;font-weight:500;background:transparent;color:#474C57;text-align:left"><span style="display:flex;align-items:center;justify-content:center;width:22px;height:22px;flex:none;color:#6B7280">' + ic('help', 19) + '</span><span style="flex:1;text-align:left">Report a problem</span></button>';
     var counts = {}; D.records.forEach(function (r) { counts[r.week] = (counts[r.week] || 0) + 1; });
@@ -2518,8 +2518,8 @@
   }
   function contextAssessmentBridge(w) {
     var special = '';
-    if (w === 8) special = '<p><b>Research Choices Lab:</b> this lab can help you audit a category or numerical claim, but it does not replace the required Western and Indigenous course sources, your own community or life observation, or your 60 to 90 second voice reflection.</p>';
-    else if (w === 12) special = '<p><b>Reconciliation in Practice: A Community Question:</b> a global comparison cannot substitute for a specific Call to Action or local reconciliation question. Use it only to clarify why histories and responsibilities are not interchangeable.</p>';
+    if (w === 8) special = '<p><b>Research Choices Lab:</b> use the assigned CBC investigation to explain research choices, benefits, limits, consent, and privacy. Propose a study only; do not collect data or recruit participants. Complete the written responses in Blackboard. No voice recording or statistical calculations are required.</p>';
+    else if (w === 11 || w === 12) special = '<p><b>Dystopian Conformity Lab: "Number 12 Looks Just Like You":</b> connect Marilyn\'s struggle to both sociological concepts of socialization and psychological concepts of conformity and cognitive dissonance.</p>';
     else if (w >= 2 && w <= 12) special = '<p><b>Two-Eyed Seeing Observation Journal:</b> use a context only after reading the assigned sources. Record what changed in your thinking; do not turn the context into a generic example or replace the named Indigenous source.</p>';
     return '<aside class="context-assessment"><div class="mono">ASSESSMENT TRANSFER, NOT AN ANSWER</div><h3>Carry your decisions, not generated prose.</h3>'
       + special
@@ -3603,6 +3603,17 @@
     ]
   },
   {
+    "d": "2026-09-30",
+    "it": [
+      [
+        "Where I Stand: Social Location Map",
+        "due; 20%",
+        "due",
+        "where-i-stand"
+      ]
+    ]
+  },
+  {
     "d": "2026-10-02",
     "it": [
       [
@@ -3616,9 +3627,9 @@
     "d": "2026-10-02",
     "it": [
       [
-        "Where I Stand: Social Location Map",
-        "due; 20%",
-        "due",
+        "Where I Stand: Social Location Map: 48-hour window ends",
+        "11:59 p.m. Eastern Time (ET); no penalty within this window",
+        "window-end",
         "where-i-stand"
       ]
     ]
@@ -3630,6 +3641,28 @@
         "Week 5 live class",
         "",
         "class"
+      ]
+    ]
+  },
+  {
+    "d": "2026-10-13",
+    "it": [
+      [
+        "Research Choices Lab opens",
+        "20%; submit in Blackboard",
+        "open",
+        "research-choices"
+      ]
+    ]
+  },
+  {
+    "d": "2026-10-14",
+    "it": [
+      [
+        "Two-Eyed Seeing Observation Journal: Set 1",
+        "due; 10%",
+        "due",
+        "journal"
       ]
     ]
   },
@@ -3647,9 +3680,31 @@
     "d": "2026-10-16",
     "it": [
       [
-        "Research Choices Lab opens",
-        "20%; submit in Blackboard",
-        "open",
+        "Two-Eyed Seeing Observation Journal: Set 1: 48-hour window ends",
+        "11:59 p.m. Eastern Time (ET); no penalty within this window",
+        "window-end",
+        "journal"
+      ]
+    ]
+  },
+  {
+    "d": "2026-10-20",
+    "it": [
+      [
+        "Research Choices Lab",
+        "due; 20%",
+        "due",
+        "research-choices"
+      ]
+    ]
+  },
+  {
+    "d": "2026-10-22",
+    "it": [
+      [
+        "Research Choices Lab: 48-hour window ends",
+        "11:59 p.m. Eastern Time (ET); no penalty within this window",
+        "window-end",
         "research-choices"
       ]
     ]
@@ -3661,17 +3716,6 @@
         "Week 7 live class",
         "Cumulative review before Study Week",
         "class"
-      ]
-    ]
-  },
-  {
-    "d": "2026-10-23",
-    "it": [
-      [
-        "Two-Eyed Seeing Observation Journal: Set 1",
-        "due; 10%",
-        "due",
-        "journal"
       ]
     ]
   },
@@ -3699,32 +3743,10 @@
     "d": "2026-11-06",
     "it": [
       [
-        "Research Choices Lab",
-        "due; 20%",
-        "due",
-        "research-choices"
-      ]
-    ]
-  },
-  {
-    "d": "2026-11-06",
-    "it": [
-      [
         "Two-Eyed Seeing Observation Journal: Set 2 opens",
         "10%; submit in Blackboard",
         "open",
         "journal-2"
-      ]
-    ]
-  },
-  {
-    "d": "2026-11-06",
-    "it": [
-      [
-        "Reconciliation in Practice: A Community Question opens",
-        "15%; submit in Blackboard",
-        "open",
-        "reconciliation"
       ]
     ]
   },
@@ -3739,6 +3761,17 @@
     ]
   },
   {
+    "d": "2026-11-18",
+    "it": [
+      [
+        "Two-Eyed Seeing Observation Journal: Set 2",
+        "due; 10%",
+        "due",
+        "journal-2"
+      ]
+    ]
+  },
+  {
     "d": "2026-11-20",
     "it": [
       [
@@ -3749,23 +3782,56 @@
     ]
   },
   {
+    "d": "2026-11-20",
+    "it": [
+      [
+        "Dystopian Conformity Lab: \"Number 12 Looks Just Like You\" opens",
+        "15%; submit in Blackboard",
+        "open",
+        "conformity-lab"
+      ]
+    ]
+  },
+  {
+    "d": "2026-11-20",
+    "it": [
+      [
+        "Two-Eyed Seeing Observation Journal: Set 2: 48-hour window ends",
+        "11:59 p.m. Eastern Time (ET); no penalty within this window",
+        "window-end",
+        "journal-2"
+      ]
+    ]
+  },
+  {
     "d": "2026-11-27",
     "it": [
       [
         "Week 11 asynchronous learning",
-        "Independent synthesis before the final live class",
+        "Independent synthesis before the final live class; watch The Twilight Zone on Seneca Stream",
         "async"
       ]
     ]
   },
   {
-    "d": "2026-11-30",
+    "d": "2026-12-01",
     "it": [
       [
-        "Final Learning Reflection opens",
-        "10%; submit in Blackboard",
+        "Personal Cartography: Society and Me opens",
+        "15%; submit in Blackboard",
         "open",
-        "final-reflection"
+        "personal-cartography"
+      ]
+    ]
+  },
+  {
+    "d": "2026-12-02",
+    "it": [
+      [
+        "Dystopian Conformity Lab: \"Number 12 Looks Just Like You\"",
+        "due; 15%",
+        "due",
+        "conformity-lab"
       ]
     ]
   },
@@ -3783,32 +3849,10 @@
     "d": "2026-12-04",
     "it": [
       [
-        "Two-Eyed Seeing Observation Journal: Set 2",
-        "due; 10%",
-        "due",
-        "journal-2"
-      ]
-    ]
-  },
-  {
-    "d": "2026-12-04",
-    "it": [
-      [
-        "Reconciliation in Practice: A Community Question",
-        "due; 15%",
-        "due",
-        "reconciliation"
-      ]
-    ]
-  },
-  {
-    "d": "2026-12-04",
-    "it": [
-      [
-        "Personal Cartography: Society and Me opens",
-        "15%; submit in Blackboard",
-        "open",
-        "personal-cartography"
+        "Dystopian Conformity Lab: \"Number 12 Looks Just Like You\": 48-hour window ends",
+        "11:59 p.m. Eastern Time (ET); no penalty within this window",
+        "window-end",
+        "conformity-lab"
       ]
     ]
   },
@@ -3819,6 +3863,17 @@
         "Week 13 asynchronous office hours and supported completion begin",
         "No lecture; focused work and consultation",
         "async"
+      ]
+    ]
+  },
+  {
+    "d": "2026-12-07",
+    "it": [
+      [
+        "Final Learning Reflection opens",
+        "10%; submit in Blackboard",
+        "open",
+        "final-reflection"
       ]
     ]
   },
@@ -3837,10 +3892,9 @@
     "d": "2026-12-13",
     "it": [
       [
-        "Final Learning Reflection",
-        "due; 10%",
-        "due",
-        "final-reflection"
+        "Week 14 asynchronous office hours and course closure",
+        "No lecture; optional consultation and final questions",
+        "async"
       ]
     ]
   },
@@ -3848,9 +3902,10 @@
     "d": "2026-12-13",
     "it": [
       [
-        "Week 14 asynchronous office hours and course closure",
-        "No lecture; optional consultation and final questions",
-        "async"
+        "Final Learning Reflection",
+        "due; 10%",
+        "due",
+        "final-reflection"
       ]
     ]
   },
