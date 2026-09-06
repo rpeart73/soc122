@@ -722,32 +722,41 @@ window.SOC122 = {
    "fulltext": true
   },
   {
-   "id": "gone2023",
-   "video": { "yt": "yz_Mf9hITQw", "title": "Rethinking American Indian MH Services - Explorations in AlterNative Psy-ence w/ Joseph P. Gone, PhD", "channel": "American Psychological Association", "scholar": "Joseph P. Gone" },
-   "eye": "indigenous",
-   "type": "Article",
-   "access": "open",
-   "title": "Indigenous Historical Trauma: Alter-Native Explanations for Mental Health Inequities",
-   "authors": "Joseph P. Gone",
-   "year": 2023,
-   "themes": [
-    "psychology",
-    "reconciliation"
-   ],
-   "origin": "United States",
-   "len": "~40 min read",
-   "diff": 3,
-   "week": 10,
-   "abstract": "Joseph P. Gone (Aaniiih) examines Indigenous historical trauma as an alter-Native explanation that contests mainstream psychiatric categories of mental disorder, addiction, trauma, and suicide. Instead of locating distress inside the individual, the historical trauma account designates the legacies of colonial dispossession as central to present-day community mental health inequities, recasting these problems as postcolonial pathologies that call for reconciliation, redress, and structural reform. For a student, this shows Indigenous communities reworking what mental health means on their own terms rather than accepting an outside clinical frame.",
-   "coreIdea": "Indigenous historical trauma reframes mental health inequities as consequences of colonization rather than individual disorder, demanding redress and structural change.",
-   "doi": "10.1162/daed_a_02035",
-   "url": "https://www.amacad.org/publication/daedalus/indigenous-historical-trauma-alter-native-explanations-mental-health-inequities",
-   "related": [
-    "psy-intro",
-    "psy-social"
-   ],
-   "fulltext": true
-  },
+ "id": "gone2023",
+ "video": {
+  "yt": "yz_Mf9hITQw",
+  "title": "Rethinking American Indian MH Services - Explorations in AlterNative Psy-ence w/ Joseph P. Gone, PhD",
+  "channel": "American Psychological Association",
+  "scholar": "Joseph P. Gone"
+ },
+ "eye": "indigenous",
+ "type": "Article",
+ "access": "course",
+ "title": "Indigenous Historical Trauma: Alter-Native Explanations for Mental Health Inequities",
+ "authors": "Joseph P. Gone",
+ "year": 2023,
+ "themes": [
+  "psychology",
+  "reconciliation"
+ ],
+ "origin": "United States",
+ "len": "~40 min read",
+ "diff": 3,
+ "week": 10,
+ "abstract": "Joseph P. Gone (Aaniiih) examines Indigenous historical trauma as an alter-Native explanation that contests mainstream psychiatric categories of mental disorder, addiction, trauma, and suicide. Instead of locating distress inside the individual, the historical trauma account designates the legacies of colonial dispossession as central to present-day community mental health inequities, recasting these problems as postcolonial pathologies that call for reconciliation, redress, and structural reform. For a student, this shows Indigenous communities reworking what mental health means on their own terms rather than accepting an outside clinical frame.",
+ "coreIdea": "Indigenous historical trauma reframes mental health inequities as consequences of colonization rather than individual disorder, demanding redress and structural change.",
+ "doi": "10.1162/daed_a_02035",
+ "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27414992-dt-content-rid-223985019_2/xid-223985019_2",
+ "related": [
+  "psy-intro",
+  "psy-social"
+ ],
+ "fulltext": true,
+ "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27414992-dt-content-rid-223985019_2/xid-223985019_2",
+ "primaryLabel": "Open full article in Blackboard",
+ "blackboardFullText": true,
+ "sourceUrl": "https://www.amacad.org/publication/daedalus/indigenous-historical-trauma-alter-native-explanations-mental-health-inequities"
+},
   {
    "id": "anderson2019",
    "video": { "yt": "_R9Sa_fxWqI", "title": "Indigenous Women's Speakers Series | featuring Kim Anderson & Jennifer Adese", "channel": "The Centre for Indigenous Knowledges and Languages", "scholar": "Kim Anderson" },
@@ -776,32 +785,41 @@ window.SOC122 = {
    "senecaLib": true
   },
   {
-   "id": "bombay2014",
-   "video": { "yt": "G9S23z9_EQs", "title": "SFU Psychology Indigenous Reconciliation Committee Invited Scholar Speaker Series: Dr. Amy Bombay", "channel": "SFU Psychology", "scholar": "Amy Bombay" },
-   "eye": "indigenous",
-   "type": "Article",
-   "access": "open",
-   "title": "The Intergenerational Effects of Indian Residential Schools: Implications for the Concept of Historical Trauma",
-   "authors": "Amy Bombay, Kimberly Matheson and Hymie Anisman",
-   "year": 2014,
-   "themes": [
-    "psychology",
-    "reconciliation"
-   ],
-   "origin": "Canada",
-   "len": "~35 min read",
-   "diff": 3,
-   "week": 11,
-   "abstract": "Amy Bombay (Anishinaabe) and colleagues review research on the intergenerational effects of Canada's Indian Residential Schools, where Aboriginal children were removed to institutions marked by neglect and abuse. They find that having a familial history of residential school attendance is linked to more frequent contemporary stressors and to greater effects of those stressors on well-being, with cumulative effects when attendance spans several generations, which provides empirical support for the concept of historical trauma. For a student, this is a worked example of well-being forming in relationship across generations, not in isolation.",
-   "coreIdea": "Bombay, Matheson, and Anisman report intergenerational associations between familial residential-school attendance, later stressors, and well-being, while treating identity as a complex possible risk and resilience factor rather than a simple protective buffer.",
-   "doi": "10.1177/1363461513503380",
-   "related": [
-    "psy-social",
-    "gone2023"
-   ],
-   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4232330/",
-   "fulltext": true
-  },
+ "id": "bombay2014",
+ "video": {
+  "yt": "G9S23z9_EQs",
+  "title": "SFU Psychology Indigenous Reconciliation Committee Invited Scholar Speaker Series: Dr. Amy Bombay",
+  "channel": "SFU Psychology",
+  "scholar": "Amy Bombay"
+ },
+ "eye": "indigenous",
+ "type": "Article",
+ "access": "course",
+ "title": "The Intergenerational Effects of Indian Residential Schools: Implications for the Concept of Historical Trauma",
+ "authors": "Amy Bombay, Kimberly Matheson and Hymie Anisman",
+ "year": 2014,
+ "themes": [
+  "psychology",
+  "reconciliation"
+ ],
+ "origin": "Canada",
+ "len": "~35 min read",
+ "diff": 3,
+ "week": 11,
+ "abstract": "Amy Bombay (Anishinaabe) and colleagues review research on the intergenerational effects of Canada's Indian Residential Schools, where Aboriginal children were removed to institutions marked by neglect and abuse. They find that having a familial history of residential school attendance is linked to more frequent contemporary stressors and to greater effects of those stressors on well-being, with cumulative effects when attendance spans several generations, which provides empirical support for the concept of historical trauma. For a student, this is a worked example of well-being forming in relationship across generations, not in isolation.",
+ "coreIdea": "Bombay, Matheson, and Anisman report intergenerational associations between familial residential-school attendance, later stressors, and well-being, while treating identity as a complex possible risk and resilience factor rather than a simple protective buffer.",
+ "doi": "10.1177/1363461513503380",
+ "related": [
+  "psy-social",
+  "gone2023"
+ ],
+ "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27414993-dt-content-rid-223985086_2/xid-223985086_2",
+ "fulltext": true,
+ "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27414993-dt-content-rid-223985086_2/xid-223985086_2",
+ "primaryLabel": "Open full article in Blackboard",
+ "blackboardFullText": true,
+ "sourceUrl": "https://journals.sagepub.com/doi/10.1177/1363461513503380"
+},
   {
    "id": "ermine",
    "video": { "yt": "ZUfXu3gfVJ8", "title": "Willie Ermine: Ethical Space in Action", "channel": "Different Knowings", "scholar": "Willie Ermine" },
@@ -910,33 +928,42 @@ window.SOC122 = {
    "fulltext": true
   },
   {
-   "id": "smylie",
-   "video": { "yt": "7_z3RvOhQMs", "title": "ON NEIHR Webinar Dr Janet Smylie", "channel": "Waakebiness Institute for Indigenous Health", "scholar": "Janet Smylie" },
-   "eye": "indigenous",
-   "type": "Article",
-   "access": "open",
-   "title": "Understanding the health of Indigenous peoples in Canada: Key methodological and conceptual challenges",
-   "authors": "Janet Smylie and Marcia Anderson",
-   "year": 2006,
-   "themes": [
-    "reconciliation",
-    "psychology"
-   ],
-   "origin": "Canada",
-   "len": "~20 min read",
-   "diff": 2,
-   "week": 4,
-   "abstract": "Janet Smylie (Métis) and Marcia Anderson open with a Cree Elder noting there is no Cree word for health measurement, then show why standard health data systems fail Indigenous peoples in Canada. They trace concrete problems of data coverage and quality, jurisdiction, governance, and human-resource capacity, including the difficulty of accurately and respectfully identifying First Nations, Métis, and Inuit people in the census and other sources. They argue that closing health inequities requires data systems owned and shaped by Indigenous communities, not just better counting by outsiders.",
-   "coreIdea": "Smylie and Anderson identify coverage, jurisdiction, governance, and capacity limits in standard health-data systems and argue that Indigenous communities must shape and control the data used to understand their health.",
-   "doi": "10.1503/cmaj.060940",
-   "related": [
-    "brunette2022",
-    "bombay2014",
-    "psy-social"
-   ],
-   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1559421/",
-   "fulltext": true
-  },
+ "id": "smylie",
+ "video": {
+  "yt": "7_z3RvOhQMs",
+  "title": "ON NEIHR Webinar Dr Janet Smylie",
+  "channel": "Waakebiness Institute for Indigenous Health",
+  "scholar": "Janet Smylie"
+ },
+ "eye": "indigenous",
+ "type": "Article",
+ "access": "course",
+ "title": "Understanding the health of Indigenous peoples in Canada: Key methodological and conceptual challenges",
+ "authors": "Janet Smylie and Marcia Anderson",
+ "year": 2006,
+ "themes": [
+  "reconciliation",
+  "psychology"
+ ],
+ "origin": "Canada",
+ "len": "~20 min read",
+ "diff": 2,
+ "week": 4,
+ "abstract": "Janet Smylie (Métis) and Marcia Anderson open with a Cree Elder noting there is no Cree word for health measurement, then show why standard health data systems fail Indigenous peoples in Canada. They trace concrete problems of data coverage and quality, jurisdiction, governance, and human-resource capacity, including the difficulty of accurately and respectfully identifying First Nations, Métis, and Inuit people in the census and other sources. They argue that closing health inequities requires data systems owned and shaped by Indigenous communities, not just better counting by outsiders.",
+ "coreIdea": "Smylie and Anderson identify coverage, jurisdiction, governance, and capacity limits in standard health-data systems and argue that Indigenous communities must shape and control the data used to understand their health.",
+ "doi": "10.1503/cmaj.060940",
+ "related": [
+  "brunette2022",
+  "bombay2014",
+  "psy-social"
+ ],
+ "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27414994-dt-content-rid-223991948_2/xid-223991948_2",
+ "fulltext": true,
+ "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27414994-dt-content-rid-223991948_2/xid-223991948_2",
+ "primaryLabel": "Open full article in Blackboard",
+ "blackboardFullText": true,
+ "sourceUrl": "https://doi.org/10.1503/cmaj.060940"
+},
   {
    "id": "trc2015",
    "eye": "western",
