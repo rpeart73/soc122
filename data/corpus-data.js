@@ -660,33 +660,41 @@ window.SOC122 = {
    "fulltext": true
   },
   {
-   "id": "todd2016",
-   "video": { "yt": "hUhUdqGHWvs", "title": "Listening to Fish: Indigenous sovereignty and freshwater fish conservation in north/western Canada", "channel": "SFU Sociology & Anthropology", "scholar": "Zoe Todd" },
-   "eye": "indigenous",
-   "type": "Article",
-   "access": "verified",
-   "title": "An Indigenous Feminist's Take on the Ontological Turn: 'Ontology' Is Just Another Word for Colonialism",
-   "authors": "Zoe Todd",
-   "year": 2016,
-   "themes": [
-    "anthropology",
-    "twoeyed"
-   ],
-   "origin": "Canada",
-   "len": "~35 min read",
-   "diff": 3,
-   "week": 6,
-   "abstract": "Zoe Todd (Red River Métis) recounts hearing the celebrated scholar Bruno Latour describe climate as a matter of common cosmopolitical concern and realizing it echoed Inuit concepts such as Sila that she had been taught, yet without any credit to Indigenous thinkers. From this she argues that the academy's ontological turn repackages Indigenous thought while erasing the Indigenous people, scholars, and legal orders it comes from, which is why ontology can become just another word for colonialism. Her response centres citational practice and acknowledgement: honest scholarship must credit and stay accountable to the Indigenous thinkers it draws on.",
-   "coreIdea": "Borrowing Indigenous ideas while erasing Indigenous people and scholars is colonialism in another form, so honest scholarship must cite and stay accountable to them.",
-   "doi": "10.1111/johs.12124",
-   "related": [
-    "anth-culture",
-    "ermine"
-   ],
-   "url": "https://seneca.primo.exlibrisgroup.com/discovery/search?vid=01SENC_INST:01SENC_NDE&tab=Everything&offset=0&lang=en&query=any%2Ccontains%2CAn%20Indigenous%20Feminist%27s%20Take%20on%20the%20Ontological%20Turn%20Todd",
-   "fulltext": false,
-   "senecaLib": true
-  },
+ "id": "todd2016",
+ "video": {
+  "yt": "hUhUdqGHWvs",
+  "title": "Listening to Fish: Indigenous sovereignty and freshwater fish conservation in north/western Canada",
+  "channel": "SFU Sociology & Anthropology",
+  "scholar": "Zoe Todd"
+ },
+ "eye": "indigenous",
+ "type": "Article",
+ "access": "course",
+ "title": "An Indigenous Feminist's Take on the Ontological Turn: 'Ontology' Is Just Another Word for Colonialism",
+ "authors": "Zoe Todd",
+ "year": 2016,
+ "themes": [
+  "anthropology",
+  "twoeyed"
+ ],
+ "origin": "Canada",
+ "len": "~35 min read",
+ "diff": 3,
+ "week": 6,
+ "abstract": "Zoe Todd (Red River Métis) recounts hearing the celebrated scholar Bruno Latour describe climate as a matter of common cosmopolitical concern and realizing it echoed Inuit concepts such as Sila that she had been taught, yet without any credit to Indigenous thinkers. From this she argues that the academy's ontological turn repackages Indigenous thought while erasing the Indigenous people, scholars, and legal orders it comes from, which is why ontology can become just another word for colonialism. Her response centres citational practice and acknowledgement: honest scholarship must credit and stay accountable to the Indigenous thinkers it draws on.",
+ "coreIdea": "Borrowing Indigenous ideas while erasing Indigenous people and scholars is colonialism in another form, so honest scholarship must cite and stay accountable to them.",
+ "doi": "10.1111/johs.12124",
+ "related": [
+  "anth-culture",
+  "ermine"
+ ],
+ "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27412627-dt-content-rid-223976216_2/xid-223976216_2",
+ "fulltext": true,
+ "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27412627-dt-content-rid-223976216_2/xid-223976216_2",
+ "primaryLabel": "Open full article in Blackboard",
+ "blackboardFullText": true,
+ "sourceUrl": "https://doi.org/10.1111/johs.12124"
+},
   {
    "id": "lawrence2003",
    "video": { "yt": "YR9FNgBFAKQ", "title": "Dr. Bonita Lawrence guest lectures on Indigenous-Black relations | University of King's College", "channel": "University of King's College", "scholar": "Bonita Lawrence" },
