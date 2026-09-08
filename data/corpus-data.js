@@ -379,202 +379,234 @@ window.SOC122 = {
  },
  "records": [
   {
-   "id": "soc-intro",
-   "assigned": "Week 1 required reading",
-   "eye": "western",
-   "type": "Chapter",
-   "access": "openstax",
-   "title": "An Introduction to Sociology",
-   "authors": "OpenStax (Introduction to Sociology 3e)",
-   "year": 2021,
-   "themes": [
-    "foundations",
-    "sociology"
-   ],
-   "origin": "United States",
-   "len": "~50 min read",
-   "diff": 1,
-   "week": 1,
-   "abstract": "OpenStax opens sociology by treating everyday life as something that can be examined rather than simply lived, and it introduces the sociological imagination, C. Wright Mills' idea that a person's choices and experiences are tied to history and social structure. The chapter sketches how the discipline grew (Comte, Durkheim, Marx, Weber) and shows that what feels like a private decision, such as whether and whom to marry, is also shaped by social acceptability and circumstance. The takeaway for a student is that sociology is a way of seeing, not just a body of facts.",
-   "coreIdea": "The sociological imagination links a person's private experience to history and social structure, so private troubles are also public, patterned questions.",
-   "related": [
-    "ermine",
-    "soc-research"
-   ],
-   "url": "https://openstax.org/books/introduction-sociology-3e/pages/1-introduction",
-   "fulltext": true
-  },
+ "id": "soc-intro",
+ "assigned": "Week 1 required reading",
+ "eye": "western",
+ "type": "Chapter",
+ "access": "course",
+ "title": "An Introduction to Sociology",
+ "authors": "OpenStax (Introduction to Sociology 3e)",
+ "year": 2021,
+ "themes": [
+  "foundations",
+  "sociology"
+ ],
+ "origin": "United States",
+ "len": "~50 min read",
+ "diff": 1,
+ "week": 1,
+ "abstract": "OpenStax opens sociology by treating everyday life as something that can be examined rather than simply lived, and it introduces the sociological imagination, C. Wright Mills' idea that a person's choices and experiences are tied to history and social structure. The chapter sketches how the discipline grew (Comte, Durkheim, Marx, Weber) and shows that what feels like a private decision, such as whether and whom to marry, is also shaped by social acceptability and circumstance. The takeaway for a student is that sociology is a way of seeing, not just a body of facts. Reading focus for this week: Focus on sections 1.1 and 1.4: what sociology studies and how it connects everyday experiences to wider social conditions. Choose one everyday example to think about. You do not need to memorise the history of the discipline. The complete chapter is included for reference. End-of-chapter questions are optional practice, not extra assignments. Use the printed page numbers shown on the original pages.",
+ "coreIdea": "The sociological imagination links a person's private experience to history and social structure, so private troubles are also public, patterned questions.",
+ "related": [
+  "ermine",
+  "soc-research"
+ ],
+ "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483400-dt-content-rid-224233706_2/xid-224233706_2",
+ "fulltext": true,
+ "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483400-dt-content-rid-224233706_2/xid-224233706_2",
+ "primaryLabel": "Open full chapter in Blackboard",
+ "blackboardFullText": true,
+ "sourceUrl": "https://openstax.org/details/books/introduction-sociology-3e"
+},
   {
-   "id": "soc-research",
-   "eye": "western",
-   "type": "Chapter",
-   "access": "openstax",
-   "title": "Sociological Research",
-   "authors": "OpenStax (Introduction to Sociology 3e)",
-   "year": 2021,
-   "themes": [
-    "methods"
-   ],
-   "origin": "United States",
-   "len": "~50 min read",
-   "diff": 2,
-   "week": 5,
-   "abstract": "OpenStax lays out how sociologists turn questions about people into defensible claims: they form a testable hypothesis, choose a research design, and gather either quantitative data (such as surveys of many participants) or qualitative data (such as in-depth interviews and participant observation). It explains why reliability (results that replicate) and validity (measuring what you intend) matter, and it places research ethics at the centre rather than the margin. The point for a student is that method is the difference between an assertion about people and a claim you can stand behind.",
-   "coreIdea": "Method, with its designs, evidence, and ethics, is what turns an assertion about people into a claim you can defend.",
-   "related": [
-    "reid2021",
-    "littlebear"
-   ],
-   "url": "https://openstax.org/books/introduction-sociology-3e/pages/2-introduction",
-   "fulltext": true
-  },
+ "id": "soc-research",
+ "eye": "western",
+ "type": "Chapter",
+ "access": "course",
+ "title": "Sociological Research",
+ "authors": "OpenStax (Introduction to Sociology 3e)",
+ "year": 2021,
+ "themes": [
+  "methods"
+ ],
+ "origin": "United States",
+ "len": "~50 min read",
+ "diff": 2,
+ "week": 5,
+ "abstract": "OpenStax lays out how sociologists turn questions about people into defensible claims: they form a testable hypothesis, choose a research design, and gather either quantitative data (such as surveys of many participants) or qualitative data (such as in-depth interviews and participant observation). It explains why reliability (results that replicate) and validity (measuring what you intend) matter, and it places research ethics at the centre rather than the margin. The point for a student is that method is the difference between an assertion about people and a claim you can stand behind. Reading focus for this week: Focus on the survey and field-research examples in section 2.2 and the ethics discussion in section 2.3. Notice how a research question affects the method and what researchers must do to protect people. You are designing a study, not carrying one out or calculating statistics. The complete chapter is included for reference. End-of-chapter questions are optional practice, not extra assignments. Use the printed page numbers shown on the original pages.",
+ "coreIdea": "Method, with its designs, evidence, and ethics, is what turns an assertion about people into a claim you can defend.",
+ "related": [
+  "reid2021",
+  "littlebear"
+ ],
+ "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483401-dt-content-rid-224233712_2/xid-224233712_2",
+ "fulltext": true,
+ "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483401-dt-content-rid-224233712_2/xid-224233712_2",
+ "primaryLabel": "Open full chapter in Blackboard",
+ "blackboardFullText": true,
+ "sourceUrl": "https://openstax.org/details/books/introduction-sociology-3e"
+},
   {
-   "id": "anth-culture",
-   "assigned": "The Culture Concept (Anthro Ch3)",
-   "eye": "western",
-   "type": "Chapter",
-   "access": "openstax",
-   "title": "The Culture Concept",
-   "authors": "OpenStax (Introduction to Anthropology)",
-   "year": 2022,
-   "themes": [
-    "anthropology"
-   ],
-   "origin": "United States",
-   "len": "~50 min read",
-   "diff": 2,
-   "week": 6,
-   "abstract": "OpenStax presents culture as the central anthropological concept and argues that an element of human life counts as culture when it is learned and shared by a group rather than inborn. The chapter shows how anthropologists view culture holistically, as levels that fit together, and it makes the case that human difference is to be understood on its own terms rather than ranked as superior or inferior. For a student, this is the discipline's core discipline of perception: describe difference, do not grade it.",
-   "coreIdea": "Culture is whatever is learned and shared by a group, and understanding human difference does not require ranking it as better or worse.",
-   "related": [
-    "todd2016",
-    "ermine"
-   ],
-   "url": "https://openstax.org/books/introduction-anthropology/pages/3-introduction",
-   "fulltext": true
-  },
+ "id": "anth-culture",
+ "assigned": "The Culture Concept (Anthro Ch3)",
+ "eye": "western",
+ "type": "Chapter",
+ "access": "course",
+ "title": "The Culture Concept",
+ "authors": "OpenStax (Introduction to Anthropology)",
+ "year": 2022,
+ "themes": [
+  "anthropology"
+ ],
+ "origin": "United States",
+ "len": "~50 min read",
+ "diff": 2,
+ "week": 6,
+ "abstract": "OpenStax presents culture as the central anthropological concept and argues that an element of human life counts as culture when it is learned and shared by a group rather than inborn. The chapter shows how anthropologists view culture holistically, as levels that fit together, and it makes the case that human difference is to be understood on its own terms rather than ranked as superior or inferior. For a student, this is the discipline's core discipline of perception: describe difference, do not grade it. Reading focus for this week: Focus on sections 3.1 and 3.3: learned and shared practices, symbols, values and norms. Use one familiar example to notice how culture shapes everyday life. Cultural differences are not a ranking of better and worse people. The complete chapter is included for reference. End-of-chapter questions are optional practice, not extra assignments. Use the printed page numbers shown on the original pages.",
+ "coreIdea": "Culture is whatever is learned and shared by a group, and understanding human difference does not require ranking it as better or worse.",
+ "related": [
+  "todd2016",
+  "ermine"
+ ],
+ "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483402-dt-content-rid-224233716_2/xid-224233716_2",
+ "fulltext": true,
+ "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483402-dt-content-rid-224233716_2/xid-224233716_2",
+ "primaryLabel": "Open full chapter in Blackboard",
+ "blackboardFullText": true,
+ "sourceUrl": "https://openstax.org/details/books/introduction-anthropology"
+},
   {
-   "id": "soc-socialization",
-   "eye": "western",
-   "type": "Chapter",
-   "access": "openstax",
-   "title": "Socialization and Social Interaction",
-   "authors": "OpenStax (Introduction to Sociology 3e)",
-   "year": 2021,
-   "themes": [
-    "sociology"
-   ],
-   "origin": "United States",
-   "len": "~50 min read",
-   "diff": 2,
-   "week": 8,
-   "abstract": "OpenStax explains socialization as the lifelong process by which people learn to be members of a society, taking on its norms, roles, and a sense of self through interaction rather than forming alone. The chapter uses difficult cases of extreme social isolation to show how much of what seems natural about being human is actually learned in relationship. It also names agents of socialization, beginning with the family, that carry this work across the life course.",
-   "coreIdea": "Who we are is learned in relationship through socialization, not formed alone, and extreme social isolation can have profound effects on language, social development, and a sense of self.",
-   "related": [
-    "lawrence2003",
-    "soc-stratification"
-   ],
-   "url": "https://openstax.org/books/introduction-sociology-3e/pages/5-introduction",
-   "fulltext": true
-  },
+ "id": "soc-socialization",
+ "eye": "western",
+ "type": "Chapter",
+ "access": "course",
+ "title": "Socialization and Social Interaction",
+ "authors": "OpenStax (Introduction to Sociology 3e)",
+ "year": 2021,
+ "themes": [
+  "sociology"
+ ],
+ "origin": "United States",
+ "len": "~50 min read",
+ "diff": 2,
+ "week": 8,
+ "abstract": "OpenStax explains socialization as the lifelong process by which people learn to be members of a society, taking on its norms, roles, and a sense of self through interaction rather than forming alone. The chapter uses difficult cases of extreme social isolation to show how much of what seems natural about being human is actually learned in relationship. It also names agents of socialization, beginning with the family, that carry this work across the life course. Reading focus for this week: Focus on sections 5.2 and 5.3: why socialization matters and how family, peers, education and other institutions help people learn norms. Look for one example of social pressure. You do not need to read distressing accounts of childhood neglect to complete this focus. The complete chapter is included for reference. End-of-chapter questions are optional practice, not extra assignments. Use the printed page numbers shown on the original pages.",
+ "coreIdea": "Who we are is learned in relationship through socialization, not formed alone, and extreme social isolation can have profound effects on language, social development, and a sense of self.",
+ "related": [
+  "lawrence2003",
+  "soc-stratification"
+ ],
+ "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483403-dt-content-rid-224233719_2/xid-224233719_2",
+ "fulltext": true,
+ "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483403-dt-content-rid-224233719_2/xid-224233719_2",
+ "primaryLabel": "Open full chapter in Blackboard",
+ "blackboardFullText": true,
+ "sourceUrl": "https://openstax.org/details/books/introduction-sociology-3e"
+},
   {
-   "id": "soc-stratification",
-   "eye": "western",
-   "type": "Chapter",
-   "access": "openstax",
-   "title": "Social Stratification",
-   "authors": "OpenStax (Introduction to Sociology 3e)",
-   "year": 2021,
-   "themes": [
-    "sociology"
-   ],
-   "origin": "United States",
-   "len": "~50 min read",
-   "diff": 2,
-   "week": 9,
-   "abstract": "OpenStax describes social stratification as the way societies sort people into layered ranks of advantage tied to class, status, and power, and it stresses that this layering is produced and reproduced by social structures rather than being random. It contrasts caste systems, where standing is fixed by ascribed status, with class systems, where social and achieved factors allow some mobility, and it weighs the Davis-Moore thesis (that stratification is functional) against Tumin's critique. For a student, the lesson is that inequality is built and maintained, not earned by the people placed within it.",
-   "coreIdea": "Inequality is not random: it is a layered system of advantage produced and reproduced by social structures.",
-   "related": [
-    "palmater",
-    "soc-socialization"
-   ],
-   "url": "https://openstax.org/books/introduction-sociology-3e/pages/9-introduction",
-   "fulltext": true
-  },
+ "id": "soc-stratification",
+ "eye": "western",
+ "type": "Chapter",
+ "access": "course",
+ "title": "Social Stratification",
+ "authors": "OpenStax (Introduction to Sociology 3e)",
+ "year": 2021,
+ "themes": [
+  "sociology"
+ ],
+ "origin": "United States",
+ "len": "~50 min read",
+ "diff": 2,
+ "week": 9,
+ "abstract": "OpenStax describes social stratification as the way societies sort people into layered ranks of advantage tied to class, status, and power, and it stresses that this layering is produced and reproduced by social structures rather than being random. It contrasts caste systems, where standing is fixed by ascribed status, with class systems, where social and achieved factors allow some mobility, and it weighs the Davis-Moore thesis (that stratification is functional) against Tumin's critique. For a student, the lesson is that inequality is built and maintained, not earned by the people placed within it. Reading focus for this week: Focus on section 9.1: social stratification, class and social mobility. Notice how opportunities depend partly on social arrangements, not just personal effort. The chapter uses United States examples; do not treat its statistics or legal details as Canadian facts. The complete chapter is included for reference. End-of-chapter questions are optional practice, not extra assignments. Use the printed page numbers shown on the original pages.",
+ "coreIdea": "Inequality is not random: it is a layered system of advantage produced and reproduced by social structures.",
+ "related": [
+  "palmater",
+  "soc-socialization"
+ ],
+ "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483404-dt-content-rid-224233725_2/xid-224233725_2",
+ "fulltext": true,
+ "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483404-dt-content-rid-224233725_2/xid-224233725_2",
+ "primaryLabel": "Open full chapter in Blackboard",
+ "blackboardFullText": true,
+ "sourceUrl": "https://openstax.org/details/books/introduction-sociology-3e"
+},
   {
-   "id": "psy-intro",
-   "assigned": "Week 10 required reading",
-   "eye": "western",
-   "type": "Chapter",
-   "access": "openstax",
-   "title": "Introduction to Psychology",
-   "authors": "OpenStax (Psychology 2e)",
-   "year": 2020,
-   "themes": [
-    "psychology"
-   ],
-   "origin": "United States",
-   "len": "~50 min read",
-   "diff": 1,
-   "week": 10,
-   "abstract": "OpenStax defines psychology as the scientific study of the mind and behaviour and surveys its major approaches, from biological to cognitive to sociocultural, showing how the field grew and what it can and cannot explain. A key move is the biopsychosocial model, which holds that health and behaviour arise from the interaction of biological, psychological, and social factors rather than any one of them alone. The takeaway is that psychology focuses on the individual but is strongest when it keeps the social and biological context in view.",
-   "coreIdea": "Psychology is the scientific study of mind and behaviour, and it explains the individual best when it remembers the individual is also biological and social.",
-   "related": [
-    "gone2023",
-    "psy-social"
-   ],
-   "url": "https://openstax.org/books/psychology-2e/pages/1-introduction",
-   "fulltext": true
-  },
+ "id": "psy-intro",
+ "assigned": "Week 10 required reading",
+ "eye": "western",
+ "type": "Chapter",
+ "access": "course",
+ "title": "Introduction to Psychology",
+ "authors": "OpenStax (Psychology 2e)",
+ "year": 2020,
+ "themes": [
+  "psychology"
+ ],
+ "origin": "United States",
+ "len": "~50 min read",
+ "diff": 1,
+ "week": 10,
+ "abstract": "OpenStax defines psychology as the scientific study of the mind and behaviour and surveys its major approaches, from biological to cognitive to sociocultural, showing how the field grew and what it can and cannot explain. A key move is the biopsychosocial model, which holds that health and behaviour arise from the interaction of biological, psychological, and social factors rather than any one of them alone. The takeaway is that psychology focuses on the individual but is strongest when it keeps the social and biological context in view. Reading focus for this week: Read section 1.1, then choose one approach from sections 1.2 or 1.3 and explain what it helps you notice about behaviour. These are introductory perspectives, not instructions for diagnosing people. You do not need to memorise every psychologist or career pathway. The complete chapter is included for reference. End-of-chapter questions are optional practice, not extra assignments. Use the printed page numbers shown on the original pages.",
+ "coreIdea": "Psychology is the scientific study of mind and behaviour, and it explains the individual best when it remembers the individual is also biological and social.",
+ "related": [
+  "gone2023",
+  "psy-social"
+ ],
+ "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483405-dt-content-rid-224233729_2/xid-224233729_2",
+ "fulltext": true,
+ "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483405-dt-content-rid-224233729_2/xid-224233729_2",
+ "primaryLabel": "Open full chapter in Blackboard",
+ "blackboardFullText": true,
+ "sourceUrl": "https://openstax.org/details/books/psychology-2e"
+},
   {
-   "id": "psy-social",
-   "eye": "western",
-   "type": "Chapter",
-   "access": "openstax",
-   "title": "Social Psychology",
-   "authors": "OpenStax (Psychology 2e)",
-   "year": 2020,
-   "themes": [
-    "psychology"
-   ],
-   "origin": "United States",
-   "len": "~50 min read",
-   "diff": 2,
-   "week": 11,
-   "abstract": "OpenStax presents social psychology as the study of how people affect one another's thoughts, feelings, and behaviour, with a recurring emphasis on the power of the situation. It develops the fundamental attribution error, the common tendency to overestimate someone's personality (dispositional causes) and underestimate the situation when explaining their behaviour, using everyday examples such as misreading a person's snap reaction. For a student, the chapter shows that identity, belonging, and even our judgments of others are shaped between people, not formed in one head.",
-   "coreIdea": "Identity, belonging, and our explanations of behaviour are shaped between people, and we routinely underestimate how much the situation drives what others do.",
-   "related": [
-    "bombay2014",
-    "psy-intro"
-   ],
-   "url": "https://openstax.org/books/psychology-2e/pages/12-introduction",
-   "fulltext": true
-  },
+ "id": "psy-social",
+ "eye": "western",
+ "type": "Chapter",
+ "access": "course",
+ "title": "Social Psychology",
+ "authors": "OpenStax (Psychology 2e)",
+ "year": 2020,
+ "themes": [
+  "psychology"
+ ],
+ "origin": "United States",
+ "len": "~50 min read",
+ "diff": 2,
+ "week": 11,
+ "abstract": "OpenStax presents social psychology as the study of how people affect one another's thoughts, feelings, and behaviour, with a recurring emphasis on the power of the situation. It develops the fundamental attribution error, the common tendency to overestimate someone's personality (dispositional causes) and underestimate the situation when explaining their behaviour, using everyday examples such as misreading a person's snap reaction. For a student, the chapter shows that identity, belonging, and even our judgments of others are shaped between people, not formed in one head. Reading focus for this week: Focus on section 12.4: conformity, compliance and obedience. Connect one concept to a specific scene from Number 12 Looks Just Like You. Historical studies must be examined critically; a dramatic study does not prove that everyone behaves the same way. No diagnosis or statistical calculation is required. The complete chapter is included for reference. End-of-chapter questions are optional practice, not extra assignments. Use the printed page numbers shown on the original pages.",
+ "coreIdea": "Identity, belonging, and our explanations of behaviour are shaped between people, and we routinely underestimate how much the situation drives what others do.",
+ "related": [
+  "bombay2014",
+  "psy-intro"
+ ],
+ "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483406-dt-content-rid-224233732_2/xid-224233732_2",
+ "fulltext": true,
+ "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483406-dt-content-rid-224233732_2/xid-224233732_2",
+ "primaryLabel": "Open full chapter in Blackboard",
+ "blackboardFullText": true,
+ "sourceUrl": "https://openstax.org/details/books/psychology-2e"
+},
   {
-   "id": "soc-family",
-   "eye": "western",
-   "type": "Chapter",
-   "access": "openstax",
-   "title": "Marriage and Family",
-   "authors": "OpenStax (Introduction to Sociology 3e)",
-   "year": 2021,
-   "themes": [
-    "family",
-    "sociology"
-   ],
-   "origin": "United States",
-   "len": "~50 min read",
-   "diff": 2,
-   "week": 12,
-   "abstract": "OpenStax treats the family as a social institution that is both a structure (household forms, marriage and partnership patterns) and a set of relationships, and it shows that both shift with social change rather than staying fixed. The chapter notes that definitions of marriage and family vary across cultures and over time, covering arrangements such as monogamy and polygamy and the place of kinship, and it treats the family as the first agent of socialization. For a student, the point is that there is no single natural family form to measure others against.",
-   "coreIdea": "Family is at once a structure and a web of relationships, and both the forms it takes and the meaning of marriage change across cultures and over time.",
-   "related": [
-    "anderson2019",
-    "soc-socialization"
-   ],
-   "url": "https://openstax.org/books/introduction-sociology-3e/pages/14-introduction",
-   "fulltext": true
-  },
+ "id": "soc-family",
+ "eye": "western",
+ "type": "Chapter",
+ "access": "course",
+ "title": "Marriage and Family",
+ "authors": "OpenStax (Introduction to Sociology 3e)",
+ "year": 2021,
+ "themes": [
+  "family",
+  "sociology"
+ ],
+ "origin": "United States",
+ "len": "~50 min read",
+ "diff": 2,
+ "week": 12,
+ "abstract": "OpenStax treats the family as a social institution that is both a structure (household forms, marriage and partnership patterns) and a set of relationships, and it shows that both shift with social change rather than staying fixed. The chapter notes that definitions of marriage and family vary across cultures and over time, covering arrangements such as monogamy and polygamy and the place of kinship, and it treats the family as the first agent of socialization. For a student, the point is that there is no single natural family form to measure others against. Reading focus for this week: Focus on sections 14.1 and 14.2: how definitions of family vary and how family arrangements change. Compare examples without assuming that one family form is the standard. The chapter uses United States data and legal examples, not a current summary of Canadian law. The complete chapter is included for reference. End-of-chapter questions are optional practice, not extra assignments. Use the printed page numbers shown on the original pages.",
+ "coreIdea": "Family is at once a structure and a web of relationships, and both the forms it takes and the meaning of marriage change across cultures and over time.",
+ "related": [
+  "anderson2019",
+  "soc-socialization"
+ ],
+ "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483451-dt-content-rid-224233735_2/xid-224233735_2",
+ "fulltext": true,
+ "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483451-dt-content-rid-224233735_2/xid-224233735_2",
+ "primaryLabel": "Open full chapter in Blackboard",
+ "blackboardFullText": true,
+ "sourceUrl": "https://openstax.org/details/books/introduction-sociology-3e"
+},
   {
    "id": "reid2021",
    "assigned": "Two-Eyed Seeing (fisheries, pp.243-261)",
