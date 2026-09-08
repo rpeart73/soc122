@@ -637,7 +637,7 @@ window.SOC122 = {
    "type": "Article",
    "access": "open",
    "title": "Mapping Approaches to Decolonizing and Indigenizing the Curriculum at Canadian Universities: Critical Reflections on Current Practices, Challenges, and Possibilities",
-   "authors": "Candace Brunette-Debassige, Pauline Wakeham, Christopher Smithers-Graeme, Ayesha Haque, and Stephanie M. Chitty",
+   "authors": "Candace Brunette-Debassige, Pauline Wakeham, Cindy Smithers-Graeme, Aisha Haque, and Sara Mai Chitty",
    "year": 2022,
    "themes": [
     "reconciliation",
