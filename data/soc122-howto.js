@@ -75,8 +75,8 @@ window.SOC122_HOWTO = {
      "detail": "The guide flips terms from earlier weeks, asks you to explain ideas back, and climbs a question ladder. The check has three sets: A and B are multiple choice with an honest confidence rating, and Set C brings scenarios, matching, and short written answers you rate yourself. The report names your confident misses; review those first."
     },
     {
-     "do": "Close with the reflection and Generate Your Weekly Notes.",
-     "detail": "Type your reflection, then generate the Word file. It gathers your check answers, activity summary, and reflection into one record on Seneca letterhead."
+     "do": "Carry the reflection question forward.",
+     "detail": "Carry the week's reflection question forward. A separate written response is not required. You may keep private notes and download them if useful."
     }
    ],
    "saves": "When browser storage is available, your ratings, study guide notes, check history, activity work, and reflections may remain in this browser on this device until site data is cleared.",
@@ -386,8 +386,8 @@ window.SOC122_HOWTO = {
    "intro": "This page helps you read each assignment, see the course ideas it needs, and plan your start so the blank page never wins.",
    "steps": [
     {
-     "do": "Walk the five assessments in order.",
-     "detail": "The five assessments move from social location and observation to research choices, community responsibility, and Personal Cartography: Society and Me. Each item names its purpose and timing."
+     "do": "Review the seven assignments in order.",
+     "detail": "Your seven assignments move from a social location map and observation journal to research choices, a class discussion, a media lab, Personal Cartography and a final learning reflection. Each guide explains what to do and which course ideas to use."
     },
     {
      "do": "Keep the journal grounded.",
@@ -395,7 +395,7 @@ window.SOC122_HOWTO = {
     },
     {
      "do": "Read the dates and the integrity notes.",
-     "detail": "Due dates cluster; see them early. And if an academic-integrity concern ever arises, the instructor contacts you first and you get the chance to explain your process."
+     "detail": "Check each assignment's dates and instructions before you begin. If I raise an academic-integrity concern, you will have an opportunity to explain your work and process."
     },
     {
      "do": "Open the Assignment Start Lab when you are stuck.",
@@ -510,8 +510,8 @@ window.SOC122_HOWTO = {
      "detail": "September through December sit side by side, so you can see where deadlines cluster before they are close."
     },
     {
-     "do": "Check the assessment date lists.",
-     "detail": "Below the grids, every assessment date and the full class and asynchronous schedule appear as plain rows."
+     "do": "Check the assignment date lists.",
+     "detail": "Below the grids, assignment dates and the class schedule appear as plain rows."
     },
     {
      "do": "Subscribe on your phone.",
@@ -524,7 +524,7 @@ window.SOC122_HOWTO = {
    ],
    "saves": "This page does not collect or submit student work.",
    "graded": "Nothing here is graded.",
-   "next": "Put the due date clusters into your own planner now, before they are close."
+   "next": "Add assignment releases and deadlines to your planner. Leave time to read feedback before your next related assignment."
   },
   "review": {
    "title": "How to use Term Review",
