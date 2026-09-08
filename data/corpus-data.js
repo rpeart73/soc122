@@ -909,32 +909,41 @@ window.SOC122 = {
    "fulltext": true
   },
   {
-   "id": "littlebear",
-   "video": { "yt": "o_txPA8CiA4", "title": "Big Thinking - Leroy Little Bear: Blackfoot metaphysics 'waiting in the wings'", "channel": "Federation HSS", "scholar": "Leroy Little Bear" },
-   "eye": "indigenous",
-   "type": "Chapter",
-   "access": "verified",
-   "title": "Jagged Worldviews Colliding",
-   "authors": "Leroy Little Bear",
-   "year": 2000,
-   "themes": [
-    "foundations",
-    "twoeyed"
-   ],
-   "origin": "Canada",
-   "len": "~30 min read",
-   "diff": 3,
-   "week": 2,
-   "abstract": "Leroy Little Bear (Blackfoot) argues that colonialism tries to hold a single social order in place by force and law, suppressing the many ways people interpret the world, and that Indigenous and Eurocentric worldviews differ at their philosophical roots. He contrasts an Indigenous worldview of constant flux, wholeness, relationship, and renewal, where all things are animate and time simply is, with a Eurocentric worldview that is linear, singular, static, and objective. The collision of these worldviews, he writes, left a jagged, fragmented consciousness among colonized peoples that still shapes daily life.",
-   "coreIdea": "Indigenous and Eurocentric worldviews differ at the root, and colonialism's forced collision of them left a jagged, fragmented consciousness that persists today.",
-   "url": "https://jackmanlaw.utoronto.ca/sites/default/files/assets/files/2025/hewitt-leroy_little_bear_on_jagged_worldviews.pdf",
-   "related": [
-    "amarshall",
-    "ermine",
-    "todd2016"
-   ],
-   "fulltext": true
-  },
+ "id": "littlebear",
+ "video": {
+  "yt": "o_txPA8CiA4",
+  "title": "Big Thinking - Leroy Little Bear: Blackfoot metaphysics 'waiting in the wings'",
+  "channel": "Federation HSS",
+  "scholar": "Leroy Little Bear"
+ },
+ "eye": "indigenous",
+ "type": "Chapter",
+ "access": "course",
+ "title": "Jagged Worldviews Colliding",
+ "authors": "Leroy Little Bear",
+ "year": 2000,
+ "themes": [
+  "foundations",
+  "twoeyed"
+ ],
+ "origin": "Canada",
+ "len": "~30 min read",
+ "diff": 3,
+ "week": 2,
+ "abstract": "Leroy Little Bear (Blackfoot) argues that colonialism tries to hold a single social order in place by force and law, suppressing the many ways people interpret the world, and that Indigenous and Eurocentric worldviews differ at their philosophical roots. He contrasts an Indigenous worldview of constant flux, wholeness, relationship, and renewal, where all things are animate and time simply is, with a Eurocentric worldview that is linear, singular, static, and objective. The collision of these worldviews, he writes, left a jagged, fragmented consciousness among colonized peoples that still shapes daily life. Reading focus for this week: This version has selectable text. The cover is PDF page 1; the complete chapter begins on page 2. Read Little Bear’s comparison of worldviews and his explanation of their collision. Notice that he identifies the Plains traditions he draws on and acknowledges differences. Do not treat his account as a single description of every Indigenous Nation. The closing discussion and both source notes are included.",
+ "coreIdea": "Indigenous and Eurocentric worldviews differ at the root, and colonialism's forced collision of them left a jagged, fragmented consciousness that persists today.",
+ "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27482985-dt-content-rid-224232291_2/xid-224232291_2",
+ "related": [
+  "amarshall",
+  "ermine",
+  "todd2016"
+ ],
+ "fulltext": true,
+ "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27482985-dt-content-rid-224232291_2/xid-224232291_2",
+ "primaryLabel": "Open full chapter in Blackboard",
+ "blackboardFullText": true,
+ "sourceUrl": "https://www.learnalberta.ca/content/aswt/worldviews/documents/jagged_worldviews_colliding.pdf"
+},
   {
  "id": "smylie",
  "video": {
