@@ -383,7 +383,7 @@ window.SOC122_HOWTO = {
   },
   "assignments": {
    "title": "How to use Understanding Your Assignment",
-   "intro": "This page helps you read each assessment, see the course ideas it needs, and plan your start so the blank page never wins.",
+   "intro": "This page helps you read each assignment, see the course ideas it needs, and plan your start so the blank page never wins.",
    "steps": [
     {
      "do": "Walk the five assessments in order.",

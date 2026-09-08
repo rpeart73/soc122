@@ -2575,7 +2575,7 @@
       + field('source', 'One source and its job', 'Name who produced it, what it can support, and where it stops.', 'This source can carry the claim that... It cannot establish...')
       + field('difference', 'One difference that must remain', 'Do not reward a smooth synthesis by erasing a history, Nation, method, or purpose.', 'The distinction I must keep visible is...')
       + field('responsibility', 'What follows for you', 'State a responsibility in how you will inquire, compare, cite, or act. Do not prescribe for a community.', 'Because I now know this, I am responsible for...')
-      + '</div><aside><b>This is preparation, not assessment prose.</b><span>The official assessment instructions and grading remain on Blackboard. Use these notes to remember your reasoning, then construct your own submission from the assigned sources.</span><button type="button" onclick="SOC.go(\'assignments\')">Open the assessment pathway</button></aside></section></div>';
+      + '</div><aside><b>This is preparation, not assessment prose.</b><span>The official assessment instructions and grading remain on Blackboard. Use these notes to remember your reasoning, then construct your own submission from the assigned sources.</span><button type="button" onclick="SOC.go(\'assignments\')">Open the assignment pathway</button></aside></section></div>';
   }
   function journeyHome() {
     var ws = journeyWeeks(), cur = currentJourneyWeek(), started = !!state.journeyWeek;
