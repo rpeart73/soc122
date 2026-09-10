@@ -9,7 +9,7 @@ UID:soc122-w1@rpeart73.github.io
 DTSTART;VALUE=DATE:20260911
 DTEND;VALUE=DATE:20260912
 SUMMARY:SOC122 Week 1: live class
-DESCRIPTION:Use the week page to prepare and return after class.
+DESCRIPTION:See Blackboard for official course information.
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20260902T160000Z
@@ -18,7 +18,7 @@ UID:soc122-w2@rpeart73.github.io
 DTSTART;VALUE=DATE:20260918
 DTEND;VALUE=DATE:20260919
 SUMMARY:SOC122 Week 2: live class
-DESCRIPTION:Use the week page to prepare and return after class.
+DESCRIPTION:See Blackboard for official course information.
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20260902T160000Z
@@ -27,7 +27,7 @@ UID:soc122-w3@rpeart73.github.io
 DTSTART;VALUE=DATE:20260925
 DTEND;VALUE=DATE:20260926
 SUMMARY:SOC122 Week 3: live class
-DESCRIPTION:Use the week page to prepare and return after class.
+DESCRIPTION:See Blackboard for official course information.
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20260902T160000Z
@@ -36,7 +36,7 @@ UID:soc122-w4@rpeart73.github.io
 DTSTART;VALUE=DATE:20261002
 DTEND;VALUE=DATE:20261003
 SUMMARY:SOC122 Week 4: live class
-DESCRIPTION:Use the week page to prepare and return after class.
+DESCRIPTION:See Blackboard for official course information.
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20260902T160000Z
@@ -45,7 +45,7 @@ UID:soc122-w5@rpeart73.github.io
 DTSTART;VALUE=DATE:20261009
 DTEND;VALUE=DATE:20261010
 SUMMARY:SOC122 Week 5: live class
-DESCRIPTION:Use the week page to prepare and return after class.
+DESCRIPTION:See Blackboard for official course information.
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20260902T160000Z
@@ -54,7 +54,7 @@ UID:soc122-w6@rpeart73.github.io
 DTSTART;VALUE=DATE:20261016
 DTEND;VALUE=DATE:20261017
 SUMMARY:SOC122 Week 6: asynchronous independent learning
-DESCRIPTION:Follow the independent or supported route on the week page.
+DESCRIPTION:See Blackboard for official course information.
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20260902T160000Z
@@ -63,7 +63,7 @@ UID:soc122-w7@rpeart73.github.io
 DTSTART;VALUE=DATE:20261023
 DTEND;VALUE=DATE:20261024
 SUMMARY:SOC122 Week 7: live class
-DESCRIPTION:Use the week page to prepare and return after class.
+DESCRIPTION:See Blackboard for official course information.
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20260902T160000Z
@@ -72,7 +72,7 @@ UID:soc122-w8@rpeart73.github.io
 DTSTART;VALUE=DATE:20261106
 DTEND;VALUE=DATE:20261107
 SUMMARY:SOC122 Week 8: live class
-DESCRIPTION:Use the week page to prepare and return after class.
+DESCRIPTION:See Blackboard for official course information.
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20260902T160000Z
@@ -81,7 +81,7 @@ UID:soc122-w9@rpeart73.github.io
 DTSTART;VALUE=DATE:20261113
 DTEND;VALUE=DATE:20261114
 SUMMARY:SOC122 Week 9: live class
-DESCRIPTION:Use the week page to prepare and return after class.
+DESCRIPTION:See Blackboard for official course information.
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20260902T160000Z
@@ -90,7 +90,7 @@ UID:soc122-w10@rpeart73.github.io
 DTSTART;VALUE=DATE:20261120
 DTEND;VALUE=DATE:20261121
 SUMMARY:SOC122 Week 10: live class
-DESCRIPTION:Use the week page to prepare and return after class.
+DESCRIPTION:See Blackboard for official course information.
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20260902T160000Z
@@ -99,7 +99,7 @@ UID:soc122-w11@rpeart73.github.io
 DTSTART;VALUE=DATE:20261127
 DTEND;VALUE=DATE:20261128
 SUMMARY:SOC122 Week 11: asynchronous independent learning
-DESCRIPTION:Follow the independent or supported route on the week page.
+DESCRIPTION:See Blackboard for official course information.
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20260902T160000Z
@@ -108,7 +108,7 @@ UID:soc122-w12@rpeart73.github.io
 DTSTART;VALUE=DATE:20261204
 DTEND;VALUE=DATE:20261205
 SUMMARY:SOC122 Week 12: final substantive live class
-DESCRIPTION:Use the week page to prepare and return after class.
+DESCRIPTION:See Blackboard for official course information.
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20260902T160000Z
@@ -117,7 +117,7 @@ UID:soc122-w13@rpeart73.github.io
 DTSTART;VALUE=DATE:20261207
 DTEND;VALUE=DATE:20261212
 SUMMARY:SOC122 Week 13: supported asynchronous completion
-DESCRIPTION:Follow the independent or supported route on the week page.
+DESCRIPTION:See Blackboard for official course information.
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20260902T160000Z
@@ -126,269 +126,6 @@ UID:soc122-study-week@rpeart73.github.io
 DTSTART;VALUE=DATE:20261026
 DTEND;VALUE=DATE:20261031
 SUMMARY:SOC122 Study Week
-DESCRIPTION:Study Week runs October 26 to 30. No class\, new module\, or gr
- aded work is due.
-END:VEVENT
-BEGIN:VEVENT
-UID:soc122-_27272596_1-release@seneca-assessments
-DTSTAMP:20260906T030000Z
-DTSTART:20260918T040100Z
-SUMMARY:SOC122: Where I Stand: Social Location Map opens (20%)
-DESCRIPTION:Released September 18\, 2026 at 12:01 a.m. Eastern. Due Septemb
- er 30\, 2026 at 11:59 p.m. Eastern. 48-hour no-penalty window ends October
-  2\, 2026 at 11:59 p.m. Eastern Time (ET). Routine extension requests must
-  arrive before the posted deadline. Complete this assessment in Blackboard
- . https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/assessment/te
- st/_27272596_1
-END:VEVENT
-BEGIN:VEVENT
-UID:soc122-_27272596_1-due@seneca-assessments
-DTSTAMP:20260906T030000Z
-DTSTART:20261001T035900Z
-SUMMARY:SOC122: Where I Stand: Social Location Map due (20%)
-DESCRIPTION:Released September 18\, 2026 at 12:01 a.m. Eastern. Due Septemb
- er 30\, 2026 at 11:59 p.m. Eastern. 48-hour no-penalty window ends October
-  2\, 2026 at 11:59 p.m. Eastern Time (ET). Routine extension requests must
-  arrive before the posted deadline. Complete this assessment in Blackboard
- . https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/assessment/te
- st/_27272596_1
-END:VEVENT
-BEGIN:VEVENT
-UID:soc122-_27272596_1-window-end@seneca-assessments
-DTSTAMP:20260906T030000Z
-DTSTART:20261003T035900Z
-SUMMARY:SOC122: Where I Stand: Social Location Map 48-hour window ends\, 11
- :59 p.m. ET (20%)
-DESCRIPTION:Released September 18\, 2026 at 12:01 a.m. Eastern. Due Septemb
- er 30\, 2026 at 11:59 p.m. Eastern. 48-hour no-penalty window ends October
-  2\, 2026 at 11:59 p.m. Eastern Time (ET). Routine extension requests must
-  arrive before the posted deadline. Complete this assessment in Blackboard
- . https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/assessment/te
- st/_27272596_1
-END:VEVENT
-BEGIN:VEVENT
-UID:soc122-_27272715_1-release@seneca-assessments
-DTSTAMP:20260906T030000Z
-DTSTART:20260918T040100Z
-SUMMARY:SOC122: Two-Eyed Seeing Observation Journal: Set 1 opens (10%)
-DESCRIPTION:Released September 18\, 2026 at 12:01 a.m. Eastern. Due October
-  14\, 2026 at 11:59 p.m. Eastern. 48-hour no-penalty window ends October 1
- 6\, 2026 at 11:59 p.m. Eastern Time (ET). Routine extension requests must 
- arrive before the posted deadline. Complete this assessment in Blackboard.
-  https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/journal/_27272
- 715_1
-END:VEVENT
-BEGIN:VEVENT
-UID:soc122-_27272715_1-due@seneca-assessments
-DTSTAMP:20260906T030000Z
-DTSTART:20261015T035900Z
-SUMMARY:SOC122: Two-Eyed Seeing Observation Journal: Set 1 due (10%)
-DESCRIPTION:Released September 18\, 2026 at 12:01 a.m. Eastern. Due October
-  14\, 2026 at 11:59 p.m. Eastern. 48-hour no-penalty window ends October 1
- 6\, 2026 at 11:59 p.m. Eastern Time (ET). Routine extension requests must 
- arrive before the posted deadline. Complete this assessment in Blackboard.
-  https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/journal/_27272
- 715_1
-END:VEVENT
-BEGIN:VEVENT
-UID:soc122-_27272715_1-window-end@seneca-assessments
-DTSTAMP:20260906T030000Z
-DTSTART:20261017T035900Z
-SUMMARY:SOC122: Two-Eyed Seeing Observation Journal: Set 1 48-hour window e
- nds\, 11:59 p.m. ET (10%)
-DESCRIPTION:Released September 18\, 2026 at 12:01 a.m. Eastern. Due October
-  14\, 2026 at 11:59 p.m. Eastern. 48-hour no-penalty window ends October 1
- 6\, 2026 at 11:59 p.m. Eastern Time (ET). Routine extension requests must 
- arrive before the posted deadline. Complete this assessment in Blackboard.
-  https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/journal/_27272
- 715_1
-END:VEVENT
-BEGIN:VEVENT
-UID:soc122-_27378912_1-release@seneca-assessments
-DTSTAMP:20260906T030000Z
-DTSTART:20261013T040100Z
-SUMMARY:SOC122: Research Choices Lab opens (20%)
-DESCRIPTION:Released October 13\, 2026 at 12:01 a.m. Eastern. Due October 2
- 0\, 2026 at 11:59 p.m. Eastern. 48-hour no-penalty window ends October 22\
- , 2026 at 11:59 p.m. Eastern Time (ET). Routine extension requests must ar
- rive before the posted deadline. Complete this assessment in Blackboard. h
- ttps://learn.senecapolytechnic.ca/ultra/courses/_787837_1/assessment/test/
- _27378912_1
-END:VEVENT
-BEGIN:VEVENT
-UID:soc122-_27378912_1-due@seneca-assessments
-DTSTAMP:20260906T030000Z
-DTSTART:20261021T035900Z
-SUMMARY:SOC122: Research Choices Lab due (20%)
-DESCRIPTION:Released October 13\, 2026 at 12:01 a.m. Eastern. Due October 2
- 0\, 2026 at 11:59 p.m. Eastern. 48-hour no-penalty window ends October 22\
- , 2026 at 11:59 p.m. Eastern Time (ET). Routine extension requests must ar
- rive before the posted deadline. Complete this assessment in Blackboard. h
- ttps://learn.senecapolytechnic.ca/ultra/courses/_787837_1/assessment/test/
- _27378912_1
-END:VEVENT
-BEGIN:VEVENT
-UID:soc122-_27378912_1-window-end@seneca-assessments
-DTSTAMP:20260906T030000Z
-DTSTART:20261023T035900Z
-SUMMARY:SOC122: Research Choices Lab 48-hour window ends\, 11:59 p.m. ET (2
- 0%)
-DESCRIPTION:Released October 13\, 2026 at 12:01 a.m. Eastern. Due October 2
- 0\, 2026 at 11:59 p.m. Eastern. 48-hour no-penalty window ends October 22\
- , 2026 at 11:59 p.m. Eastern Time (ET). Routine extension requests must ar
- rive before the posted deadline. Complete this assessment in Blackboard. h
- ttps://learn.senecapolytechnic.ca/ultra/courses/_787837_1/assessment/test/
- _27378912_1
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:1
-UID:soc122-_27272716_1-release@seneca-assessments
-DTSTAMP:20260906T053712Z
-DTSTART:20261106T050100Z
-SUMMARY:SOC122: One Issue, Different Perspectives opens (10%)
-DESCRIPTION:Released November 6\, 2026 at 12:01 a.m. Eastern. Due November 
- 18\, 2026 at 11:59 p.m. Eastern. 48-hour no-penalty window ends November 2
- 0\, 2026 at 11:59 p.m. Eastern Time (ET). Routine extension requests must 
- arrive before the posted deadline. Complete this assessment in Blackboard.
-  https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/discussion/_27
- 401646_1?view=content
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:1
-UID:soc122-_27272716_1-due@seneca-assessments
-DTSTAMP:20260906T053712Z
-DTSTART:20261119T045900Z
-SUMMARY:SOC122: One Issue, Different Perspectives due (10%)
-DESCRIPTION:Released November 6\, 2026 at 12:01 a.m. Eastern. Due November 
- 18\, 2026 at 11:59 p.m. Eastern. 48-hour no-penalty window ends November 2
- 0\, 2026 at 11:59 p.m. Eastern Time (ET). Routine extension requests must 
- arrive before the posted deadline. Complete this assessment in Blackboard.
-  https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/discussion/_27
- 401646_1?view=content
-END:VEVENT
-BEGIN:VEVENT
-SEQUENCE:1
-UID:soc122-_27272716_1-window-end@seneca-assessments
-DTSTAMP:20260906T053712Z
-DTSTART:20261121T045900Z
-SUMMARY:SOC122: One Issue, Different Perspectives 48-hour window ends\, 11:
- 59 p.m. ET (10%)
-DESCRIPTION:Released November 6\, 2026 at 12:01 a.m. Eastern. Due November 
- 18\, 2026 at 11:59 p.m. Eastern. 48-hour no-penalty window ends November 2
- 0\, 2026 at 11:59 p.m. Eastern Time (ET). Routine extension requests must 
- arrive before the posted deadline. Complete this assessment in Blackboard.
-  https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/discussion/_27
- 401646_1?view=content
-END:VEVENT
-BEGIN:VEVENT
-UID:soc122-_27272598_1-release@seneca-assessments
-DTSTAMP:20260906T030000Z
-DTSTART:20261120T050100Z
-SUMMARY:SOC122: Dystopian Conformity Lab: "Number 12 Looks Just Like You" o
- pens (15%)
-DESCRIPTION:Released November 20\, 2026 at 12:01 a.m. Eastern. Due December
-  2\, 2026 at 11:59 p.m. Eastern. 48-hour no-penalty window ends December 4
- \, 2026 at 11:59 p.m. Eastern Time (ET). Routine extension requests must a
- rrive before the posted deadline. Complete this assessment in Blackboard. 
- https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/assessment/test
- /_27272598_1
-END:VEVENT
-BEGIN:VEVENT
-UID:soc122-_27272598_1-due@seneca-assessments
-DTSTAMP:20260906T030000Z
-DTSTART:20261203T045900Z
-SUMMARY:SOC122: Dystopian Conformity Lab: "Number 12 Looks Just Like You" d
- ue (15%)
-DESCRIPTION:Released November 20\, 2026 at 12:01 a.m. Eastern. Due December
-  2\, 2026 at 11:59 p.m. Eastern. 48-hour no-penalty window ends December 4
- \, 2026 at 11:59 p.m. Eastern Time (ET). Routine extension requests must a
- rrive before the posted deadline. Complete this assessment in Blackboard. 
- https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/assessment/test
- /_27272598_1
-END:VEVENT
-BEGIN:VEVENT
-UID:soc122-_27272598_1-window-end@seneca-assessments
-DTSTAMP:20260906T030000Z
-DTSTART:20261205T045900Z
-SUMMARY:SOC122: Dystopian Conformity Lab: "Number 12 Looks Just Like You" 4
- 8-hour window ends\, 11:59 p.m. ET (15%)
-DESCRIPTION:Released November 20\, 2026 at 12:01 a.m. Eastern. Due December
-  2\, 2026 at 11:59 p.m. Eastern. 48-hour no-penalty window ends December 4
- \, 2026 at 11:59 p.m. Eastern Time (ET). Routine extension requests must a
- rrive before the posted deadline. Complete this assessment in Blackboard. 
- https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/assessment/test
- /_27272598_1
-END:VEVENT
-BEGIN:VEVENT
-UID:soc122-_27272599_1-release@seneca-assessments
-DTSTAMP:20260906T030000Z
-DTSTART:20261201T050100Z
-SUMMARY:SOC122: Personal Cartography: Society and Me opens (15%)
-DESCRIPTION:Released December 1\, 2026 at 12:01 a.m. Eastern. Due December 
- 11\, 2026 at 11:59 p.m. Eastern. No automatic 48-hour window. Routine exte
- nsion requests must arrive before the posted deadline. Complete this asses
- sment in Blackboard. https://learn.senecapolytechnic.ca/ultra/courses/_787
- 837_1/assessment/test/_27272599_1
-END:VEVENT
-BEGIN:VEVENT
-UID:soc122-_27272599_1-due@seneca-assessments
-DTSTAMP:20260906T030000Z
-DTSTART:20261212T045900Z
-SUMMARY:SOC122: Personal Cartography: Society and Me due (15%)
-DESCRIPTION:Released December 1\, 2026 at 12:01 a.m. Eastern. Due December 
- 11\, 2026 at 11:59 p.m. Eastern. No automatic 48-hour window. Routine exte
- nsion requests must arrive before the posted deadline. Complete this asses
- sment in Blackboard. https://learn.senecapolytechnic.ca/ultra/courses/_787
- 837_1/assessment/test/_27272599_1
-END:VEVENT
-BEGIN:VEVENT
-UID:soc122-_27380330_1-release@seneca-assessments
-DTSTAMP:20260906T030000Z
-DTSTART:20261207T050100Z
-SUMMARY:SOC122: Final Learning Reflection opens (10%)
-DESCRIPTION:Released December 7\, 2026 at 12:01 a.m. Eastern. Due December 
- 13\, 2026 at 11:59 p.m. Eastern. No automatic 48-hour window. Routine exte
- nsion requests must arrive before the posted deadline. Complete this asses
- sment in Blackboard. https://learn.senecapolytechnic.ca/ultra/courses/_787
- 837_1/assessment/test/_27380330_1
-END:VEVENT
-BEGIN:VEVENT
-UID:soc122-_27380330_1-due@seneca-assessments
-DTSTAMP:20260906T030000Z
-DTSTART:20261214T045900Z
-SUMMARY:SOC122: Final Learning Reflection due (10%)
-DESCRIPTION:Released December 7\, 2026 at 12:01 a.m. Eastern. Due December 
- 13\, 2026 at 11:59 p.m. Eastern. No automatic 48-hour window. Routine exte
- nsion requests must arrive before the posted deadline. Complete this asses
- sment in Blackboard. https://learn.senecapolytechnic.ca/ultra/courses/_787
- 837_1/assessment/test/_27380330_1
-END:VEVENT
-BEGIN:VEVENT
-UID:soc122-assessment4-initial-post-due@seneca-assessments
-DTSTAMP:20260906T053712Z
-SEQUENCE:0
-DTSTART:20261114T045900Z
-DTEND:20261114T050000Z
-SUMMARY:SOC122: Initial post due - One Issue\, Different Perspectives (10%)
-DESCRIPTION:Initial post due November 13\, 2026 at 11:59 p.m. Eastern. Its 
- 48-hour no-penalty window ends November 15\, 2026 at 11:59 p.m. Eastern. T
- his is one part of Assignment 4\, not an extra graded assignment.
-URL:https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/discussion/_
- 27401646_1?view=content
-END:VEVENT
-BEGIN:VEVENT
-UID:soc122-assessment4-initial-post-window-end@seneca-assessments
-DTSTAMP:20260906T053712Z
-SEQUENCE:0
-DTSTART:20261116T045900Z
-DTEND:20261116T050000Z
-SUMMARY:SOC122: Initial-post window ends - One Issue\, Different Perspectiv
- es (10%)
-DESCRIPTION:The initial-post no-penalty window closes November 15\, 2026 at
-  11:59 p.m. Eastern. Your reply is due November 18\, 2026 at 11:59 p.m. Ea
- stern\; its window closes November 20\, 2026 at 11:59 p.m. Eastern. This i
- s one part of Assignment 4\, not an extra graded assignment.
-URL:https://learn.senecapolytechnic.ca/ultra/courses/_787837_1/discussion/_
- 27401646_1?view=content
+DESCRIPTION:See Blackboard for official course information.
 END:VEVENT
 END:VCALENDAR
