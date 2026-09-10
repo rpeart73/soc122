@@ -42,3 +42,7 @@ Canonical file hashes live in the ratification receipts under `projects/_config/
 
 ## Design source
 Recreated from `../_design/_extracted/design_handoff_soc122_corpus/` (the high-fidelity prototype). The `.dc.html` prototype runtime was not ported; this is a vanilla rebuild in the BFS218 `_app` pattern.
+
+## Public assignment boundary, September 10, 2026
+
+Assignment instructions, rubrics and assignment downloads are available only in Blackboard. The public website provides learning content and navigation tools. Updated site-use guides may be downloaded from `guide/`; each approved download is recorded in `public-content-policy.json`. Do not restore public assignment content without an explicit new request from Raymond. The deployment check is `node tests/public-assignment-boundary.cjs`.
