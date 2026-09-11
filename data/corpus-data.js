@@ -379,240 +379,248 @@ window.SOC122 = {
  },
  "records": [
   {
- "id": "soc-intro",
- "assigned": "Week 1 required reading",
- "eye": "western",
- "type": "Chapter",
- "access": "course",
- "title": "An Introduction to Sociology",
- "authors": "OpenStax (Introduction to Sociology 3e)",
- "year": 2021,
- "themes": [
-  "foundations",
-  "sociology"
- ],
- "origin": "United States",
- "len": "~50 min read",
- "diff": 1,
- "week": 1,
- "abstract": "OpenStax opens sociology by treating everyday life as something that can be examined rather than simply lived, and it introduces the sociological imagination, C. Wright Mills' idea that a person's choices and experiences are tied to history and social structure. The chapter sketches how the discipline grew (Comte, Durkheim, Marx, Weber) and shows that what feels like a private decision, such as whether and whom to marry, is also shaped by social acceptability and circumstance. The takeaway for a student is that sociology is a way of seeing, not just a body of facts. Reading focus for this week: Focus on sections 1.1 and 1.4: what sociology studies and how it connects everyday experiences to wider social conditions. Choose one everyday example to think about. You do not need to memorise the history of the discipline. The complete chapter is included for reference. End-of-chapter questions are optional practice, not extra assignments. Use the printed page numbers shown on the original pages.",
- "coreIdea": "The sociological imagination links a person's private experience to history and social structure, so private troubles are also public, patterned questions.",
- "related": [
-  "ermine",
-  "soc-research"
- ],
- "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483400-dt-content-rid-224233706_2/xid-224233706_2",
- "fulltext": true,
- "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483400-dt-content-rid-224233706_2/xid-224233706_2",
- "primaryLabel": "Open full chapter in Blackboard",
- "blackboardFullText": true,
- "sourceUrl": "https://openstax.org/details/books/introduction-sociology-3e"
-},
+   "id": "soc-intro",
+   "assigned": "Week 1 required reading",
+   "eye": "western",
+   "type": "Chapter",
+   "access": "course",
+   "title": "An Introduction to Sociology",
+   "authors": "OpenStax (Introduction to Sociology 3e)",
+   "year": 2021,
+   "themes": [
+    "foundations",
+    "sociology"
+   ],
+   "origin": "United States",
+   "len": "~50 min read",
+   "diff": 1,
+   "week": 1,
+   "abstract": "OpenStax opens sociology by treating everyday life as something that can be examined rather than simply lived, and it introduces the sociological imagination, C. Wright Mills' idea that a person's choices and experiences are tied to history and social structure. The chapter sketches how the discipline grew (Comte, Durkheim, Marx, Weber) and shows that what feels like a private decision, such as whether and whom to marry, is also shaped by social acceptability and circumstance. The takeaway for a student is that sociology is a way of seeing, not just a body of facts. Reading focus for this week: Focus on sections 1.1 and 1.4: what sociology studies and how it connects everyday experiences to wider social conditions. Choose one everyday example to think about. You do not need to memorise the history of the discipline. The complete chapter is included for reference. End-of-chapter questions are optional practice, not extra assignments. Use the printed page numbers shown on the original pages.",
+   "coreIdea": "The sociological imagination links a person's private experience to history and social structure, so private troubles are also public, patterned questions.",
+   "related": [
+    "ermine",
+    "soc-research"
+   ],
+   "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483400-dt-content-rid-224233706_2/xid-224233706_2",
+   "fulltext": true,
+   "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483400-dt-content-rid-224233706_2/xid-224233706_2",
+   "primaryLabel": "Open PDF in Blackboard",
+   "blackboardFullText": true,
+   "sourceUrl": "https://openstax.org/details/books/introduction-sociology-3e",
+   "senecaLib": false
+  },
   {
- "id": "soc-research",
- "eye": "western",
- "type": "Chapter",
- "access": "course",
- "title": "Sociological Research",
- "authors": "OpenStax (Introduction to Sociology 3e)",
- "year": 2021,
- "themes": [
-  "methods"
- ],
- "origin": "United States",
- "len": "~50 min read",
- "diff": 2,
- "week": 5,
- "abstract": "OpenStax lays out how sociologists turn questions about people into defensible claims: they form a testable hypothesis, choose a research design, and gather either quantitative data (such as surveys of many participants) or qualitative data (such as in-depth interviews and participant observation). It explains why reliability (results that replicate) and validity (measuring what you intend) matter, and it places research ethics at the centre rather than the margin. The point for a student is that method is the difference between an assertion about people and a claim you can stand behind. Reading focus for this week: Focus on the survey and field-research examples in section 2.2 and the ethics discussion in section 2.3. Notice how a research question affects the method and what researchers must do to protect people. You are designing a study, not carrying one out or calculating statistics. The complete chapter is included for reference. End-of-chapter questions are optional practice, not extra assignments. Use the printed page numbers shown on the original pages.",
- "coreIdea": "Method, with its designs, evidence, and ethics, is what turns an assertion about people into a claim you can defend.",
- "related": [
-  "reid2021",
-  "littlebear"
- ],
- "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483401-dt-content-rid-224233712_2/xid-224233712_2",
- "fulltext": true,
- "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483401-dt-content-rid-224233712_2/xid-224233712_2",
- "primaryLabel": "Open full chapter in Blackboard",
- "blackboardFullText": true,
- "sourceUrl": "https://openstax.org/details/books/introduction-sociology-3e"
-},
+   "id": "soc-research",
+   "eye": "western",
+   "type": "Chapter",
+   "access": "course",
+   "title": "Sociological Research",
+   "authors": "OpenStax (Introduction to Sociology 3e)",
+   "year": 2021,
+   "themes": [
+    "methods"
+   ],
+   "origin": "United States",
+   "len": "~50 min read",
+   "diff": 2,
+   "week": 5,
+   "abstract": "OpenStax lays out how sociologists turn questions about people into defensible claims: they form a testable hypothesis, choose a research design, and gather either quantitative data (such as surveys of many participants) or qualitative data (such as in-depth interviews and participant observation). It explains why reliability (results that replicate) and validity (measuring what you intend) matter, and it places research ethics at the centre rather than the margin. The point for a student is that method is the difference between an assertion about people and a claim you can stand behind. Reading focus for this week: Focus on the survey and field-research examples in section 2.2 and the ethics discussion in section 2.3. Notice how a research question affects the method and what researchers must do to protect people. You are designing a study, not carrying one out or calculating statistics. The complete chapter is included for reference. End-of-chapter questions are optional practice, not extra assignments. Use the printed page numbers shown on the original pages.",
+   "coreIdea": "Method, with its designs, evidence, and ethics, is what turns an assertion about people into a claim you can defend.",
+   "related": [
+    "reid2021",
+    "littlebear"
+   ],
+   "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483401-dt-content-rid-224233712_2/xid-224233712_2",
+   "fulltext": true,
+   "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483401-dt-content-rid-224233712_2/xid-224233712_2",
+   "primaryLabel": "Open PDF in Blackboard",
+   "blackboardFullText": true,
+   "sourceUrl": "https://openstax.org/details/books/introduction-sociology-3e",
+   "senecaLib": false
+  },
   {
- "id": "anth-culture",
- "assigned": "The Culture Concept (Anthro Ch3)",
- "eye": "western",
- "type": "Chapter",
- "access": "course",
- "title": "The Culture Concept",
- "authors": "OpenStax (Introduction to Anthropology)",
- "year": 2022,
- "themes": [
-  "anthropology"
- ],
- "origin": "United States",
- "len": "~50 min read",
- "diff": 2,
- "week": 6,
- "abstract": "OpenStax presents culture as the central anthropological concept and argues that an element of human life counts as culture when it is learned and shared by a group rather than inborn. The chapter shows how anthropologists view culture holistically, as levels that fit together, and it makes the case that human difference is to be understood on its own terms rather than ranked as superior or inferior. For a student, this is the discipline's core discipline of perception: describe difference, do not grade it. Reading focus for this week: Focus on sections 3.1 and 3.3: learned and shared practices, symbols, values and norms. Use one familiar example to notice how culture shapes everyday life. Cultural differences are not a ranking of better and worse people. The complete chapter is included for reference. End-of-chapter questions are optional practice, not extra assignments. Use the printed page numbers shown on the original pages.",
- "coreIdea": "Culture is whatever is learned and shared by a group, and understanding human difference does not require ranking it as better or worse.",
- "related": [
-  "todd2016",
-  "ermine"
- ],
- "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483402-dt-content-rid-224233716_2/xid-224233716_2",
- "fulltext": true,
- "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483402-dt-content-rid-224233716_2/xid-224233716_2",
- "primaryLabel": "Open full chapter in Blackboard",
- "blackboardFullText": true,
- "sourceUrl": "https://openstax.org/details/books/introduction-anthropology"
-},
+   "id": "anth-culture",
+   "assigned": "The Culture Concept (Anthro Ch3)",
+   "eye": "western",
+   "type": "Chapter",
+   "access": "course",
+   "title": "The Culture Concept",
+   "authors": "OpenStax (Introduction to Anthropology)",
+   "year": 2022,
+   "themes": [
+    "anthropology"
+   ],
+   "origin": "United States",
+   "len": "~50 min read",
+   "diff": 2,
+   "week": 6,
+   "abstract": "OpenStax presents culture as the central anthropological concept and argues that an element of human life counts as culture when it is learned and shared by a group rather than inborn. The chapter shows how anthropologists view culture holistically, as levels that fit together, and it makes the case that human difference is to be understood on its own terms rather than ranked as superior or inferior. For a student, this is the discipline's core discipline of perception: describe difference, do not grade it. Reading focus for this week: Focus on sections 3.1 and 3.3: learned and shared practices, symbols, values and norms. Use one familiar example to notice how culture shapes everyday life. Cultural differences are not a ranking of better and worse people. The complete chapter is included for reference. End-of-chapter questions are optional practice, not extra assignments. Use the printed page numbers shown on the original pages.",
+   "coreIdea": "Culture is whatever is learned and shared by a group, and understanding human difference does not require ranking it as better or worse.",
+   "related": [
+    "todd2016",
+    "ermine"
+   ],
+   "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483402-dt-content-rid-224233716_2/xid-224233716_2",
+   "fulltext": true,
+   "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483402-dt-content-rid-224233716_2/xid-224233716_2",
+   "primaryLabel": "Open PDF in Blackboard",
+   "blackboardFullText": true,
+   "sourceUrl": "https://openstax.org/details/books/introduction-anthropology",
+   "senecaLib": false
+  },
   {
- "id": "soc-socialization",
- "eye": "western",
- "type": "Chapter",
- "access": "course",
- "title": "Socialization and Social Interaction",
- "authors": "OpenStax (Introduction to Sociology 3e)",
- "year": 2021,
- "themes": [
-  "sociology"
- ],
- "origin": "United States",
- "len": "~50 min read",
- "diff": 2,
- "week": 8,
- "abstract": "OpenStax explains socialization as the lifelong process by which people learn to be members of a society, taking on its norms, roles, and a sense of self through interaction rather than forming alone. The chapter uses difficult cases of extreme social isolation to show how much of what seems natural about being human is actually learned in relationship. It also names agents of socialization, beginning with the family, that carry this work across the life course. Reading focus for this week: Focus on sections 5.2 and 5.3: why socialization matters and how family, peers, education and other institutions help people learn norms. Look for one example of social pressure. You do not need to read distressing accounts of childhood neglect to complete this focus. The complete chapter is included for reference. End-of-chapter questions are optional practice, not extra assignments. Use the printed page numbers shown on the original pages.",
- "coreIdea": "Who we are is learned in relationship through socialization, not formed alone, and extreme social isolation can have profound effects on language, social development, and a sense of self.",
- "related": [
-  "lawrence2003",
-  "soc-stratification"
- ],
- "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483403-dt-content-rid-224233719_2/xid-224233719_2",
- "fulltext": true,
- "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483403-dt-content-rid-224233719_2/xid-224233719_2",
- "primaryLabel": "Open full chapter in Blackboard",
- "blackboardFullText": true,
- "sourceUrl": "https://openstax.org/details/books/introduction-sociology-3e"
-},
+   "id": "soc-socialization",
+   "eye": "western",
+   "type": "Chapter",
+   "access": "course",
+   "title": "Socialization and Social Interaction",
+   "authors": "OpenStax (Introduction to Sociology 3e)",
+   "year": 2021,
+   "themes": [
+    "sociology"
+   ],
+   "origin": "United States",
+   "len": "~50 min read",
+   "diff": 2,
+   "week": 8,
+   "abstract": "OpenStax explains socialization as the lifelong process by which people learn to be members of a society, taking on its norms, roles, and a sense of self through interaction rather than forming alone. The chapter uses difficult cases of extreme social isolation to show how much of what seems natural about being human is actually learned in relationship. It also names agents of socialization, beginning with the family, that carry this work across the life course. Reading focus for this week: Focus on sections 5.2 and 5.3: why socialization matters and how family, peers, education and other institutions help people learn norms. Look for one example of social pressure. You do not need to read distressing accounts of childhood neglect to complete this focus. The complete chapter is included for reference. End-of-chapter questions are optional practice, not extra assignments. Use the printed page numbers shown on the original pages.",
+   "coreIdea": "Who we are is learned in relationship through socialization, not formed alone, and extreme social isolation can have profound effects on language, social development, and a sense of self.",
+   "related": [
+    "lawrence2003",
+    "soc-stratification"
+   ],
+   "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483403-dt-content-rid-224233719_2/xid-224233719_2",
+   "fulltext": true,
+   "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483403-dt-content-rid-224233719_2/xid-224233719_2",
+   "primaryLabel": "Open PDF in Blackboard",
+   "blackboardFullText": true,
+   "sourceUrl": "https://openstax.org/details/books/introduction-sociology-3e",
+   "senecaLib": false
+  },
   {
- "id": "soc-stratification",
- "eye": "western",
- "type": "Chapter",
- "access": "course",
- "title": "Social Stratification",
- "authors": "OpenStax (Introduction to Sociology 3e)",
- "year": 2021,
- "themes": [
-  "sociology"
- ],
- "origin": "United States",
- "len": "~50 min read",
- "diff": 2,
- "week": 9,
- "abstract": "OpenStax describes social stratification as the way societies sort people into layered ranks of advantage tied to class, status, and power, and it stresses that this layering is produced and reproduced by social structures rather than being random. It contrasts caste systems, where standing is fixed by ascribed status, with class systems, where social and achieved factors allow some mobility, and it weighs the Davis-Moore thesis (that stratification is functional) against Tumin's critique. For a student, the lesson is that inequality is built and maintained, not earned by the people placed within it. Reading focus for this week: Focus on section 9.1: social stratification, class and social mobility. Notice how opportunities depend partly on social arrangements, not just personal effort. The chapter uses United States examples; do not treat its statistics or legal details as Canadian facts. The complete chapter is included for reference. End-of-chapter questions are optional practice, not extra assignments. Use the printed page numbers shown on the original pages.",
- "coreIdea": "Inequality is not random: it is a layered system of advantage produced and reproduced by social structures.",
- "related": [
-  "palmater",
-  "soc-socialization"
- ],
- "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483404-dt-content-rid-224233725_2/xid-224233725_2",
- "fulltext": true,
- "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483404-dt-content-rid-224233725_2/xid-224233725_2",
- "primaryLabel": "Open full chapter in Blackboard",
- "blackboardFullText": true,
- "sourceUrl": "https://openstax.org/details/books/introduction-sociology-3e"
-},
+   "id": "soc-stratification",
+   "eye": "western",
+   "type": "Chapter",
+   "access": "course",
+   "title": "Social Stratification",
+   "authors": "OpenStax (Introduction to Sociology 3e)",
+   "year": 2021,
+   "themes": [
+    "sociology"
+   ],
+   "origin": "United States",
+   "len": "~50 min read",
+   "diff": 2,
+   "week": 9,
+   "abstract": "OpenStax describes social stratification as the way societies sort people into layered ranks of advantage tied to class, status, and power, and it stresses that this layering is produced and reproduced by social structures rather than being random. It contrasts caste systems, where standing is fixed by ascribed status, with class systems, where social and achieved factors allow some mobility, and it weighs the Davis-Moore thesis (that stratification is functional) against Tumin's critique. For a student, the lesson is that inequality is built and maintained, not earned by the people placed within it. Reading focus for this week: Focus on section 9.1: social stratification, class and social mobility. Notice how opportunities depend partly on social arrangements, not just personal effort. The chapter uses United States examples; do not treat its statistics or legal details as Canadian facts. The complete chapter is included for reference. End-of-chapter questions are optional practice, not extra assignments. Use the printed page numbers shown on the original pages.",
+   "coreIdea": "Inequality is not random: it is a layered system of advantage produced and reproduced by social structures.",
+   "related": [
+    "palmater",
+    "soc-socialization"
+   ],
+   "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483404-dt-content-rid-224233725_2/xid-224233725_2",
+   "fulltext": true,
+   "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483404-dt-content-rid-224233725_2/xid-224233725_2",
+   "primaryLabel": "Open PDF in Blackboard",
+   "blackboardFullText": true,
+   "sourceUrl": "https://openstax.org/details/books/introduction-sociology-3e",
+   "senecaLib": false
+  },
   {
- "id": "psy-intro",
- "assigned": "Week 10 required reading",
- "eye": "western",
- "type": "Chapter",
- "access": "course",
- "title": "Introduction to Psychology",
- "authors": "OpenStax (Psychology 2e)",
- "year": 2020,
- "themes": [
-  "psychology"
- ],
- "origin": "United States",
- "len": "~50 min read",
- "diff": 1,
- "week": 10,
- "abstract": "OpenStax defines psychology as the scientific study of the mind and behaviour and surveys its major approaches, from biological to cognitive to sociocultural, showing how the field grew and what it can and cannot explain. A key move is the biopsychosocial model, which holds that health and behaviour arise from the interaction of biological, psychological, and social factors rather than any one of them alone. The takeaway is that psychology focuses on the individual but is strongest when it keeps the social and biological context in view. Reading focus for this week: Read section 1.1, then choose one approach from sections 1.2 or 1.3 and explain what it helps you notice about behaviour. These are introductory perspectives, not instructions for diagnosing people. You do not need to memorise every psychologist or career pathway. The complete chapter is included for reference. End-of-chapter questions are optional practice, not extra assignments. Use the printed page numbers shown on the original pages.",
- "coreIdea": "Psychology is the scientific study of mind and behaviour, and it explains the individual best when it remembers the individual is also biological and social.",
- "related": [
-  "gone2023",
-  "psy-social"
- ],
- "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483405-dt-content-rid-224233729_2/xid-224233729_2",
- "fulltext": true,
- "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483405-dt-content-rid-224233729_2/xid-224233729_2",
- "primaryLabel": "Open full chapter in Blackboard",
- "blackboardFullText": true,
- "sourceUrl": "https://openstax.org/details/books/psychology-2e"
-},
+   "id": "psy-intro",
+   "assigned": "Week 10 required reading",
+   "eye": "western",
+   "type": "Chapter",
+   "access": "course",
+   "title": "Introduction to Psychology",
+   "authors": "OpenStax (Psychology 2e)",
+   "year": 2020,
+   "themes": [
+    "psychology"
+   ],
+   "origin": "United States",
+   "len": "~50 min read",
+   "diff": 1,
+   "week": 10,
+   "abstract": "OpenStax defines psychology as the scientific study of the mind and behaviour and surveys its major approaches, from biological to cognitive to sociocultural, showing how the field grew and what it can and cannot explain. A key move is the biopsychosocial model, which holds that health and behaviour arise from the interaction of biological, psychological, and social factors rather than any one of them alone. The takeaway is that psychology focuses on the individual but is strongest when it keeps the social and biological context in view. Reading focus for this week: Read section 1.1, then choose one approach from sections 1.2 or 1.3 and explain what it helps you notice about behaviour. These are introductory perspectives, not instructions for diagnosing people. You do not need to memorise every psychologist or career pathway. The complete chapter is included for reference. End-of-chapter questions are optional practice, not extra assignments. Use the printed page numbers shown on the original pages.",
+   "coreIdea": "Psychology is the scientific study of mind and behaviour, and it explains the individual best when it remembers the individual is also biological and social.",
+   "related": [
+    "gone2023",
+    "psy-social"
+   ],
+   "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483405-dt-content-rid-224233729_2/xid-224233729_2",
+   "fulltext": true,
+   "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483405-dt-content-rid-224233729_2/xid-224233729_2",
+   "primaryLabel": "Open PDF in Blackboard",
+   "blackboardFullText": true,
+   "sourceUrl": "https://openstax.org/details/books/psychology-2e",
+   "senecaLib": false
+  },
   {
- "id": "psy-social",
- "eye": "western",
- "type": "Chapter",
- "access": "course",
- "title": "Social Psychology",
- "authors": "OpenStax (Psychology 2e)",
- "year": 2020,
- "themes": [
-  "psychology"
- ],
- "origin": "United States",
- "len": "~50 min read",
- "diff": 2,
- "week": 11,
- "abstract": "OpenStax presents social psychology as the study of how people affect one another's thoughts, feelings, and behaviour, with a recurring emphasis on the power of the situation. It develops the fundamental attribution error, the common tendency to overestimate someone's personality (dispositional causes) and underestimate the situation when explaining their behaviour, using everyday examples such as misreading a person's snap reaction. For a student, the chapter shows that identity, belonging, and even our judgments of others are shaped between people, not formed in one head. Reading focus for this week: Focus on section 12.4: conformity, compliance and obedience. Connect one concept to a specific scene from Number 12 Looks Just Like You. Historical studies must be examined critically; a dramatic study does not prove that everyone behaves the same way. No diagnosis or statistical calculation is required. The complete chapter is included for reference. End-of-chapter questions are optional practice, not extra assignments. Use the printed page numbers shown on the original pages.",
- "coreIdea": "Identity, belonging, and our explanations of behaviour are shaped between people, and we routinely underestimate how much the situation drives what others do.",
- "related": [
-  "bombay2014",
-  "psy-intro"
- ],
- "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483406-dt-content-rid-224233732_2/xid-224233732_2",
- "fulltext": true,
- "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483406-dt-content-rid-224233732_2/xid-224233732_2",
- "primaryLabel": "Open full chapter in Blackboard",
- "blackboardFullText": true,
- "sourceUrl": "https://openstax.org/details/books/psychology-2e"
-},
+   "id": "psy-social",
+   "eye": "western",
+   "type": "Chapter",
+   "access": "course",
+   "title": "Social Psychology",
+   "authors": "OpenStax (Psychology 2e)",
+   "year": 2020,
+   "themes": [
+    "psychology"
+   ],
+   "origin": "United States",
+   "len": "~50 min read",
+   "diff": 2,
+   "week": 11,
+   "abstract": "OpenStax presents social psychology as the study of how people affect one another's thoughts, feelings, and behaviour, with a recurring emphasis on the power of the situation. It develops the fundamental attribution error, the common tendency to overestimate someone's personality (dispositional causes) and underestimate the situation when explaining their behaviour, using everyday examples such as misreading a person's snap reaction. For a student, the chapter shows that identity, belonging, and even our judgments of others are shaped between people, not formed in one head. Reading focus for this week: Focus on section 12.4: conformity, compliance and obedience. Connect one concept to a specific scene from Number 12 Looks Just Like You. Historical studies must be examined critically; a dramatic study does not prove that everyone behaves the same way. No diagnosis or statistical calculation is required. The complete chapter is included for reference. End-of-chapter questions are optional practice, not extra assignments. Use the printed page numbers shown on the original pages.",
+   "coreIdea": "Identity, belonging, and our explanations of behaviour are shaped between people, and we routinely underestimate how much the situation drives what others do.",
+   "related": [
+    "bombay2014",
+    "psy-intro"
+   ],
+   "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483406-dt-content-rid-224233732_2/xid-224233732_2",
+   "fulltext": true,
+   "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483406-dt-content-rid-224233732_2/xid-224233732_2",
+   "primaryLabel": "Open PDF in Blackboard",
+   "blackboardFullText": true,
+   "sourceUrl": "https://openstax.org/details/books/psychology-2e",
+   "senecaLib": false
+  },
   {
- "id": "soc-family",
- "eye": "western",
- "type": "Chapter",
- "access": "course",
- "title": "Marriage and Family",
- "authors": "OpenStax (Introduction to Sociology 3e)",
- "year": 2021,
- "themes": [
-  "family",
-  "sociology"
- ],
- "origin": "United States",
- "len": "~50 min read",
- "diff": 2,
- "week": 12,
- "abstract": "OpenStax treats the family as a social institution that is both a structure (household forms, marriage and partnership patterns) and a set of relationships, and it shows that both shift with social change rather than staying fixed. The chapter notes that definitions of marriage and family vary across cultures and over time, covering arrangements such as monogamy and polygamy and the place of kinship, and it treats the family as the first agent of socialization. For a student, the point is that there is no single natural family form to measure others against. Reading focus for this week: Focus on sections 14.1 and 14.2: how definitions of family vary and how family arrangements change. Compare examples without assuming that one family form is the standard. The chapter uses United States data and legal examples, not a current summary of Canadian law. The complete chapter is included for reference. End-of-chapter questions are optional practice, not extra assignments. Use the printed page numbers shown on the original pages.",
- "coreIdea": "Family is at once a structure and a web of relationships, and both the forms it takes and the meaning of marriage change across cultures and over time.",
- "related": [
-  "anderson2019",
-  "soc-socialization"
- ],
- "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483451-dt-content-rid-224233735_2/xid-224233735_2",
- "fulltext": true,
- "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483451-dt-content-rid-224233735_2/xid-224233735_2",
- "primaryLabel": "Open full chapter in Blackboard",
- "blackboardFullText": true,
- "sourceUrl": "https://openstax.org/details/books/introduction-sociology-3e"
-},
+   "id": "soc-family",
+   "eye": "western",
+   "type": "Chapter",
+   "access": "course",
+   "title": "Marriage and Family",
+   "authors": "OpenStax (Introduction to Sociology 3e)",
+   "year": 2021,
+   "themes": [
+    "family",
+    "sociology"
+   ],
+   "origin": "United States",
+   "len": "~50 min read",
+   "diff": 2,
+   "week": 12,
+   "abstract": "OpenStax treats the family as a social institution that is both a structure (household forms, marriage and partnership patterns) and a set of relationships, and it shows that both shift with social change rather than staying fixed. The chapter notes that definitions of marriage and family vary across cultures and over time, covering arrangements such as monogamy and polygamy and the place of kinship, and it treats the family as the first agent of socialization. For a student, the point is that there is no single natural family form to measure others against. Reading focus for this week: Focus on sections 14.1 and 14.2: how definitions of family vary and how family arrangements change. Compare examples without assuming that one family form is the standard. The chapter uses United States data and legal examples, not a current summary of Canadian law. The complete chapter is included for reference. End-of-chapter questions are optional practice, not extra assignments. Use the printed page numbers shown on the original pages.",
+   "coreIdea": "Family is at once a structure and a web of relationships, and both the forms it takes and the meaning of marriage change across cultures and over time.",
+   "related": [
+    "anderson2019",
+    "soc-socialization"
+   ],
+   "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483451-dt-content-rid-224233735_2/xid-224233735_2",
+   "fulltext": true,
+   "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27483451-dt-content-rid-224233735_2/xid-224233735_2",
+   "primaryLabel": "Open PDF in Blackboard",
+   "blackboardFullText": true,
+   "sourceUrl": "https://openstax.org/details/books/introduction-sociology-3e",
+   "senecaLib": false
+  },
   {
    "id": "reid2021",
    "assigned": "Two-Eyed Seeing (fisheries, pp.243-261)",
    "eye": "indigenous",
    "type": "Article",
-   "access": "verified",
+   "access": "course",
    "title": "Two-Eyed Seeing: An Indigenous Framework to Transform Fisheries Research and Management",
    "authors": "Reid, Eckert, Lane, and colleagues",
    "year": 2021,
@@ -632,15 +640,25 @@ window.SOC122 = {
     "amarshall",
     "littlebear"
    ],
-   "url": "https://www.cclmportal.ca/sites/default/files/2024-02/Fish%20and%20Fisheries%20-%202020%20-%20Reid%20-%20Two%E2%80%90Eyed%20Seeing%20%20%20An%20Indigenous%20framework%20to%20transform%20fisheries%20research%20and%20management.pdf",
-   "fulltext": true
+   "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27544246-dt-content-rid-224551657_2/xid-224551657_2",
+   "fulltext": true,
+   "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27544246-dt-content-rid-224551657_2/xid-224551657_2",
+   "senecaLib": false,
+   "blackboardFullText": true,
+   "primaryLabel": "Open PDF in Blackboard",
+   "sourceUrl": "https://doi.org/10.1111/faf.12516"
   },
   {
    "id": "martin2012",
-   "video": { "yt": "nC1OfXfUJ2A", "title": "Dr. Debbie Martin: Advancing How We Undertake Indigenous Health Research", "channel": "Dalhousie Medical Research", "scholar": "Debbie Martin" },
+   "video": {
+    "yt": "nC1OfXfUJ2A",
+    "title": "Dr. Debbie Martin: Advancing How We Undertake Indigenous Health Research",
+    "channel": "Dalhousie Medical Research",
+    "scholar": "Debbie Martin"
+   },
    "eye": "indigenous",
    "type": "Article",
-   "access": "verified",
+   "access": "course",
    "title": "Two-eyed Seeing: A framework for understanding Indigenous and non-Indigenous approaches to Indigenous health research",
    "authors": "Martin, D. H.",
    "year": 2012,
@@ -658,16 +676,25 @@ window.SOC122 = {
     "brunette2022",
     "littlebear"
    ],
-   "url": "https://cjnr.archive.mcgill.ca/article/view/2348",
-   "pdfUrl": "https://cjnr.archive.mcgill.ca/article/download/2348/2342",
-   "fulltext": true
+   "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27544247-dt-content-rid-224551661_2/xid-224551661_2",
+   "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27544247-dt-content-rid-224551661_2/xid-224551661_2",
+   "fulltext": true,
+   "senecaLib": false,
+   "blackboardFullText": true,
+   "primaryLabel": "Open PDF in Blackboard",
+   "sourceUrl": "https://cjnr.archive.mcgill.ca/article/view/2348"
   },
   {
    "id": "brunette2022",
-   "video": { "yt": "kCmmRUhZL1s", "title": "Module 2 - Toward a Decolonizing Pedagogy", "channel": "westernuCTL (Western University Centre for Teaching and Learning)", "scholar": "Candace Brunette-Debassige" },
+   "video": {
+    "yt": "kCmmRUhZL1s",
+    "title": "Module 2 - Toward a Decolonizing Pedagogy",
+    "channel": "westernuCTL (Western University Centre for Teaching and Learning)",
+    "scholar": "Candace Brunette-Debassige"
+   },
    "eye": "indigenous",
    "type": "Article",
-   "access": "open",
+   "access": "course",
    "title": "Mapping Approaches to Decolonizing and Indigenizing the Curriculum at Canadian Universities: Critical Reflections on Current Practices, Challenges, and Possibilities",
    "authors": "Candace Brunette-Debassige, Pauline Wakeham, Cindy Smithers-Graeme, Aisha Haque, and Sara Mai Chitty",
    "year": 2022,
@@ -687,52 +714,62 @@ window.SOC122 = {
     "martin2012",
     "ermine"
    ],
-   "url": "https://ojs.lib.uwo.ca/index.php/iipj/article/view/14109",
-   "pdfUrl": "https://ojs.lib.uwo.ca/index.php/iipj/article/download/14109/12144/38513",
-   "fulltext": true
+   "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27544248-dt-content-rid-224551664_2/xid-224551664_2",
+   "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27544248-dt-content-rid-224551664_2/xid-224551664_2",
+   "fulltext": true,
+   "senecaLib": false,
+   "blackboardFullText": true,
+   "primaryLabel": "Open PDF in Blackboard",
+   "sourceUrl": "https://ojs.lib.uwo.ca/index.php/iipj/article/view/14109"
   },
   {
- "id": "todd2016",
- "video": {
-  "yt": "hUhUdqGHWvs",
-  "title": "Listening to Fish: Indigenous sovereignty and freshwater fish conservation in north/western Canada",
-  "channel": "SFU Sociology & Anthropology",
-  "scholar": "Zoe Todd"
- },
- "eye": "indigenous",
- "type": "Article",
- "access": "course",
- "title": "An Indigenous Feminist's Take on the Ontological Turn: 'Ontology' Is Just Another Word for Colonialism",
- "authors": "Zoe Todd",
- "year": 2016,
- "themes": [
-  "anthropology",
-  "twoeyed"
- ],
- "origin": "Canada",
- "len": "~35 min read",
- "diff": 3,
- "week": 6,
- "abstract": "Zoe Todd (Red River Métis) recounts hearing the celebrated scholar Bruno Latour describe climate as a matter of common cosmopolitical concern and realizing it echoed Inuit concepts such as Sila that she had been taught, yet without any credit to Indigenous thinkers. From this she argues that the academy's ontological turn repackages Indigenous thought while erasing the Indigenous people, scholars, and legal orders it comes from, which is why ontology can become just another word for colonialism. Her response centres citational practice and acknowledgement: honest scholarship must credit and stay accountable to the Indigenous thinkers it draws on.",
- "coreIdea": "Borrowing Indigenous ideas while erasing Indigenous people and scholars is colonialism in another form, so honest scholarship must cite and stay accountable to them.",
- "doi": "10.1111/johs.12124",
- "related": [
-  "anth-culture",
-  "ermine"
- ],
- "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27412627-dt-content-rid-223976216_2/xid-223976216_2",
- "fulltext": true,
- "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27412627-dt-content-rid-223976216_2/xid-223976216_2",
- "primaryLabel": "Open full article in Blackboard",
- "blackboardFullText": true,
- "sourceUrl": "https://doi.org/10.1111/johs.12124"
-},
-  {
-   "id": "lawrence2003",
-   "video": { "yt": "YR9FNgBFAKQ", "title": "Dr. Bonita Lawrence guest lectures on Indigenous-Black relations | University of King's College", "channel": "University of King's College", "scholar": "Bonita Lawrence" },
+   "id": "todd2016",
+   "video": {
+    "yt": "hUhUdqGHWvs",
+    "title": "Listening to Fish: Indigenous sovereignty and freshwater fish conservation in north/western Canada",
+    "channel": "SFU Sociology & Anthropology",
+    "scholar": "Zoe Todd"
+   },
    "eye": "indigenous",
    "type": "Article",
-   "access": "open",
+   "access": "course",
+   "title": "An Indigenous Feminist's Take on the Ontological Turn: 'Ontology' Is Just Another Word for Colonialism",
+   "authors": "Zoe Todd",
+   "year": 2016,
+   "themes": [
+    "anthropology",
+    "twoeyed"
+   ],
+   "origin": "Canada",
+   "len": "~35 min read",
+   "diff": 3,
+   "week": 6,
+   "abstract": "Zoe Todd (Red River Métis) recounts hearing the celebrated scholar Bruno Latour describe climate as a matter of common cosmopolitical concern and realizing it echoed Inuit concepts such as Sila that she had been taught, yet without any credit to Indigenous thinkers. From this she argues that the academy's ontological turn repackages Indigenous thought while erasing the Indigenous people, scholars, and legal orders it comes from, which is why ontology can become just another word for colonialism. Her response centres citational practice and acknowledgement: honest scholarship must credit and stay accountable to the Indigenous thinkers it draws on.",
+   "coreIdea": "Borrowing Indigenous ideas while erasing Indigenous people and scholars is colonialism in another form, so honest scholarship must cite and stay accountable to them.",
+   "doi": "10.1111/johs.12124",
+   "related": [
+    "anth-culture",
+    "ermine"
+   ],
+   "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27412627-dt-content-rid-223976216_2/xid-223976216_2",
+   "fulltext": true,
+   "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27412627-dt-content-rid-223976216_2/xid-223976216_2",
+   "primaryLabel": "Open PDF in Blackboard",
+   "blackboardFullText": true,
+   "sourceUrl": "https://doi.org/10.1111/johs.12124",
+   "senecaLib": false
+  },
+  {
+   "id": "lawrence2003",
+   "video": {
+    "yt": "YR9FNgBFAKQ",
+    "title": "Dr. Bonita Lawrence guest lectures on Indigenous-Black relations | University of King's College",
+    "channel": "University of King's College",
+    "scholar": "Bonita Lawrence"
+   },
+   "eye": "indigenous",
+   "type": "Article",
+   "access": "course",
    "title": "Gender, Race, and the Regulation of Native Identity in Canada and the United States: An Overview",
    "authors": "Bonita Lawrence",
    "year": 2003,
@@ -750,122 +787,135 @@ window.SOC122 = {
     "soc-socialization",
     "brunette2022"
    ],
-   "url": "https://www.sfu.ca/~palys/Lawrence-2003-GenderRace&RegulationOfNativeIdentity.pdf",
-   "fulltext": true
+   "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27544249-dt-content-rid-224551667_2/xid-224551667_2",
+   "fulltext": true,
+   "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27544249-dt-content-rid-224551667_2/xid-224551667_2",
+   "senecaLib": false,
+   "blackboardFullText": true,
+   "primaryLabel": "Open PDF in Blackboard",
+   "sourceUrl": "https://www.sfu.ca/~palys/Lawrence-2003-GenderRace&RegulationOfNativeIdentity.pdf"
   },
   {
- "id": "gone2023",
- "video": {
-  "yt": "yz_Mf9hITQw",
-  "title": "Rethinking American Indian MH Services - Explorations in AlterNative Psy-ence w/ Joseph P. Gone, PhD",
-  "channel": "American Psychological Association",
-  "scholar": "Joseph P. Gone"
- },
- "eye": "indigenous",
- "type": "Article",
- "access": "course",
- "title": "Indigenous Historical Trauma: Alter-Native Explanations for Mental Health Inequities",
- "authors": "Joseph P. Gone",
- "year": 2023,
- "themes": [
-  "psychology",
-  "reconciliation"
- ],
- "origin": "United States",
- "len": "~40 min read",
- "diff": 3,
- "week": 10,
- "abstract": "Joseph P. Gone (Aaniiih) examines Indigenous historical trauma as an alter-Native explanation that contests mainstream psychiatric categories of mental disorder, addiction, trauma, and suicide. Instead of locating distress inside the individual, the historical trauma account designates the legacies of colonial dispossession as central to present-day community mental health inequities, recasting these problems as postcolonial pathologies that call for reconciliation, redress, and structural reform. For a student, this shows Indigenous communities reworking what mental health means on their own terms rather than accepting an outside clinical frame.",
- "coreIdea": "Indigenous historical trauma reframes mental health inequities as consequences of colonization rather than individual disorder, demanding redress and structural change.",
- "doi": "10.1162/daed_a_02035",
- "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27414992-dt-content-rid-223985019_2/xid-223985019_2",
- "related": [
-  "psy-intro",
-  "psy-social"
- ],
- "fulltext": true,
- "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27414992-dt-content-rid-223985019_2/xid-223985019_2",
- "primaryLabel": "Open full article in Blackboard",
- "blackboardFullText": true,
- "sourceUrl": "https://www.amacad.org/publication/daedalus/indigenous-historical-trauma-alter-native-explanations-mental-health-inequities"
-},
-  {
- "id": "anderson2019",
- "video": {
-  "yt": "_R9Sa_fxWqI",
-  "title": "Indigenous Women's Speakers Series | featuring Kim Anderson & Jennifer Adese",
-  "channel": "The Centre for Indigenous Knowledges and Languages",
-  "scholar": "Kim Anderson"
- },
- "eye": "indigenous",
- "type": "Article",
- "access": "course",
- "title": "On Seasons of an Indigenous Feminism, Kinship, and the Program of Home Management",
- "authors": "Kim Anderson",
- "year": 2020,
- "themes": [
-  "family",
-  "twoeyed"
- ],
- "origin": "Canada",
- "len": "~20 min read",
- "diff": 2,
- "week": 12,
- "abstract": "Kim Anderson (Cree-Métis) reflects on kinship, motherhood, and the everyday work of running a home as Indigenous feminist practice, holding the family as relationship and responsibility rather than only a household structure. She reframes kinship not as a fixed list of relatives but as ongoing labour and obligation, the daily work that builds and sustains belonging across the seasons of a life. For a student, this is a view of family from the inside, where standing comes from the care and responsibility a person carries, not from a category on a chart.",
- "coreIdea": "Kinship is not only who you are related to; it is the work you do and the responsibility you carry to keep a family and a home going.",
- "doi": "10.1017/hyp.2019.10",
- "related": [
-  "soc-family"
- ],
- "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27416963-dt-content-rid-223994953_2/xid-223994953_2",
- "fulltext": true,
- "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27416963-dt-content-rid-223994953_2/xid-223994953_2",
- "primaryLabel": "Open full article in Blackboard",
- "blackboardFullText": true,
- "sourceUrl": "https://www.cambridge.org/core/journals/hypatia/article/abs/on-seasons-of-an-indigenous-feminism-kinship-and-the-program-of-home-management/35B53C3A1960EA732B1832B6228D5DDD"
-},
-  {
- "id": "bombay2014",
- "video": {
-  "yt": "G9S23z9_EQs",
-  "title": "SFU Psychology Indigenous Reconciliation Committee Invited Scholar Speaker Series: Dr. Amy Bombay",
-  "channel": "SFU Psychology",
-  "scholar": "Amy Bombay"
- },
- "eye": "indigenous",
- "type": "Article",
- "access": "course",
- "title": "The Intergenerational Effects of Indian Residential Schools: Implications for the Concept of Historical Trauma",
- "authors": "Amy Bombay, Kimberly Matheson and Hymie Anisman",
- "year": 2014,
- "themes": [
-  "psychology",
-  "reconciliation"
- ],
- "origin": "Canada",
- "len": "~35 min read",
- "diff": 3,
- "week": 11,
- "abstract": "Amy Bombay (Anishinaabe) and colleagues review research on the intergenerational effects of Canada's Indian Residential Schools, where Aboriginal children were removed to institutions marked by neglect and abuse. They find that having a familial history of residential school attendance is linked to more frequent contemporary stressors and to greater effects of those stressors on well-being, with cumulative effects when attendance spans several generations, which provides empirical support for the concept of historical trauma. For a student, this is a worked example of well-being forming in relationship across generations, not in isolation.",
- "coreIdea": "Bombay, Matheson, and Anisman report intergenerational associations between familial residential-school attendance, later stressors, and well-being, while treating identity as a complex possible risk and resilience factor rather than a simple protective buffer.",
- "doi": "10.1177/1363461513503380",
- "related": [
-  "psy-social",
-  "gone2023"
- ],
- "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27414993-dt-content-rid-223985086_2/xid-223985086_2",
- "fulltext": true,
- "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27414993-dt-content-rid-223985086_2/xid-223985086_2",
- "primaryLabel": "Open full article in Blackboard",
- "blackboardFullText": true,
- "sourceUrl": "https://journals.sagepub.com/doi/10.1177/1363461513503380"
-},
-  {
-   "id": "ermine",
-   "video": { "yt": "ZUfXu3gfVJ8", "title": "Willie Ermine: Ethical Space in Action", "channel": "Different Knowings", "scholar": "Willie Ermine" },
+   "id": "gone2023",
+   "video": {
+    "yt": "yz_Mf9hITQw",
+    "title": "Rethinking American Indian MH Services - Explorations in AlterNative Psy-ence w/ Joseph P. Gone, PhD",
+    "channel": "American Psychological Association",
+    "scholar": "Joseph P. Gone"
+   },
    "eye": "indigenous",
    "type": "Article",
-   "access": "open",
+   "access": "course",
+   "title": "Indigenous Historical Trauma: Alter-Native Explanations for Mental Health Inequities",
+   "authors": "Joseph P. Gone",
+   "year": 2023,
+   "themes": [
+    "psychology",
+    "reconciliation"
+   ],
+   "origin": "United States",
+   "len": "~40 min read",
+   "diff": 3,
+   "week": 10,
+   "abstract": "Joseph P. Gone (Aaniiih) examines Indigenous historical trauma as an alter-Native explanation that contests mainstream psychiatric categories of mental disorder, addiction, trauma, and suicide. Instead of locating distress inside the individual, the historical trauma account designates the legacies of colonial dispossession as central to present-day community mental health inequities, recasting these problems as postcolonial pathologies that call for reconciliation, redress, and structural reform. For a student, this shows Indigenous communities reworking what mental health means on their own terms rather than accepting an outside clinical frame.",
+   "coreIdea": "Indigenous historical trauma reframes mental health inequities as consequences of colonization rather than individual disorder, demanding redress and structural change.",
+   "doi": "10.1162/daed_a_02035",
+   "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27414992-dt-content-rid-223985019_2/xid-223985019_2",
+   "related": [
+    "psy-intro",
+    "psy-social"
+   ],
+   "fulltext": true,
+   "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27414992-dt-content-rid-223985019_2/xid-223985019_2",
+   "primaryLabel": "Open PDF in Blackboard",
+   "blackboardFullText": true,
+   "sourceUrl": "https://www.amacad.org/publication/daedalus/indigenous-historical-trauma-alter-native-explanations-mental-health-inequities",
+   "senecaLib": false
+  },
+  {
+   "id": "anderson2019",
+   "video": {
+    "yt": "_R9Sa_fxWqI",
+    "title": "Indigenous Women's Speakers Series | featuring Kim Anderson & Jennifer Adese",
+    "channel": "The Centre for Indigenous Knowledges and Languages",
+    "scholar": "Kim Anderson"
+   },
+   "eye": "indigenous",
+   "type": "Article",
+   "access": "course",
+   "title": "On Seasons of an Indigenous Feminism, Kinship, and the Program of Home Management",
+   "authors": "Kim Anderson",
+   "year": 2020,
+   "themes": [
+    "family",
+    "twoeyed"
+   ],
+   "origin": "Canada",
+   "len": "~20 min read",
+   "diff": 2,
+   "week": 12,
+   "abstract": "Kim Anderson (Cree-Métis) reflects on kinship, motherhood, and the everyday work of running a home as Indigenous feminist practice, holding the family as relationship and responsibility rather than only a household structure. She reframes kinship not as a fixed list of relatives but as ongoing labour and obligation, the daily work that builds and sustains belonging across the seasons of a life. For a student, this is a view of family from the inside, where standing comes from the care and responsibility a person carries, not from a category on a chart.",
+   "coreIdea": "Kinship is not only who you are related to; it is the work you do and the responsibility you carry to keep a family and a home going.",
+   "doi": "10.1017/hyp.2019.10",
+   "related": [
+    "soc-family"
+   ],
+   "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27416963-dt-content-rid-223994953_2/xid-223994953_2",
+   "fulltext": true,
+   "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27416963-dt-content-rid-223994953_2/xid-223994953_2",
+   "primaryLabel": "Open PDF in Blackboard",
+   "blackboardFullText": true,
+   "sourceUrl": "https://www.cambridge.org/core/journals/hypatia/article/abs/on-seasons-of-an-indigenous-feminism-kinship-and-the-program-of-home-management/35B53C3A1960EA732B1832B6228D5DDD",
+   "senecaLib": false
+  },
+  {
+   "id": "bombay2014",
+   "video": {
+    "yt": "G9S23z9_EQs",
+    "title": "SFU Psychology Indigenous Reconciliation Committee Invited Scholar Speaker Series: Dr. Amy Bombay",
+    "channel": "SFU Psychology",
+    "scholar": "Amy Bombay"
+   },
+   "eye": "indigenous",
+   "type": "Article",
+   "access": "course",
+   "title": "The Intergenerational Effects of Indian Residential Schools: Implications for the Concept of Historical Trauma",
+   "authors": "Amy Bombay, Kimberly Matheson and Hymie Anisman",
+   "year": 2014,
+   "themes": [
+    "psychology",
+    "reconciliation"
+   ],
+   "origin": "Canada",
+   "len": "~35 min read",
+   "diff": 3,
+   "week": 11,
+   "abstract": "Amy Bombay (Anishinaabe) and colleagues review research on the intergenerational effects of Canada's Indian Residential Schools, where Aboriginal children were removed to institutions marked by neglect and abuse. They find that having a familial history of residential school attendance is linked to more frequent contemporary stressors and to greater effects of those stressors on well-being, with cumulative effects when attendance spans several generations, which provides empirical support for the concept of historical trauma. For a student, this is a worked example of well-being forming in relationship across generations, not in isolation.",
+   "coreIdea": "Bombay, Matheson, and Anisman report intergenerational associations between familial residential-school attendance, later stressors, and well-being, while treating identity as a complex possible risk and resilience factor rather than a simple protective buffer.",
+   "doi": "10.1177/1363461513503380",
+   "related": [
+    "psy-social",
+    "gone2023"
+   ],
+   "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27414993-dt-content-rid-223985086_2/xid-223985086_2",
+   "fulltext": true,
+   "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27414993-dt-content-rid-223985086_2/xid-223985086_2",
+   "primaryLabel": "Open PDF in Blackboard",
+   "blackboardFullText": true,
+   "sourceUrl": "https://journals.sagepub.com/doi/10.1177/1363461513503380",
+   "senecaLib": false
+  },
+  {
+   "id": "ermine",
+   "video": {
+    "yt": "ZUfXu3gfVJ8",
+    "title": "Willie Ermine: Ethical Space in Action",
+    "channel": "Different Knowings",
+    "scholar": "Willie Ermine"
+   },
+   "eye": "indigenous",
+   "type": "Article",
+   "access": "course",
    "title": "The Ethical Space of Engagement",
    "authors": "Willie Ermine",
    "year": 2007,
@@ -879,20 +929,30 @@ window.SOC122 = {
    "week": 1,
    "abstract": "Willie Ermine (Cree) argues that when two societies with different worldviews meet, an ethical space opens in the gap between them, a charged area where the deeper assumptions, interests, and ways of knowing on each side can be named rather than left hidden. He shows how the dominant culture's claim to universal authority silences Indigenous thought, and proposes ethics and agreed-upon rules of engagement as the ground for honest cross-cultural and cross-legal dialogue. For a student, ethical space is a way to engage across knowledge systems without one side's rules simply overriding the other.",
    "coreIdea": "Honest engagement across knowledge systems requires an ethical space, agreed rules built from both sides, rather than one worldview imposing its rules on the other.",
-   "url": "https://utoronto.scholaris.ca/bitstream/1807/17129/1/ILJ-6.1-Ermine.pdf",
+   "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27544250-dt-content-rid-224551670_2/xid-224551670_2",
    "related": [
     "battiste",
     "soc-intro",
     "amarshall"
    ],
-   "fulltext": true
+   "fulltext": true,
+   "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27544250-dt-content-rid-224551670_2/xid-224551670_2",
+   "senecaLib": false,
+   "blackboardFullText": true,
+   "primaryLabel": "Open PDF in Blackboard",
+   "sourceUrl": "https://utoronto.scholaris.ca/bitstream/1807/17129/1/ILJ-6.1-Ermine.pdf"
   },
   {
    "id": "battiste",
-   "video": { "yt": "OhjmM1r6QeE", "title": "Decolonizing Education: Nourishing Their Learning Spirits", "channel": "Sealaska Heritage Institute", "scholar": "Marie Battiste" },
+   "video": {
+    "yt": "OhjmM1r6QeE",
+    "title": "Decolonizing Education: Nourishing Their Learning Spirits",
+    "channel": "Sealaska Heritage Institute",
+    "scholar": "Marie Battiste"
+   },
    "eye": "indigenous",
    "type": "Article",
-   "access": "open",
+   "access": "course",
    "title": "Nourishing the Learning Spirit",
    "authors": "Marie Battiste",
    "year": 2010,
@@ -905,20 +965,30 @@ window.SOC122 = {
    "week": 1,
    "abstract": "Marie Battiste (Mi'kmaw) describes learning, in Indigenous traditions, as a lifelong journey of the spirit toward the gifts and purpose a person is born with, nurtured by family, community, land, and ceremony rather than confined to a classroom. She contrasts this holistic learning spirit with schooling, including residential schools, that ignored or attacked Indigenous knowledge and eroded that spirit, and she argues education should validate students' own knowledge and ways of knowing. For a student, the reading reframes learning as the formation of a whole person across a life, not just information passed on in school.",
    "coreIdea": "Learning is a lifelong, holistic journey of the whole person and spirit nurtured by family, community, and land, not just information transmitted in school.",
-   "url": "https://www.edcan.ca/wp-content/uploads/EdCan-2010-v50-n1-Battiste.pdf",
+   "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27544251-dt-content-rid-224551673_2/xid-224551673_2",
    "related": [
     "ermine",
     "brunette2022",
     "soc-intro"
    ],
-   "fulltext": true
+   "fulltext": true,
+   "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27544251-dt-content-rid-224551673_2/xid-224551673_2",
+   "senecaLib": false,
+   "blackboardFullText": true,
+   "primaryLabel": "Open PDF in Blackboard",
+   "sourceUrl": "https://www.edcan.ca/wp-content/uploads/EdCan-2010-v50-n1-Battiste.pdf"
   },
   {
    "id": "amarshall",
-   "video": { "yt": "rUXkJweTWpY", "title": "The Gift of Two-Eyed Seeing: Elder Albert Marshall", "channel": "First Nations Education Administrators Association", "scholar": "Albert Marshall" },
+   "video": {
+    "yt": "rUXkJweTWpY",
+    "title": "The Gift of Two-Eyed Seeing: Elder Albert Marshall",
+    "channel": "First Nations Education Administrators Association",
+    "scholar": "Albert Marshall"
+   },
    "eye": "indigenous",
    "type": "Statement",
-   "access": "open",
+   "access": "course",
    "title": "Two-Eyed Seeing: Elder Albert Marshall's guiding principle",
    "authors": "Albert Marshall (Mi'kmaw Elder)",
    "year": 2017,
@@ -932,92 +1002,99 @@ window.SOC122 = {
    "week": 2,
    "abstract": "Mi'kmaw Elder Albert Marshall, who coined the English phrase, explains Two-Eyed Seeing (Etuaptmumk) as learning to see with one eye the strengths of Indigenous knowledges and with the other eye the strengths of Western knowledges, and most importantly to use both eyes together for the benefit of all. He treats each knowledge system as a whole, complete eye rather than something to be checked against the other, and insists the work is an ongoing journey of co-learning that must not be trivialized, romanticized, or co-opted into mere jargon. For a student, this is the frame in the coiner's own words, grounded in responsibility and the well-being of future generations.",
    "coreIdea": "Two-Eyed Seeing means using the strengths of Indigenous and Western knowledges together for the benefit of all, as an ongoing journey of co-learning, not a slogan.",
-   "url": "https://centreforlocalprosperity.ca/wp-content/uploads/2020/07/Two-Eyed-Seeing-AMarshall-Thinkers-Lodge2017.pdf",
+   "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27544252-dt-content-rid-224551676_2/xid-224551676_2",
    "related": [
     "littlebear",
     "reid2021",
     "martin2012"
    ],
-   "fulltext": true
+   "fulltext": true,
+   "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27544252-dt-content-rid-224551676_2/xid-224551676_2",
+   "senecaLib": false,
+   "blackboardFullText": true,
+   "primaryLabel": "Open PDF in Blackboard",
+   "sourceUrl": "https://centreforlocalprosperity.ca/wp-content/uploads/2020/07/Two-Eyed-Seeing-AMarshall-Thinkers-Lodge2017.pdf"
   },
   {
- "id": "littlebear",
- "video": {
-  "yt": "o_txPA8CiA4",
-  "title": "Big Thinking - Leroy Little Bear: Blackfoot metaphysics 'waiting in the wings'",
-  "channel": "Federation HSS",
-  "scholar": "Leroy Little Bear"
- },
- "eye": "indigenous",
- "type": "Chapter",
- "access": "course",
- "title": "Jagged Worldviews Colliding",
- "authors": "Leroy Little Bear",
- "year": 2000,
- "themes": [
-  "foundations",
-  "twoeyed"
- ],
- "origin": "Canada",
- "len": "~30 min read",
- "diff": 3,
- "week": 2,
- "abstract": "Leroy Little Bear (Blackfoot) argues that colonialism tries to hold a single social order in place by force and law, suppressing the many ways people interpret the world, and that Indigenous and Eurocentric worldviews differ at their philosophical roots. He contrasts an Indigenous worldview of constant flux, wholeness, relationship, and renewal, where all things are animate and time simply is, with a Eurocentric worldview that is linear, singular, static, and objective. The collision of these worldviews, he writes, left a jagged, fragmented consciousness among colonized peoples that still shapes daily life. Reading focus for this week: This version has selectable text. The cover is PDF page 1; the complete chapter begins on page 2. Read Little Bear’s comparison of worldviews and his explanation of their collision. Notice that he identifies the Plains traditions he draws on and acknowledges differences. Do not treat his account as a single description of every Indigenous Nation. The closing discussion and both source notes are included.",
- "coreIdea": "Indigenous and Eurocentric worldviews differ at the root, and colonialism's forced collision of them left a jagged, fragmented consciousness that persists today.",
- "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27482985-dt-content-rid-224232291_2/xid-224232291_2",
- "related": [
-  "amarshall",
-  "ermine",
-  "todd2016"
- ],
- "fulltext": true,
- "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27482985-dt-content-rid-224232291_2/xid-224232291_2",
- "primaryLabel": "Open full chapter in Blackboard",
- "blackboardFullText": true,
- "sourceUrl": "https://www.learnalberta.ca/content/aswt/worldviews/documents/jagged_worldviews_colliding.pdf"
-},
+   "id": "littlebear",
+   "video": {
+    "yt": "o_txPA8CiA4",
+    "title": "Big Thinking - Leroy Little Bear: Blackfoot metaphysics 'waiting in the wings'",
+    "channel": "Federation HSS",
+    "scholar": "Leroy Little Bear"
+   },
+   "eye": "indigenous",
+   "type": "Chapter",
+   "access": "course",
+   "title": "Jagged Worldviews Colliding",
+   "authors": "Leroy Little Bear",
+   "year": 2000,
+   "themes": [
+    "foundations",
+    "twoeyed"
+   ],
+   "origin": "Canada",
+   "len": "~30 min read",
+   "diff": 3,
+   "week": 2,
+   "abstract": "Leroy Little Bear (Blackfoot) argues that colonialism tries to hold a single social order in place by force and law, suppressing the many ways people interpret the world, and that Indigenous and Eurocentric worldviews differ at their philosophical roots. He contrasts an Indigenous worldview of constant flux, wholeness, relationship, and renewal, where all things are animate and time simply is, with a Eurocentric worldview that is linear, singular, static, and objective. The collision of these worldviews, he writes, left a jagged, fragmented consciousness among colonized peoples that still shapes daily life. Reading focus for this week: This version has selectable text. The cover is PDF page 1; the complete chapter begins on page 2. Read Little Bear’s comparison of worldviews and his explanation of their collision. Notice that he identifies the Plains traditions he draws on and acknowledges differences. Do not treat his account as a single description of every Indigenous Nation. The closing discussion and both source notes are included.",
+   "coreIdea": "Indigenous and Eurocentric worldviews differ at the root, and colonialism's forced collision of them left a jagged, fragmented consciousness that persists today.",
+   "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27482985-dt-content-rid-224232291_2/xid-224232291_2",
+   "related": [
+    "amarshall",
+    "ermine",
+    "todd2016"
+   ],
+   "fulltext": true,
+   "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27482985-dt-content-rid-224232291_2/xid-224232291_2",
+   "primaryLabel": "Open PDF in Blackboard",
+   "blackboardFullText": true,
+   "sourceUrl": "https://www.learnalberta.ca/content/aswt/worldviews/documents/jagged_worldviews_colliding.pdf",
+   "senecaLib": false
+  },
   {
- "id": "smylie",
- "video": {
-  "yt": "7_z3RvOhQMs",
-  "title": "ON NEIHR Webinar Dr Janet Smylie",
-  "channel": "Waakebiness Institute for Indigenous Health",
-  "scholar": "Janet Smylie"
- },
- "eye": "indigenous",
- "type": "Article",
- "access": "course",
- "title": "Understanding the health of Indigenous peoples in Canada: Key methodological and conceptual challenges",
- "authors": "Janet Smylie and Marcia Anderson",
- "year": 2006,
- "themes": [
-  "reconciliation",
-  "psychology"
- ],
- "origin": "Canada",
- "len": "~20 min read",
- "diff": 2,
- "week": 4,
- "abstract": "Janet Smylie (Métis) and Marcia Anderson open with a Cree Elder noting there is no Cree word for health measurement, then show why standard health data systems fail Indigenous peoples in Canada. They trace concrete problems of data coverage and quality, jurisdiction, governance, and human-resource capacity, including the difficulty of accurately and respectfully identifying First Nations, Métis, and Inuit people in the census and other sources. They argue that closing health inequities requires data systems owned and shaped by Indigenous communities, not just better counting by outsiders.",
- "coreIdea": "Smylie and Anderson identify coverage, jurisdiction, governance, and capacity limits in standard health-data systems and argue that Indigenous communities must shape and control the data used to understand their health.",
- "doi": "10.1503/cmaj.060940",
- "related": [
-  "brunette2022",
-  "bombay2014",
-  "psy-social"
- ],
- "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27414994-dt-content-rid-223991948_2/xid-223991948_2",
- "fulltext": true,
- "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27414994-dt-content-rid-223991948_2/xid-223991948_2",
- "primaryLabel": "Open full article in Blackboard",
- "blackboardFullText": true,
- "sourceUrl": "https://doi.org/10.1503/cmaj.060940"
-},
+   "id": "smylie",
+   "video": {
+    "yt": "7_z3RvOhQMs",
+    "title": "ON NEIHR Webinar Dr Janet Smylie",
+    "channel": "Waakebiness Institute for Indigenous Health",
+    "scholar": "Janet Smylie"
+   },
+   "eye": "indigenous",
+   "type": "Article",
+   "access": "course",
+   "title": "Understanding the health of Indigenous peoples in Canada: Key methodological and conceptual challenges",
+   "authors": "Janet Smylie and Marcia Anderson",
+   "year": 2006,
+   "themes": [
+    "reconciliation",
+    "psychology"
+   ],
+   "origin": "Canada",
+   "len": "~20 min read",
+   "diff": 2,
+   "week": 4,
+   "abstract": "Janet Smylie (Métis) and Marcia Anderson open with a Cree Elder noting there is no Cree word for health measurement, then show why standard health data systems fail Indigenous peoples in Canada. They trace concrete problems of data coverage and quality, jurisdiction, governance, and human-resource capacity, including the difficulty of accurately and respectfully identifying First Nations, Métis, and Inuit people in the census and other sources. They argue that closing health inequities requires data systems owned and shaped by Indigenous communities, not just better counting by outsiders.",
+   "coreIdea": "Smylie and Anderson identify coverage, jurisdiction, governance, and capacity limits in standard health-data systems and argue that Indigenous communities must shape and control the data used to understand their health.",
+   "doi": "10.1503/cmaj.060940",
+   "related": [
+    "brunette2022",
+    "bombay2014",
+    "psy-social"
+   ],
+   "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27414994-dt-content-rid-223991948_2/xid-223991948_2",
+   "fulltext": true,
+   "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27414994-dt-content-rid-223991948_2/xid-223991948_2",
+   "primaryLabel": "Open PDF in Blackboard",
+   "blackboardFullText": true,
+   "sourceUrl": "https://doi.org/10.1503/cmaj.060940",
+   "senecaLib": false
+  },
   {
    "id": "trc2015",
    "eye": "western",
    "type": "Public Record",
-   "access": "open",
+   "access": "course",
    "title": "Honouring the Truth, Reconciling for the Future: Summary of the Final Report of the Truth and Reconciliation Commission of Canada",
    "authors": "Truth and Reconciliation Commission of Canada",
    "year": 2015,
@@ -1032,13 +1109,18 @@ window.SOC122 = {
    "week": 4,
    "abstract": "The Truth and Reconciliation Commission of Canada built a public record of the residential school system from Survivor testimony, institutional records, and research. Its summary documents the system, its harms, and continuing effects, and it connects that record to Calls to Action directed at governments, churches, schools, professional bodies, archives, and other institutions. This is an official public record with a specific mandate; it does not replace the knowledge or authority of any Nation, community, Survivor, or family.",
    "coreIdea": "Reconciliation requires a truthful public record, acknowledgement of harm, and sustained action by the institutions and people named in the Calls to Action.",
-   "url": "https://nctr.ca/wp-content/uploads/2021/01/Executive_Summary_English_Web.pdf",
+   "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27544253-dt-content-rid-224551679_2/xid-224551679_2",
    "related": [
     "smylie",
     "fnha-cultural-safety",
     "bombay2014"
    ],
-   "fulltext": true
+   "fulltext": true,
+   "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27544253-dt-content-rid-224551679_2/xid-224551679_2",
+   "senecaLib": false,
+   "blackboardFullText": true,
+   "primaryLabel": "Open PDF in Blackboard",
+   "sourceUrl": "https://nctr.ca/wp-content/uploads/2021/01/Executive_Summary_English_Web.pdf"
   },
   {
    "id": "fnha-cultural-safety",
@@ -1068,10 +1150,15 @@ window.SOC122 = {
   },
   {
    "id": "palmater",
-   "video": { "yt": "E2AZEQm3Yi0", "title": "National Indigenous History Month Keynote with Dr. Pamela Palmater", "channel": "Dufferin County", "scholar": "Pamela Palmater" },
+   "video": {
+    "yt": "E2AZEQm3Yi0",
+    "title": "National Indigenous History Month Keynote with Dr. Pamela Palmater",
+    "channel": "Dufferin County",
+    "scholar": "Pamela Palmater"
+   },
    "eye": "indigenous",
    "type": "Article",
-   "access": "open",
+   "access": "course",
    "title": "Stretched Beyond Human Limits: Death by Poverty in First Nations",
    "authors": "Pamela Palmater",
    "year": 2011,
@@ -1085,14 +1172,18 @@ window.SOC122 = {
    "week": 9,
    "abstract": "Pamela Palmater (Mi'kmaw) argues that chronic, sometimes fatal poverty in First Nations is not a cultural failing but the engineered result of Canada's colonial legal order. In 2011, she argued that federal policy was caught between an old aim of assimilation and a newer language of self-governance while the Indian Act and its related policies had not been amended to reflect that shift. Drawing on the deaths and lives behind a coroner-style review and the history of dispossession, she shows how peoples once among the wealthiest in the world were made the most impoverished, because federal laws presume control over First Nations life yet fail their fiscal and constitutional responsibilities. For a student, this is a direct case of inequality produced and maintained by social structure.",
    "coreIdea": "Palmater argues that First Nations poverty is engineered by Canada's colonial legal order, not by culture, and that conflicting policy objectives obstruct effective action on that poverty.",
-   "url": "https://crsp.journals.yorku.ca/index.php/crsp/article/view/35220",
-   "pdfUrl": "https://crsp.journals.yorku.ca/index.php/crsp/article/download/35220/32057/38111",
+   "url": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27544254-dt-content-rid-224551682_2/xid-224551682_2",
+   "pdfUrl": "https://learn.senecapolytechnic.ca/bbcswebdav/pid-27544254-dt-content-rid-224551682_2/xid-224551682_2",
    "related": [
     "soc-stratification",
     "lawrence2003",
     "gone2023"
    ],
-   "fulltext": true
+   "fulltext": true,
+   "senecaLib": false,
+   "blackboardFullText": true,
+   "primaryLabel": "Open PDF in Blackboard",
+   "sourceUrl": "https://crsp.journals.yorku.ca/index.php/crsp/article/view/35220"
   }
  ],
  "glossary": [
