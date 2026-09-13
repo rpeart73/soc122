@@ -1782,6 +1782,8 @@
          deliberate course-navigation move in this browser session first. */
       if (sessionExplorationMoves < 1) return;
       if (document.getElementById('walk-overlay') || document.getElementById('spot-invite') || document.getElementById('spot-check') || document.getElementById('upcoming-reminder')) return;
+      var active = document.activeElement;
+      if (active && (/^(INPUT|TEXTAREA|SELECT)$/.test(active.tagName) || active.isContentEditable)) return;
       var p = explorationProgress(), threshold = spotNextThreshold(p.pct); if (!threshold) return;
       var sessionKey = SKEY + '.spotPrompt.session';
       try { if (sessionStorage.getItem(sessionKey) === '1') return; sessionStorage.setItem(sessionKey, '1'); } catch (e) {}
